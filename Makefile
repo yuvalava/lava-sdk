@@ -7,9 +7,11 @@
 # 2. convert Node.js Javascript to Browser JS.
 # 3. results will be placed in dist directory. 
 
-build: 
+install: 
 	@echo "Npm install"
 	@npm install 
+
+build: 
 	@echo "starting build" 
 	@echo "building typescript"
 	@tsc

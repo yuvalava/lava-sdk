@@ -11,7 +11,7 @@ export class WebSocketConnection {
         this.ws = new WS(ws_endpoint);
         this.ws.onopen = () => {console.log("Opened WebSocket connection")}
         this.ws.onmessage = (data) => {
-            console.log("Received message")
+            // console.log("Received message")
             if (data.data != undefined) {
                 this.ws_response_data = data.data;
             } else {
@@ -22,10 +22,10 @@ export class WebSocketConnection {
             } catch (e) {
                 console.log("Failed to parse response data:", this.ws_response_data.toString())
             }
-            console.log("Message:",  this.ws_response_data)
+            // console.log("Message:",  this.ws_response_data)
     }
-        this.ws.onerror = () => {console.log("Error")}
-        this.ws.onclose = () => {console.log("close")}
+        this.ws.onerror = () => {console.log("Received Error")}
+        this.ws.onclose = () => {console.log("Closed Connection")}
     
     }
     waitForOpenConnection() {

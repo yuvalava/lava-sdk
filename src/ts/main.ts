@@ -11,7 +11,7 @@ function delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
 }
 
-const EpochStateTracker = async function() { // sdk working implementation for rest client
+const RestEpochStateTracker = async function() { // sdk working implementation for rest client
     const tm_client = await Tendermint34Client.connect(tendermint_rpc);
     var block_info = await tm_client.block();
     var starting_height = block_info.block.header.height
@@ -34,10 +34,35 @@ const EpochStateTracker = async function() { // sdk working implementation for r
     }
 }
 
-const runAll = async(): Promise<void> => {
-    console.log("Hello World!");
+const WebSocketEpochStateTracker = async function() {
     var ws = new lava_sdk_ws.WebSocketConnection(ws_tendermint_rpc)
     await ws.waitForOpenConnection()
     ws.ws.send(`{"jsonrpc":"2.0","id":0,"method":"subscribe","params":{"query":"tm.event = 'NewBlock'"}}`)
+    // future send: {"jsonrpc":"2.0","id":0,"method":"subscribe","params":{"query":"tm.event = 'NewBlock' AND lava_new_epoch.description = 'New Block Epoch Started'"}}
+    var lava_current_epoch = 0
+
+    while (true) {
+        await delay(10000)
+        console.log("checking response:",ws.ws_response_data)
+        if (ws.ws_response_data?.result?.events?.["lava_new_epoch.height"]) {
+            if (lava_current_epoch != ws.ws_response_data.result.events["lava_new_epoch.height"]) {
+                lava_current_epoch = ws.ws_response_data.result.events["lava_new_epoch.height"]
+                console.log("Epoch Changed!!:", lava_current_epoch)
+                console.log("Query ETH1 Client Pairings: ",(await lava_sdk.getPairingClients(rest_rpc, "ETH1")))
+            }
+        } else {
+            if (ws.ws_response_data?.result?.events)
+            {
+                var current_height =  ws.ws_response_data?.result?.data?.value?.block?.header?.height // if not found its undefined
+                console.log("Same Epoch, Current Block:", current_height)
+            }
+        }
+    }
 }
+
+const runAll = async(): Promise<void> => {
+    console.log("Hello SDK!");
+    WebSocketEpochStateTracker()
+}
+
 runAll()
