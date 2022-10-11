@@ -9,7 +9,7 @@ Welcome to Lava SDK
     ```
 2. Install npm dependencies
     ```
-        make install
+        sudo make install
     ```
 3. Compile to javascript, and convert to browser compatible JavaScript. 
     ```
