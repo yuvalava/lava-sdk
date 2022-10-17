@@ -1,5 +1,4 @@
 import * as wss from "isomorphic-ws";
-
 const WS = wss.default
 
 export class WebSocketConnection {

@@ -12,7 +12,8 @@ install:
 	@npm install -g typescript
 	@echo "WebPack Install"
 	@npm install -g webpack-cli
-
+	@echo "install protoc"
+	@go install protoc
 
 # 1. compile TypeSscript to Javacript 
 # 2. convert Node.js Javascript to Browser JS.
@@ -25,3 +26,11 @@ build:
 	@echo "building webpack-cli"
 	@webpack-cli
 	@echo "build finished."
+
+
+LAVA_PROTO_DIR="/home/user/go/src/lava/proto"
+OUT_DIR="./src/codec/"
+
+compile_protobufs:
+	@echo "Compiling protobufs"
+	@./protoc.sh
