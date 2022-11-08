@@ -7,7 +7,7 @@ import { DirectSecp256k1HdWallet, Registry,AccountData } from "@cosmjs/proto-sig
 
 
 const lavaPrefix = "lava@"
-export class LavaPbClient {
+export class LavaSDKClient {
     private tmClient: any;
     private queryClient: any;
     private rpcClient: any;
@@ -16,15 +16,15 @@ export class LavaPbClient {
     private chainID: string;
     private mnemonic: string;
     private wallet: DirectSecp256k1HdWallet | Error;
-    private apiInterface: string;
-    constructor(endpoint: string, chainID: string, mnemonic: string, apiInterface: string) {
+    private rpcInterface: string;
+    constructor(endpoint: string, chainID: string, mnemonic: string, rpcInterface: string) {
         this.endpoint = endpoint;
         this.tmClient = undefined; 
         this.queryClient = undefined;
         this.rpcClient = undefined;
         this.queryService = new Error("queryService was not initialized");
         this.chainID = chainID;
-        this.apiInterface = apiInterface;
+        this.rpcInterface = rpcInterface;
         this.mnemonic = mnemonic;
         this.wallet = new Error("wallet was not initialized");
     }
@@ -40,11 +40,11 @@ export class LavaPbClient {
         var accountZero = (await this.wallet.getAccounts())[0];
         return accountZero;
     }
-    async getPairingClients(): Promise<QueryClientsResponse | Error> {
-        if (this.queryService instanceof Error) {return this.queryService};
-        const queryResult = await this.queryService.Clients({chainID: this.chainID});
-        return queryResult;
-    }
+    // async getPairingClients(): Promise<QueryClientsResponse | Error> {
+    //     if (this.queryService instanceof Error) {return this.queryService};
+    //     const queryResult = await this.queryService.Clients({chainID: this.chainID});
+    //     return queryResult;
+    // }
     private async getPairingFromChain(request: QueryGetPairingRequest): Promise<QueryGetPairingResponse | Error> {
         if (this.queryService instanceof Error) {return this.queryService};
         const queryResult = await this.queryService.GetPairing(request);
@@ -68,7 +68,7 @@ export class LavaPbClient {
 
             let relevantEndpoints = []
             for (let endpoint of provider.endpoints) { 
-                if (endpoint.useType == this.apiInterface) {
+                if (endpoint.useType == this.rpcInterface) {
                     relevantEndpoints.push(endpoint)
                 }
             }
