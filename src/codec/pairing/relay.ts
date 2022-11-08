@@ -1,6 +1,8 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 export const protobufPackage = "lavanet.lava.pairing";
 
@@ -550,6 +552,7 @@ export const QualityOfServiceReport = {
 
 export interface Relayer {
   Relay(request: RelayRequest): Promise<RelayReply>;
+  RelaySubscribe(request: RelayRequest): Observable<RelayReply>;
 }
 
 export class RelayerClientImpl implements Relayer {
@@ -557,16 +560,26 @@ export class RelayerClientImpl implements Relayer {
   constructor(rpc: Rpc) {
     this.rpc = rpc;
     this.Relay = this.Relay.bind(this);
+    this.RelaySubscribe = this.RelaySubscribe.bind(this);
   }
   Relay(request: RelayRequest): Promise<RelayReply> {
     const data = RelayRequest.encode(request).finish();
     const promise = this.rpc.request("lavanet.lava.pairing.Relayer", "Relay", data);
     return promise.then((data) => RelayReply.decode(new _m0.Reader(data)));
   }
+
+  RelaySubscribe(request: RelayRequest): Observable<RelayReply> {
+    const data = RelayRequest.encode(request).finish();
+    const result = this.rpc.serverStreamingRequest("lavanet.lava.pairing.Relayer", "RelaySubscribe", data);
+    return result.pipe(map((data) => RelayReply.decode(new _m0.Reader(data))));
+  }
 }
 
 interface Rpc {
   request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
+  clientStreamingRequest(service: string, method: string, data: Observable<Uint8Array>): Promise<Uint8Array>;
+  serverStreamingRequest(service: string, method: string, data: Uint8Array): Observable<Uint8Array>;
+  bidirectionalStreamingRequest(service: string, method: string, data: Observable<Uint8Array>): Observable<Uint8Array>;
 }
 
 declare var self: any | undefined;

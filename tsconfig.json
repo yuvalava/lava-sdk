@@ -25,7 +25,5 @@
     "files": [
         "src/ts/main.ts",
         "src/ts/lava_sdk.ts",
-        "src/ts/lava_sdk_ws.ts",
-        "src/ts/lava_sdk_pb.ts",
     ]
 }
