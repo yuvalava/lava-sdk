@@ -1,8 +1,9 @@
 const path = require('path');
+const webpack = require('webpack')
 
 module.exports = [
     {
-  entry: './bin/main.js',
+  entry: './bin/examples/basic.js',
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
@@ -16,11 +17,15 @@ module.exports = [
       path: false,
       stream: false,
       string_decoder: false,
-      fs:false,
-      process:false,
-      child_process:false
     },
   },   
-
+  plugins: [
+    // fix "process is not defined" error:
+    // (do "npm install process" before running the build)
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
+  ],
+  devtool: "source-map",
 },
 ];

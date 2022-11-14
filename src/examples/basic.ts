@@ -3,7 +3,7 @@
         This file shows basic usage of the future polygon-sdk library
         Currently we have implemented:
         1. Recreating account from private key
-        2. Fetching paring list (without epoch and maxcu attribute)
+        2. Fetching paring list
 */
 import Logger from '../logger/logger'
 

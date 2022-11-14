@@ -11,8 +11,6 @@
     "chmod": "chmod u+x ./bin/main.js",
     "protoc": "./scripts/protoc.sh",
     "server": "http-server dist/",
-    "dev": "tsc && npm run build && npm run server",
-    "main": "ts-node src/ts/main.ts",
     "test": "jest ./src",
     "example": "node ./bin/examples/basic.js"
   },
@@ -63,6 +61,7 @@
     "lodash": "^4.17.21",
     "node-fetch": "^2.6.1",
     "os": "^0.1.2",
+    "process": "^0.11.10",
     "rxjs": "^7.5.7",
     "ts-jest": "^29.0.3",
     "typed-rest-client": "^1.8.9",
