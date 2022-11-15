@@ -145,3 +145,4 @@ All examples are located in the **./src/examples** folder. Currently we support 
     ```bash
     yarn server
     ```
+3. Check console
