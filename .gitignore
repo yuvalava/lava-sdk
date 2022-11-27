@@ -8,6 +8,3 @@ dist/src/*
 dist/ts/*
 dist/utils/*
 .dccache
-
-# Build files
-bin
