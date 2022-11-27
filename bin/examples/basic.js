@@ -24,7 +24,7 @@ const logger_1 = __importDefault(require("../logger/logger"));
 const sdk_1 = require("../sdk/sdk");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
-        const privKey = "ccbf8186963cea8b08043878e439426d7a9244fc6f1121d264c4f5d53618ee2d";
+        const privKey = "6f8dabc7ad64dd0ea89f50bf3f0d38330002720af16ed85db231fe3c7aae7d0c";
         const endpoint = "localhost:26657";
         const chainID = "LAV1";
         const rpcInterface = "rest";

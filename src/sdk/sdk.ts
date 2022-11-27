@@ -67,6 +67,27 @@ class LavaSDK {
       throw SDKErrors.errRelayerServiceNotInitialized;
     }
 
+    // Check if state tracker was initialized
+    if (this.stateTracker instanceof Error) {
+      throw SDKErrors.errStateTrackerServiceNotInitialized;
+    }
+
+     // Check if state tracker was initialized
+     if (this.account instanceof Error) {
+      throw SDKErrors.errAccountNotInitialized;
+    }
+
+    // For every relay get new current session
+    // Todo in the future do this only on epoch change
+    // And in the relay generate random session_id
+    const consumerSession = await this.stateTracker.getConsumerSession(
+      this.account,
+      this.chainID,
+      this.rpcInterface
+    );
+
+    this.relayer.setConsumerSession(consumerSession)
+
     // Send relay
     const relayResponse = await this.relayer.sendRelay(method, params);
 
