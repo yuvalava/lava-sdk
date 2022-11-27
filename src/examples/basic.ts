@@ -5,50 +5,33 @@
         1. Recreating account from private key
         2. Fetching paring list
 */
-import Logger from '../logger/logger'
+import Logger from "../logger/logger";
 
 // Fetch from package
-import LavaWallet from "../wallet/wallet"
-import LavaConsumer from "../consumer/consumer"
+import { createLavaSDK } from "../sdk/sdk";
 
 async function run() {
-    const privKey = "885c3ebe355979d68d16f51e267040eb91e39021db07a9608ad881782d546009"
-    const endpoint = "http://public-rpc.lavanet.xyz:80/rpc/"
-    const chainID = "ETH1"
-    const rpcInterface = "jsonrpc"
+  const privKey =
+    "ccbf8186963cea8b08043878e439426d7a9244fc6f1121d264c4f5d53618ee2d";
+  const endpoint = "localhost:26657";
+  const chainID = "LAV1";
+  const rpcInterface = "rest";
 
-    // Create wallet
-    const wallet = new LavaWallet(privKey);
+  // Create lavaSDK
+  const lavaSDK = await createLavaSDK(endpoint, chainID, rpcInterface, privKey);
 
-    // Initialize wallet
-    await wallet.init();
+  // Send relay
+  const statusResponse = await lavaSDK.sendRelay("status", []);
+  const blockResponse = await lavaSDK.sendRelay("block", ["5"]);
 
-    // get account from wallet
-    const account = await wallet.getConsumerAccount();
-
-    // print account detail
-    wallet.printAccount(account);
-
-    // Create consumer 
-    const consumer = new LavaConsumer(endpoint, chainID, rpcInterface);
-
-    // Initialize consumer 
-    await consumer.init(account);
-
-    // Get paring list
-    const paring = await consumer.getPairing();
-
-    // Print paring
-    consumer.printParingList(paring);
-
-    // Pick provider
-    consumer.pickRandomProvider(paring)
+  // Print relay
+  var dec = new TextDecoder();
+  console.log("StatusResponse: ", dec.decode(statusResponse.getData_asU8()));
+  console.log("BlockResponse: ", dec.decode(blockResponse.getData_asU8()));
 }
 
-
-
 run()
-    .then()
-    .catch((err) => {
-        Logger.error(err);
-    });
+  .then()
+  .catch((err) => {
+    Logger.error(err);
+  });
