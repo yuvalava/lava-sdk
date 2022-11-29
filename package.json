@@ -13,7 +13,7 @@
     "server": "http-server dist/ -c-1",
     "test": "jest ./src",
     "example": "node ./bin/examples/basic.js",
-    "prettier": "prettier --write .",
+    "prettier": "prettier --check .",
     "lint": "eslint '**/*.ts'"
   },
   "bin": {
