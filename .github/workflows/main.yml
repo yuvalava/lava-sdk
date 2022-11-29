@@ -22,7 +22,7 @@ jobs:
               run: yarn install
 
             - name: ESLint
-              run: ./node_modules/.bin/eslint '**/*.ts' --fix
+              run: ./node_modules/.bin/eslint '**/*.ts'
 
             - name: Prettier
               run: ./node_modules/.bin/prettier --check .
