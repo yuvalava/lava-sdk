@@ -11,8 +11,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const crypto_1 = require("@cosmjs/crypto");
 const encoding_1 = require("@cosmjs/encoding");
-const RelayServiceClientPb_1 = require("../proto/proto/RelayServiceClientPb");
-const relay_pb_1 = require("../proto/proto/relay_pb");
+const grpc_web_1 = require("@improbable-eng/grpc-web");
+const relay_pb_1 = require("../proto/relay_pb");
+const relay_pb_service_1 = require("../proto/relay_pb_service");
+const grpc_web_node_http_transport_1 = require("@improbable-eng/grpc-web-node-http-transport");
 class Relayer {
     constructor(consumerSession, chainID, privKey) {
         // For demo use static relayer address
@@ -29,7 +31,7 @@ class Relayer {
             const stringifyMethod = JSON.stringify(method);
             const stringifyParam = JSON.stringify(params);
             // Create relay client
-            const client = new RelayServiceClientPb_1.RelayerClient(this.relayerGrpcWeb, null, null);
+            // , null, null
             // Get consumer session
             const consumerSession = this.activeConsumerSession;
             var enc = new TextEncoder();
@@ -57,8 +59,34 @@ class Relayer {
             // Add signature in the request
             request.setSig(signedMessage);
             request.setData(enc.encode(data));
-            const relayResponse = yield client.relay(request, null);
-            return relayResponse;
+            var transport;
+            if (typeof window === 'undefined') {
+                transport = (0, grpc_web_node_http_transport_1.NodeHttpTransport)();
+                console.log("USAOO node");
+            }
+            else {
+                transport = grpc_web_1.grpc.CrossBrowserHttpTransport({ withCredentials: false });
+                console.log("USAOO browser");
+            }
+            const requestPromise = new Promise((resolve, reject) => {
+                grpc_web_1.grpc.invoke(relay_pb_service_1.Relayer.Relay, {
+                    request: request,
+                    host: this.relayerGrpcWeb,
+                    transport: transport,
+                    onMessage: (message) => {
+                        resolve(message);
+                    },
+                    onEnd: (code, msg, trailers) => {
+                        if (code == grpc_web_1.grpc.Code.OK) {
+                            console.log("all ok");
+                        }
+                        else {
+                            console.log("hit an error", code, msg, trailers);
+                        }
+                    },
+                });
+            });
+            return requestPromise;
         });
     }
     // Sign relay request using priv key

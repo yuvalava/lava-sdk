@@ -1,8 +1,10 @@
 import { SingleConsumerSession } from "../types/types";
 import { Secp256k1, sha256 } from "@cosmjs/crypto";
 import { fromHex } from "@cosmjs/encoding";
-import { RelayerClient } from "../proto/proto/RelayServiceClientPb";
-import { RelayRequest, RelayReply } from "../proto/proto/relay_pb";
+import { grpc } from "@improbable-eng/grpc-web";
+import { RelayRequest, RelayReply } from "../proto/relay_pb";
+import { Relayer as RelayerService } from "../proto/relay_pb_service";
+import { NodeHttpTransport } from '@improbable-eng/grpc-web-node-http-transport';
 
 class Relayer {
   private activeConsumerSession: SingleConsumerSession;
@@ -31,7 +33,7 @@ class Relayer {
     const stringifyParam = JSON.stringify(params);
 
     // Create relay client
-    const client = new RelayerClient(this.relayerGrpcWeb, null, null);
+    // , null, null
 
     // Get consumer session
     const consumerSession = this.activeConsumerSession;
@@ -66,9 +68,37 @@ class Relayer {
     // Add signature in the request
     request.setSig(signedMessage);
     request.setData(enc.encode(data));
-    const relayResponse = await client.relay(request, null);
 
-    return relayResponse;
+    var transport : any;
+
+    if (typeof window === 'undefined'){
+      transport = NodeHttpTransport()
+    }else{
+      transport = grpc.CrossBrowserHttpTransport({ withCredentials: false });
+    }
+
+    const requestPromise = new Promise<RelayReply>((resolve, reject) => {
+      grpc.invoke(RelayerService.Relay, {
+        request: request,
+        host: this.relayerGrpcWeb,
+        transport: transport,
+        onMessage: (message: RelayReply) => {
+          resolve(message);
+        },
+        onEnd: (
+          code: grpc.Code,
+          msg: string | undefined,
+          trailers: grpc.Metadata
+        ) => {
+          if (code == grpc.Code.OK) {
+            console.log("all ok");
+          } else {
+            console.log("hit an error", code, msg, trailers);
+          }
+        },
+      });
+    });
+    return requestPromise;
   }
 
   // Sign relay request using priv key
