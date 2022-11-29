@@ -86,15 +86,8 @@ class Relayer {
           resolve(message);
         },
         onEnd: (
-          code: grpc.Code,
-          msg: string | undefined,
-          trailers: grpc.Metadata
         ) => {
-          if (code == grpc.Code.OK) {
-            console.log("all ok");
-          } else {
-            console.log("hit an error", code, msg, trailers);
-          }
+          // Consider printing response status here, it's optional
         },
       });
     });
