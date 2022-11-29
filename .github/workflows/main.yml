@@ -26,3 +26,6 @@ jobs:
 
             - name: Prettier
               run: ./node_modules/.bin/prettier --check .
+
+            - name: Test
+              run: ./node_modules/.bin/jest ./src
