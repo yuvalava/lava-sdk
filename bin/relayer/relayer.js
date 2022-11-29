@@ -62,11 +62,9 @@ class Relayer {
             var transport;
             if (typeof window === 'undefined') {
                 transport = (0, grpc_web_node_http_transport_1.NodeHttpTransport)();
-                console.log("USAOO node");
             }
             else {
                 transport = grpc_web_1.grpc.CrossBrowserHttpTransport({ withCredentials: false });
-                console.log("USAOO browser");
             }
             const requestPromise = new Promise((resolve, reject) => {
                 grpc_web_1.grpc.invoke(relay_pb_service_1.Relayer.Relay, {
@@ -76,13 +74,8 @@ class Relayer {
                     onMessage: (message) => {
                         resolve(message);
                     },
-                    onEnd: (code, msg, trailers) => {
-                        if (code == grpc_web_1.grpc.Code.OK) {
-                            console.log("all ok");
-                        }
-                        else {
-                            console.log("hit an error", code, msg, trailers);
-                        }
+                    onEnd: () => {
+                        // Consider printing response status here, it's optional
                     },
                 });
             });
