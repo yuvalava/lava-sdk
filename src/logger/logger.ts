@@ -7,7 +7,7 @@ class Logger {
   }
 
   // eslint-disable-next-line
-   static deepInfo(s: any) {
+  static deepInfo(s: any) {
     console.log(util.inspect(s, false, null, true));
   }
 
