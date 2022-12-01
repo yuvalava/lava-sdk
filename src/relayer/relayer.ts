@@ -4,7 +4,7 @@ import { fromHex } from "@cosmjs/encoding";
 import { grpc } from "@improbable-eng/grpc-web";
 import { RelayRequest, RelayReply } from "../proto/relay_pb";
 import { Relayer as RelayerService } from "../proto/relay_pb_service";
-import { NodeHttpTransport } from '@improbable-eng/grpc-web-node-http-transport';
+import transport from "../util/browser";
 
 class Relayer {
   private activeConsumerSession: SingleConsumerSession;
@@ -33,7 +33,6 @@ class Relayer {
     const stringifyParam = JSON.stringify(params);
 
     // Create relay client
-    // , null, null
 
     // Get consumer session
     const consumerSession = this.activeConsumerSession;
@@ -69,14 +68,6 @@ class Relayer {
     request.setSig(signedMessage);
     request.setData(enc.encode(data));
 
-    var transport : any;
-
-    if (typeof window === 'undefined'){
-      transport = NodeHttpTransport()
-    }else{
-      transport = grpc.CrossBrowserHttpTransport({ withCredentials: false });
-    }
-
     const requestPromise = new Promise<RelayReply>((resolve, reject) => {
       grpc.invoke(RelayerService.Relay, {
         request: request,
@@ -85,8 +76,7 @@ class Relayer {
         onMessage: (message: RelayReply) => {
           resolve(message);
         },
-        onEnd: (
-        ) => {
+        onEnd: () => {
           // Consider printing response status here, it's optional
         },
       });

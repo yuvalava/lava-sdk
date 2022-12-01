@@ -8,13 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const crypto_1 = require("@cosmjs/crypto");
 const encoding_1 = require("@cosmjs/encoding");
 const grpc_web_1 = require("@improbable-eng/grpc-web");
 const relay_pb_1 = require("../proto/relay_pb");
 const relay_pb_service_1 = require("../proto/relay_pb_service");
-const grpc_web_node_http_transport_1 = require("@improbable-eng/grpc-web-node-http-transport");
+const browser_1 = __importDefault(require("../util/browser"));
 class Relayer {
     constructor(consumerSession, chainID, privKey) {
         // For demo use static relayer address
@@ -31,7 +34,6 @@ class Relayer {
             const stringifyMethod = JSON.stringify(method);
             const stringifyParam = JSON.stringify(params);
             // Create relay client
-            // , null, null
             // Get consumer session
             const consumerSession = this.activeConsumerSession;
             var enc = new TextEncoder();
@@ -59,18 +61,11 @@ class Relayer {
             // Add signature in the request
             request.setSig(signedMessage);
             request.setData(enc.encode(data));
-            var transport;
-            if (typeof window === 'undefined') {
-                transport = (0, grpc_web_node_http_transport_1.NodeHttpTransport)();
-            }
-            else {
-                transport = grpc_web_1.grpc.CrossBrowserHttpTransport({ withCredentials: false });
-            }
             const requestPromise = new Promise((resolve, reject) => {
                 grpc_web_1.grpc.invoke(relay_pb_service_1.Relayer.Relay, {
                     request: request,
                     host: this.relayerGrpcWeb,
-                    transport: transport,
+                    transport: browser_1.default,
                     onMessage: (message) => {
                         resolve(message);
                     },
