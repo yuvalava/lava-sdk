@@ -61,7 +61,7 @@ class Relayer {
             // Add signature in the request
             request.setSig(signedMessage);
             request.setData(enc.encode(data));
-            const requestPromise = new Promise((resolve, reject) => {
+            const requestPromise = new Promise((resolve) => {
                 grpc_web_1.grpc.invoke(relay_pb_service_1.Relayer.Relay, {
                     request: request,
                     host: this.relayerGrpcWeb,
