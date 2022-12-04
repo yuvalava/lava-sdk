@@ -1,24 +1,17 @@
-/* 
-                    Basic example
-        This file shows basic usage of the future polygon-sdk library
-        Currently we have implemented:
-        1. Recreating account from private key
-        2. Fetching paring list
-*/
 import Logger from "../logger/logger";
 
-// Fetch from package
+// Fetch from lava-sdk package
 import { createLavaSDK } from "../sdk/sdk";
 
 async function run() {
   const privKey =
-    "6e754de60615f0834bcc14ce6f1275ab5a89f858e0b239ec3982bb7b56665a16";
+    "9b1ebf4cc1053f8cfdb095f69967ac09f51bb7ef6c3f703d48fbe2d62672f43a";
   const endpoint = "localhost:26657";
   const chainID = "LAV1";
-  const rpcInterface = "rest";
+  //const rpcInterface = "tendermintrpc"; optional param
 
   // Create lavaSDK
-  const lavaSDK = await createLavaSDK(endpoint, chainID, rpcInterface, privKey);
+  const lavaSDK = await createLavaSDK(privKey, endpoint, chainID);
 
   // Send relay
   const statusResponse = await lavaSDK.sendRelay("status", []);

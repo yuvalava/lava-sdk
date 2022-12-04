@@ -1,0 +1,67 @@
+[
+    {
+        "name": "Ethereum Mainnet",
+        "chainID": "ETH1",
+        "defaultRPC": "jsonrpc"
+    },
+    {
+        "name": "Ethereum Goerli",
+        "chainID": "GTH1",
+        "defaultRPC": "jsonrpc"
+    },
+    {
+        "name": "Osmosis Mainnet",
+        "chainID": "COS3",
+        "defaultRPC": "tendermintrpc"
+    },
+    {
+        "name": "Osmosis Testnet",
+        "chainID": "COS4",
+        "defaultRPC": "tendermintrpc"
+    },
+    {
+        "name": "Fantom Mainnet",
+        "chainID": "FTM250",
+        "defaultRPC": "jsonrpc"
+    },
+    {
+        "name": "Celo Mainnet",
+        "chainID": "CELO",
+        "defaultRPC": "jsonrpc"
+    },
+    {
+        "name": "Celo Alfajores",
+        "chainID": "ALFAJORES",
+        "defaultRPC": "jsonrpc"
+    },
+    {
+        "name": "Juno Mainnet",
+        "chainID": "JUN1",
+        "defaultRPC": "tendermintrpc"
+    },
+    {
+        "name": "Arbitrum Mainnet",
+        "chainID": "ARB1",
+        "defaultRPC": "jsonrpc"
+    },
+    {
+        "name": "Cosmos Hub Mainnet",
+        "chainID": "COS5",
+        "defaultRPC": "tendermintrpc"
+    },
+    {
+        "name": "Starnet Mainnet",
+        "chainID": "STRK",
+        "defaultRPC": "jsonrpc"
+    },
+    {
+        "name": "Lava Testnet",
+        "chainID": "LAV1",
+        "defaultRPC": "tendermintrpc"
+    },
+    {
+        "name": "Polygon Mainnet",
+        "chainID": "POLYGON1",
+        "defaultRPC": "jsonrpc"
+    }
+]

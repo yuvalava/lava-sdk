@@ -150,7 +150,6 @@ export class StateTracker {
 
       return pairing;
     } catch (err) {
-      console.log(err);
       throw err;
     }
   }

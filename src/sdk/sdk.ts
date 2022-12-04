@@ -4,6 +4,7 @@ import { AccountData } from "@cosmjs/proto-signing";
 import Relayer from "../relayer/relayer";
 import { RelayReply } from "../proto/relay_pb";
 import { StateTracker, createStateTracker } from "../stateTracker/stateTracker";
+import { isValidChainID, fetchRpcInterface } from "../util/chains";
 
 class LavaSDK {
   private lavaEndpoint: string;
@@ -72,8 +73,8 @@ class LavaSDK {
       throw SDKErrors.errStateTrackerServiceNotInitialized;
     }
 
-     // Check if state tracker was initialized
-     if (this.account instanceof Error) {
+    // Check if state tracker was initialized
+    if (this.account instanceof Error) {
       throw SDKErrors.errAccountNotInitialized;
     }
 
@@ -86,7 +87,7 @@ class LavaSDK {
       this.rpcInterface
     );
 
-    this.relayer.setConsumerSession(consumerSession)
+    this.relayer.setConsumerSession(consumerSession);
 
     // Send relay
     const relayResponse = await this.relayer.sendRelay(method, params);
@@ -95,14 +96,27 @@ class LavaSDK {
   }
 }
 
+/**
+  * Creates an instance of documenter.
+*/
 export async function createLavaSDK(
-  endpoint: string,
+  privateKey: string,
   chainID: string,
-  rpcInterface: string,
-  privKey: string
+  endpoint: string,
+  rpcInterface?: string
 ): Promise<LavaSDK> {
+  // Validate chainID
+  if (!isValidChainID(chainID)) {
+    throw SDKErrors.errChainIDUnsupported;
+  }
+
+  // If the rpc is not defined used default for specified chainID
+  if (typeof rpcInterface === "undefined") {
+    rpcInterface = fetchRpcInterface(chainID);
+  }
+
   // Create lavaSDK
-  const lavaSDK = new LavaSDK(endpoint, chainID, rpcInterface, privKey);
+  const lavaSDK = new LavaSDK(endpoint, chainID, rpcInterface, privateKey);
 
   // Initialize lavaSDK
   await lavaSDK.init();
