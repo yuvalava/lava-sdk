@@ -2,7 +2,7 @@ import { createWallet } from "../wallet/wallet";
 import SDKErrors from "./errors";
 import { AccountData } from "@cosmjs/proto-signing";
 import Relayer from "../relayer/relayer";
-import { RelayReply } from "../proto/proto/relay_pb";
+import { RelayReply } from "../proto/relay_pb";
 import { StateTracker, createStateTracker } from "../stateTracker/stateTracker";
 
 class LavaSDK {
