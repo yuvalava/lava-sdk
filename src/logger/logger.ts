@@ -1,5 +1,4 @@
 import chalk from "chalk";
-import util from "util";
 
 class Logger {
   static info(s: string) {
@@ -8,7 +7,7 @@ class Logger {
 
   // eslint-disable-next-line
   static deepInfo(s: any) {
-    console.log(util.inspect(s, false, null, true));
+    console.log(s);
   }
 
   static title(s: string) {
