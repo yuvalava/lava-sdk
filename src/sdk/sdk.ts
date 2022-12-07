@@ -2,7 +2,6 @@ import { createWallet } from "../wallet/wallet";
 import SDKErrors from "./errors";
 import { AccountData } from "@cosmjs/proto-signing";
 import Relayer from "../relayer/relayer";
-import { RelayReply } from "../proto/relay_pb";
 import { StateTracker, createStateTracker } from "../stateTracker/stateTracker";
 import { isValidChainID, fetchRpcInterface } from "../util/chains";
 
@@ -82,7 +81,7 @@ class LavaSDK {
    * @returns Promise object represents json response
    *
   */
-  async sendRelay(method: string, params: string[]): Promise<RelayReply> {
+  async sendRelay(method: string, params: string[]): Promise<string> {
     // Check if account was initialized
     if (this.relayer instanceof Error) {
       throw SDKErrors.errRelayerServiceNotInitialized;
@@ -112,7 +111,11 @@ class LavaSDK {
     // Send relay
     const relayResponse = await this.relayer.sendRelay(method, params);
 
-    return relayResponse;
+    // Decode relay response
+    var dec = new TextDecoder();
+    const decodedResponse = dec.decode(relayResponse.getData_asU8())
+
+    return decodedResponse;
   }
 }
 

@@ -5,22 +5,21 @@ import { createLavaSDK } from "../sdk/sdk";
 
 async function run() {
   const privKey =
-    "9b1ebf4cc1053f8cfdb095f69967ac09f51bb7ef6c3f703d48fbe2d62672f43a";
+    "f148ba74d9c66000fd4f7f8081491ff54bb291102e2aa2626a6176aec4684f4e";
   const endpoint = "localhost:26657";
   const chainID = "LAV1";
   //const rpcInterface = "tendermintrpc"; optional param
 
   // Create lavaSDK
-  const lavaSDK = await createLavaSDK(privKey, endpoint, chainID);
+  const lavaSDK = await createLavaSDK(privKey,chainID,endpoint);
 
   // Send relay
   const statusResponse = await lavaSDK.sendRelay("status", []);
   const blockResponse = await lavaSDK.sendRelay("block", ["5"]);
 
   // Print relay
-  var dec = new TextDecoder();
-  console.log("StatusResponse: ", dec.decode(statusResponse.getData_asU8()));
-  console.log("BlockResponse: ", dec.decode(blockResponse.getData_asU8()));
+  console.log("StatusResponse: ", statusResponse);
+  console.log("BlockResponse: ", blockResponse);
 }
 
 run()

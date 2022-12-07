@@ -2,6 +2,7 @@ import supportedChains from "../../supportedChains.json";
 
 export function isValidChainID(chainID: string): boolean {
   const wantedData = supportedChains.filter((item) => item.chainID === chainID);
+
   if (wantedData.length !== 0) {
     return true;
   }

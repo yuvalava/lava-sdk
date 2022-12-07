@@ -88,7 +88,10 @@ class LavaSDK {
             this.relayer.setConsumerSession(consumerSession);
             // Send relay
             const relayResponse = yield this.relayer.sendRelay(method, params);
-            return relayResponse;
+            // Decode relay response
+            var dec = new TextDecoder();
+            const decodedResponse = dec.decode(relayResponse.getData_asU8());
+            return decodedResponse;
         });
     }
 }
@@ -117,6 +120,7 @@ function createLavaSDK(privateKey, chainID, endpoint, rpcInterface) {
         if (typeof rpcInterface === "undefined") {
             rpcInterface = (0, chains_1.fetchRpcInterface)(chainID);
         }
+        console.log(chainID, rpcInterface);
         // Create lavaSDK
         const lavaSDK = new LavaSDK(endpoint, chainID, rpcInterface, privateKey);
         // Initialize lavaSDK

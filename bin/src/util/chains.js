@@ -7,6 +7,7 @@ exports.fetchRpcInterface = exports.isValidChainID = void 0;
 const supportedChains_json_1 = __importDefault(require("../../supportedChains.json"));
 function isValidChainID(chainID) {
     const wantedData = supportedChains_json_1.default.filter((item) => item.chainID === chainID);
+    console.log(wantedData);
     if (wantedData.length !== 0) {
         return true;
     }
