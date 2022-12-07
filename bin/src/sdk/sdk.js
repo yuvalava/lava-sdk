@@ -120,7 +120,6 @@ function createLavaSDK(privateKey, chainID, endpoint, rpcInterface) {
         if (typeof rpcInterface === "undefined") {
             rpcInterface = (0, chains_1.fetchRpcInterface)(chainID);
         }
-        console.log(chainID, rpcInterface);
         // Create lavaSDK
         const lavaSDK = new LavaSDK(endpoint, chainID, rpcInterface, privateKey);
         // Initialize lavaSDK

@@ -37,7 +37,7 @@ class Relayer {
     // Get consumer session
     const consumerSession = this.activeConsumerSession;
 
-    var enc = new TextEncoder();
+    const enc = new TextEncoder();
 
     const data =
       '{"jsonrpc": "2.0", "id": 1, "method": ' +
@@ -68,7 +68,7 @@ class Relayer {
     request.setSig(signedMessage);
     request.setData(enc.encode(data));
 
-    const requestPromise = new Promise<RelayReply>((resolve, reject) => {
+    const requestPromise = new Promise<RelayReply>((resolve) => {
       grpc.invoke(RelayerService.Relay, {
         request: request,
         host: "http://"+consumerSession.Endpoint.Addr,
@@ -104,9 +104,9 @@ class Relayer {
   }
 
   private prepareRequest(request: RelayRequest): Uint8Array {
-    var enc = new TextEncoder();
+    const enc = new TextEncoder();
 
-    var jsonMessage = JSON.stringify(request.toObject(), (key, value) => {
+    const jsonMessage = JSON.stringify(request.toObject(), (key, value) => {
       if (value !== null && value !== 0 && value !== "") return value;
     });
 
