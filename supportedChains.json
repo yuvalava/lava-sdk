@@ -1,27 +1,22 @@
 [
   {
-    "name": "Ethereum Mainnet",
-    "chainID": "ETH1",
+    "name": "Celo Alfajores Testnet",
+    "chainID": "ALFAJORES",
     "defaultRPC": "jsonrpc"
   },
   {
-    "name": "Ethereum Goerli",
-    "chainID": "GTH1",
+    "name": "Aptos Mainnet",
+    "chainID": "APT1",
+    "defaultRPC": "rest"
+  },
+  {
+    "name": "Arbitrum mainnet",
+    "chainID": "ARB1",
     "defaultRPC": "jsonrpc"
   },
   {
-    "name": "Osmosis Mainnet",
-    "chainID": "COS3",
-    "defaultRPC": "tendermintrpc"
-  },
-  {
-    "name": "Osmosis Testnet",
-    "chainID": "COS4",
-    "defaultRPC": "tendermintrpc"
-  },
-  {
-    "name": "Fantom Mainnet",
-    "chainID": "FTM250",
+    "name": "Arbitrum Nova testnet",
+    "chainID": "ARBN",
     "defaultRPC": "jsonrpc"
   },
   {
@@ -30,38 +25,68 @@
     "defaultRPC": "jsonrpc"
   },
   {
-    "name": "Celo Alfajores",
-    "chainID": "ALFAJORES",
-    "defaultRPC": "jsonrpc"
-  },
-  {
-    "name": "Juno Mainnet",
-    "chainID": "JUN1",
+    "name": "Osmosis mainnet",
+    "chainID": "COS3",
     "defaultRPC": "tendermintrpc"
   },
   {
-    "name": "Arbitrum Mainnet",
-    "chainID": "ARB1",
-    "defaultRPC": "jsonrpc"
+    "name": "Osmosis testnet",
+    "chainID": "COS4",
+    "defaultRPC": "tendermintrpc"
   },
   {
-    "name": "Cosmos Hub Mainnet",
+    "name": "Cosmos hub",
     "chainID": "COS5",
     "defaultRPC": "tendermintrpc"
   },
   {
-    "name": "Starnet Mainnet",
-    "chainID": "STRK",
+    "name": "Cosmos hub testnet",
+    "chainID": "COS5T",
+    "defaultRPC": "tendermintrpc"
+  },
+  {
+    "name": "Ethereum Mainnet",
+    "chainID": "ETH1",
     "defaultRPC": "jsonrpc"
   },
   {
-    "name": "Lava Testnet",
+    "name": "Fantom Mainnet",
+    "chainID": "FTM250",
+    "defaultRPC": "jsonrpc"
+  },
+  {
+    "name": "Fantom Testnet",
+    "chainID": "FTM4002",
+    "defaultRPC": "jsonrpc"
+  },
+  {
+    "name": "Goerli Testnet",
+    "chainID": "GTH1",
+    "defaultRPC": "jsonrpc"
+  },
+  {
+    "name": "Juno mainnet",
+    "chainID": "JUN1",
+    "defaultRPC": "tendermintrpc"
+  },
+  {
+    "name": "Juno testnet",
+    "chainID": "JUNT1",
+    "defaultRPC": "tendermintrpc"
+  },
+  {
+    "name": "Lava mainnet",
     "chainID": "LAV1",
     "defaultRPC": "tendermintrpc"
   },
   {
-    "name": "Polygon Mainnet",
+    "name": "Poligon Mainnet",
     "chainID": "POLYGON1",
+    "defaultRPC": "jsonrpc"
+  },
+  {
+    "name": "StarkNet mainnet",
+    "chainID": "STRK",
     "defaultRPC": "jsonrpc"
   }
 ]
