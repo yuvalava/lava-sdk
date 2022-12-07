@@ -32,6 +32,16 @@ class LavaSDK {
     this.stateTracker = SDKErrors.errStateTrackerServiceNotInitialized;
   }
 
+  /**
+   * Init lava-SDK
+   *
+   * @async
+   * After creating LavaSDK manually with new LavaSDK(...)
+   * it needs to be initializes with object.init()
+   * 
+   * Better approach is not to do this manually but to use createLavaSDK method
+   *
+  */
   async init() {
     // Initialize wallet
 
@@ -62,6 +72,16 @@ class LavaSDK {
     this.relayer = new Relayer(consumerSession, this.chainID, this.privKey);
   }
 
+  /**
+   * Send relay to network through providers
+   *
+   * @async
+   * @param {string} method - RPC method name
+   * @param {string[]} params - RPC params
+   * 
+   * @returns Promise object represents json response
+   *
+  */
   async sendRelay(method: string, params: string[]): Promise<RelayReply> {
     // Check if account was initialized
     if (this.relayer instanceof Error) {
@@ -97,8 +117,20 @@ class LavaSDK {
 }
 
 /**
-  * Creates an instance of documenter.
-*/
+ * Create Lava-SDK instance
+ *
+ * Lava-SDK is used for dAccess with provided network
+ * You can find all supported networks and there chainIDs
+ * in the (url)
+ *
+ * @async
+ * @param {string} privateKey - Private key of lava network staked client
+ * @param {string} chainID - ChainID for the network you want to query
+ * @param {string} endpoint - Lava network public rpc endpoint (default: http://public-rpc.lavanet.xyz:80/rpc/)
+ * @param {?string} rpcInterface - rpcInterface of provider, it's optional so if not set for cosmos-chains it will be tendermintRPC and for evm chains jsonRPC
+ * 
+ * @returns Promise object represents LavaSDK object
+ */
 export async function createLavaSDK(
   privateKey: string,
   chainID: string,
