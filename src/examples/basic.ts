@@ -12,7 +12,7 @@ import { createLavaSDK } from "../sdk/sdk";
 
 async function run() {
   const privKey =
-    "6e754de60615f0834bcc14ce6f1275ab5a89f858e0b239ec3982bb7b56665a16";
+    "94ccef1f3cbff09144358e5339974ed4e29f05e761aee349bb7a539b79cd3221";
   const endpoint = "localhost:26657";
   const chainID = "LAV1";
   const rpcInterface = "rest";
@@ -25,7 +25,7 @@ async function run() {
   const blockResponse = await lavaSDK.sendRelay("block", ["5"]);
 
   // Print relay
-  var dec = new TextDecoder();
+  const dec = new TextDecoder();
   console.log("StatusResponse: ", dec.decode(statusResponse.getData_asU8()));
   console.log("BlockResponse: ", dec.decode(blockResponse.getData_asU8()));
 }
