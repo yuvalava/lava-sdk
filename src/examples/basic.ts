@@ -11,7 +11,7 @@ async function run() {
   //const rpcInterface = "tendermintrpc"; optional param
 
   // Create lavaSDK
-  const lavaSDK = await createLavaSDK(privKey,chainID,endpoint);
+  const lavaSDK = await createLavaSDK(privKey, chainID, endpoint);
 
   // Send relay
   const statusResponse = await lavaSDK.sendRelay("status", []);
