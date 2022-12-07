@@ -64,7 +64,7 @@ class Relayer {
             const requestPromise = new Promise((resolve) => {
                 grpc_web_1.grpc.invoke(relay_pb_service_1.Relayer.Relay, {
                     request: request,
-                    host: "http://" + consumerSession.Endpoint.Addr,
+                    host: this.relayerGrpcWeb,
                     transport: browser_1.default,
                     onMessage: (message) => {
                         resolve(message);

@@ -71,7 +71,7 @@ class Relayer {
     const requestPromise = new Promise<RelayReply>((resolve) => {
       grpc.invoke(RelayerService.Relay, {
         request: request,
-        host: "http://"+consumerSession.Endpoint.Addr,
+        host: this.relayerGrpcWeb,
         transport: transport,
         onMessage: (message: RelayReply) => {
           resolve(message);
