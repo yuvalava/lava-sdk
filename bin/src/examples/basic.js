@@ -14,15 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const logger_1 = __importDefault(require("../logger/logger"));
 // Fetch from lava-sdk package
-const sdk_1 = require("../sdk/sdk");
+const sdk_1 = __importDefault(require("../sdk/sdk"));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
-        const privKey = "f148ba74d9c66000fd4f7f8081491ff54bb291102e2aa2626a6176aec4684f4e";
+        const privKey = "db36be489c8f2a8663c42a51a22a77926440bdc77bff6ef5ac236d7093180827";
         const endpoint = "localhost:26657";
         const chainID = "LAV1";
-        //const rpcInterface = "tendermintrpc"; optional param
         // Create lavaSDK
-        const lavaSDK = yield (0, sdk_1.createLavaSDK)(privKey, chainID, endpoint);
+        const lavaSDK = yield new sdk_1.default({ privateKey: privKey, chainID: chainID, endpoint: endpoint });
         // Send relay
         const statusResponse = yield lavaSDK.sendRelay("status", []);
         const blockResponse = yield lavaSDK.sendRelay("block", ["5"]);
