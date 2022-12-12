@@ -58,8 +58,6 @@ class LavaSDK {
   }
 
   private async init() {
-    // Initialize wallet
-
     // Create wallet
     const wallet = await createWallet(this.privKey);
 
@@ -87,7 +85,7 @@ class LavaSDK {
    * @param {string} method - A string representing the RPC method name
    * @param {string[]} params - An array of strings representing the RPC parameters
    *
-   * @returns A promise that resolves when the relay response has been returned, returns JSON string.
+   * @returns A promise that resolves when the relay response has been returned, and returns a JSON string
    *
    */
   async sendRelay(method: string, params: string[]): Promise<string> {

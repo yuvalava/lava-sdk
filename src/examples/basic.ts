@@ -10,7 +10,11 @@ async function run() {
   const chainID = "LAV1";
 
   // Create lavaSDK
-  const lavaSDK = await new LavaSDK({privateKey:privKey, chainID:chainID, endpoint:endpoint});
+  const lavaSDK = await new LavaSDK({
+    privateKey: privKey,
+    chainID: chainID,
+    endpoint: endpoint,
+  });
 
   // Send relay
   const statusResponse = await lavaSDK.sendRelay("status", []);
