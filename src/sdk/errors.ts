@@ -8,6 +8,9 @@ class SDKErrors {
   static errStateTrackerServiceNotInitialized: Error = new Error(
     "State Tracker service was not initialized"
   );
+  static errChainIDUnsupported: Error = new Error(
+    "Invalid or unsupported chainID"
+  );
 }
 
 export default SDKErrors;
