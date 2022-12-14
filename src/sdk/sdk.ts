@@ -3,6 +3,7 @@ import SDKErrors from "./errors";
 import { AccountData } from "@cosmjs/proto-signing";
 import Relayer from "../relayer/relayer";
 import { StateTracker, createStateTracker } from "../stateTracker/stateTracker";
+import { SessionManager } from "../types/types";
 import { isValidChainID, fetchRpcInterface } from "../util/chains";
 import { DEFAULT_LAVA_ENDPOINT } from "../config/default";
 
@@ -15,6 +16,8 @@ class LavaSDK {
   private stateTracker: StateTracker | Error;
   private account: AccountData | Error;
   private relayer: Relayer | Error;
+
+  private activeSessionManager: SessionManager | Error;
 
   /**
    * Create Lava-SDK instance
@@ -50,6 +53,7 @@ class LavaSDK {
     this.account = SDKErrors.errAccountNotInitialized;
     this.relayer = SDKErrors.errRelayerServiceNotInitialized;
     this.stateTracker = SDKErrors.errStateTrackerServiceNotInitialized;
+    this.activeSessionManager = SDKErrors.errSessionNotInitialized;
 
     return (async (): Promise<LavaSDK> => {
       await this.init();
@@ -65,17 +69,21 @@ class LavaSDK {
     this.account = await wallet.getConsumerAccount();
 
     // Initialize state tracker
+
+    // Create state tracker
     this.stateTracker = await createStateTracker(this.lavaEndpoint);
 
-    // Get active consumer session
-    const consumerSession = await this.stateTracker.getConsumerSession(
+    // Initialize relayer
+
+    // Get pairing list for current epoch
+    this.activeSessionManager = await this.stateTracker.getSession(
       this.account,
       this.chainID,
       this.rpcInterface
     );
 
     // Create relayer
-    this.relayer = new Relayer(consumerSession, this.chainID, this.privKey);
+    this.relayer = new Relayer(this.chainID, this.privKey);
   }
 
   /**
@@ -89,41 +97,73 @@ class LavaSDK {
    *
    */
   async sendRelay(method: string, params: string[]): Promise<string> {
-    // Check if relayer was initialized
-    if (this.relayer instanceof Error) {
-      throw SDKErrors.errRelayerServiceNotInitialized;
+    try {
+      // Check if account was initialized
+      if (this.relayer instanceof Error) {
+        throw SDKErrors.errRelayerServiceNotInitialized;
+      }
+
+      // Check if state tracker was initialized
+      if (this.stateTracker instanceof Error) {
+        throw SDKErrors.errStateTrackerServiceNotInitialized;
+      }
+
+      // Check if state tracker was initialized
+      if (this.account instanceof Error) {
+        throw SDKErrors.errAccountNotInitialized;
+      }
+
+      // Check if activeSession was initialized
+      if (this.activeSessionManager instanceof Error) {
+        throw SDKErrors.errSessionNotInitialized;
+      }
+
+      // Check if new epoch has started
+      if (this.newEpochStarted()) {
+        this.activeSessionManager = await this.stateTracker.getSession(
+          this.account,
+          this.chainID,
+          this.rpcInterface
+        );
+      }
+
+      const consumerProviderSession = this.stateTracker.pickRandomProvider(
+        this.activeSessionManager.PairingList
+      );
+
+      const cuSum = this.activeSessionManager.getCuSumFromApi(method);
+
+      if (cuSum == undefined) {
+        throw SDKErrors.errMethodNotSupportedNoCuSUM;
+      }
+
+      // Send relay
+      const relayResponse = await this.relayer.sendRelay(
+        method,
+        params,
+        consumerProviderSession,
+        cuSum
+      );
+
+      // Decode relay response
+      const dec = new TextDecoder();
+      const decodedResponse = dec.decode(relayResponse.getData_asU8());
+
+      // Return relay in json format
+      return decodedResponse;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  private newEpochStarted(): boolean {
+    // Check if activeSession was initialized
+    if (this.activeSessionManager instanceof Error) {
+      throw SDKErrors.errSessionNotInitialized;
     }
 
-    // Check if state tracker was initialized
-    if (this.stateTracker instanceof Error) {
-      throw SDKErrors.errStateTrackerServiceNotInitialized;
-    }
-
-    // Check if account was initialized
-    if (this.account instanceof Error) {
-      throw SDKErrors.errAccountNotInitialized;
-    }
-
-    // For every relay get new current session
-    // Todo in the future do this only on epoch change
-    // And in the relay generate random session_id
-    const consumerSession = await this.stateTracker.getConsumerSession(
-      this.account,
-      this.chainID,
-      this.rpcInterface
-    );
-
-    this.relayer.setConsumerSession(consumerSession);
-
-    // Send relay
-    const relayResponse = await this.relayer.sendRelay(method, params);
-
-    // Decode relay response
-    const dec = new TextDecoder();
-    const decodedResponse = dec.decode(relayResponse.getData_asU8());
-
-    // Return relay in json format
-    return decodedResponse;
+    const now = new Date();
+    return now.getTime() > this.activeSessionManager.NextEpochStart.getTime();
   }
 }
 

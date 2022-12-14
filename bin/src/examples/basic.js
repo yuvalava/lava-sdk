@@ -17,17 +17,35 @@ const logger_1 = __importDefault(require("../logger/logger"));
 const sdk_1 = __importDefault(require("../sdk/sdk"));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
-        const privKey = "db36be489c8f2a8663c42a51a22a77926440bdc77bff6ef5ac236d7093180827";
+        const privKey = "da73b083cb54e797184f756306e4252d50f77061c3e777f03ee2c38a1c4568b1";
         const endpoint = "localhost:26657";
         const chainID = "LAV1";
+        const rpcInterface = "tendermintrpc";
         // Create lavaSDK
-        const lavaSDK = yield new sdk_1.default({ privateKey: privKey, chainID: chainID, endpoint: endpoint });
+        const lavaSDK = yield new sdk_1.default({
+            privateKey: privKey,
+            chainID: chainID,
+            endpoint: endpoint,
+            rpcInterface: rpcInterface // Optional
+        });
         // Send relay
         const statusResponse = yield lavaSDK.sendRelay("status", []);
         const blockResponse = yield lavaSDK.sendRelay("block", ["5"]);
         // Print relay
-        console.log("StatusResponse: ", statusResponse);
-        console.log("BlockResponse: ", blockResponse);
+        console.log("statusResponse", statusResponse);
+        console.log("blockResponse", blockResponse);
+        setTimeout(() => __awaiter(this, void 0, void 0, function* () {
+            console.log("Same epoch");
+            const statusResponse = yield lavaSDK.sendRelay("status", []);
+            const dec = new TextDecoder();
+            console.log("statusResponse", statusResponse);
+        }), 5000);
+        setTimeout(() => __awaiter(this, void 0, void 0, function* () {
+            console.log("New epoch");
+            const statusResponse = yield lavaSDK.sendRelay("status", []);
+            const dec = new TextDecoder();
+            console.log("statusResponse", statusResponse);
+        }), 20000);
     });
 }
 run()

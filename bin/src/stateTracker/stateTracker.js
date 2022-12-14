@@ -15,16 +15,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createStateTracker = exports.StateTracker = void 0;
 const stargate_1 = require("@cosmjs/stargate");
 const tendermint_rpc_1 = require("@cosmjs/tendermint-rpc");
-const query_1 = require("../codec/epochstorage/query");
-const query_2 = require("../codec/pairing/query");
+const query_1 = require("../codec/pairing/query");
+const query_2 = require("../codec/spec/query");
 const types_1 = require("../types/types");
 const errors_1 = __importDefault(require("./errors"));
-const long_1 = __importDefault(require("long"));
+const errors_2 = __importDefault(require("./errors"));
 class StateTracker {
     constructor() {
-        this.queryService = errors_1.default.errQueryServiceNotInitialized;
-        this.epochQueryService =
-            errors_1.default.errEpochQueryServiceNotInitialized;
+        this.pairingQueryService =
+            errors_1.default.errPairingQueryServiceNotInitialized;
+        this.specQueryService = errors_1.default.errSpecQueryServiceNotInitialized;
         this.tendermintClient =
             errors_1.default.errTendermintClientServiceNotInitialized;
     }
@@ -33,28 +33,23 @@ class StateTracker {
             const tmClient = yield tendermint_rpc_1.Tendermint34Client.connect(endpoint);
             const queryClient = new stargate_1.QueryClient(tmClient);
             const rpcClient = (0, stargate_1.createProtobufRpcClient)(queryClient);
-            this.queryService = new query_2.QueryClientImpl(rpcClient);
-            this.epochQueryService = new query_1.QueryClientImpl(rpcClient);
+            this.pairingQueryService = new query_1.QueryClientImpl(rpcClient);
+            this.specQueryService = new query_2.QueryClientImpl(rpcClient);
             this.tendermintClient = tmClient;
         });
     }
-    getConsumerSession(account, chainID, rpcInterface) {
-        return __awaiter(this, void 0, void 0, function* () {
-            // Fetch pairing
-            const pairing = yield this.getPairing(account, chainID, rpcInterface);
-            // Pick provider
-            const consumerSession = this.pickRandomProvider(pairing);
-            // Return session
-            return consumerSession.Session;
-        });
-    }
-    // Get pairing list for specified wallet in current epoch
-    getPairing(account, chainID, rpcInterface) {
+    // Get session return providers for current epoch
+    getSession(account, chainID, rpcInterface) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 if (this.tendermintClient instanceof Error) {
                     throw errors_1.default.errTendermintClientServiceNotInitialized;
                 }
+                // Create request for getCuSumForChainID method
+                const queryGetSpecRequest = {
+                    ChainID: chainID,
+                };
+                const apis = yield this.getServiceApis(queryGetSpecRequest, rpcInterface);
                 // Create pairing request for getPairing method
                 const pairingRequest = {
                     chainID: chainID,
@@ -62,21 +57,19 @@ class StateTracker {
                 };
                 // Get pairing from the chain
                 const pairingResponse = yield this.getPairingFromChain(pairingRequest);
+                // Set when will next epoch start
+                const nextEpochStart = new Date();
+                nextEpochStart.setSeconds(nextEpochStart.getSeconds() +
+                    pairingResponse.timeLeftToNextPairing.getLowBits());
                 // Extract providers from pairing response
                 const providers = pairingResponse.providers;
                 // Initialize ConsumerSessionWithProvider array
                 const pairing = [];
-                // Fetch latest block
-                const blockResponse = yield this.tendermintClient.block();
-                // Fetch latest block number
-                const latestBlockNumber = blockResponse.block.header.height;
-                // fetch epoch size
-                const epochNumber = yield this.getEpochNumber(latestBlockNumber);
                 // create request for getting userEntity
                 const userEntityRequest = {
                     address: account.address,
                     chainID: chainID,
-                    block: new long_1.default(latestBlockNumber),
+                    block: pairingResponse.currentEpoch,
                 };
                 // fetch max compute units
                 const maxcu = yield this.getMaxCuForUser(userEntityRequest);
@@ -100,12 +93,13 @@ class StateTracker {
                         continue;
                     }
                     // Create a new pairing object
-                    // TODO when initializing relevantEndpoints it needs to check if valid
-                    const newPairing = new types_1.ConsumerSessionWithProvider(account.address, relevantEndpoints, new types_1.SingleConsumerSession(0, 0, 1, relevantEndpoints[0], (epochNumber - 1) * 20), maxcu, 0, false, epochNumber);
+                    const newPairing = new types_1.ConsumerSessionWithProvider(account.address, relevantEndpoints, new types_1.SingleConsumerSession(0, 0, 1, relevantEndpoints[0], pairingResponse.currentEpoch.getLowBits(), provider.address), maxcu, 0, false);
                     // Add newly created pairing in the pairing list
                     pairing.push(newPairing);
                 }
-                return pairing;
+                // Create session object
+                const sessionManager = new types_1.SessionManager(pairing, nextEpochStart, apis);
+                return sessionManager;
             }
             catch (err) {
                 throw err;
@@ -114,8 +108,10 @@ class StateTracker {
     }
     pickRandomProvider(providers) {
         // Remove providers which does not match criteria
-        const validProviders = providers.filter((item) => item.MaxComputeUnits > 0);
-        // TODO check with Ran how to know if provider is blocked?
+        const validProviders = providers.filter((item) => item.MaxComputeUnits > item.UsedComputeUnits);
+        if (validProviders.length === 0) {
+            throw errors_2.default.errNoValidProvidersForCurrentEpoch;
+        }
         // Pick random provider
         const random = Math.floor(Math.random() * validProviders.length);
         return validProviders[random];
@@ -123,45 +119,54 @@ class StateTracker {
     getPairingFromChain(request) {
         return __awaiter(this, void 0, void 0, function* () {
             // Check if query service was initialized
-            if (this.queryService instanceof Error) {
-                throw errors_1.default.errQueryServiceNotInitialized;
+            if (this.pairingQueryService instanceof Error) {
+                throw errors_1.default.errPairingQueryServiceNotInitialized;
             }
             // Get pairing from the chain
-            const queryResult = yield this.queryService.GetPairing(request);
+            const queryResult = yield this.pairingQueryService.GetPairing(request);
             return queryResult;
         });
     }
     getMaxCuForUser(request) {
         return __awaiter(this, void 0, void 0, function* () {
             // Check if query service was initialized
-            if (this.queryService instanceof Error) {
-                throw errors_1.default.errQueryServiceNotInitialized;
+            if (this.pairingQueryService instanceof Error) {
+                throw errors_1.default.errPairingQueryServiceNotInitialized;
             }
             // Get pairing from the chain
-            const queryResult = yield this.queryService.UserEntry(request);
+            const queryResult = yield this.pairingQueryService.UserEntry(request);
             // return maxCu from userEntry
             return queryResult.maxCU.low;
         });
     }
-    getEpochNumber(latestBlockNumber) {
-        var _a;
+    getServiceApis(request, rpcInterface) {
         return __awaiter(this, void 0, void 0, function* () {
             // Check if query service was initialized
-            if (this.epochQueryService instanceof Error) {
-                throw errors_1.default.errEpochQueryServiceNotInitialized;
+            if (this.specQueryService instanceof Error) {
+                throw errors_1.default.errSpecQueryServiceNotInitialized;
             }
-            // Create params request
-            const epochRequst = {};
-            // Get epoch params from the chain
-            const queryResult = yield this.epochQueryService.Params(epochRequst);
-            // Extract epoch size from params
-            const epochSize = (_a = queryResult.params) === null || _a === void 0 ? void 0 : _a.epochBlocks.low;
-            if (epochSize == undefined) {
-                throw new Error("Epoch size undefined");
+            // Get pairing from the chain
+            const queryResult = yield this.specQueryService.Spec(request);
+            if (queryResult.Spec == undefined) {
+                throw errors_1.default.errSpecNotFound;
             }
-            // Calculate epoch number
-            const epochNumber = Math.trunc(latestBlockNumber / epochSize) + 1;
-            return epochNumber;
+            const apis = new Map();
+            // Extract apis from response
+            for (const element of queryResult.Spec.apis) {
+                for (const apiInterface of element.apiInterfaces) {
+                    // Skip if interface does not match
+                    if (apiInterface.interface != rpcInterface)
+                        continue;
+                    // Currently we do not support rest
+                    if (apiInterface.interface == "rest")
+                        continue;
+                    else {
+                        // Handle RPC apis
+                        apis.set(element.name, element.computeUnits.getLowBits());
+                    }
+                }
+            }
+            return apis;
         });
     }
 }

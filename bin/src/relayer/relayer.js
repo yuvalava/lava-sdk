@@ -19,24 +19,19 @@ const relay_pb_1 = require("../proto/relay_pb");
 const relay_pb_service_1 = require("../proto/relay_pb_service");
 const browser_1 = __importDefault(require("../util/browser"));
 class Relayer {
-    constructor(consumerSession, chainID, privKey) {
-        // For demo use static relayer address
-        this.relayerGrpcWeb = "http://localhost:8081";
-        this.activeConsumerSession = consumerSession;
+    constructor(chainID, privKey) {
         this.chainID = chainID;
         this.privKey = privKey;
     }
-    setConsumerSession(consumerSession) {
-        this.activeConsumerSession = consumerSession;
-    }
-    sendRelay(method, params) {
+    sendRelay(method, params, consumerProviderSession, cuSum) {
         return __awaiter(this, void 0, void 0, function* () {
             const stringifyMethod = JSON.stringify(method);
             const stringifyParam = JSON.stringify(params);
-            // Create relay client
-            // Get consumer session
-            const consumerSession = this.activeConsumerSession;
             const enc = new TextEncoder();
+            const consumerSession = consumerProviderSession.Session;
+            // Increase used compute units
+            consumerProviderSession.UsedComputeUnits =
+                consumerProviderSession.UsedComputeUnits + cuSum;
             const data = '{"jsonrpc": "2.0", "id": 1, "method": ' +
                 stringifyMethod +
                 ', "params": ' +
@@ -47,11 +42,11 @@ class Relayer {
             request.setChainid(this.chainID);
             request.setConnectionType("");
             request.setApiUrl("");
-            request.setSessionId(consumerSession.SessionId);
-            request.setCuSum(10);
+            request.setSessionId(consumerSession.getNewSessionId());
+            request.setCuSum(cuSum);
             request.setSig(new Uint8Array());
             request.setData(data);
-            request.setProvider(consumerSession.Endpoint.Addr);
+            request.setProvider(consumerSession.ProviderAddress);
             request.setBlockHeight(consumerSession.PairingEpoch);
             request.setRelayNum(consumerSession.RelayNum);
             request.setRequestBlock(0);
@@ -61,16 +56,22 @@ class Relayer {
             // Add signature in the request
             request.setSig(signedMessage);
             request.setData(enc.encode(data));
-            const requestPromise = new Promise((resolve) => {
+            const requestPromise = new Promise((resolve, reject) => {
                 grpc_web_1.grpc.invoke(relay_pb_service_1.Relayer.Relay, {
                     request: request,
-                    host: this.relayerGrpcWeb,
+                    host: "http://" + consumerSession.Endpoint.Addr,
                     transport: browser_1.default,
                     onMessage: (message) => {
                         resolve(message);
                     },
-                    onEnd: () => {
-                        // Consider printing response status here, it's optional
+                    onEnd: (code, msg) => {
+                        if (code != grpc_web_1.grpc.Code.OK) {
+                            if (msg != undefined) {
+                                consumerProviderSession.UsedComputeUnits =
+                                    consumerProviderSession.UsedComputeUnits - cuSum;
+                                reject(new Error(msg));
+                            }
+                        }
                     },
                 });
             });

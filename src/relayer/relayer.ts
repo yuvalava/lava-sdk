@@ -1,4 +1,4 @@
-import { SingleConsumerSession } from "../types/types";
+import { ConsumerSessionWithProvider } from "../types/types";
 import { Secp256k1, sha256 } from "@cosmjs/crypto";
 import { fromHex } from "@cosmjs/encoding";
 import { grpc } from "@improbable-eng/grpc-web";
@@ -7,37 +7,30 @@ import { Relayer as RelayerService } from "../proto/relay_pb_service";
 import transport from "../util/browser";
 
 class Relayer {
-  private activeConsumerSession: SingleConsumerSession;
   private chainID: string;
   private privKey: string;
 
-  // For demo use static relayer address
-  private relayerGrpcWeb = "http://localhost:8081";
-
-  constructor(
-    consumerSession: SingleConsumerSession,
-    chainID: string,
-    privKey: string
-  ) {
-    this.activeConsumerSession = consumerSession;
+  constructor(chainID: string, privKey: string) {
     this.chainID = chainID;
     this.privKey = privKey;
   }
 
-  setConsumerSession(consumerSession: SingleConsumerSession) {
-    this.activeConsumerSession = consumerSession;
-  }
-
-  async sendRelay(method: string, params: string[]): Promise<RelayReply> {
+  async sendRelay(
+    method: string,
+    params: string[],
+    consumerProviderSession: ConsumerSessionWithProvider,
+    cuSum: number
+  ): Promise<RelayReply> {
     const stringifyMethod = JSON.stringify(method);
     const stringifyParam = JSON.stringify(params);
 
-    // Create relay client
-
-    // Get consumer session
-    const consumerSession = this.activeConsumerSession;
-
     const enc = new TextEncoder();
+
+    const consumerSession = consumerProviderSession.Session;
+
+    // Increase used compute units
+    consumerProviderSession.UsedComputeUnits =
+      consumerProviderSession.UsedComputeUnits + cuSum;
 
     const data =
       '{"jsonrpc": "2.0", "id": 1, "method": ' +
@@ -51,11 +44,11 @@ class Relayer {
     request.setChainid(this.chainID);
     request.setConnectionType("");
     request.setApiUrl("");
-    request.setSessionId(consumerSession.SessionId);
-    request.setCuSum(10);
+    request.setSessionId(consumerSession.getNewSessionId());
+    request.setCuSum(cuSum);
     request.setSig(new Uint8Array());
     request.setData(data);
-    request.setProvider(consumerSession.Endpoint.Addr);
+    request.setProvider(consumerSession.ProviderAddress);
     request.setBlockHeight(consumerSession.PairingEpoch);
     request.setRelayNum(consumerSession.RelayNum);
     request.setRequestBlock(0);
@@ -68,16 +61,23 @@ class Relayer {
     request.setSig(signedMessage);
     request.setData(enc.encode(data));
 
-    const requestPromise = new Promise<RelayReply>((resolve) => {
+    const requestPromise = new Promise<RelayReply>((resolve, reject) => {
       grpc.invoke(RelayerService.Relay, {
         request: request,
-        host: this.relayerGrpcWeb,
+        host: "http://" + consumerSession.Endpoint.Addr,
         transport: transport,
         onMessage: (message: RelayReply) => {
           resolve(message);
         },
-        onEnd: () => {
-          // Consider printing response status here, it's optional
+        onEnd: (code: grpc.Code, msg: string | undefined) => {
+          if (code != grpc.Code.OK) {
+            if (msg != undefined) {
+              consumerProviderSession.UsedComputeUnits =
+                consumerProviderSession.UsedComputeUnits - cuSum;
+
+              reject(new Error(msg));
+            }
+          }
         },
       });
     });

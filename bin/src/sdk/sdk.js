@@ -48,6 +48,7 @@ class LavaSDK {
         this.account = errors_1.default.errAccountNotInitialized;
         this.relayer = errors_1.default.errRelayerServiceNotInitialized;
         this.stateTracker = errors_1.default.errStateTrackerServiceNotInitialized;
+        this.activeSessionManager = errors_1.default.errSessionNotInitialized;
         return (() => __awaiter(this, void 0, void 0, function* () {
             yield this.init();
             return this;
@@ -55,17 +56,18 @@ class LavaSDK {
     }
     init() {
         return __awaiter(this, void 0, void 0, function* () {
-            // Initialize wallet
             // Create wallet
             const wallet = yield (0, wallet_1.createWallet)(this.privKey);
             // Get account from wallet
             this.account = yield wallet.getConsumerAccount();
             // Initialize state tracker
+            // Create state tracker
             this.stateTracker = yield (0, stateTracker_1.createStateTracker)(this.lavaEndpoint);
-            // Get active consumer session
-            const consumerSession = yield this.stateTracker.getConsumerSession(this.account, this.chainID, this.rpcInterface);
+            // Initialize relayer
+            // Get pairing list for current epoch
+            this.activeSessionManager = yield this.stateTracker.getSession(this.account, this.chainID, this.rpcInterface);
             // Create relayer
-            this.relayer = new relayer_1.default(consumerSession, this.chainID, this.privKey);
+            this.relayer = new relayer_1.default(this.chainID, this.privKey);
         });
     }
     /**
@@ -75,36 +77,57 @@ class LavaSDK {
      * @param {string} method - A string representing the RPC method name
      * @param {string[]} params - An array of strings representing the RPC parameters
      *
-     * @returns A promise that resolves when the relay response has been returned, returns JSON string.
+     * @returns A promise that resolves when the relay response has been returned, and returns a JSON string
      *
      */
     sendRelay(method, params) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Check if relayer was initialized
-            if (this.relayer instanceof Error) {
-                throw errors_1.default.errRelayerServiceNotInitialized;
+            try {
+                // Check if account was initialized
+                if (this.relayer instanceof Error) {
+                    throw errors_1.default.errRelayerServiceNotInitialized;
+                }
+                // Check if state tracker was initialized
+                if (this.stateTracker instanceof Error) {
+                    throw errors_1.default.errStateTrackerServiceNotInitialized;
+                }
+                // Check if state tracker was initialized
+                if (this.account instanceof Error) {
+                    throw errors_1.default.errAccountNotInitialized;
+                }
+                // Check if activeSession was initialized
+                if (this.activeSessionManager instanceof Error) {
+                    throw errors_1.default.errSessionNotInitialized;
+                }
+                // Check if new epoch has started
+                if (this.newEpochStarted()) {
+                    this.activeSessionManager = yield this.stateTracker.getSession(this.account, this.chainID, this.rpcInterface);
+                }
+                const consumerProviderSession = this.stateTracker.pickRandomProvider(this.activeSessionManager.PairingList);
+                const cuSum = this.activeSessionManager.getCuSumFromApi(method);
+                if (cuSum == undefined) {
+                    throw errors_1.default.errMethodNotSupportedNoCuSUM;
+                }
+                // Send relay
+                const relayResponse = yield this.relayer.sendRelay(method, params, consumerProviderSession, cuSum);
+                // Decode relay response
+                const dec = new TextDecoder();
+                const decodedResponse = dec.decode(relayResponse.getData_asU8());
+                // Return relay in json format
+                return decodedResponse;
             }
-            // Check if state tracker was initialized
-            if (this.stateTracker instanceof Error) {
-                throw errors_1.default.errStateTrackerServiceNotInitialized;
+            catch (err) {
+                throw err;
             }
-            // Check if account was initialized
-            if (this.account instanceof Error) {
-                throw errors_1.default.errAccountNotInitialized;
-            }
-            // For every relay get new current session
-            // Todo in the future do this only on epoch change
-            // And in the relay generate random session_id
-            const consumerSession = yield this.stateTracker.getConsumerSession(this.account, this.chainID, this.rpcInterface);
-            this.relayer.setConsumerSession(consumerSession);
-            // Send relay
-            const relayResponse = yield this.relayer.sendRelay(method, params);
-            // Decode relay response
-            const dec = new TextDecoder();
-            const decodedResponse = dec.decode(relayResponse.getData_asU8());
-            // Return relay in json format
-            return decodedResponse;
         });
+    }
+    newEpochStarted() {
+        // Check if activeSession was initialized
+        if (this.activeSessionManager instanceof Error) {
+            throw errors_1.default.errSessionNotInitialized;
+        }
+        const now = new Date();
+        return now.getTime() > this.activeSessionManager.NextEpochStart.getTime();
     }
 }
 exports.default = LavaSDK;
