@@ -16,13 +16,12 @@ class Relayer {
   }
 
   async sendRelay(
-    method: string,
-    params: string[],
+    options: SendRelayOptions,
     consumerProviderSession: ConsumerSessionWithProvider,
     cuSum: number
   ): Promise<RelayReply> {
-    const stringifyMethod = JSON.stringify(method);
-    const stringifyParam = JSON.stringify(params);
+    // Extract attributes from options
+    const { data, url, connectionType } = options;
 
     const enc = new TextEncoder();
 
@@ -32,18 +31,11 @@ class Relayer {
     consumerProviderSession.UsedComputeUnits =
       consumerProviderSession.UsedComputeUnits + cuSum;
 
-    const data =
-      '{"jsonrpc": "2.0", "id": 1, "method": ' +
-      stringifyMethod +
-      ', "params": ' +
-      stringifyParam +
-      "}";
-
     // Create request
     const request = new RelayRequest();
     request.setChainid(this.chainID);
-    request.setConnectionType("");
-    request.setApiUrl("");
+    request.setConnectionType(connectionType);
+    request.setApiUrl(url);
     request.setSessionId(consumerSession.getNewSessionId());
     request.setCuSum(cuSum);
     request.setSig(new Uint8Array());
@@ -70,14 +62,18 @@ class Relayer {
           resolve(message);
         },
         onEnd: (code: grpc.Code, msg: string | undefined) => {
-          if (code != grpc.Code.OK) {
-            if (msg != undefined) {
-              consumerProviderSession.UsedComputeUnits =
-                consumerProviderSession.UsedComputeUnits - cuSum;
-
-              reject(new Error(msg));
-            }
+          if (code == grpc.Code.OK || msg == undefined) {
+            return;
           }
+          // underflow guard
+          if (consumerProviderSession.UsedComputeUnits > cuSum) {
+            consumerProviderSession.UsedComputeUnits =
+              consumerProviderSession.UsedComputeUnits - cuSum;
+          } else {
+            consumerProviderSession.UsedComputeUnits = 0;
+          }
+
+          reject(new Error(msg));
         },
       });
     });
@@ -85,10 +81,7 @@ class Relayer {
   }
 
   // Sign relay request using priv key
-  private async signRelay(
-    request: RelayRequest,
-    privKey: string
-  ): Promise<Uint8Array> {
+  async signRelay(request: RelayRequest, privKey: string): Promise<Uint8Array> {
     const message = this.prepareRequest(request);
 
     const sig = await Secp256k1.createSignature(message, fromHex(privKey));
@@ -103,7 +96,7 @@ class Relayer {
     return Uint8Array.from([27 + recovery, ...r, ...s]);
   }
 
-  private prepareRequest(request: RelayRequest): Uint8Array {
+  prepareRequest(request: RelayRequest): Uint8Array {
     const enc = new TextEncoder();
 
     const jsonMessage = JSON.stringify(request.toObject(), (key, value) => {
@@ -121,6 +114,15 @@ class Relayer {
 
     return hash;
   }
+}
+
+/**
+ * Options for send relay method.
+ */
+interface SendRelayOptions {
+  data: string;
+  url: string;
+  connectionType: string;
 }
 
 export default Relayer;
