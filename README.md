@@ -20,7 +20,7 @@
   <h3 align="center">Lava SDK</h3>
 
   <p align="center">
-    A decentralized access library which enables developers and end users to get access to their nodes directly without going through a centralized endpoint.
+    A decentralized access library enabling developers and end users to directly access blockchain data using the lava protocol.
     <br />
     <br />
     <a href="https://github.com/lavanet/lava-sdk/issues"><strong>Issue tracking</strong></a>
@@ -59,8 +59,8 @@
 
 Lava SDK is a TypeScript implementation of the Lava Protocol, which enables direct communication between developers and providers via peer-to-peer connections. 
 
-With Lava SDK, you can easily integrate decentralized access into your projects by importing the library and using it like any other library. Behind the scenes, Lava SDK handles all the necessary operations to implement the Lava Protocol and establishs a p2p connection with providers. 
-This allows developers to focus on building their applications, while Lava SDK takes care of the underlying communication and connection management.
+With Lava SDK, you can easily integrate decentralized access into your projects by importing the library. Behind the scenes, Lava SDK handles all the necessary operations to implement the Lava Protocol and establishes a peer-to-peer connection with providers on the network. 
+This allows developers to focus on building their applications, while Lava SDK takes care of the underlying communications and connection management.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -72,7 +72,7 @@ This allows developers to focus on building their applications, while Lava SDK t
 
 ℹ️ Successful relays will be deducted from your stake
 
-🛟 Need help staking or initial setup? We got you covered 😻 Head over to our [Discord](https://discord.gg/5VcqgwMmkA) and we'll provide testnet tokens and further support
+❓ Need help staking or initial setup? We've got you covered 😻 Head over to our [Discord](https://discord.gg/5VcqgwMmkA) and we'll provide testnet tokens and further support
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -80,7 +80,7 @@ This allows developers to focus on building their applications, while Lava SDK t
 <!-- Installation -->
 ## Installation
 
-You can install the Lava SDk either using [Yarn](https://yarnpkg.com/package/web3) or using [NPM](https://www.npmjs.com/package/web3)
+You can install the Lava SDK either using [Yarn](https://yarnpkg.com/package/web3) or using [NPM](https://www.npmjs.com/package/web3)
 
 ### Yarn
 
@@ -116,7 +116,7 @@ const lavaSDK = await new LavaSDK({
 
 - `chainID` parameter is required and should be the ID of the chain you want to query. You can find all supported chains with their IDs [supportedChains](https://github.com/lavanet/lava-sdk/blob/main/supportedChains.json)
 
-- `lavaEndpoint` is an optional field that specifies the RPC endpoint of the Lava network node. It is used to fetch list of the providers for specified `chainID` and `rpcInterface`. You can check the [default lava rpc endpoint](https://github.com/lavanet/lava-sdk/blob/PRT-108-readme-addons/src/config/default.ts#L1)
+- `lavaEndpoint` is an optional field that specifies the RPC endpoint of the Lava network node. It is used to fetch list of the providers for specified `chainID` and `rpcInterface`. You can check the [default lava rpc endpoint](https://github.com/lavanet/lava-sdk/blob/main/src/config/default.ts#L1)
 
 - `rpcInterface` is an optional field representing the interface that will be used for sending relays. For cosmos chains it can be `tendermintRPC` or `rest`. For evm compatible chains `jsonRPC` or `rest`. You can find the list of all default rpc interfaces [supportedChains](https://github.com/lavanet/lava-sdk/blob/main/supportedChains.json)
 
@@ -129,9 +129,9 @@ const lavaSDK = await new LavaSDK({
     params: ["5"],
   });
 ```
-Here, `method` is the RPC method and `params` is an array of string representing parameters for the method.
+Here, `method` is the RPC method and `params` is an array of strings representing parameters for the method.
 
-You can find more examples for tendermintRPC sendRelay calls [TendermintRPC examples](https://github.com/lavanet/lava-sdk/blob/PRT-108-readme-addons/src/examples/tendermintRPC.ts)
+You can find more examples for tendermintRPC sendRelay calls [TendermintRPC examples](https://github.com/lavanet/lava-sdk/blob/main/examples/tendermintRPC.ts)
 
 ### Rest API interface:
 ```typescript
@@ -146,7 +146,7 @@ const data = await lavaSDK.sendRelay({
 ```
 In this case, `method` is the HTTP method (either GET or POST), `url` is the REST endpoint, and `data` is the query data.
 
-You can find more examples for rest sendRelay calls [Rest examples](https://github.com/lavanet/lava-sdk/blob/PRT-108-readme-addons/src/examples/restAPI.ts)
+You can find more examples for rest sendRelay calls [Rest examples](https://github.com/lavanet/lava-sdk/blob/main/examples/restAPI.ts)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
