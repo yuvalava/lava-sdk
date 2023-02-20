@@ -1,9 +1,11 @@
 export declare class LavaSDK {
-    private lavaEndpoint;
     private privKey;
     private chainID;
     private rpcInterface;
-    private stateTracker;
+    private network;
+    private pairingListConfig;
+    private geolocation;
+    private lavaProviders;
     private account;
     private relayer;
     private activeSessionManager;
@@ -36,6 +38,7 @@ export declare class LavaSDK {
     private getCuSumForMethod;
     private getConsumerProviderSession;
     private newEpochStarted;
+    private isRest;
 }
 /**
  * Options for sending RPC relay.
@@ -58,6 +61,8 @@ export interface SendRestRelayOptions {
 export interface LavaSDKOptions {
     privateKey: string;
     chainID: string;
-    lavaEndpoint?: string;
     rpcInterface?: string;
+    pairingListConfig?: string;
+    network?: string;
+    geolocation?: string;
 }

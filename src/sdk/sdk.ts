@@ -3,18 +3,28 @@ import SDKErrors from "./errors";
 import { AccountData } from "@cosmjs/proto-signing";
 import Relayer from "../relayer/relayer";
 import { RelayReply } from "../proto/relay_pb";
-import { StateTracker, createStateTracker } from "../stateTracker/stateTracker";
 import { SessionManager, ConsumerSessionWithProvider } from "../types/types";
-import { isValidChainID, fetchRpcInterface } from "../util/chains";
-import { DEFAULT_LAVA_ENDPOINT } from "../config/default";
+import {
+  isValidChainID,
+  fetchRpcInterface,
+  isNetworkValid,
+} from "../util/chains";
+import { LavaProviders } from "../lavaOverLava/providers";
+import {
+  LAVA_CHAIN_ID,
+  DEFAULT_LAVA_PAIRING_NETWORK,
+  DEFAULT_GEOLOCATION,
+} from "../config/default";
 
 export class LavaSDK {
-  private lavaEndpoint: string;
   private privKey: string;
   private chainID: string;
   private rpcInterface: string;
+  private network: string;
+  private pairingListConfig: string;
+  private geolocation: string;
 
-  private stateTracker: StateTracker | Error;
+  private lavaProviders: LavaProviders | Error;
   private account: AccountData | Error;
   private relayer: Relayer | Error;
 
@@ -33,17 +43,14 @@ export class LavaSDK {
   constructor(options: LavaSDKOptions) {
     // Extract attributes from options
     const { privateKey, chainID } = options;
-    let { lavaEndpoint, rpcInterface } = options;
-
-    // If lava endpoint is not set, use default
-    lavaEndpoint = lavaEndpoint || DEFAULT_LAVA_ENDPOINT;
+    let { rpcInterface, pairingListConfig, network, geolocation } = options;
 
     // Validate chainID
     if (!isValidChainID(chainID)) {
       throw SDKErrors.errChainIDUnsupported;
     }
 
-    // If the rpc is not defined used the default for specified chainID
+    // If rpc is not defined use default for specified chainID
     rpcInterface = rpcInterface || fetchRpcInterface(chainID);
 
     // Validate rpcInterface
@@ -51,16 +58,33 @@ export class LavaSDK {
       throw SDKErrors.errChainIDUnsupported;
     }
 
+    // If network is not defined use default network
+    network = network || DEFAULT_LAVA_PAIRING_NETWORK;
+
+    // Validate network
+    if (!isNetworkValid(network)) {
+      throw SDKErrors.errNetworkUnsupported;
+    }
+
+    // If geolocation is not defined use default geolocation
+    geolocation = geolocation || DEFAULT_GEOLOCATION;
+
+    // If lava pairing config not defined set as empty
+    pairingListConfig = pairingListConfig || "";
+
+    // Initialize local attributes
     this.chainID = chainID;
     this.rpcInterface = rpcInterface;
     this.privKey = privateKey;
-    this.lavaEndpoint = lavaEndpoint;
-
+    this.network = network;
+    this.geolocation = geolocation;
+    this.pairingListConfig = pairingListConfig;
     this.account = SDKErrors.errAccountNotInitialized;
     this.relayer = SDKErrors.errRelayerServiceNotInitialized;
-    this.stateTracker = SDKErrors.errStateTrackerServiceNotInitialized;
+    this.lavaProviders = SDKErrors.errLavaProvidersNotInitialized;
     this.activeSessionManager = SDKErrors.errSessionNotInitialized;
 
+    // Init sdk
     return (async (): Promise<LavaSDK> => {
       await this.init();
 
@@ -75,21 +99,30 @@ export class LavaSDK {
     // Get account from wallet
     this.account = await wallet.getConsumerAccount();
 
-    // Initialize state tracker
+    // Init relayer for lava providers
+    const lavaRelayer = new Relayer(LAVA_CHAIN_ID, this.privKey);
 
-    // Create state tracker
-    this.stateTracker = await createStateTracker(this.lavaEndpoint);
+    // Create new instance of lava providers
+    const lavaProviders = await new LavaProviders(
+      this.account.address,
+      this.network,
+      lavaRelayer,
+      this.geolocation
+    );
 
-    // Initialize relayer
+    // Init lava providers
+    await lavaProviders.init(this.pairingListConfig);
+
+    // Save lava providers as local attribute
+    this.lavaProviders = lavaProviders;
 
     // Get pairing list for current epoch
-    this.activeSessionManager = await this.stateTracker.getSession(
-      this.account,
+    this.activeSessionManager = await this.lavaProviders.getSession(
       this.chainID,
       this.rpcInterface
     );
 
-    // Create relayer
+    // Create relayer for querying network
     this.relayer = new Relayer(this.chainID, this.privKey);
   }
 
@@ -99,13 +132,12 @@ export class LavaSDK {
         throw SDKErrors.errRPCRelayMethodNotSupported;
       }
       // Extract attributes from options
-      // TODO change naming for optiosn atribute method both in RPC and REST
       const { method, params } = options;
 
-      // get consumerProvider session
+      // Get consumerProvider session
       const consumerProviderSession = await this.getConsumerProviderSession();
 
-      // get cuSum for specified method
+      // Get cuSum for specified method
       const cuSum = this.getCuSumForMethod(method);
 
       const data = this.generateRPCData(method, params);
@@ -147,10 +179,10 @@ export class LavaSDK {
       // Extract attributes from options
       const { method, url, data } = options;
 
-      // get consumerProvider session
+      // Get consumerProvider session
       const consumerProviderSession = await this.getConsumerProviderSession();
 
-      // get cuSum for specified method
+      // Get cuSum for specified method
       const cuSum = this.getCuSumForMethod(url);
 
       // Check if relay was initialized
@@ -196,7 +228,7 @@ export class LavaSDK {
   async sendRelay(
     options: SendRelayOptions | SendRestRelayOptions
   ): Promise<string> {
-    if (isRest(options)) return await this.handleRestRelay(options);
+    if (this.isRest(options)) return await this.handleRestRelay(options);
     return await this.handleRpcRelay(options);
   }
 
@@ -241,9 +273,9 @@ export class LavaSDK {
   }
 
   private async getConsumerProviderSession(): Promise<ConsumerSessionWithProvider> {
-    // Check if state tracker was initialized
-    if (this.stateTracker instanceof Error) {
-      throw SDKErrors.errStateTrackerServiceNotInitialized;
+    // Check if lava providers were initialized
+    if (this.lavaProviders instanceof Error) {
+      throw SDKErrors.errLavaProvidersNotInitialized;
     }
 
     // Check if state tracker was initialized
@@ -258,15 +290,14 @@ export class LavaSDK {
 
     // Check if new epoch has started
     if (this.newEpochStarted()) {
-      this.activeSessionManager = await this.stateTracker.getSession(
-        this.account,
+      this.activeSessionManager = await this.lavaProviders.getSession(
         this.chainID,
         this.rpcInterface
       );
     }
 
     // Pick random provider and return
-    return this.stateTracker.pickRandomProvider(
+    return this.lavaProviders.pickRandomProvider(
       this.activeSessionManager.PairingList
     );
   }
@@ -282,6 +313,12 @@ export class LavaSDK {
 
     // Return if new epoch has started
     return now.getTime() > this.activeSessionManager.NextEpochStart.getTime();
+  }
+
+  private isRest(
+    options: SendRelayOptions | SendRestRelayOptions
+  ): options is SendRestRelayOptions {
+    return (options as SendRestRelayOptions).url !== undefined;
   }
 }
 
@@ -303,18 +340,14 @@ export interface SendRestRelayOptions {
   data?: Record<string, any>;
 }
 
-function isRest(
-  options: SendRelayOptions | SendRestRelayOptions
-): options is SendRestRelayOptions {
-  return (options as SendRestRelayOptions).url !== undefined;
-}
-
 /**
  * Options for initializing the LavaSDK.
  */
 export interface LavaSDKOptions {
   privateKey: string;
   chainID: string;
-  lavaEndpoint?: string;
   rpcInterface?: string;
+  pairingListConfig?: string;
+  network?: string;
+  geolocation?: string;
 }

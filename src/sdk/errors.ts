@@ -5,8 +5,8 @@ class SDKErrors {
   static errRelayerServiceNotInitialized: Error = new Error(
     "Relayer service was not initialized"
   );
-  static errStateTrackerServiceNotInitialized: Error = new Error(
-    "State Tracker service was not initialized"
+  static errLavaProvidersNotInitialized: Error = new Error(
+    "Lava providers was not initialized"
   );
   static errSessionNotInitialized: Error = new Error(
     "Session was not initialized"
@@ -14,6 +14,9 @@ class SDKErrors {
   static errMethodNotSupported: Error = new Error("Method not supported");
   static errChainIDUnsupported: Error = new Error(
     "Invalid or unsupported chainID"
+  );
+  static errNetworkUnsupported: Error = new Error(
+    "Invalid or unsupported network"
   );
   static errRPCRelayMethodNotSupported: Error = new Error(
     "SendRelay not supported if the SDK is initialized with rest rpcInterface, use sendRestRelay method"

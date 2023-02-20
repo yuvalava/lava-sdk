@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const stateTracker_1 = require("./stateTracker");
+const providers_1 = require("./providers");
 const types_1 = require("../types/types");
+const default_1 = require("../config/default");
 it("Test convertRestApiName method", () => {
     const testCasses = [
         {
@@ -25,9 +26,9 @@ it("Test convertRestApiName method", () => {
             output: "/lavanet/lava/pairing/verify_pairing/[^/s]+/[^/s]+/[^/s]+/[^/s]+",
         },
     ];
-    const stateTracker = new stateTracker_1.StateTracker(null, null);
+    const lavaProviders = new providers_1.LavaProviders("", "", null, default_1.DEFAULT_GEOLOCATION);
     testCasses.map((test) => {
-        expect(stateTracker.convertRestApiName(test.name)).toBe(test.output);
+        expect(lavaProviders.convertRestApiName(test.name)).toBe(test.output);
     });
 });
 it("Test pickRandomProvider method", () => {
@@ -48,7 +49,7 @@ it("Test pickRandomProvider method", () => {
             shouldFail: true,
         },
     ];
-    const stateTracker = new stateTracker_1.StateTracker(null, null);
+    const lavaProviders = new providers_1.LavaProviders("", "", null, default_1.DEFAULT_GEOLOCATION);
     testCasses.map((test) => {
         const consumerSessionWithProviderArr = [
             // default consumer session with provider with only compute units set
@@ -56,12 +57,12 @@ it("Test pickRandomProvider method", () => {
         ];
         if (test.shouldFail) {
             expect(() => {
-                stateTracker.pickRandomProvider(consumerSessionWithProviderArr);
+                lavaProviders.pickRandomProvider(consumerSessionWithProviderArr);
             }).toThrowError();
         }
         else {
             expect(() => {
-                stateTracker.pickRandomProvider(consumerSessionWithProviderArr);
+                lavaProviders.pickRandomProvider(consumerSessionWithProviderArr);
             }).not.toThrowError();
         }
     });

@@ -1,9 +1,10 @@
-import { StateTracker } from "./stateTracker";
+import { LavaProviders } from "./providers";
 import {
   ConsumerSessionWithProvider,
   Endpoint,
   SingleConsumerSession,
 } from "../types/types";
+import { DEFAULT_GEOLOCATION } from "../config/default";
 
 it("Test convertRestApiName method", () => {
   const testCasses: { name: string; output: string }[] = [
@@ -31,10 +32,10 @@ it("Test convertRestApiName method", () => {
     },
   ];
 
-  const stateTracker = new StateTracker();
+  const lavaProviders = new LavaProviders("", "", null, DEFAULT_GEOLOCATION);
 
   testCasses.map((test) => {
-    expect(stateTracker.convertRestApiName(test.name)).toBe(test.output);
+    expect(lavaProviders.convertRestApiName(test.name)).toBe(test.output);
   });
 });
 
@@ -61,7 +62,7 @@ it("Test pickRandomProvider method", () => {
     },
   ];
 
-  const stateTracker = new StateTracker();
+  const lavaProviders = new LavaProviders("", "", null, DEFAULT_GEOLOCATION);
 
   testCasses.map((test) => {
     const consumerSessionWithProviderArr = [
@@ -77,11 +78,11 @@ it("Test pickRandomProvider method", () => {
     ];
     if (test.shouldFail) {
       expect(() => {
-        stateTracker.pickRandomProvider(consumerSessionWithProviderArr);
+        lavaProviders.pickRandomProvider(consumerSessionWithProviderArr);
       }).toThrowError();
     } else {
       expect(() => {
-        stateTracker.pickRandomProvider(consumerSessionWithProviderArr);
+        lavaProviders.pickRandomProvider(consumerSessionWithProviderArr);
       }).not.toThrowError();
     }
   });
