@@ -23,9 +23,10 @@ Roadmap highlights:
 
 1. ~Send Relays per Lava Pairing~ ✅
 2. ~Find seed providers for the initial connection~ ✅
-3. Integration with EtherJS and other tooling
-4. Ability to run in the browser without compromising private keys
+3. ~EtherJS Integration~ ✅
+4. Ability to run in the browser without compromising keys
 5. High throughput via session management
+6. More libraries integrations (Cosmjs, web3.js...)
 6. Other Lava consensus implementations (e.g. QoS, data reliability, ...)
 
 <!-- Prerequisites -->
@@ -70,7 +71,7 @@ const lavaSDK = await new LavaSDK({
   privateKey: privKey,
   chainID: chainID,
   rpcInterface: rpcInterface, // Optional
-  pairingListConfig: localConfigPath; // Optional
+  pairingListConfig: localConfigPath, // Optional
   network: network; // Optional
   geolocation: geolocation; // Optional
 });
