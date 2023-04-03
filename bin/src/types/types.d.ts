@@ -24,6 +24,8 @@ export declare class SingleConsumerSession {
     PairingEpoch: number;
     constructor(cuSum: number, latestRelayCu: number, relayNum: number, endpoint: Endpoint, pairingEpoch: number, providerAddress: string);
     getNewSessionId(): number;
+    getNewSalt(): Uint8Array;
+    private generateRandomUint;
 }
 export declare class Endpoint {
     Addr: string;

@@ -2,8 +2,13 @@ import { ConsumerSessionWithProvider } from "../types/types";
 import { Secp256k1, sha256 } from "@cosmjs/crypto";
 import { fromHex } from "@cosmjs/encoding";
 import { grpc } from "@improbable-eng/grpc-web";
-import { RelayRequest, RelayReply } from "../proto/relay_pb";
-import { Relayer as RelayerService } from "../proto/relay_pb_service";
+import {
+  RelayRequest,
+  RelayReply,
+  RelaySession,
+  RelayPrivateData,
+} from "../pairing/relay_pb";
+import { Relayer as RelayerService } from "../pairing/relay_pb_service";
 import transport from "../util/browser";
 
 class Relayer {
@@ -18,7 +23,8 @@ class Relayer {
   async sendRelay(
     options: SendRelayOptions,
     consumerProviderSession: ConsumerSessionWithProvider,
-    cuSum: number
+    cuSum: number,
+    apiInterface: string
   ): Promise<RelayReply> {
     // Extract attributes from options
     const { data, url, connectionType } = options;
@@ -31,27 +37,40 @@ class Relayer {
     consumerProviderSession.UsedComputeUnits =
       consumerProviderSession.UsedComputeUnits + cuSum;
 
-    // Create request
-    const request = new RelayRequest();
-    request.setChainid(this.chainID);
-    request.setConnectionType(connectionType);
-    request.setApiUrl(url);
-    request.setSessionId(consumerSession.getNewSessionId());
-    request.setCuSum(cuSum);
-    request.setSig(new Uint8Array());
-    request.setData(data);
-    request.setProvider(consumerSession.ProviderAddress);
-    request.setBlockHeight(consumerSession.PairingEpoch);
-    request.setRelayNum(consumerSession.RelayNum);
-    request.setRequestBlock(0);
-    request.setUnresponsiveProviders(new Uint8Array());
+    // create request private data
+    const requestPrivateData = new RelayPrivateData();
+    requestPrivateData.setConnectionType(connectionType);
+    requestPrivateData.setApiUrl(url);
+    requestPrivateData.setData(enc.encode(data));
+    requestPrivateData.setRequestBlock(0);
+    requestPrivateData.setApiInterface(apiInterface);
+    requestPrivateData.setSalt(consumerSession.getNewSalt());
+
+    const contentHash =
+      this.calculateContentHashForRelayData(requestPrivateData);
+
+    // create request session
+    const requestSession = new RelaySession();
+    requestSession.setSpecId(this.chainID);
+    requestSession.setSessionId(consumerSession.getNewSessionId());
+    requestSession.setCuSum(cuSum);
+    requestSession.setProvider(consumerSession.ProviderAddress);
+    requestSession.setRelayNum(consumerSession.RelayNum);
+    requestSession.setEpoch(consumerSession.PairingEpoch);
+    requestSession.setUnresponsiveProviders(new Uint8Array());
+    requestSession.setContentHash(contentHash);
+    requestSession.setSig(new Uint8Array());
+    requestSession.setLavaChainId("lava");
 
     // Sign data
-    const signedMessage = await this.signRelay(request, this.privKey);
+    const signedMessage = await this.signRelay(requestSession, this.privKey);
 
-    // Add signature in the request
-    request.setSig(signedMessage);
-    request.setData(enc.encode(data));
+    requestSession.setSig(signedMessage);
+
+    // Create request
+    var request = new RelayRequest();
+    request.setRelaySession(requestSession);
+    request.setRelayData(requestPrivateData);
 
     const requestPromise = new Promise<RelayReply>((resolve, reject) => {
       grpc.invoke(RelayerService.Relay, {
@@ -89,8 +108,29 @@ class Relayer {
     return requestPromise;
   }
 
+  byteArrayToString = (byteArray: Uint8Array): string => {
+    let output = "";
+    for (let i = 0; i < byteArray.length; i++) {
+      const byte = byteArray[i];
+      if (byte === 0x09) {
+        output += "\\t";
+      } else if (byte === 0x0a) {
+        output += "\\n";
+      } else if (byte === 0x0d) {
+        output += "\\r";
+      } else if (byte === 0x5c) {
+        output += "\\\\";
+      } else if (byte >= 0x20 && byte <= 0x7e) {
+        output += String.fromCharCode(byte);
+      } else {
+        output += "\\" + byte.toString(8).padStart(3, "0");
+      }
+    }
+    return output;
+  };
+
   // Sign relay request using priv key
-  async signRelay(request: RelayRequest, privKey: string): Promise<Uint8Array> {
+  async signRelay(request: RelaySession, privKey: string): Promise<Uint8Array> {
     const message = this.prepareRequest(request);
 
     const sig = await Secp256k1.createSignature(message, fromHex(privKey));
@@ -105,15 +145,98 @@ class Relayer {
     return Uint8Array.from([27 + recovery, ...r, ...s]);
   }
 
-  prepareRequest(request: RelayRequest): Uint8Array {
+  calculateContentHashForRelayData(
+    relayRequestData: RelayPrivateData
+  ): Uint8Array {
+    const requestBlock = relayRequestData.getRequestBlock();
+    const requestBlockBytes =
+      this.convertRequestedBlockToUint8Array(requestBlock);
+
+    const apiInterfaceBytes = this.encodeUtf8(
+      relayRequestData.getApiInterface()
+    );
+    const connectionTypeBytes = this.encodeUtf8(
+      relayRequestData.getConnectionType()
+    );
+    const apiUrlBytes = this.encodeUtf8(relayRequestData.getApiUrl());
+    const dataBytes = relayRequestData.getData();
+    const dataUint8Array =
+      dataBytes instanceof Uint8Array ? dataBytes : this.encodeUtf8(dataBytes);
+    const saltBytes = relayRequestData.getSalt();
+    const saltUint8Array =
+      saltBytes instanceof Uint8Array ? saltBytes : this.encodeUtf8(saltBytes);
+
+    const msgData = this.concatUint8Arrays([
+      apiInterfaceBytes,
+      connectionTypeBytes,
+      apiUrlBytes,
+      dataUint8Array,
+      requestBlockBytes,
+      saltUint8Array,
+    ]);
+
+    const hash = sha256(msgData);
+
+    return hash;
+  }
+
+  convertRequestedBlockToUint8Array(requestBlock: number): Uint8Array {
+    const requestBlockBytes = new Uint8Array(8);
+    var number = BigInt(requestBlock);
+    if (requestBlock < 0) {
+      // Convert the number to its 64-bit unsigned representation
+      const maxUint64 = BigInt(2) ** BigInt(64);
+      number = maxUint64 + BigInt(requestBlock);
+    }
+
+    // Copy the bytes from the unsigned representation to the byte array
+    for (let i = 0; i < 8; i++) {
+      requestBlockBytes[i] = Number((number >> BigInt(8 * i)) & BigInt(0xff));
+    }
+
+    return requestBlockBytes;
+  }
+
+  encodeUtf8(str: string): Uint8Array {
+    return new TextEncoder().encode(str);
+  }
+
+  concatUint8Arrays(arrays: Uint8Array[]): Uint8Array {
+    const totalLength = arrays.reduce((acc, arr) => acc + arr.length, 0);
+    const result = new Uint8Array(totalLength);
+    let offset = 0;
+    arrays.forEach((arr) => {
+      result.set(arr, offset);
+      offset += arr.length;
+    });
+    return result;
+  }
+
+  prepareRequest(request: RelaySession): Uint8Array {
     const enc = new TextEncoder();
 
     const jsonMessage = JSON.stringify(request.toObject(), (key, value) => {
+      if (key == "content_hash") {
+        const dataBytes = request.getContentHash();
+        const dataUint8Array =
+          dataBytes instanceof Uint8Array
+            ? dataBytes
+            : this.encodeUtf8(dataBytes);
+
+        var stringByte = this.byteArrayToString(dataUint8Array);
+
+        if (stringByte.endsWith(",")) {
+          stringByte += ",";
+        }
+        return stringByte;
+      }
       if (value !== null && value !== 0 && value !== "") return value;
     });
 
     const messageReplaced = jsonMessage
+      .replace(/\\\\/g, "\\")
       .replace(/,"/g, ' "')
+      .replace(/, "/g, ',"')
       .replace(/"(\w+)"\s*:/g, "$1:")
       .slice(1, -1);
 

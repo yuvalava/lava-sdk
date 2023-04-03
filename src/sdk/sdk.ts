@@ -2,7 +2,7 @@ import { createWallet } from "../wallet/wallet";
 import SDKErrors from "./errors";
 import { AccountData } from "@cosmjs/proto-signing";
 import Relayer from "../relayer/relayer";
-import { RelayReply } from "../proto/relay_pb";
+import { RelayReply } from "../pairing/relay_pb";
 import { SessionManager, ConsumerSessionWithProvider } from "../types/types";
 import {
   isValidChainID,
@@ -158,7 +158,8 @@ export class LavaSDK {
       const relayResponse = await this.relayer.sendRelay(
         sendRelayOptions,
         consumerProviderSession,
-        cuSum
+        cuSum,
+        this.rpcInterface
       );
 
       // Return relay in json format
@@ -206,7 +207,8 @@ export class LavaSDK {
       const relayResponse = await this.relayer.sendRelay(
         sendRelayOptions,
         consumerProviderSession,
-        cuSum
+        cuSum,
+        this.rpcInterface
       );
 
       // Return relay in json format

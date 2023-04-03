@@ -15,15 +15,40 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const crypto_1 = require("@cosmjs/crypto");
 const encoding_1 = require("@cosmjs/encoding");
 const grpc_web_1 = require("@improbable-eng/grpc-web");
-const relay_pb_1 = require("../proto/relay_pb");
-const relay_pb_service_1 = require("../proto/relay_pb_service");
+const relay_pb_1 = require("../pairing/relay_pb");
+const relay_pb_service_1 = require("../pairing/relay_pb_service");
 const browser_1 = __importDefault(require("../util/browser"));
 class Relayer {
     constructor(chainID, privKey) {
+        this.byteArrayToString = (byteArray) => {
+            let output = "";
+            for (let i = 0; i < byteArray.length; i++) {
+                const byte = byteArray[i];
+                if (byte === 0x09) {
+                    output += "\\t";
+                }
+                else if (byte === 0x0a) {
+                    output += "\\n";
+                }
+                else if (byte === 0x0d) {
+                    output += "\\r";
+                }
+                else if (byte === 0x5c) {
+                    output += "\\\\";
+                }
+                else if (byte >= 0x20 && byte <= 0x7e) {
+                    output += String.fromCharCode(byte);
+                }
+                else {
+                    output += "\\" + byte.toString(8).padStart(3, "0");
+                }
+            }
+            return output;
+        };
         this.chainID = chainID;
         this.privKey = privKey;
     }
-    sendRelay(options, consumerProviderSession, cuSum) {
+    sendRelay(options, consumerProviderSession, cuSum, apiInterface) {
         return __awaiter(this, void 0, void 0, function* () {
             // Extract attributes from options
             const { data, url, connectionType } = options;
@@ -32,25 +57,34 @@ class Relayer {
             // Increase used compute units
             consumerProviderSession.UsedComputeUnits =
                 consumerProviderSession.UsedComputeUnits + cuSum;
-            // Create request
-            const request = new relay_pb_1.RelayRequest();
-            request.setChainid(this.chainID);
-            request.setConnectionType(connectionType);
-            request.setApiUrl(url);
-            request.setSessionId(consumerSession.getNewSessionId());
-            request.setCuSum(cuSum);
-            request.setSig(new Uint8Array());
-            request.setData(data);
-            request.setProvider(consumerSession.ProviderAddress);
-            request.setBlockHeight(consumerSession.PairingEpoch);
-            request.setRelayNum(consumerSession.RelayNum);
-            request.setRequestBlock(0);
-            request.setUnresponsiveProviders(new Uint8Array());
+            // create request private data
+            const requestPrivateData = new relay_pb_1.RelayPrivateData();
+            requestPrivateData.setConnectionType(connectionType);
+            requestPrivateData.setApiUrl(url);
+            requestPrivateData.setData(enc.encode(data));
+            requestPrivateData.setRequestBlock(0);
+            requestPrivateData.setApiInterface(apiInterface);
+            requestPrivateData.setSalt(consumerSession.getNewSalt());
+            const contentHash = this.calculateContentHashForRelayData(requestPrivateData);
+            // create request session
+            const requestSession = new relay_pb_1.RelaySession();
+            requestSession.setSpecId(this.chainID);
+            requestSession.setSessionId(consumerSession.getNewSessionId());
+            requestSession.setCuSum(cuSum);
+            requestSession.setProvider(consumerSession.ProviderAddress);
+            requestSession.setRelayNum(consumerSession.RelayNum);
+            requestSession.setEpoch(consumerSession.PairingEpoch);
+            requestSession.setUnresponsiveProviders(new Uint8Array());
+            requestSession.setContentHash(contentHash);
+            requestSession.setSig(new Uint8Array());
+            requestSession.setLavaChainId("lava");
             // Sign data
-            const signedMessage = yield this.signRelay(request, this.privKey);
-            // Add signature in the request
-            request.setSig(signedMessage);
-            request.setData(enc.encode(data));
+            const signedMessage = yield this.signRelay(requestSession, this.privKey);
+            requestSession.setSig(signedMessage);
+            // Create request
+            var request = new relay_pb_1.RelayRequest();
+            request.setRelaySession(requestSession);
+            request.setRelayData(requestPrivateData);
             const requestPromise = new Promise((resolve, reject) => {
                 grpc_web_1.grpc.invoke(relay_pb_service_1.Relayer.Relay, {
                     request: request,
@@ -100,14 +134,75 @@ class Relayer {
             return Uint8Array.from([27 + recovery, ...r, ...s]);
         });
     }
+    calculateContentHashForRelayData(relayRequestData) {
+        const requestBlock = relayRequestData.getRequestBlock();
+        const requestBlockBytes = this.convertRequestedBlockToUint8Array(requestBlock);
+        const apiInterfaceBytes = this.encodeUtf8(relayRequestData.getApiInterface());
+        const connectionTypeBytes = this.encodeUtf8(relayRequestData.getConnectionType());
+        const apiUrlBytes = this.encodeUtf8(relayRequestData.getApiUrl());
+        const dataBytes = relayRequestData.getData();
+        const dataUint8Array = dataBytes instanceof Uint8Array ? dataBytes : this.encodeUtf8(dataBytes);
+        const saltBytes = relayRequestData.getSalt();
+        const saltUint8Array = saltBytes instanceof Uint8Array ? saltBytes : this.encodeUtf8(saltBytes);
+        const msgData = this.concatUint8Arrays([
+            apiInterfaceBytes,
+            connectionTypeBytes,
+            apiUrlBytes,
+            dataUint8Array,
+            requestBlockBytes,
+            saltUint8Array,
+        ]);
+        const hash = (0, crypto_1.sha256)(msgData);
+        return hash;
+    }
+    convertRequestedBlockToUint8Array(requestBlock) {
+        const requestBlockBytes = new Uint8Array(8);
+        var number = BigInt(requestBlock);
+        if (requestBlock < 0) {
+            // Convert the number to its 64-bit unsigned representation
+            const maxUint64 = BigInt(2) ** BigInt(64);
+            number = maxUint64 + BigInt(requestBlock);
+        }
+        // Copy the bytes from the unsigned representation to the byte array
+        for (let i = 0; i < 8; i++) {
+            requestBlockBytes[i] = Number((number >> BigInt(8 * i)) & BigInt(0xff));
+        }
+        return requestBlockBytes;
+    }
+    encodeUtf8(str) {
+        return new TextEncoder().encode(str);
+    }
+    concatUint8Arrays(arrays) {
+        const totalLength = arrays.reduce((acc, arr) => acc + arr.length, 0);
+        const result = new Uint8Array(totalLength);
+        let offset = 0;
+        arrays.forEach((arr) => {
+            result.set(arr, offset);
+            offset += arr.length;
+        });
+        return result;
+    }
     prepareRequest(request) {
         const enc = new TextEncoder();
         const jsonMessage = JSON.stringify(request.toObject(), (key, value) => {
+            if (key == "content_hash") {
+                const dataBytes = request.getContentHash();
+                const dataUint8Array = dataBytes instanceof Uint8Array
+                    ? dataBytes
+                    : this.encodeUtf8(dataBytes);
+                var stringByte = this.byteArrayToString(dataUint8Array);
+                if (stringByte.endsWith(",")) {
+                    stringByte += ",";
+                }
+                return stringByte;
+            }
             if (value !== null && value !== 0 && value !== "")
                 return value;
         });
         const messageReplaced = jsonMessage
+            .replace(/\\\\/g, "\\")
             .replace(/,"/g, ' "')
+            .replace(/, "/g, ',"')
             .replace(/"(\w+)"\s*:/g, "$1:")
             .slice(1, -1);
         const encodedMessage = enc.encode(messageReplaced + " ");

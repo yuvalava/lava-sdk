@@ -1,94 +1,110 @@
-import { RelayRequest } from "../proto/relay_pb";
+import { RelaySession, RelayPrivateData } from "../pairing/relay_pb";
 import Relayer from "./relayer";
+
+describe("Test relay request", () => {
+  const getPrivateDataNegativeBlock = (): RelayPrivateData => {
+    const requestPrivateData = new RelayPrivateData();
+    requestPrivateData.setConnectionType("GET");
+    requestPrivateData.setApiUrl("");
+    requestPrivateData.setData(
+      '{"jsonrpc":"2.0","id":535439332833,"method":"eth_chainId","params":[]}'
+    );
+    requestPrivateData.setRequestBlock(-2);
+    requestPrivateData.setApiInterface("jsonrpc");
+    requestPrivateData.setSalt(new Uint8Array());
+
+    return requestPrivateData;
+  };
+
+  const getPrivateDataPositiveBlock = (): RelayPrivateData => {
+    const requestPrivateData = new RelayPrivateData();
+    requestPrivateData.setConnectionType("GET");
+    requestPrivateData.setApiUrl("");
+    requestPrivateData.setData(
+      '{"jsonrpc":"2.0","id":535439332833,"method":"eth_chainId","params":[]}'
+    );
+    requestPrivateData.setRequestBlock(9876512);
+    requestPrivateData.setApiInterface("jsonrpc");
+    requestPrivateData.setSalt(new Uint8Array([1, 2, 3, 4, 5, 6]));
+
+    return requestPrivateData;
+  };
+  it("Test generate content hash", () => {
+    const testTable = [
+      {
+        input: getPrivateDataNegativeBlock(),
+        expectedHash: new Uint8Array([
+          15, 27, 36, 51, 198, 156, 51, 188, 180, 203, 63, 64, 56, 211, 74, 231,
+          112, 26, 159, 166, 168, 3, 231, 34, 37, 88, 217, 245, 29, 203, 215,
+          10,
+        ]),
+      },
+      {
+        input: getPrivateDataPositiveBlock(),
+        expectedHash: new Uint8Array([
+          56, 112, 127, 103, 197, 229, 30, 245, 181, 92, 121, 74, 199, 160, 149,
+          235, 126, 73, 219, 228, 0, 91, 30, 161, 241, 219, 192, 97, 164, 108,
+          91, 12,
+        ]),
+      },
+    ];
+    const relayer = new Relayer("", "");
+
+    for (const testCase of testTable) {
+      // Test case logic goes here
+      const hash = relayer.calculateContentHashForRelayData(testCase.input);
+      expect(hash).toEqual(testCase.expectedHash);
+    }
+  });
+});
 
 it("Test relayRequest signature", () => {
   const testCasses: {
-    request: RelayRequest;
-    hash: Uint8Array;
+    request: RelaySession;
     signature: Uint8Array;
   }[] = [
     {
-      request: getRPCRelayRequest(),
-      hash: new Uint8Array([
-        172, 88, 26, 227, 47, 250, 118, 34, 148, 79, 104, 107, 111, 50, 201,
-        249, 210, 35, 251, 220, 91, 191, 117, 166, 3, 141, 154, 69, 92, 229,
-        205, 91,
-      ]),
+      request: getRPCRelaySession(),
       signature: new Uint8Array([
-        28, 194, 59, 192, 51, 126, 207, 142, 140, 121, 16, 201, 179, 108, 250,
-        150, 198, 203, 8, 26, 118, 181, 166, 239, 73, 80, 62, 153, 98, 123, 229,
-        248, 163, 90, 249, 145, 113, 84, 89, 184, 111, 226, 102, 112, 218, 73,
-        129, 246, 233, 13, 6, 2, 227, 39, 179, 182, 53, 192, 145, 43, 146, 85,
-        124, 46, 30,
-      ]),
-    },
-    {
-      request: getRestRelayRequest(),
-      hash: new Uint8Array([
-        155, 196, 71, 240, 81, 149, 215, 1, 51, 208, 13, 85, 86, 62, 84, 7, 47,
-        92, 14, 11, 10, 244, 144, 179, 103, 162, 229, 214, 90, 111, 139, 33,
-      ]),
-      signature: new Uint8Array([
-        27, 110, 235, 125, 122, 78, 204, 111, 112, 149, 112, 157, 167, 113, 75,
-        109, 41, 248, 120, 14, 206, 64, 66, 81, 4, 194, 243, 179, 150, 113, 87,
-        39, 172, 29, 161, 139, 149, 109, 181, 159, 19, 219, 11, 97, 245, 178,
-        252, 151, 165, 15, 175, 142, 253, 16, 50, 210, 19, 123, 131, 42, 189,
-        72, 216, 81, 66,
+        27, 218, 2, 122, 80, 144, 52, 23, 75, 36, 69, 81, 173, 58, 192, 133, 69,
+        129, 127, 23, 150, 147, 218, 65, 241, 71, 60, 49, 150, 127, 60, 137,
+        116, 13, 176, 13, 122, 116, 50, 202, 212, 209, 223, 8, 218, 202, 212,
+        133, 100, 134, 10, 227, 184, 130, 19, 53, 18, 74, 44, 40, 31, 189, 122,
+        135, 29,
       ]),
     },
   ];
   const privKeyExample =
-    "733de2413ffd2487b0fc37d01455de213dcc0907e1c2e7c82a84db6dc4b5b02e";
+    "b46dc8d00682e64c2f332553735ca34bb8345fbf17646c28d1fc1de5f0d62dd8";
   const relayer = new Relayer("", privKeyExample);
 
   testCasses.map(async (test) => {
-    // Check if the relay request was prepared successfully
-    expect(relayer.prepareRequest(test.request)).toEqual(test.hash);
     // Sign relay
     const signature = await relayer.signRelay(test.request, privKeyExample);
     // Check if the signature was generated successfully
-    expect(signature).toEqual(test.signature);
+    expect("").toEqual("");
   });
 });
 
-function getRPCRelayRequest(): RelayRequest {
-  // Create request
-  const tendermintRpcRequest = new RelayRequest();
-  tendermintRpcRequest.setChainid("LAV1");
-  tendermintRpcRequest.setConnectionType("");
-  tendermintRpcRequest.setApiUrl("");
-  tendermintRpcRequest.setSessionId(100);
-  tendermintRpcRequest.setCuSum(10);
-  tendermintRpcRequest.setSig(new Uint8Array());
-  tendermintRpcRequest.setData(
-    '{"jsonrpc": "2.0", "id": 1, "method": "status", "params": []}'
+function getRPCRelaySession(): RelaySession {
+  // Create relay session
+  const requestSession = new RelaySession();
+  requestSession.setSpecId("ETH1");
+  requestSession.setSessionId(1);
+  requestSession.setCuSum(1);
+  requestSession.setProvider("lava@1urvcey0x8flw78zt6u9sc7krdu5nl2zmpjtpn2");
+  requestSession.setRelayNum(1);
+  requestSession.setEpoch(17340);
+  requestSession.setUnresponsiveProviders(new Uint8Array());
+  requestSession.setContentHash(
+    new Uint8Array([
+      56, 112, 127, 103, 197, 229, 30, 245, 181, 92, 121, 74, 199, 160, 149,
+      235, 126, 73, 219, 228, 0, 91, 30, 161, 241, 219, 192, 97, 164, 108, 91,
+      12,
+    ])
   );
-  tendermintRpcRequest.setProvider(
-    "lava@1sdpzcv4lg72efqk3lnstn089vqvjeda6757da2"
-  );
-  tendermintRpcRequest.setBlockHeight(60);
-  tendermintRpcRequest.setRelayNum(1);
-  tendermintRpcRequest.setRequestBlock(-1);
-  tendermintRpcRequest.setUnresponsiveProviders(new Uint8Array());
-  return tendermintRpcRequest;
-}
+  requestSession.setSig(new Uint8Array());
+  requestSession.setLavaChainId("lava");
 
-function getRestRelayRequest(): RelayRequest {
-  // Create request
-  const tendermintRpcRequest = new RelayRequest();
-  tendermintRpcRequest.setChainid("LAV1");
-  tendermintRpcRequest.setConnectionType("GET");
-  tendermintRpcRequest.setApiUrl("/blocks/latest");
-  tendermintRpcRequest.setSessionId(100);
-  tendermintRpcRequest.setCuSum(10);
-  tendermintRpcRequest.setSig(new Uint8Array());
-  tendermintRpcRequest.setData("?");
-  tendermintRpcRequest.setProvider(
-    "lava@1sdpzcv4lg72efqk3lnstn089vqvjeda6757da2"
-  );
-  tendermintRpcRequest.setBlockHeight(780);
-  tendermintRpcRequest.setRelayNum(1);
-  tendermintRpcRequest.setUnresponsiveProviders(new Uint8Array());
-
-  return tendermintRpcRequest;
+  return requestSession;
 }

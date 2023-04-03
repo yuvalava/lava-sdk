@@ -1,12 +1,17 @@
 import { ConsumerSessionWithProvider } from "../types/types";
-import { RelayRequest, RelayReply } from "../proto/relay_pb";
+import { RelayReply, RelaySession, RelayPrivateData } from "../pairing/relay_pb";
 declare class Relayer {
     private chainID;
     private privKey;
     constructor(chainID: string, privKey: string);
-    sendRelay(options: SendRelayOptions, consumerProviderSession: ConsumerSessionWithProvider, cuSum: number): Promise<RelayReply>;
-    signRelay(request: RelayRequest, privKey: string): Promise<Uint8Array>;
-    prepareRequest(request: RelayRequest): Uint8Array;
+    sendRelay(options: SendRelayOptions, consumerProviderSession: ConsumerSessionWithProvider, cuSum: number, apiInterface: string): Promise<RelayReply>;
+    byteArrayToString: (byteArray: Uint8Array) => string;
+    signRelay(request: RelaySession, privKey: string): Promise<Uint8Array>;
+    calculateContentHashForRelayData(relayRequestData: RelayPrivateData): Uint8Array;
+    convertRequestedBlockToUint8Array(requestBlock: number): Uint8Array;
+    encodeUtf8(str: string): Uint8Array;
+    concatUint8Arrays(arrays: Uint8Array[]): Uint8Array;
+    prepareRequest(request: RelaySession): Uint8Array;
 }
 /**
  * Options for send relay method.
