@@ -33,7 +33,7 @@ class LavaSDK {
     constructor(options) {
         // Extract attributes from options
         const { privateKey, chainID } = options;
-        let { rpcInterface, pairingListConfig, network, geolocation } = options;
+        let { rpcInterface, pairingListConfig, network, geolocation, lavaChainId } = options;
         // Validate chainID
         if (!(0, chains_1.isValidChainID)(chainID)) {
             throw errors_1.default.errChainIDUnsupported;
@@ -50,6 +50,8 @@ class LavaSDK {
         if (!(0, chains_1.isNetworkValid)(network)) {
             throw errors_1.default.errNetworkUnsupported;
         }
+        // if lava chain id is not defined use default
+        lavaChainId = lavaChainId || default_1.DEFAULT_LAVA_CHAINID;
         // If geolocation is not defined use default geolocation
         geolocation = geolocation || default_1.DEFAULT_GEOLOCATION;
         // If lava pairing config not defined set as empty
@@ -60,6 +62,7 @@ class LavaSDK {
         this.privKey = privateKey;
         this.network = network;
         this.geolocation = geolocation;
+        this.lavaChainId = lavaChainId;
         this.pairingListConfig = pairingListConfig;
         this.account = errors_1.default.errAccountNotInitialized;
         this.relayer = errors_1.default.errRelayerServiceNotInitialized;
@@ -78,7 +81,7 @@ class LavaSDK {
             // Get account from wallet
             this.account = yield wallet.getConsumerAccount();
             // Init relayer for lava providers
-            const lavaRelayer = new relayer_1.default(default_1.LAVA_CHAIN_ID, this.privKey);
+            const lavaRelayer = new relayer_1.default(default_1.LAVA_CHAIN_ID, this.privKey, this.lavaChainId);
             // Create new instance of lava providers
             const lavaProviders = yield new providers_1.LavaProviders(this.account.address, this.network, lavaRelayer, this.geolocation);
             // Init lava providers
@@ -88,7 +91,7 @@ class LavaSDK {
             // Get pairing list for current epoch
             this.activeSessionManager = yield this.lavaProviders.getSession(this.chainID, this.rpcInterface);
             // Create relayer for querying network
-            this.relayer = new relayer_1.default(this.chainID, this.privKey);
+            this.relayer = new relayer_1.default(this.chainID, this.privKey, this.lavaChainId);
         });
     }
     handleRpcRelay(options) {

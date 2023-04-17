@@ -5,6 +5,7 @@ export declare class LavaSDK {
     private network;
     private pairingListConfig;
     private geolocation;
+    private lavaChainId;
     private lavaProviders;
     private account;
     private relayer;
@@ -65,4 +66,5 @@ export interface LavaSDKOptions {
     pairingListConfig?: string;
     network?: string;
     geolocation?: string;
+    lavaChainId?: string;
 }

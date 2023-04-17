@@ -14,10 +14,12 @@ import transport from "../util/browser";
 class Relayer {
   private chainID: string;
   private privKey: string;
+  private lavaChainId: string;
 
-  constructor(chainID: string, privKey: string) {
+  constructor(chainID: string, privKey: string, lavaChainId: string) {
     this.chainID = chainID;
     this.privKey = privKey;
+    this.lavaChainId = lavaChainId;
   }
 
   async sendRelay(
@@ -60,7 +62,7 @@ class Relayer {
     requestSession.setUnresponsiveProviders(new Uint8Array());
     requestSession.setContentHash(contentHash);
     requestSession.setSig(new Uint8Array());
-    requestSession.setLavaChainId("lava");
+    requestSession.setLavaChainId(this.lavaChainId);
 
     // Sign data
     const signedMessage = await this.signRelay(requestSession, this.privKey);

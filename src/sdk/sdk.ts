@@ -14,6 +14,7 @@ import {
   LAVA_CHAIN_ID,
   DEFAULT_LAVA_PAIRING_NETWORK,
   DEFAULT_GEOLOCATION,
+  DEFAULT_LAVA_CHAINID,
 } from "../config/default";
 
 export class LavaSDK {
@@ -23,6 +24,7 @@ export class LavaSDK {
   private network: string;
   private pairingListConfig: string;
   private geolocation: string;
+  private lavaChainId: string;
 
   private lavaProviders: LavaProviders | Error;
   private account: AccountData | Error;
@@ -43,7 +45,8 @@ export class LavaSDK {
   constructor(options: LavaSDKOptions) {
     // Extract attributes from options
     const { privateKey, chainID } = options;
-    let { rpcInterface, pairingListConfig, network, geolocation } = options;
+    let { rpcInterface, pairingListConfig, network, geolocation, lavaChainId } =
+      options;
 
     // Validate chainID
     if (!isValidChainID(chainID)) {
@@ -66,6 +69,9 @@ export class LavaSDK {
       throw SDKErrors.errNetworkUnsupported;
     }
 
+    // if lava chain id is not defined use default
+    lavaChainId = lavaChainId || DEFAULT_LAVA_CHAINID;
+
     // If geolocation is not defined use default geolocation
     geolocation = geolocation || DEFAULT_GEOLOCATION;
 
@@ -78,6 +84,7 @@ export class LavaSDK {
     this.privKey = privateKey;
     this.network = network;
     this.geolocation = geolocation;
+    this.lavaChainId = lavaChainId;
     this.pairingListConfig = pairingListConfig;
     this.account = SDKErrors.errAccountNotInitialized;
     this.relayer = SDKErrors.errRelayerServiceNotInitialized;
@@ -100,7 +107,11 @@ export class LavaSDK {
     this.account = await wallet.getConsumerAccount();
 
     // Init relayer for lava providers
-    const lavaRelayer = new Relayer(LAVA_CHAIN_ID, this.privKey);
+    const lavaRelayer = new Relayer(
+      LAVA_CHAIN_ID,
+      this.privKey,
+      this.lavaChainId
+    );
 
     // Create new instance of lava providers
     const lavaProviders = await new LavaProviders(
@@ -123,7 +134,7 @@ export class LavaSDK {
     );
 
     // Create relayer for querying network
-    this.relayer = new Relayer(this.chainID, this.privKey);
+    this.relayer = new Relayer(this.chainID, this.privKey, this.lavaChainId);
   }
 
   private async handleRpcRelay(options: SendRelayOptions): Promise<string> {
@@ -357,4 +368,5 @@ export interface LavaSDKOptions {
   pairingListConfig?: string;
   network?: string;
   geolocation?: string;
+  lavaChainId?: string;
 }

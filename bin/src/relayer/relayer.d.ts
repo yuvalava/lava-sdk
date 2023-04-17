@@ -3,7 +3,8 @@ import { RelayReply, RelaySession, RelayPrivateData } from "../pairing/relay_pb"
 declare class Relayer {
     private chainID;
     private privKey;
-    constructor(chainID: string, privKey: string);
+    private lavaChainId;
+    constructor(chainID: string, privKey: string, lavaChainId: string);
     sendRelay(options: SendRelayOptions, consumerProviderSession: ConsumerSessionWithProvider, cuSum: number, apiInterface: string): Promise<RelayReply>;
     byteArrayToString: (byteArray: Uint8Array) => string;
     signRelay(request: RelaySession, privKey: string): Promise<Uint8Array>;
