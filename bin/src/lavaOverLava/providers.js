@@ -295,8 +295,8 @@ class LavaProviders {
         });
     }
     extractBlockNumberFromError(error) {
-        var currentBlockHeightRegex = /current epoch: (\d+)/;
-        var match = error.message.match(currentBlockHeightRegex);
+        let currentBlockHeightRegex = /current epoch: (\d+)/;
+        let match = error.message.match(currentBlockHeightRegex);
         // Retry with new error
         if (match == null) {
             currentBlockHeightRegex = /current lava block Value:(\d+)/;

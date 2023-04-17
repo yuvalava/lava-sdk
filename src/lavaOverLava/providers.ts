@@ -414,8 +414,8 @@ export class LavaProviders {
   }
 
   private extractBlockNumberFromError(error: Error): string | null {
-    var currentBlockHeightRegex = /current epoch: (\d+)/;
-    var match = error.message.match(currentBlockHeightRegex);
+    let currentBlockHeightRegex = /current epoch: (\d+)/;
+    let match = error.message.match(currentBlockHeightRegex);
 
     // Retry with new error
     if (match == null) {

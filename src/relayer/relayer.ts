@@ -68,7 +68,7 @@ class Relayer {
     requestSession.setSig(signedMessage);
 
     // Create request
-    var request = new RelayRequest();
+    const request = new RelayRequest();
     request.setRelaySession(requestSession);
     request.setRelayData(requestPrivateData);
 
@@ -182,7 +182,7 @@ class Relayer {
 
   convertRequestedBlockToUint8Array(requestBlock: number): Uint8Array {
     const requestBlockBytes = new Uint8Array(8);
-    var number = BigInt(requestBlock);
+    let number = BigInt(requestBlock);
     if (requestBlock < 0) {
       // Convert the number to its 64-bit unsigned representation
       const maxUint64 = BigInt(2) ** BigInt(64);
@@ -223,7 +223,7 @@ class Relayer {
             ? dataBytes
             : this.encodeUtf8(dataBytes);
 
-        var stringByte = this.byteArrayToString(dataUint8Array);
+        let stringByte = this.byteArrayToString(dataUint8Array);
 
         if (stringByte.endsWith(",")) {
           stringByte += ",";
