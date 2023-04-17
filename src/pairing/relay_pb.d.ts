@@ -47,28 +47,39 @@ export class RelaySession extends jspb.Message {
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RelaySession.AsObject;
-  static toObject(includeInstance: boolean, msg: RelaySession): RelaySession.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: RelaySession, writer: jspb.BinaryWriter): void;
+  static toObject(
+    includeInstance: boolean,
+    msg: RelaySession
+  ): RelaySession.AsObject;
+  static extensions: { [key: number]: jspb.ExtensionFieldInfo<jspb.Message> };
+  static extensionsBinary: {
+    [key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>;
+  };
+  static serializeBinaryToWriter(
+    message: RelaySession,
+    writer: jspb.BinaryWriter
+  ): void;
   static deserializeBinary(bytes: Uint8Array): RelaySession;
-  static deserializeBinaryFromReader(message: RelaySession, reader: jspb.BinaryReader): RelaySession;
+  static deserializeBinaryFromReader(
+    message: RelaySession,
+    reader: jspb.BinaryReader
+  ): RelaySession;
 }
 
 export namespace RelaySession {
   export type AsObject = {
-    specId: string,
-    contentHash: Uint8Array | string,
-    sessionId: number,
-    cuSum: number,
-    provider: string,
-    relayNum: number,
-    epoch: number,
-    unresponsiveProviders: Uint8Array | string,
-    lavaChainId: string,
-    sig: Uint8Array | string,
-    badge?: Badge.AsObject,
-  }
+    specId: string;
+    contentHash: Uint8Array | string;
+    sessionId: number;
+    cuSum: number;
+    provider: string;
+    relayNum: number;
+    epoch: number;
+    unresponsiveProviders: Uint8Array | string;
+    lavaChainId: string;
+    sig: Uint8Array | string;
+    badge?: Badge.AsObject;
+  };
 }
 
 export class RelayPrivateData extends jspb.Message {
@@ -96,23 +107,34 @@ export class RelayPrivateData extends jspb.Message {
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RelayPrivateData.AsObject;
-  static toObject(includeInstance: boolean, msg: RelayPrivateData): RelayPrivateData.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: RelayPrivateData, writer: jspb.BinaryWriter): void;
+  static toObject(
+    includeInstance: boolean,
+    msg: RelayPrivateData
+  ): RelayPrivateData.AsObject;
+  static extensions: { [key: number]: jspb.ExtensionFieldInfo<jspb.Message> };
+  static extensionsBinary: {
+    [key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>;
+  };
+  static serializeBinaryToWriter(
+    message: RelayPrivateData,
+    writer: jspb.BinaryWriter
+  ): void;
   static deserializeBinary(bytes: Uint8Array): RelayPrivateData;
-  static deserializeBinaryFromReader(message: RelayPrivateData, reader: jspb.BinaryReader): RelayPrivateData;
+  static deserializeBinaryFromReader(
+    message: RelayPrivateData,
+    reader: jspb.BinaryReader
+  ): RelayPrivateData;
 }
 
 export namespace RelayPrivateData {
   export type AsObject = {
-    connectionType: string,
-    apiUrl: string,
-    data: Uint8Array | string,
-    requestBlock: number,
-    apiInterface: string,
-    salt: Uint8Array | string,
-  }
+    connectionType: string;
+    apiUrl: string;
+    data: Uint8Array | string;
+    requestBlock: number;
+    apiInterface: string;
+    salt: Uint8Array | string;
+  };
 }
 
 export class RelayRequest extends jspb.Message {
@@ -133,20 +155,31 @@ export class RelayRequest extends jspb.Message {
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RelayRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: RelayRequest): RelayRequest.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: RelayRequest, writer: jspb.BinaryWriter): void;
+  static toObject(
+    includeInstance: boolean,
+    msg: RelayRequest
+  ): RelayRequest.AsObject;
+  static extensions: { [key: number]: jspb.ExtensionFieldInfo<jspb.Message> };
+  static extensionsBinary: {
+    [key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>;
+  };
+  static serializeBinaryToWriter(
+    message: RelayRequest,
+    writer: jspb.BinaryWriter
+  ): void;
   static deserializeBinary(bytes: Uint8Array): RelayRequest;
-  static deserializeBinaryFromReader(message: RelayRequest, reader: jspb.BinaryReader): RelayRequest;
+  static deserializeBinaryFromReader(
+    message: RelayRequest,
+    reader: jspb.BinaryReader
+  ): RelayRequest;
 }
 
 export namespace RelayRequest {
   export type AsObject = {
-    relaySession?: RelaySession.AsObject,
-    relayData?: RelayPrivateData.AsObject,
-    dataReliability?: VRFData.AsObject,
-  }
+    relaySession?: RelaySession.AsObject;
+    relayData?: RelayPrivateData.AsObject;
+    dataReliability?: VRFData.AsObject;
+  };
 }
 
 export class Badge extends jspb.Message {
@@ -172,21 +205,29 @@ export class Badge extends jspb.Message {
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Badge.AsObject;
   static toObject(includeInstance: boolean, msg: Badge): Badge.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: Badge, writer: jspb.BinaryWriter): void;
+  static extensions: { [key: number]: jspb.ExtensionFieldInfo<jspb.Message> };
+  static extensionsBinary: {
+    [key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>;
+  };
+  static serializeBinaryToWriter(
+    message: Badge,
+    writer: jspb.BinaryWriter
+  ): void;
   static deserializeBinary(bytes: Uint8Array): Badge;
-  static deserializeBinaryFromReader(message: Badge, reader: jspb.BinaryReader): Badge;
+  static deserializeBinaryFromReader(
+    message: Badge,
+    reader: jspb.BinaryReader
+  ): Badge;
 }
 
 export namespace Badge {
   export type AsObject = {
-    cuAllocation: number,
-    epoch: number,
-    badgePk: Uint8Array | string,
-    specId: string,
-    projectSig: Uint8Array | string,
-  }
+    cuAllocation: number;
+    epoch: number;
+    badgePk: Uint8Array | string;
+    specId: string;
+    projectSig: Uint8Array | string;
+  };
 }
 
 export class RelayReply extends jspb.Message {
@@ -218,23 +259,34 @@ export class RelayReply extends jspb.Message {
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RelayReply.AsObject;
-  static toObject(includeInstance: boolean, msg: RelayReply): RelayReply.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: RelayReply, writer: jspb.BinaryWriter): void;
+  static toObject(
+    includeInstance: boolean,
+    msg: RelayReply
+  ): RelayReply.AsObject;
+  static extensions: { [key: number]: jspb.ExtensionFieldInfo<jspb.Message> };
+  static extensionsBinary: {
+    [key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>;
+  };
+  static serializeBinaryToWriter(
+    message: RelayReply,
+    writer: jspb.BinaryWriter
+  ): void;
   static deserializeBinary(bytes: Uint8Array): RelayReply;
-  static deserializeBinaryFromReader(message: RelayReply, reader: jspb.BinaryReader): RelayReply;
+  static deserializeBinaryFromReader(
+    message: RelayReply,
+    reader: jspb.BinaryReader
+  ): RelayReply;
 }
 
 export namespace RelayReply {
   export type AsObject = {
-    data: Uint8Array | string,
-    sig: Uint8Array | string,
-    nonce: number,
-    latestBlock: number,
-    finalizedBlocksHashes: Uint8Array | string,
-    sigBlocks: Uint8Array | string,
-  }
+    data: Uint8Array | string;
+    sig: Uint8Array | string;
+    nonce: number;
+    latestBlock: number;
+    finalizedBlocksHashes: Uint8Array | string;
+    sigBlocks: Uint8Array | string;
+  };
 }
 
 export class VRFData extends jspb.Message {
@@ -280,24 +332,31 @@ export class VRFData extends jspb.Message {
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): VRFData.AsObject;
   static toObject(includeInstance: boolean, msg: VRFData): VRFData.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: VRFData, writer: jspb.BinaryWriter): void;
+  static extensions: { [key: number]: jspb.ExtensionFieldInfo<jspb.Message> };
+  static extensionsBinary: {
+    [key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>;
+  };
+  static serializeBinaryToWriter(
+    message: VRFData,
+    writer: jspb.BinaryWriter
+  ): void;
   static deserializeBinary(bytes: Uint8Array): VRFData;
-  static deserializeBinaryFromReader(message: VRFData, reader: jspb.BinaryReader): VRFData;
+  static deserializeBinaryFromReader(
+    message: VRFData,
+    reader: jspb.BinaryReader
+  ): VRFData;
 }
 
 export namespace VRFData {
   export type AsObject = {
-    chainId: string,
-    epoch: number,
-    differentiator: boolean,
-    vrfValue: Uint8Array | string,
-    vrfProof: Uint8Array | string,
-    providerSig: Uint8Array | string,
-    allDataHash: Uint8Array | string,
-    queryHash: Uint8Array | string,
-    sig: Uint8Array | string,
-  }
+    chainId: string;
+    epoch: number;
+    differentiator: boolean;
+    vrfValue: Uint8Array | string;
+    vrfProof: Uint8Array | string;
+    providerSig: Uint8Array | string;
+    allDataHash: Uint8Array | string;
+    queryHash: Uint8Array | string;
+    sig: Uint8Array | string;
+  };
 }
-
