@@ -41,6 +41,17 @@ class SingleConsumerSession {
         this.ProviderAddress = providerAddress;
     }
     getNewSessionId() {
+        return this.generateRandomUint();
+    }
+    getNewSalt() {
+        const salt = this.generateRandomUint();
+        const nonceBytes = new Uint8Array(8);
+        const dataView = new DataView(nonceBytes.buffer);
+        // use LittleEndian
+        dataView.setBigUint64(0, BigInt(salt), true);
+        return nonceBytes;
+    }
+    generateRandomUint() {
         const min = 1;
         const max = Number.MAX_SAFE_INTEGER;
         return Math.floor(Math.random() * (max - min) + min);

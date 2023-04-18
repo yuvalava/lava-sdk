@@ -183,10 +183,7 @@ export class LavaProviders {
         // Only take into account endpoints that use the same api interface
         // And geolocation
         for (const endpoint of provider.endpoints) {
-          if (
-            endpoint.useType == rpcInterface &&
-            endpoint.geolocation == this.geolocation
-          ) {
+          if (endpoint.useType == rpcInterface) {
             const convertedEndpoint = new Endpoint(endpoint.iPPORT, true, 0);
             relevantEndpoints.push(convertedEndpoint);
           }
@@ -364,16 +361,13 @@ export class LavaProviders {
       response = await this.relayer.sendRelay(
         options,
         lavaRPCEndpoint,
-        relayCu
+        relayCu,
+        "rest"
       );
     } catch (error) {
       // If error is instace of Error
       if (error instanceof Error) {
         // If error is not old blokc height throw and error
-        if (!this.isErrorOldBlock(error)) {
-          throw error;
-        }
-
         // Extract current block height from error
         const currentBlockHeight = this.extractBlockNumberFromError(error);
 
@@ -391,7 +385,12 @@ export class LavaProviders {
         }
         // Retry same relay with added block height
         try {
-          response = await this.relayer.sendRelay(options, lavaRPCEndpoint, 10);
+          response = await this.relayer.sendRelay(
+            options,
+            lavaRPCEndpoint,
+            10,
+            "rest"
+          );
         } catch (error) {
           throw error;
         }
@@ -414,13 +413,17 @@ export class LavaProviders {
     return jsonResponse;
   }
 
-  private isErrorOldBlock(error: Error): boolean {
-    return error.message.startsWith("user reported very old lava block height");
-  }
-
   private extractBlockNumberFromError(error: Error): string | null {
-    const currentBlockHeightRegex = /current epoch block:(\d+)/;
-    const match = error.message.match(currentBlockHeightRegex);
+    let currentBlockHeightRegex = /current epoch: (\d+)/;
+    let match = error.message.match(currentBlockHeightRegex);
+
+    // Retry with new error
+    if (match == null) {
+      currentBlockHeightRegex = /current lava block Value:(\d+)/;
+
+      match = error.message.match(currentBlockHeightRegex);
+      return match ? match[1] : null;
+    }
     return match ? match[1] : null;
   }
 }
