@@ -135,7 +135,7 @@ export class LavaProviders {
     const lavaProviders = this.GetLavaProviders();
 
     // Iterate over each and try t oreturn pairing list
-    for (var i = 0; i < lavaProviders.length; i++) {
+    for (let i = 0; i < lavaProviders.length; i++) {
       try {
         // Fetch lava provider which will be used for fetching pairing list
         const lavaRPCEndpoint = lavaProviders[i];
@@ -276,7 +276,7 @@ export class LavaProviders {
     providers: Array<ConsumerSessionWithProvider>
   ): ConsumerSessionWithProvider[] {
     // Remove providers which does not match criteria
-    var validProviders = providers.filter(
+    const validProviders = providers.filter(
       (item) => item.MaxComputeUnits > item.UsedComputeUnits
     );
 

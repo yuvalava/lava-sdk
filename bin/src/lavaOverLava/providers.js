@@ -108,7 +108,7 @@ class LavaProviders {
             // Get lava providers list
             const lavaProviders = this.GetLavaProviders();
             // Iterate over each and try t oreturn pairing list
-            for (var i = 0; i < lavaProviders.length; i++) {
+            for (let i = 0; i < lavaProviders.length; i++) {
                 try {
                     // Fetch lava provider which will be used for fetching pairing list
                     const lavaRPCEndpoint = lavaProviders[i];
@@ -193,7 +193,7 @@ class LavaProviders {
     }
     pickRandomProviders(providers) {
         // Remove providers which does not match criteria
-        var validProviders = providers.filter((item) => item.MaxComputeUnits > item.UsedComputeUnits);
+        const validProviders = providers.filter((item) => item.MaxComputeUnits > item.UsedComputeUnits);
         if (validProviders.length === 0) {
             throw errors_1.default.errNoValidProvidersForCurrentEpoch;
         }
