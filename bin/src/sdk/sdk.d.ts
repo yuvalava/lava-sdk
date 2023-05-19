@@ -24,6 +24,7 @@ export declare class LavaSDK {
     private init;
     private handleRpcRelay;
     private handleRestRelay;
+    private sendRelayWithRetries;
     /**
      * Send relay to network through providers.
      *

@@ -81,7 +81,14 @@ class LavaProviders {
             return data[this.network][this.geolocation];
         });
     }
-    // GetNextLavaProvider return lava providers used for fetching epoch
+    // GetLavaProviders returns lava providers list
+    GetLavaProviders() {
+        if (this.providers.length == 0) {
+            throw errors_1.default.errNoProviders;
+        }
+        return this.providers;
+    }
+    // GetNextLavaProvider returns lava providers used for fetching epoch
     // in round-robin fashion
     GetNextLavaProvider() {
         if (this.providers.length == 0) {
@@ -94,78 +101,111 @@ class LavaProviders {
     // getSession returns providers for current epoch
     getSession(chainID, rpcInterface) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                if (this.providers == null) {
-                    throw errors_1.default.errLavaProvidersNotInitialized;
-                }
-                // Fetch lava provider which will be used for fetching pairing list
-                const lavaRPCEndpoint = this.GetNextLavaProvider();
-                // Create request for fetching api methods for LAV1
-                const lavaApis = yield this.getServiceApis(lavaRPCEndpoint, "LAV1", "rest", new Map([["/lavanet/lava/spec/spec/[^/s]+", 10]]));
-                // Create request for getServiceApis method for chainID
-                const apis = yield this.getServiceApis(lavaRPCEndpoint, chainID, rpcInterface, lavaApis);
-                // Create pairing request for getPairing method
-                const pairingRequest = {
-                    chainID: chainID,
-                    client: this.accountAddress,
-                };
-                // Get pairing from the chain
-                const pairingResponse = yield this.getPairingFromChain(lavaRPCEndpoint, pairingRequest, lavaApis);
-                // Set when will next epoch start
-                const nextEpochStart = new Date();
-                nextEpochStart.setSeconds(nextEpochStart.getSeconds() +
-                    parseInt(pairingResponse.time_left_to_next_pairing));
-                // Extract providers from pairing response
-                const providers = pairingResponse.providers;
-                // Initialize ConsumerSessionWithProvider array
-                const pairing = [];
-                // Create request for getting userEntity
-                const userEntityRequest = {
-                    address: this.accountAddress,
-                    chainID: chainID,
-                    block: pairingResponse.current_epoch,
-                };
-                // Fetch max compute units
-                const maxcu = yield this.getMaxCuForUser(lavaRPCEndpoint, userEntityRequest, lavaApis);
-                // Iterate over providers to populate pairing list
-                for (const provider of providers) {
-                    // Skip providers with no endpoints
-                    if (provider.endpoints.length == 0) {
-                        continue;
-                    }
-                    // Initialize relevantEndpoints array
-                    const relevantEndpoints = [];
-                    // Only take into account endpoints that use the same api interface
-                    // And geolocation
-                    for (const endpoint of provider.endpoints) {
-                        if (endpoint.useType == rpcInterface &&
-                            endpoint.geolocation == this.geolocation) {
-                            const convertedEndpoint = new types_1.Endpoint(endpoint.iPPORT, true, 0);
-                            relevantEndpoints.push(convertedEndpoint);
+            let lastRelayResponse = null;
+            if (this.providers == null) {
+                throw errors_1.default.errLavaProvidersNotInitialized;
+            }
+            // Get lava providers list
+            const lavaProviders = this.GetLavaProviders();
+            // Iterate over each and try t oreturn pairing list
+            for (var i = 0; i < lavaProviders.length; i++) {
+                try {
+                    // Fetch lava provider which will be used for fetching pairing list
+                    const lavaRPCEndpoint = lavaProviders[i];
+                    // Create request for fetching api methods for LAV1
+                    const lavaApis = yield this.getServiceApis(lavaRPCEndpoint, "LAV1", "rest", new Map([["/lavanet/lava/spec/spec/[^/s]+", 10]]));
+                    // Create request for getServiceApis method for chainID
+                    const apis = yield this.getServiceApis(lavaRPCEndpoint, chainID, rpcInterface, lavaApis);
+                    // Create pairing request for getPairing method
+                    const pairingRequest = {
+                        chainID: chainID,
+                        client: this.accountAddress,
+                    };
+                    // Get pairing from the chain
+                    const pairingResponse = yield this.getPairingFromChain(lavaRPCEndpoint, pairingRequest, lavaApis);
+                    // Set when will next epoch start
+                    const nextEpochStart = new Date();
+                    nextEpochStart.setSeconds(nextEpochStart.getSeconds() +
+                        parseInt(pairingResponse.time_left_to_next_pairing));
+                    // Extract providers from pairing response
+                    const providers = pairingResponse.providers;
+                    // Initialize ConsumerSessionWithProvider array
+                    const pairing = [];
+                    // Create request for getting userEntity
+                    const userEntityRequest = {
+                        address: this.accountAddress,
+                        chainID: chainID,
+                        block: pairingResponse.current_epoch,
+                    };
+                    // Fetch max compute units
+                    const maxcu = yield this.getMaxCuForUser(lavaRPCEndpoint, userEntityRequest, lavaApis);
+                    // Iterate over providers to populate pairing list
+                    for (const provider of providers) {
+                        // Skip providers with no endpoints
+                        if (provider.endpoints.length == 0) {
+                            continue;
                         }
+                        // Initialize relevantEndpoints array
+                        const relevantEndpoints = [];
+                        // Only take into account endpoints that use the same api interface
+                        // And geolocation
+                        for (const endpoint of provider.endpoints) {
+                            if (endpoint.useType == rpcInterface &&
+                                endpoint.geolocation == this.geolocation) {
+                                const convertedEndpoint = new types_1.Endpoint(endpoint.iPPORT, true, 0);
+                                relevantEndpoints.push(convertedEndpoint);
+                            }
+                        }
+                        // Skip providers with no relevant endpoints
+                        if (relevantEndpoints.length == 0) {
+                            continue;
+                        }
+                        const singleConsumerSession = new types_1.SingleConsumerSession(0, // cuSum
+                        0, // latestRelayCuSum
+                        1, // relayNumber
+                        relevantEndpoints[0], parseInt(pairingResponse.current_epoch), provider.address);
+                        // Create a new pairing object
+                        const newPairing = new types_1.ConsumerSessionWithProvider(this.accountAddress, relevantEndpoints, singleConsumerSession, maxcu, 0, // used compute units
+                        false);
+                        // Add newly created pairing in the pairing list
+                        pairing.push(newPairing);
                     }
-                    // Skip providers with no relevant endpoints
-                    if (relevantEndpoints.length == 0) {
-                        continue;
-                    }
-                    const singleConsumerSession = new types_1.SingleConsumerSession(0, // cuSum
-                    0, // latestRelayCuSum
-                    1, // relayNumber
-                    relevantEndpoints[0], parseInt(pairingResponse.current_epoch), provider.address);
-                    // Create a new pairing object
-                    const newPairing = new types_1.ConsumerSessionWithProvider(this.accountAddress, relevantEndpoints, singleConsumerSession, maxcu, 0, // used compute units
-                    false);
-                    // Add newly created pairing in the pairing list
-                    pairing.push(newPairing);
+                    // Create session object
+                    const sessionManager = new types_1.SessionManager(pairing, nextEpochStart, apis);
+                    return sessionManager;
                 }
-                // Create session object
-                const sessionManager = new types_1.SessionManager(pairing, nextEpochStart, apis);
-                return sessionManager;
+                catch (err) {
+                    if (err instanceof Error) {
+                        /*
+                        console.log(
+                          "Error during fetching pairing list " +
+                            err.message +
+                            "from provider " +
+                            providers
+                        );
+                        */
+                        lastRelayResponse = err;
+                    }
+                }
             }
-            catch (err) {
-                throw err;
-            }
+            throw lastRelayResponse;
         });
+    }
+    pickRandomProviders(providers) {
+        // Remove providers which does not match criteria
+        var validProviders = providers.filter((item) => item.MaxComputeUnits > item.UsedComputeUnits);
+        if (validProviders.length === 0) {
+            throw errors_1.default.errNoValidProvidersForCurrentEpoch;
+        }
+        // Fisher-Yates shuffle
+        for (let i = validProviders.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [validProviders[i], validProviders[j]] = [
+                validProviders[j],
+                validProviders[i],
+            ];
+        }
+        return validProviders;
     }
     pickRandomProvider(providers) {
         // Remove providers which does not match criteria

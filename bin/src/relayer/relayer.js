@@ -118,7 +118,23 @@ class Relayer {
                     },
                 });
             });
-            return requestPromise;
+            return this.relayWithTimeout(2000, requestPromise);
+        });
+    }
+    relayWithTimeout(timeLimit, task) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let timeout;
+            const timeoutPromise = new Promise((resolve, reject) => {
+                timeout = setTimeout(() => {
+                    reject(new Error("Timeout exceeded"));
+                }, timeLimit);
+            });
+            const response = yield Promise.race([task, timeoutPromise]);
+            if (timeout) {
+                //the code works without this but let's be safe and clean up the timeout
+                clearTimeout(timeout);
+            }
+            return response;
         });
     }
     // Sign relay request using priv key

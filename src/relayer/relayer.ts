@@ -107,7 +107,23 @@ class Relayer {
         },
       });
     });
-    return requestPromise;
+
+    return this.relayWithTimeout(2000, requestPromise);
+  }
+
+  async relayWithTimeout(timeLimit: number, task: any) {
+    let timeout;
+    const timeoutPromise = new Promise((resolve, reject) => {
+      timeout = setTimeout(() => {
+        reject(new Error("Timeout exceeded"));
+      }, timeLimit);
+    });
+    const response = await Promise.race([task, timeoutPromise]);
+    if (timeout) {
+      //the code works without this but let's be safe and clean up the timeout
+      clearTimeout(timeout);
+    }
+    return response;
   }
 
   byteArrayToString = (byteArray: Uint8Array): string => {
