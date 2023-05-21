@@ -117,8 +117,8 @@ class LavaSDK {
                 }
                 // Extract attributes from options
                 const { method, params } = options;
-                // Get consumerProvider session
-                const consumerProviderSession = yield this.getConsumerProviderSession();
+                // Get pairing list
+                const pairingList = yield this.getConsumerProviderSession();
                 // Get cuSum for specified method
                 const cuSum = this.getCuSumForMethod(method);
                 const data = this.generateRPCData(method, params);
@@ -132,10 +132,7 @@ class LavaSDK {
                     url: "",
                     connectionType: this.rpcInterface === "jsonrpc" ? "POST" : "",
                 };
-                // Send relay
-                const relayResponse = yield this.relayer.sendRelay(sendRelayOptions, consumerProviderSession, cuSum, this.rpcInterface);
-                // Return relay in json format
-                return this.decodeRelayResponse(relayResponse);
+                return yield this.sendRelayWithRetries(sendRelayOptions, pairingList, cuSum);
             }
             catch (err) {
                 throw err;
@@ -150,14 +147,10 @@ class LavaSDK {
                 }
                 // Extract attributes from options
                 const { method, url, data } = options;
-                // Get consumerProvider session
-                const consumerProviderSession = yield this.getConsumerProviderSession();
+                // Get pairing list
+                const pairingList = yield this.getConsumerProviderSession();
                 // Get cuSum for specified method
                 const cuSum = this.getCuSumForMethod(url);
-                // Check if relay was initialized
-                if (this.relayer instanceof Error) {
-                    throw errors_1.default.errRelayerServiceNotInitialized;
-                }
                 let query = "?";
                 for (const key in data) {
                     query = query + key + "=" + data[key] + "&";
@@ -168,14 +161,46 @@ class LavaSDK {
                     url: url,
                     connectionType: method,
                 };
-                // Send relay
-                const relayResponse = yield this.relayer.sendRelay(sendRelayOptions, consumerProviderSession, cuSum, this.rpcInterface);
-                // Return relay in json format
-                return this.decodeRelayResponse(relayResponse);
+                return yield this.sendRelayWithRetries(sendRelayOptions, pairingList, cuSum);
             }
             catch (err) {
                 throw err;
             }
+        });
+    }
+    // sendRelayWithRetries iterates over provider list and tries to send relay
+    // if no provider return result it will result the error from the last provider
+    sendRelayWithRetries(options, pairingList, cuSum) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // Check if relay was initialized
+            if (this.relayer instanceof Error) {
+                throw errors_1.default.errRelayerServiceNotInitialized;
+            }
+            let lastRelayResponse = null;
+            for (let i = 0; i <= pairingList.length; i++) {
+                try {
+                    // Send relay
+                    const relayResponse = yield this.relayer.sendRelay(options, pairingList[i], cuSum, this.rpcInterface);
+                    // Return relay in json format
+                    return this.decodeRelayResponse(relayResponse);
+                }
+                catch (err) {
+                    // If error is instace of Error
+                    if (err instanceof Error) {
+                        // An error occurred during the sendRelay operation
+                        /*
+                        console.error(
+                          "Error during sendRelay: " + err.message,
+                          " from provider: " + pairingList[i].Session.Endpoint.Addr
+                        );
+                        */
+                        // Store the relay response
+                        lastRelayResponse = err;
+                    }
+                }
+            }
+            // If an error occurred in all the operations, return the decoded response of the last operation
+            throw lastRelayResponse;
         });
     }
     /**
@@ -246,8 +271,8 @@ class LavaSDK {
             if (this.newEpochStarted()) {
                 this.activeSessionManager = yield this.lavaProviders.getSession(this.chainID, this.rpcInterface);
             }
-            // Pick random provider and return
-            return this.lavaProviders.pickRandomProvider(this.activeSessionManager.PairingList);
+            // Return randomized pairing list
+            return this.lavaProviders.pickRandomProviders(this.activeSessionManager.PairingList);
         });
     }
     newEpochStarted() {

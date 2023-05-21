@@ -166,8 +166,8 @@ export class LavaSDK {
       // Extract attributes from options
       const { method, params } = options;
 
-      // Get consumerProvider session
-      const consumerProviderSession = await this.getConsumerProviderSession();
+      // Get pairing list
+      const pairingList = await this.getConsumerProviderSession();
 
       // Get cuSum for specified method
       const cuSum = this.getCuSumForMethod(method);
@@ -186,16 +186,11 @@ export class LavaSDK {
         connectionType: this.rpcInterface === "jsonrpc" ? "POST" : "",
       };
 
-      // Send relay
-      const relayResponse = await this.relayer.sendRelay(
+      return await this.sendRelayWithRetries(
         sendRelayOptions,
-        consumerProviderSession,
-        cuSum,
-        this.rpcInterface
+        pairingList,
+        cuSum
       );
-
-      // Return relay in json format
-      return this.decodeRelayResponse(relayResponse);
     } catch (err) {
       throw err;
     }
@@ -212,16 +207,11 @@ export class LavaSDK {
       // Extract attributes from options
       const { method, url, data } = options;
 
-      // Get consumerProvider session
-      const consumerProviderSession = await this.getConsumerProviderSession();
+      // Get pairing list
+      const pairingList = await this.getConsumerProviderSession();
 
       // Get cuSum for specified method
       const cuSum = this.getCuSumForMethod(url);
-
-      // Check if relay was initialized
-      if (this.relayer instanceof Error) {
-        throw SDKErrors.errRelayerServiceNotInitialized;
-      }
 
       let query = "?";
       for (const key in data) {
@@ -235,19 +225,60 @@ export class LavaSDK {
         connectionType: method,
       };
 
-      // Send relay
-      const relayResponse = await this.relayer.sendRelay(
+      return await this.sendRelayWithRetries(
         sendRelayOptions,
-        consumerProviderSession,
-        cuSum,
-        this.rpcInterface
+        pairingList,
+        cuSum
       );
-
-      // Return relay in json format
-      return this.decodeRelayResponse(relayResponse);
     } catch (err) {
       throw err;
     }
+  }
+
+  // sendRelayWithRetries iterates over provider list and tries to send relay
+  // if no provider return result it will result the error from the last provider
+  private async sendRelayWithRetries(
+    options: any,
+    pairingList: ConsumerSessionWithProvider[],
+    cuSum: number
+  ) {
+    // Check if relay was initialized
+    if (this.relayer instanceof Error) {
+      throw SDKErrors.errRelayerServiceNotInitialized;
+    }
+    let lastRelayResponse = null;
+
+    for (let i = 0; i <= pairingList.length; i++) {
+      try {
+        // Send relay
+        const relayResponse = await this.relayer.sendRelay(
+          options,
+          pairingList[i],
+          cuSum,
+          this.rpcInterface
+        );
+
+        // Return relay in json format
+        return this.decodeRelayResponse(relayResponse);
+      } catch (err) {
+        // If error is instace of Error
+        if (err instanceof Error) {
+          // An error occurred during the sendRelay operation
+          /*
+          console.error(
+            "Error during sendRelay: " + err.message,
+            " from provider: " + pairingList[i].Session.Endpoint.Addr
+          );
+          */
+
+          // Store the relay response
+          lastRelayResponse = err;
+        }
+      }
+    }
+
+    // If an error occurred in all the operations, return the decoded response of the last operation
+    throw lastRelayResponse;
   }
 
   /**
@@ -311,7 +342,9 @@ export class LavaSDK {
     return cuSum;
   }
 
-  private async getConsumerProviderSession(): Promise<ConsumerSessionWithProvider> {
+  private async getConsumerProviderSession(): Promise<
+    ConsumerSessionWithProvider[]
+  > {
     // Check if lava providers were initialized
     if (this.lavaProviders instanceof Error) {
       throw SDKErrors.errLavaProvidersNotInitialized;
@@ -335,8 +368,8 @@ export class LavaSDK {
       );
     }
 
-    // Pick random provider and return
-    return this.lavaProviders.pickRandomProvider(
+    // Return randomized pairing list
+    return this.lavaProviders.pickRandomProviders(
       this.activeSessionManager.PairingList
     );
   }
