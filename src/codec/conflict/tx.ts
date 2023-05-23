@@ -57,28 +57,45 @@ export const MsgDetection = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgDetection {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDetection();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.creator = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.finalizationConflict = FinalizationConflict.decode(reader, reader.uint32());
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.responseConflict = ResponseConflict.decode(reader, reader.uint32());
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.sameProviderConflict = FinalizationConflict.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -110,6 +127,10 @@ export const MsgDetection = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<MsgDetection>, I>>(base?: I): MsgDetection {
+    return MsgDetection.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<MsgDetection>, I>>(object: I): MsgDetection {
     const message = createBaseMsgDetection();
     message.creator = object.creator ?? "";
@@ -136,16 +157,17 @@ export const MsgDetectionResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgDetectionResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDetectionResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -157,6 +179,10 @@ export const MsgDetectionResponse = {
   toJSON(_: MsgDetectionResponse): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgDetectionResponse>, I>>(base?: I): MsgDetectionResponse {
+    return MsgDetectionResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgDetectionResponse>, I>>(_: I): MsgDetectionResponse {
@@ -184,25 +210,38 @@ export const MsgConflictVoteCommit = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgConflictVoteCommit {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgConflictVoteCommit();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.creator = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.voteID = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.hash = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -224,6 +263,10 @@ export const MsgConflictVoteCommit = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<MsgConflictVoteCommit>, I>>(base?: I): MsgConflictVoteCommit {
+    return MsgConflictVoteCommit.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<MsgConflictVoteCommit>, I>>(object: I): MsgConflictVoteCommit {
     const message = createBaseMsgConflictVoteCommit();
     message.creator = object.creator ?? "";
@@ -243,16 +286,17 @@ export const MsgConflictVoteCommitResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgConflictVoteCommitResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgConflictVoteCommitResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -264,6 +308,10 @@ export const MsgConflictVoteCommitResponse = {
   toJSON(_: MsgConflictVoteCommitResponse): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgConflictVoteCommitResponse>, I>>(base?: I): MsgConflictVoteCommitResponse {
+    return MsgConflictVoteCommitResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgConflictVoteCommitResponse>, I>>(_: I): MsgConflictVoteCommitResponse {
@@ -294,28 +342,45 @@ export const MsgConflictVoteReveal = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgConflictVoteReveal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgConflictVoteReveal();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.creator = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.voteID = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.nonce = reader.int64() as Long;
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.hash = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -339,6 +404,10 @@ export const MsgConflictVoteReveal = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<MsgConflictVoteReveal>, I>>(base?: I): MsgConflictVoteReveal {
+    return MsgConflictVoteReveal.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<MsgConflictVoteReveal>, I>>(object: I): MsgConflictVoteReveal {
     const message = createBaseMsgConflictVoteReveal();
     message.creator = object.creator ?? "";
@@ -359,16 +428,17 @@ export const MsgConflictVoteRevealResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgConflictVoteRevealResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgConflictVoteRevealResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -380,6 +450,10 @@ export const MsgConflictVoteRevealResponse = {
   toJSON(_: MsgConflictVoteRevealResponse): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgConflictVoteRevealResponse>, I>>(base?: I): MsgConflictVoteRevealResponse {
+    return MsgConflictVoteRevealResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgConflictVoteRevealResponse>, I>>(_: I): MsgConflictVoteRevealResponse {
@@ -409,19 +483,19 @@ export class MsgClientImpl implements Msg {
   Detection(request: MsgDetection): Promise<MsgDetectionResponse> {
     const data = MsgDetection.encode(request).finish();
     const promise = this.rpc.request(this.service, "Detection", data);
-    return promise.then((data) => MsgDetectionResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => MsgDetectionResponse.decode(_m0.Reader.create(data)));
   }
 
   ConflictVoteCommit(request: MsgConflictVoteCommit): Promise<MsgConflictVoteCommitResponse> {
     const data = MsgConflictVoteCommit.encode(request).finish();
     const promise = this.rpc.request(this.service, "ConflictVoteCommit", data);
-    return promise.then((data) => MsgConflictVoteCommitResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => MsgConflictVoteCommitResponse.decode(_m0.Reader.create(data)));
   }
 
   ConflictVoteReveal(request: MsgConflictVoteReveal): Promise<MsgConflictVoteRevealResponse> {
     const data = MsgConflictVoteReveal.encode(request).finish();
     const promise = this.rpc.request(this.service, "ConflictVoteReveal", data);
-    return promise.then((data) => MsgConflictVoteRevealResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => MsgConflictVoteRevealResponse.decode(_m0.Reader.create(data)));
   }
 }
 
@@ -432,7 +506,7 @@ interface Rpc {
 declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
-var globalThis: any = (() => {
+var tsProtoGlobalThis: any = (() => {
   if (typeof globalThis !== "undefined") {
     return globalThis;
   }
@@ -449,10 +523,10 @@ var globalThis: any = (() => {
 })();
 
 function bytesFromBase64(b64: string): Uint8Array {
-  if (globalThis.Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
+  if (tsProtoGlobalThis.Buffer) {
+    return Uint8Array.from(tsProtoGlobalThis.Buffer.from(b64, "base64"));
   } else {
-    const bin = globalThis.atob(b64);
+    const bin = tsProtoGlobalThis.atob(b64);
     const arr = new Uint8Array(bin.length);
     for (let i = 0; i < bin.length; ++i) {
       arr[i] = bin.charCodeAt(i);
@@ -462,14 +536,14 @@ function bytesFromBase64(b64: string): Uint8Array {
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if (globalThis.Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
+  if (tsProtoGlobalThis.Buffer) {
+    return tsProtoGlobalThis.Buffer.from(arr).toString("base64");
   } else {
     const bin: string[] = [];
     arr.forEach((byte) => {
       bin.push(String.fromCharCode(byte));
     });
-    return globalThis.btoa(bin.join(""));
+    return tsProtoGlobalThis.btoa(bin.join(""));
   }
 }
 

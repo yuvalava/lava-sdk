@@ -29,25 +29,38 @@ export const Endpoint = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Endpoint {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEndpoint();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.iPPORT = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.useType = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.geolocation = reader.uint64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -66,6 +79,10 @@ export const Endpoint = {
     message.useType !== undefined && (obj.useType = message.useType);
     message.geolocation !== undefined && (obj.geolocation = (message.geolocation || Long.UZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Endpoint>, I>>(base?: I): Endpoint {
+    return Endpoint.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Endpoint>, I>>(object: I): Endpoint {

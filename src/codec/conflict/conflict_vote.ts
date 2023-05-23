@@ -10,6 +10,7 @@ export interface Provider {
 }
 
 export interface Vote {
+  address: string;
   Hash: Uint8Array;
   Result: Long;
 }
@@ -26,12 +27,7 @@ export interface ConflictVote {
   requestBlock: Long;
   firstProvider?: Provider;
   secondProvider?: Provider;
-  votersHash: { [key: string]: Vote };
-}
-
-export interface ConflictVote_VotersHashEntry {
-  key: string;
-  value?: Vote;
+  votes: Vote[];
 }
 
 function createBaseProvider(): Provider {
@@ -50,22 +46,31 @@ export const Provider = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Provider {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseProvider();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.account = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.response = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -85,6 +90,10 @@ export const Provider = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<Provider>, I>>(base?: I): Provider {
+    return Provider.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<Provider>, I>>(object: I): Provider {
     const message = createBaseProvider();
     message.account = object.account ?? "";
@@ -94,43 +103,63 @@ export const Provider = {
 };
 
 function createBaseVote(): Vote {
-  return { Hash: new Uint8Array(), Result: Long.ZERO };
+  return { address: "", Hash: new Uint8Array(), Result: Long.ZERO };
 }
 
 export const Vote = {
   encode(message: Vote, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.address !== "") {
+      writer.uint32(10).string(message.address);
+    }
     if (message.Hash.length !== 0) {
-      writer.uint32(10).bytes(message.Hash);
+      writer.uint32(18).bytes(message.Hash);
     }
     if (!message.Result.isZero()) {
-      writer.uint32(16).int64(message.Result);
+      writer.uint32(24).int64(message.Result);
     }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Vote {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVote();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.Hash = reader.bytes();
-          break;
+          if (tag != 10) {
+            break;
+          }
+
+          message.address = reader.string();
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
+          message.Hash = reader.bytes();
+          continue;
+        case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.Result = reader.int64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
 
   fromJSON(object: any): Vote {
     return {
+      address: isSet(object.address) ? String(object.address) : "",
       Hash: isSet(object.Hash) ? bytesFromBase64(object.Hash) : new Uint8Array(),
       Result: isSet(object.Result) ? Long.fromValue(object.Result) : Long.ZERO,
     };
@@ -138,14 +167,20 @@ export const Vote = {
 
   toJSON(message: Vote): unknown {
     const obj: any = {};
+    message.address !== undefined && (obj.address = message.address);
     message.Hash !== undefined &&
       (obj.Hash = base64FromBytes(message.Hash !== undefined ? message.Hash : new Uint8Array()));
     message.Result !== undefined && (obj.Result = (message.Result || Long.ZERO).toString());
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<Vote>, I>>(base?: I): Vote {
+    return Vote.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<Vote>, I>>(object: I): Vote {
     const message = createBaseVote();
+    message.address = object.address ?? "";
     message.Hash = object.Hash ?? new Uint8Array();
     message.Result = (object.Result !== undefined && object.Result !== null)
       ? Long.fromValue(object.Result)
@@ -167,7 +202,7 @@ function createBaseConflictVote(): ConflictVote {
     requestBlock: Long.UZERO,
     firstProvider: undefined,
     secondProvider: undefined,
-    votersHash: {},
+    votes: [],
   };
 }
 
@@ -206,62 +241,108 @@ export const ConflictVote = {
     if (message.secondProvider !== undefined) {
       Provider.encode(message.secondProvider, writer.uint32(90).fork()).ldelim();
     }
-    Object.entries(message.votersHash).forEach(([key, value]) => {
-      ConflictVote_VotersHashEntry.encode({ key: key as any, value }, writer.uint32(106).fork()).ldelim();
-    });
+    for (const v of message.votes) {
+      Vote.encode(v!, writer.uint32(98).fork()).ldelim();
+    }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ConflictVote {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConflictVote();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.index = reader.string();
-          break;
-        case 2:
-          message.clientAddress = reader.string();
-          break;
-        case 3:
-          message.voteDeadline = reader.uint64() as Long;
-          break;
-        case 4:
-          message.voteStartBlock = reader.uint64() as Long;
-          break;
-        case 5:
-          message.voteState = reader.int64() as Long;
-          break;
-        case 6:
-          message.chainID = reader.string();
-          break;
-        case 7:
-          message.apiUrl = reader.string();
-          break;
-        case 8:
-          message.requestData = reader.bytes();
-          break;
-        case 9:
-          message.requestBlock = reader.uint64() as Long;
-          break;
-        case 10:
-          message.firstProvider = Provider.decode(reader, reader.uint32());
-          break;
-        case 11:
-          message.secondProvider = Provider.decode(reader, reader.uint32());
-          break;
-        case 13:
-          const entry13 = ConflictVote_VotersHashEntry.decode(reader, reader.uint32());
-          if (entry13.value !== undefined) {
-            message.votersHash[entry13.key] = entry13.value;
+          if (tag != 10) {
+            break;
           }
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+
+          message.index = reader.string();
+          continue;
+        case 2:
+          if (tag != 18) {
+            break;
+          }
+
+          message.clientAddress = reader.string();
+          continue;
+        case 3:
+          if (tag != 24) {
+            break;
+          }
+
+          message.voteDeadline = reader.uint64() as Long;
+          continue;
+        case 4:
+          if (tag != 32) {
+            break;
+          }
+
+          message.voteStartBlock = reader.uint64() as Long;
+          continue;
+        case 5:
+          if (tag != 40) {
+            break;
+          }
+
+          message.voteState = reader.int64() as Long;
+          continue;
+        case 6:
+          if (tag != 50) {
+            break;
+          }
+
+          message.chainID = reader.string();
+          continue;
+        case 7:
+          if (tag != 58) {
+            break;
+          }
+
+          message.apiUrl = reader.string();
+          continue;
+        case 8:
+          if (tag != 66) {
+            break;
+          }
+
+          message.requestData = reader.bytes();
+          continue;
+        case 9:
+          if (tag != 72) {
+            break;
+          }
+
+          message.requestBlock = reader.uint64() as Long;
+          continue;
+        case 10:
+          if (tag != 82) {
+            break;
+          }
+
+          message.firstProvider = Provider.decode(reader, reader.uint32());
+          continue;
+        case 11:
+          if (tag != 90) {
+            break;
+          }
+
+          message.secondProvider = Provider.decode(reader, reader.uint32());
+          continue;
+        case 12:
+          if (tag != 98) {
+            break;
+          }
+
+          message.votes.push(Vote.decode(reader, reader.uint32()));
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -279,12 +360,7 @@ export const ConflictVote = {
       requestBlock: isSet(object.requestBlock) ? Long.fromValue(object.requestBlock) : Long.UZERO,
       firstProvider: isSet(object.firstProvider) ? Provider.fromJSON(object.firstProvider) : undefined,
       secondProvider: isSet(object.secondProvider) ? Provider.fromJSON(object.secondProvider) : undefined,
-      votersHash: isObject(object.votersHash)
-        ? Object.entries(object.votersHash).reduce<{ [key: string]: Vote }>((acc, [key, value]) => {
-          acc[key] = Vote.fromJSON(value);
-          return acc;
-        }, {})
-        : {},
+      votes: Array.isArray(object?.votes) ? object.votes.map((e: any) => Vote.fromJSON(e)) : [],
     };
   },
 
@@ -304,13 +380,16 @@ export const ConflictVote = {
       (obj.firstProvider = message.firstProvider ? Provider.toJSON(message.firstProvider) : undefined);
     message.secondProvider !== undefined &&
       (obj.secondProvider = message.secondProvider ? Provider.toJSON(message.secondProvider) : undefined);
-    obj.votersHash = {};
-    if (message.votersHash) {
-      Object.entries(message.votersHash).forEach(([k, v]) => {
-        obj.votersHash[k] = Vote.toJSON(v);
-      });
+    if (message.votes) {
+      obj.votes = message.votes.map((e) => e ? Vote.toJSON(e) : undefined);
+    } else {
+      obj.votes = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ConflictVote>, I>>(base?: I): ConflictVote {
+    return ConflictVote.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ConflictVote>, I>>(object: I): ConflictVote {
@@ -338,73 +417,7 @@ export const ConflictVote = {
     message.secondProvider = (object.secondProvider !== undefined && object.secondProvider !== null)
       ? Provider.fromPartial(object.secondProvider)
       : undefined;
-    message.votersHash = Object.entries(object.votersHash ?? {}).reduce<{ [key: string]: Vote }>(
-      (acc, [key, value]) => {
-        if (value !== undefined) {
-          acc[key] = Vote.fromPartial(value);
-        }
-        return acc;
-      },
-      {},
-    );
-    return message;
-  },
-};
-
-function createBaseConflictVote_VotersHashEntry(): ConflictVote_VotersHashEntry {
-  return { key: "", value: undefined };
-}
-
-export const ConflictVote_VotersHashEntry = {
-  encode(message: ConflictVote_VotersHashEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.key !== "") {
-      writer.uint32(10).string(message.key);
-    }
-    if (message.value !== undefined) {
-      Vote.encode(message.value, writer.uint32(18).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): ConflictVote_VotersHashEntry {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseConflictVote_VotersHashEntry();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.key = reader.string();
-          break;
-        case 2:
-          message.value = Vote.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): ConflictVote_VotersHashEntry {
-    return {
-      key: isSet(object.key) ? String(object.key) : "",
-      value: isSet(object.value) ? Vote.fromJSON(object.value) : undefined,
-    };
-  },
-
-  toJSON(message: ConflictVote_VotersHashEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = message.key);
-    message.value !== undefined && (obj.value = message.value ? Vote.toJSON(message.value) : undefined);
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<ConflictVote_VotersHashEntry>, I>>(object: I): ConflictVote_VotersHashEntry {
-    const message = createBaseConflictVote_VotersHashEntry();
-    message.key = object.key ?? "";
-    message.value = (object.value !== undefined && object.value !== null) ? Vote.fromPartial(object.value) : undefined;
+    message.votes = object.votes?.map((e) => Vote.fromPartial(e)) || [];
     return message;
   },
 };
@@ -412,7 +425,7 @@ export const ConflictVote_VotersHashEntry = {
 declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
-var globalThis: any = (() => {
+var tsProtoGlobalThis: any = (() => {
   if (typeof globalThis !== "undefined") {
     return globalThis;
   }
@@ -429,10 +442,10 @@ var globalThis: any = (() => {
 })();
 
 function bytesFromBase64(b64: string): Uint8Array {
-  if (globalThis.Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
+  if (tsProtoGlobalThis.Buffer) {
+    return Uint8Array.from(tsProtoGlobalThis.Buffer.from(b64, "base64"));
   } else {
-    const bin = globalThis.atob(b64);
+    const bin = tsProtoGlobalThis.atob(b64);
     const arr = new Uint8Array(bin.length);
     for (let i = 0; i < bin.length; ++i) {
       arr[i] = bin.charCodeAt(i);
@@ -442,14 +455,14 @@ function bytesFromBase64(b64: string): Uint8Array {
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if (globalThis.Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
+  if (tsProtoGlobalThis.Buffer) {
+    return tsProtoGlobalThis.Buffer.from(arr).toString("base64");
   } else {
     const bin: string[] = [];
     arr.forEach((byte) => {
       bin.push(String.fromCharCode(byte));
     });
-    return globalThis.btoa(bin.join(""));
+    return tsProtoGlobalThis.btoa(bin.join(""));
   }
 }
 
@@ -468,10 +481,6 @@ export type Exact<P, I extends P> = P extends Builtin ? P
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
-}
-
-function isObject(value: any): boolean {
-  return typeof value === "object" && value !== null;
 }
 
 function isSet(value: any): boolean {

@@ -36,22 +36,31 @@ export const ResponseConflict = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ResponseConflict {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResponseConflict();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.conflictRelayData0 = ConflictRelayData.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.conflictRelayData1 = ConflictRelayData.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -76,6 +85,10 @@ export const ResponseConflict = {
       ? ConflictRelayData.toJSON(message.conflictRelayData1)
       : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ResponseConflict>, I>>(base?: I): ResponseConflict {
+    return ResponseConflict.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ResponseConflict>, I>>(object: I): ResponseConflict {
@@ -106,22 +119,31 @@ export const ConflictRelayData = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ConflictRelayData {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConflictRelayData();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.request = RelayRequest.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.reply = RelayReply.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -138,6 +160,10 @@ export const ConflictRelayData = {
     message.request !== undefined && (obj.request = message.request ? RelayRequest.toJSON(message.request) : undefined);
     message.reply !== undefined && (obj.reply = message.reply ? RelayReply.toJSON(message.reply) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ConflictRelayData>, I>>(base?: I): ConflictRelayData {
+    return ConflictRelayData.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ConflictRelayData>, I>>(object: I): ConflictRelayData {
@@ -168,22 +194,31 @@ export const FinalizationConflict = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FinalizationConflict {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFinalizationConflict();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.relayReply0 = RelayReply.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.relayReply1 = RelayReply.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -202,6 +237,10 @@ export const FinalizationConflict = {
     message.relayReply1 !== undefined &&
       (obj.relayReply1 = message.relayReply1 ? RelayReply.toJSON(message.relayReply1) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<FinalizationConflict>, I>>(base?: I): FinalizationConflict {
+    return FinalizationConflict.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<FinalizationConflict>, I>>(object: I): FinalizationConflict {

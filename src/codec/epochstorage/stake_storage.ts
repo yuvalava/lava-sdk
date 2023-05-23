@@ -8,10 +8,11 @@ export const protobufPackage = "lavanet.lava.epochstorage";
 export interface StakeStorage {
   index: string;
   stakeEntries: StakeEntry[];
+  epochBlockHash: Uint8Array;
 }
 
 function createBaseStakeStorage(): StakeStorage {
-  return { index: "", stakeEntries: [] };
+  return { index: "", stakeEntries: [], epochBlockHash: new Uint8Array() };
 }
 
 export const StakeStorage = {
@@ -22,26 +23,45 @@ export const StakeStorage = {
     for (const v of message.stakeEntries) {
       StakeEntry.encode(v!, writer.uint32(18).fork()).ldelim();
     }
+    if (message.epochBlockHash.length !== 0) {
+      writer.uint32(26).bytes(message.epochBlockHash);
+    }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): StakeStorage {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStakeStorage();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.index = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.stakeEntries.push(StakeEntry.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
+        case 3:
+          if (tag != 26) {
+            break;
+          }
+
+          message.epochBlockHash = reader.bytes();
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -52,6 +72,7 @@ export const StakeStorage = {
       stakeEntries: Array.isArray(object?.stakeEntries)
         ? object.stakeEntries.map((e: any) => StakeEntry.fromJSON(e))
         : [],
+      epochBlockHash: isSet(object.epochBlockHash) ? bytesFromBase64(object.epochBlockHash) : new Uint8Array(),
     };
   },
 
@@ -63,16 +84,69 @@ export const StakeStorage = {
     } else {
       obj.stakeEntries = [];
     }
+    message.epochBlockHash !== undefined &&
+      (obj.epochBlockHash = base64FromBytes(
+        message.epochBlockHash !== undefined ? message.epochBlockHash : new Uint8Array(),
+      ));
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<StakeStorage>, I>>(base?: I): StakeStorage {
+    return StakeStorage.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<StakeStorage>, I>>(object: I): StakeStorage {
     const message = createBaseStakeStorage();
     message.index = object.index ?? "";
     message.stakeEntries = object.stakeEntries?.map((e) => StakeEntry.fromPartial(e)) || [];
+    message.epochBlockHash = object.epochBlockHash ?? new Uint8Array();
     return message;
   },
 };
+
+declare var self: any | undefined;
+declare var window: any | undefined;
+declare var global: any | undefined;
+var tsProtoGlobalThis: any = (() => {
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
+})();
+
+function bytesFromBase64(b64: string): Uint8Array {
+  if (tsProtoGlobalThis.Buffer) {
+    return Uint8Array.from(tsProtoGlobalThis.Buffer.from(b64, "base64"));
+  } else {
+    const bin = tsProtoGlobalThis.atob(b64);
+    const arr = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; ++i) {
+      arr[i] = bin.charCodeAt(i);
+    }
+    return arr;
+  }
+}
+
+function base64FromBytes(arr: Uint8Array): string {
+  if (tsProtoGlobalThis.Buffer) {
+    return tsProtoGlobalThis.Buffer.from(arr).toString("base64");
+  } else {
+    const bin: string[] = [];
+    arr.forEach((byte) => {
+      bin.push(String.fromCharCode(byte));
+    });
+    return tsProtoGlobalThis.btoa(bin.join(""));
+  }
+}
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 

@@ -6,8 +6,6 @@ export const protobufPackage = "lavanet.lava.pairing";
 
 /** Params defines the parameters for the module. */
 export interface Params {
-  minStakeProvider: string;
-  minStakeClient: string;
   mintCoinsPerCU: string;
   burnCoinsPerCU: string;
   fraudStakeSlashingFactor: string;
@@ -19,12 +17,11 @@ export interface Params {
   slashLimit: string;
   dataReliabilityReward: string;
   QoSWeight: string;
+  recommendedEpochNumToCollectPayment: Long;
 }
 
 function createBaseParams(): Params {
   return {
-    minStakeProvider: "",
-    minStakeClient: "",
     mintCoinsPerCU: "",
     burnCoinsPerCU: "",
     fraudStakeSlashingFactor: "",
@@ -36,17 +33,12 @@ function createBaseParams(): Params {
     slashLimit: "",
     dataReliabilityReward: "",
     QoSWeight: "",
+    recommendedEpochNumToCollectPayment: Long.UZERO,
   };
 }
 
 export const Params = {
   encode(message: Params, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.minStakeProvider !== "") {
-      writer.uint32(10).string(message.minStakeProvider);
-    }
-    if (message.minStakeClient !== "") {
-      writer.uint32(18).string(message.minStakeClient);
-    }
     if (message.mintCoinsPerCU !== "") {
       writer.uint32(26).string(message.mintCoinsPerCU);
     }
@@ -80,67 +72,114 @@ export const Params = {
     if (message.QoSWeight !== "") {
       writer.uint32(106).string(message.QoSWeight);
     }
+    if (!message.recommendedEpochNumToCollectPayment.isZero()) {
+      writer.uint32(112).uint64(message.recommendedEpochNumToCollectPayment);
+    }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Params {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.minStakeProvider = reader.string();
-          break;
-        case 2:
-          message.minStakeClient = reader.string();
-          break;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.mintCoinsPerCU = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.burnCoinsPerCU = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.fraudStakeSlashingFactor = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 48) {
+            break;
+          }
+
           message.fraudSlashingAmount = reader.uint64() as Long;
-          break;
+          continue;
         case 7:
+          if (tag != 56) {
+            break;
+          }
+
           message.servicersToPairCount = reader.uint64() as Long;
-          break;
+          continue;
         case 8:
+          if (tag != 64) {
+            break;
+          }
+
           message.epochBlocksOverlap = reader.uint64() as Long;
-          break;
+          continue;
         case 9:
+          if (tag != 74) {
+            break;
+          }
+
           message.stakeToMaxCUList = reader.string();
-          break;
+          continue;
         case 10:
+          if (tag != 82) {
+            break;
+          }
+
           message.unpayLimit = reader.string();
-          break;
+          continue;
         case 11:
+          if (tag != 90) {
+            break;
+          }
+
           message.slashLimit = reader.string();
-          break;
+          continue;
         case 12:
+          if (tag != 98) {
+            break;
+          }
+
           message.dataReliabilityReward = reader.string();
-          break;
+          continue;
         case 13:
+          if (tag != 106) {
+            break;
+          }
+
           message.QoSWeight = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
+        case 14:
+          if (tag != 112) {
+            break;
+          }
+
+          message.recommendedEpochNumToCollectPayment = reader.uint64() as Long;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
 
   fromJSON(object: any): Params {
     return {
-      minStakeProvider: isSet(object.minStakeProvider) ? String(object.minStakeProvider) : "",
-      minStakeClient: isSet(object.minStakeClient) ? String(object.minStakeClient) : "",
       mintCoinsPerCU: isSet(object.mintCoinsPerCU) ? String(object.mintCoinsPerCU) : "",
       burnCoinsPerCU: isSet(object.burnCoinsPerCU) ? String(object.burnCoinsPerCU) : "",
       fraudStakeSlashingFactor: isSet(object.fraudStakeSlashingFactor) ? String(object.fraudStakeSlashingFactor) : "",
@@ -154,13 +193,14 @@ export const Params = {
       slashLimit: isSet(object.slashLimit) ? String(object.slashLimit) : "",
       dataReliabilityReward: isSet(object.dataReliabilityReward) ? String(object.dataReliabilityReward) : "",
       QoSWeight: isSet(object.QoSWeight) ? String(object.QoSWeight) : "",
+      recommendedEpochNumToCollectPayment: isSet(object.recommendedEpochNumToCollectPayment)
+        ? Long.fromValue(object.recommendedEpochNumToCollectPayment)
+        : Long.UZERO,
     };
   },
 
   toJSON(message: Params): unknown {
     const obj: any = {};
-    message.minStakeProvider !== undefined && (obj.minStakeProvider = message.minStakeProvider);
-    message.minStakeClient !== undefined && (obj.minStakeClient = message.minStakeClient);
     message.mintCoinsPerCU !== undefined && (obj.mintCoinsPerCU = message.mintCoinsPerCU);
     message.burnCoinsPerCU !== undefined && (obj.burnCoinsPerCU = message.burnCoinsPerCU);
     message.fraudStakeSlashingFactor !== undefined && (obj.fraudStakeSlashingFactor = message.fraudStakeSlashingFactor);
@@ -175,13 +215,18 @@ export const Params = {
     message.slashLimit !== undefined && (obj.slashLimit = message.slashLimit);
     message.dataReliabilityReward !== undefined && (obj.dataReliabilityReward = message.dataReliabilityReward);
     message.QoSWeight !== undefined && (obj.QoSWeight = message.QoSWeight);
+    message.recommendedEpochNumToCollectPayment !== undefined &&
+      (obj.recommendedEpochNumToCollectPayment = (message.recommendedEpochNumToCollectPayment || Long.UZERO)
+        .toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Params>, I>>(base?: I): Params {
+    return Params.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
     const message = createBaseParams();
-    message.minStakeProvider = object.minStakeProvider ?? "";
-    message.minStakeClient = object.minStakeClient ?? "";
     message.mintCoinsPerCU = object.mintCoinsPerCU ?? "";
     message.burnCoinsPerCU = object.burnCoinsPerCU ?? "";
     message.fraudStakeSlashingFactor = object.fraudStakeSlashingFactor ?? "";
@@ -199,6 +244,10 @@ export const Params = {
     message.slashLimit = object.slashLimit ?? "";
     message.dataReliabilityReward = object.dataReliabilityReward ?? "";
     message.QoSWeight = object.QoSWeight ?? "";
+    message.recommendedEpochNumToCollectPayment =
+      (object.recommendedEpochNumToCollectPayment !== undefined && object.recommendedEpochNumToCollectPayment !== null)
+        ? Long.fromValue(object.recommendedEpochNumToCollectPayment)
+        : Long.UZERO;
     return message;
   },
 };

@@ -29,25 +29,38 @@ export const UniquePaymentStorageClientProvider = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): UniquePaymentStorageClientProvider {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUniquePaymentStorageClientProvider();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.index = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.block = reader.uint64() as Long;
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.usedCU = reader.uint64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -66,6 +79,12 @@ export const UniquePaymentStorageClientProvider = {
     message.block !== undefined && (obj.block = (message.block || Long.UZERO).toString());
     message.usedCU !== undefined && (obj.usedCU = (message.usedCU || Long.UZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<UniquePaymentStorageClientProvider>, I>>(
+    base?: I,
+  ): UniquePaymentStorageClientProvider {
+    return UniquePaymentStorageClientProvider.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<UniquePaymentStorageClientProvider>, I>>(

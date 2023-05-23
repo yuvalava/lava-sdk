@@ -1,19 +1,19 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { UniquePaymentStorageClientProvider } from "./unique_payment_storage_client_provider";
 
 export const protobufPackage = "lavanet.lava.pairing";
 
 export interface ProviderPaymentStorage {
   index: string;
-  uniquePaymentStorageClientProvider: UniquePaymentStorageClientProvider[];
   epoch: Long;
-  unresponsivenessComplaints: string[];
+  uniquePaymentStorageClientProviderKeys: string[];
+  /** total CU that were supposed to be served by the provider but didn't because he was unavailable (so consumers complained about him) */
+  complainersTotalCu: Long;
 }
 
 function createBaseProviderPaymentStorage(): ProviderPaymentStorage {
-  return { index: "", uniquePaymentStorageClientProvider: [], epoch: Long.UZERO, unresponsivenessComplaints: [] };
+  return { index: "", epoch: Long.UZERO, uniquePaymentStorageClientProviderKeys: [], complainersTotalCu: Long.UZERO };
 }
 
 export const ProviderPaymentStorage = {
@@ -21,43 +21,58 @@ export const ProviderPaymentStorage = {
     if (message.index !== "") {
       writer.uint32(10).string(message.index);
     }
-    for (const v of message.uniquePaymentStorageClientProvider) {
-      UniquePaymentStorageClientProvider.encode(v!, writer.uint32(18).fork()).ldelim();
-    }
     if (!message.epoch.isZero()) {
       writer.uint32(24).uint64(message.epoch);
     }
-    for (const v of message.unresponsivenessComplaints) {
-      writer.uint32(34).string(v!);
+    for (const v of message.uniquePaymentStorageClientProviderKeys) {
+      writer.uint32(42).string(v!);
+    }
+    if (!message.complainersTotalCu.isZero()) {
+      writer.uint32(48).uint64(message.complainersTotalCu);
     }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ProviderPaymentStorage {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseProviderPaymentStorage();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.index = reader.string();
-          break;
-        case 2:
-          message.uniquePaymentStorageClientProvider.push(
-            UniquePaymentStorageClientProvider.decode(reader, reader.uint32()),
-          );
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.epoch = reader.uint64() as Long;
-          break;
-        case 4:
-          message.unresponsivenessComplaints.push(reader.string());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
+        case 5:
+          if (tag != 42) {
+            break;
+          }
+
+          message.uniquePaymentStorageClientProviderKeys.push(reader.string());
+          continue;
+        case 6:
+          if (tag != 48) {
+            break;
+          }
+
+          message.complainersTotalCu = reader.uint64() as Long;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -65,42 +80,40 @@ export const ProviderPaymentStorage = {
   fromJSON(object: any): ProviderPaymentStorage {
     return {
       index: isSet(object.index) ? String(object.index) : "",
-      uniquePaymentStorageClientProvider: Array.isArray(object?.uniquePaymentStorageClientProvider)
-        ? object.uniquePaymentStorageClientProvider.map((e: any) => UniquePaymentStorageClientProvider.fromJSON(e))
-        : [],
       epoch: isSet(object.epoch) ? Long.fromValue(object.epoch) : Long.UZERO,
-      unresponsivenessComplaints: Array.isArray(object?.unresponsivenessComplaints)
-        ? object.unresponsivenessComplaints.map((e: any) => String(e))
+      uniquePaymentStorageClientProviderKeys: Array.isArray(object?.uniquePaymentStorageClientProviderKeys)
+        ? object.uniquePaymentStorageClientProviderKeys.map((e: any) => String(e))
         : [],
+      complainersTotalCu: isSet(object.complainersTotalCu) ? Long.fromValue(object.complainersTotalCu) : Long.UZERO,
     };
   },
 
   toJSON(message: ProviderPaymentStorage): unknown {
     const obj: any = {};
     message.index !== undefined && (obj.index = message.index);
-    if (message.uniquePaymentStorageClientProvider) {
-      obj.uniquePaymentStorageClientProvider = message.uniquePaymentStorageClientProvider.map((e) =>
-        e ? UniquePaymentStorageClientProvider.toJSON(e) : undefined
-      );
-    } else {
-      obj.uniquePaymentStorageClientProvider = [];
-    }
     message.epoch !== undefined && (obj.epoch = (message.epoch || Long.UZERO).toString());
-    if (message.unresponsivenessComplaints) {
-      obj.unresponsivenessComplaints = message.unresponsivenessComplaints.map((e) => e);
+    if (message.uniquePaymentStorageClientProviderKeys) {
+      obj.uniquePaymentStorageClientProviderKeys = message.uniquePaymentStorageClientProviderKeys.map((e) => e);
     } else {
-      obj.unresponsivenessComplaints = [];
+      obj.uniquePaymentStorageClientProviderKeys = [];
     }
+    message.complainersTotalCu !== undefined &&
+      (obj.complainersTotalCu = (message.complainersTotalCu || Long.UZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ProviderPaymentStorage>, I>>(base?: I): ProviderPaymentStorage {
+    return ProviderPaymentStorage.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ProviderPaymentStorage>, I>>(object: I): ProviderPaymentStorage {
     const message = createBaseProviderPaymentStorage();
     message.index = object.index ?? "";
-    message.uniquePaymentStorageClientProvider =
-      object.uniquePaymentStorageClientProvider?.map((e) => UniquePaymentStorageClientProvider.fromPartial(e)) || [];
     message.epoch = (object.epoch !== undefined && object.epoch !== null) ? Long.fromValue(object.epoch) : Long.UZERO;
-    message.unresponsivenessComplaints = object.unresponsivenessComplaints?.map((e) => e) || [];
+    message.uniquePaymentStorageClientProviderKeys = object.uniquePaymentStorageClientProviderKeys?.map((e) => e) || [];
+    message.complainersTotalCu = (object.complainersTotalCu !== undefined && object.complainersTotalCu !== null)
+      ? Long.fromValue(object.complainersTotalCu)
+      : Long.UZERO;
     return message;
   },
 };
