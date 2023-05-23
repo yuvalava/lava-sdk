@@ -6,16 +6,16 @@ export const protobufPackage = "lavanet.lava.spec";
 
 export enum parserFunc {
   EMPTY = 0,
-  /** PARSE_BY_ARG - means parameters are ordered and flat expected areguments are: [param index] (example: PARAMS: [<#BlockNum>,"banana"]) */
+  /** PARSE_BY_ARG - means parameters are ordered and flat expected arguments are: [param index] (example: PARAMS: [<#BlockNum>,"banana"]) args: 0 */
   PARSE_BY_ARG = 1,
-  /** PARSE_CANONICAL - means parameters are ordered and one of them has named properties, expected areguments are: [param index to object,propname in object] (example: PARAMS: ["banana",{propname:<#BlockNum>}]) */
+  /** PARSE_CANONICAL - means parameters are ordered and one of them has named properties, expected arguments are: [param index to object,prop_name in object] (example: PARAMS: ["banana",{prop_name:<#BlockNum>}]) need to configure args: 1,"prop_name" */
   PARSE_CANONICAL = 2,
-  /** PARSE_DICTIONARY - means parameters are named, expected arguments are [prop_name,separator] (example: PARAMS: {propname:<#BlockNum>,prop2:"banana"}) */
+  /** PARSE_DICTIONARY - means parameters are named, expected arguments are [prop_name,separator] (example: PARAMS: {prop_name:<#BlockNum>,prop2:"banana"}) args: "prop_name" */
   PARSE_DICTIONARY = 3,
-  /** PARSE_DICTIONARY_OR_ORDERED - means parameters are named expected arguments are [prop_name,separator,parameter order if not found] */
+  /** PARSE_DICTIONARY_OR_ORDERED - means parameters are named expected arguments are [prop_name,separator,parameter order if not found] for input of: block=15&address=abc OR ?abc,15 we will do args: block,=,1 */
   PARSE_DICTIONARY_OR_ORDERED = 4,
-  /** DEFAULT - means parameters are non related to block, and should fetch latest block */
-  DEFAULT = 5,
+  /** DEFAULT - reserved */
+  DEFAULT = 6,
   UNRECOGNIZED = -1,
 }
 
@@ -36,7 +36,7 @@ export function parserFuncFromJSON(object: any): parserFunc {
     case 4:
     case "PARSE_DICTIONARY_OR_ORDERED":
       return parserFunc.PARSE_DICTIONARY_OR_ORDERED;
-    case 5:
+    case 6:
     case "DEFAULT":
       return parserFunc.DEFAULT;
     case -1:
@@ -72,8 +72,9 @@ export interface ServiceApi {
   computeUnits: Long;
   enabled: boolean;
   apiInterfaces: ApiInterface[];
-  category?: SpecCategory;
+  reserved?: SpecCategory;
   parsing?: Parsing;
+  internalPath: string;
 }
 
 export interface Parsing {
@@ -86,11 +87,17 @@ export interface ApiInterface {
   interface: string;
   type: string;
   extraComputeUnits: Long;
+  category?: SpecCategory;
+  overwriteBlockParsing?: BlockParser;
 }
 
 export interface BlockParser {
   parserArg: string[];
   parserFunc: parserFunc;
+  /** default value when set allows parsing failures to assume the default value */
+  defaultValue: string;
+  /** used to parse byte responses: base64,hex,bech32 */
+  encoding: string;
 }
 
 export interface SpecCategory {
@@ -98,6 +105,7 @@ export interface SpecCategory {
   local: boolean;
   subscription: boolean;
   stateful: number;
+  hangingApi: boolean;
 }
 
 function createBaseServiceApi(): ServiceApi {
@@ -107,8 +115,9 @@ function createBaseServiceApi(): ServiceApi {
     computeUnits: Long.UZERO,
     enabled: false,
     apiInterfaces: [],
-    category: undefined,
+    reserved: undefined,
     parsing: undefined,
+    internalPath: "",
   };
 }
 
@@ -129,47 +138,86 @@ export const ServiceApi = {
     for (const v of message.apiInterfaces) {
       ApiInterface.encode(v!, writer.uint32(42).fork()).ldelim();
     }
-    if (message.category !== undefined) {
-      SpecCategory.encode(message.category, writer.uint32(50).fork()).ldelim();
+    if (message.reserved !== undefined) {
+      SpecCategory.encode(message.reserved, writer.uint32(50).fork()).ldelim();
     }
     if (message.parsing !== undefined) {
       Parsing.encode(message.parsing, writer.uint32(58).fork()).ldelim();
+    }
+    if (message.internalPath !== "") {
+      writer.uint32(66).string(message.internalPath);
     }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ServiceApi {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseServiceApi();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.name = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.blockParsing = BlockParser.decode(reader, reader.uint32());
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.computeUnits = reader.uint64() as Long;
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.enabled = reader.bool();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.apiInterfaces.push(ApiInterface.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 6:
-          message.category = SpecCategory.decode(reader, reader.uint32());
-          break;
+          if (tag != 50) {
+            break;
+          }
+
+          message.reserved = SpecCategory.decode(reader, reader.uint32());
+          continue;
         case 7:
+          if (tag != 58) {
+            break;
+          }
+
           message.parsing = Parsing.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
+        case 8:
+          if (tag != 66) {
+            break;
+          }
+
+          message.internalPath = reader.string();
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -183,8 +231,9 @@ export const ServiceApi = {
       apiInterfaces: Array.isArray(object?.apiInterfaces)
         ? object.apiInterfaces.map((e: any) => ApiInterface.fromJSON(e))
         : [],
-      category: isSet(object.category) ? SpecCategory.fromJSON(object.category) : undefined,
+      reserved: isSet(object.reserved) ? SpecCategory.fromJSON(object.reserved) : undefined,
       parsing: isSet(object.parsing) ? Parsing.fromJSON(object.parsing) : undefined,
+      internalPath: isSet(object.internalPath) ? String(object.internalPath) : "",
     };
   },
 
@@ -200,10 +249,15 @@ export const ServiceApi = {
     } else {
       obj.apiInterfaces = [];
     }
-    message.category !== undefined &&
-      (obj.category = message.category ? SpecCategory.toJSON(message.category) : undefined);
+    message.reserved !== undefined &&
+      (obj.reserved = message.reserved ? SpecCategory.toJSON(message.reserved) : undefined);
     message.parsing !== undefined && (obj.parsing = message.parsing ? Parsing.toJSON(message.parsing) : undefined);
+    message.internalPath !== undefined && (obj.internalPath = message.internalPath);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ServiceApi>, I>>(base?: I): ServiceApi {
+    return ServiceApi.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ServiceApi>, I>>(object: I): ServiceApi {
@@ -217,12 +271,13 @@ export const ServiceApi = {
       : Long.UZERO;
     message.enabled = object.enabled ?? false;
     message.apiInterfaces = object.apiInterfaces?.map((e) => ApiInterface.fromPartial(e)) || [];
-    message.category = (object.category !== undefined && object.category !== null)
-      ? SpecCategory.fromPartial(object.category)
+    message.reserved = (object.reserved !== undefined && object.reserved !== null)
+      ? SpecCategory.fromPartial(object.reserved)
       : undefined;
     message.parsing = (object.parsing !== undefined && object.parsing !== null)
       ? Parsing.fromPartial(object.parsing)
       : undefined;
+    message.internalPath = object.internalPath ?? "";
     return message;
   },
 };
@@ -246,25 +301,38 @@ export const Parsing = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Parsing {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParsing();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.functionTag = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.functionTemplate = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.resultParsing = BlockParser.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -286,6 +354,10 @@ export const Parsing = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<Parsing>, I>>(base?: I): Parsing {
+    return Parsing.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<Parsing>, I>>(object: I): Parsing {
     const message = createBaseParsing();
     message.functionTag = object.functionTag ?? "";
@@ -298,7 +370,13 @@ export const Parsing = {
 };
 
 function createBaseApiInterface(): ApiInterface {
-  return { interface: "", type: "", extraComputeUnits: Long.UZERO };
+  return {
+    interface: "",
+    type: "",
+    extraComputeUnits: Long.UZERO,
+    category: undefined,
+    overwriteBlockParsing: undefined,
+  };
 }
 
 export const ApiInterface = {
@@ -312,29 +390,62 @@ export const ApiInterface = {
     if (!message.extraComputeUnits.isZero()) {
       writer.uint32(24).uint64(message.extraComputeUnits);
     }
+    if (message.category !== undefined) {
+      SpecCategory.encode(message.category, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.overwriteBlockParsing !== undefined) {
+      BlockParser.encode(message.overwriteBlockParsing, writer.uint32(42).fork()).ldelim();
+    }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ApiInterface {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseApiInterface();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.interface = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.type = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.extraComputeUnits = reader.uint64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
+        case 4:
+          if (tag != 34) {
+            break;
+          }
+
+          message.category = SpecCategory.decode(reader, reader.uint32());
+          continue;
+        case 5:
+          if (tag != 42) {
+            break;
+          }
+
+          message.overwriteBlockParsing = BlockParser.decode(reader, reader.uint32());
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -344,6 +455,10 @@ export const ApiInterface = {
       interface: isSet(object.interface) ? String(object.interface) : "",
       type: isSet(object.type) ? String(object.type) : "",
       extraComputeUnits: isSet(object.extraComputeUnits) ? Long.fromValue(object.extraComputeUnits) : Long.UZERO,
+      category: isSet(object.category) ? SpecCategory.fromJSON(object.category) : undefined,
+      overwriteBlockParsing: isSet(object.overwriteBlockParsing)
+        ? BlockParser.fromJSON(object.overwriteBlockParsing)
+        : undefined,
     };
   },
 
@@ -353,7 +468,16 @@ export const ApiInterface = {
     message.type !== undefined && (obj.type = message.type);
     message.extraComputeUnits !== undefined &&
       (obj.extraComputeUnits = (message.extraComputeUnits || Long.UZERO).toString());
+    message.category !== undefined &&
+      (obj.category = message.category ? SpecCategory.toJSON(message.category) : undefined);
+    message.overwriteBlockParsing !== undefined && (obj.overwriteBlockParsing = message.overwriteBlockParsing
+      ? BlockParser.toJSON(message.overwriteBlockParsing)
+      : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<ApiInterface>, I>>(base?: I): ApiInterface {
+    return ApiInterface.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<ApiInterface>, I>>(object: I): ApiInterface {
@@ -363,12 +487,19 @@ export const ApiInterface = {
     message.extraComputeUnits = (object.extraComputeUnits !== undefined && object.extraComputeUnits !== null)
       ? Long.fromValue(object.extraComputeUnits)
       : Long.UZERO;
+    message.category = (object.category !== undefined && object.category !== null)
+      ? SpecCategory.fromPartial(object.category)
+      : undefined;
+    message.overwriteBlockParsing =
+      (object.overwriteBlockParsing !== undefined && object.overwriteBlockParsing !== null)
+        ? BlockParser.fromPartial(object.overwriteBlockParsing)
+        : undefined;
     return message;
   },
 };
 
 function createBaseBlockParser(): BlockParser {
-  return { parserArg: [], parserFunc: 0 };
+  return { parserArg: [], parserFunc: 0, defaultValue: "", encoding: "" };
 }
 
 export const BlockParser = {
@@ -379,26 +510,55 @@ export const BlockParser = {
     if (message.parserFunc !== 0) {
       writer.uint32(16).int32(message.parserFunc);
     }
+    if (message.defaultValue !== "") {
+      writer.uint32(26).string(message.defaultValue);
+    }
+    if (message.encoding !== "") {
+      writer.uint32(34).string(message.encoding);
+    }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): BlockParser {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBlockParser();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.parserArg.push(reader.string());
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.parserFunc = reader.int32() as any;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
+        case 3:
+          if (tag != 26) {
+            break;
+          }
+
+          message.defaultValue = reader.string();
+          continue;
+        case 4:
+          if (tag != 34) {
+            break;
+          }
+
+          message.encoding = reader.string();
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -407,6 +567,8 @@ export const BlockParser = {
     return {
       parserArg: Array.isArray(object?.parserArg) ? object.parserArg.map((e: any) => String(e)) : [],
       parserFunc: isSet(object.parserFunc) ? parserFuncFromJSON(object.parserFunc) : 0,
+      defaultValue: isSet(object.defaultValue) ? String(object.defaultValue) : "",
+      encoding: isSet(object.encoding) ? String(object.encoding) : "",
     };
   },
 
@@ -418,19 +580,27 @@ export const BlockParser = {
       obj.parserArg = [];
     }
     message.parserFunc !== undefined && (obj.parserFunc = parserFuncToJSON(message.parserFunc));
+    message.defaultValue !== undefined && (obj.defaultValue = message.defaultValue);
+    message.encoding !== undefined && (obj.encoding = message.encoding);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<BlockParser>, I>>(base?: I): BlockParser {
+    return BlockParser.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<BlockParser>, I>>(object: I): BlockParser {
     const message = createBaseBlockParser();
     message.parserArg = object.parserArg?.map((e) => e) || [];
     message.parserFunc = object.parserFunc ?? 0;
+    message.defaultValue = object.defaultValue ?? "";
+    message.encoding = object.encoding ?? "";
     return message;
   },
 };
 
 function createBaseSpecCategory(): SpecCategory {
-  return { deterministic: false, local: false, subscription: false, stateful: 0 };
+  return { deterministic: false, local: false, subscription: false, stateful: 0, hangingApi: false };
 }
 
 export const SpecCategory = {
@@ -447,32 +617,59 @@ export const SpecCategory = {
     if (message.stateful !== 0) {
       writer.uint32(32).uint32(message.stateful);
     }
+    if (message.hangingApi === true) {
+      writer.uint32(40).bool(message.hangingApi);
+    }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SpecCategory {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSpecCategory();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.deterministic = reader.bool();
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.local = reader.bool();
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.subscription = reader.bool();
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.stateful = reader.uint32();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
+        case 5:
+          if (tag != 40) {
+            break;
+          }
+
+          message.hangingApi = reader.bool();
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -483,6 +680,7 @@ export const SpecCategory = {
       local: isSet(object.local) ? Boolean(object.local) : false,
       subscription: isSet(object.subscription) ? Boolean(object.subscription) : false,
       stateful: isSet(object.stateful) ? Number(object.stateful) : 0,
+      hangingApi: isSet(object.hangingApi) ? Boolean(object.hangingApi) : false,
     };
   },
 
@@ -492,7 +690,12 @@ export const SpecCategory = {
     message.local !== undefined && (obj.local = message.local);
     message.subscription !== undefined && (obj.subscription = message.subscription);
     message.stateful !== undefined && (obj.stateful = Math.round(message.stateful));
+    message.hangingApi !== undefined && (obj.hangingApi = message.hangingApi);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<SpecCategory>, I>>(base?: I): SpecCategory {
+    return SpecCategory.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<SpecCategory>, I>>(object: I): SpecCategory {
@@ -501,6 +704,7 @@ export const SpecCategory = {
     message.local = object.local ?? false;
     message.subscription = object.subscription ?? false;
     message.stateful = object.stateful ?? 0;
+    message.hangingApi = object.hangingApi ?? false;
     return message;
   },
 };

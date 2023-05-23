@@ -44,16 +44,17 @@ export const QueryParamsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -65,6 +66,10 @@ export const QueryParamsRequest = {
   toJSON(_: QueryParamsRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(base?: I): QueryParamsRequest {
+    return QueryParamsRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
@@ -86,19 +91,24 @@ export const QueryParamsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.params = Params.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -111,6 +121,10 @@ export const QueryParamsResponse = {
     const obj: any = {};
     message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(base?: I): QueryParamsResponse {
+    return QueryParamsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
@@ -135,19 +149,24 @@ export const QueryGetConflictVoteRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetConflictVoteRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetConflictVoteRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.index = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -160,6 +179,10 @@ export const QueryGetConflictVoteRequest = {
     const obj: any = {};
     message.index !== undefined && (obj.index = message.index);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryGetConflictVoteRequest>, I>>(base?: I): QueryGetConflictVoteRequest {
+    return QueryGetConflictVoteRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryGetConflictVoteRequest>, I>>(object: I): QueryGetConflictVoteRequest {
@@ -182,19 +205,24 @@ export const QueryGetConflictVoteResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetConflictVoteResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetConflictVoteResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.conflictVote = ConflictVote.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -208,6 +236,10 @@ export const QueryGetConflictVoteResponse = {
     message.conflictVote !== undefined &&
       (obj.conflictVote = message.conflictVote ? ConflictVote.toJSON(message.conflictVote) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryGetConflictVoteResponse>, I>>(base?: I): QueryGetConflictVoteResponse {
+    return QueryGetConflictVoteResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryGetConflictVoteResponse>, I>>(object: I): QueryGetConflictVoteResponse {
@@ -232,19 +264,24 @@ export const QueryAllConflictVoteRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllConflictVoteRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllConflictVoteRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pagination = PageRequest.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -258,6 +295,10 @@ export const QueryAllConflictVoteRequest = {
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllConflictVoteRequest>, I>>(base?: I): QueryAllConflictVoteRequest {
+    return QueryAllConflictVoteRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAllConflictVoteRequest>, I>>(object: I): QueryAllConflictVoteRequest {
@@ -285,22 +326,31 @@ export const QueryAllConflictVoteResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllConflictVoteResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllConflictVoteResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.conflictVote.push(ConflictVote.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.pagination = PageResponse.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -324,6 +374,10 @@ export const QueryAllConflictVoteResponse = {
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllConflictVoteResponse>, I>>(base?: I): QueryAllConflictVoteResponse {
+    return QueryAllConflictVoteResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAllConflictVoteResponse>, I>>(object: I): QueryAllConflictVoteResponse {
@@ -359,19 +413,19 @@ export class QueryClientImpl implements Query {
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => QueryParamsResponse.decode(_m0.Reader.create(data)));
   }
 
   ConflictVote(request: QueryGetConflictVoteRequest): Promise<QueryGetConflictVoteResponse> {
     const data = QueryGetConflictVoteRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "ConflictVote", data);
-    return promise.then((data) => QueryGetConflictVoteResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => QueryGetConflictVoteResponse.decode(_m0.Reader.create(data)));
   }
 
   ConflictVoteAll(request: QueryAllConflictVoteRequest): Promise<QueryAllConflictVoteResponse> {
     const data = QueryAllConflictVoteRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "ConflictVoteAll", data);
-    return promise.then((data) => QueryAllConflictVoteResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => QueryAllConflictVoteResponse.decode(_m0.Reader.create(data)));
   }
 }
 

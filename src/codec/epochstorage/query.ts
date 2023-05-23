@@ -70,16 +70,17 @@ export const QueryParamsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -91,6 +92,10 @@ export const QueryParamsRequest = {
   toJSON(_: QueryParamsRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(base?: I): QueryParamsRequest {
+    return QueryParamsRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsRequest>, I>>(_: I): QueryParamsRequest {
@@ -112,19 +117,24 @@ export const QueryParamsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryParamsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.params = Params.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -137,6 +147,10 @@ export const QueryParamsResponse = {
     const obj: any = {};
     message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(base?: I): QueryParamsResponse {
+    return QueryParamsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryParamsResponse>, I>>(object: I): QueryParamsResponse {
@@ -161,19 +175,24 @@ export const QueryGetStakeStorageRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetStakeStorageRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetStakeStorageRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.index = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -186,6 +205,10 @@ export const QueryGetStakeStorageRequest = {
     const obj: any = {};
     message.index !== undefined && (obj.index = message.index);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryGetStakeStorageRequest>, I>>(base?: I): QueryGetStakeStorageRequest {
+    return QueryGetStakeStorageRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryGetStakeStorageRequest>, I>>(object: I): QueryGetStakeStorageRequest {
@@ -208,19 +231,24 @@ export const QueryGetStakeStorageResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetStakeStorageResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetStakeStorageResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.stakeStorage = StakeStorage.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -234,6 +262,10 @@ export const QueryGetStakeStorageResponse = {
     message.stakeStorage !== undefined &&
       (obj.stakeStorage = message.stakeStorage ? StakeStorage.toJSON(message.stakeStorage) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryGetStakeStorageResponse>, I>>(base?: I): QueryGetStakeStorageResponse {
+    return QueryGetStakeStorageResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryGetStakeStorageResponse>, I>>(object: I): QueryGetStakeStorageResponse {
@@ -258,19 +290,24 @@ export const QueryAllStakeStorageRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllStakeStorageRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllStakeStorageRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pagination = PageRequest.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -284,6 +321,10 @@ export const QueryAllStakeStorageRequest = {
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllStakeStorageRequest>, I>>(base?: I): QueryAllStakeStorageRequest {
+    return QueryAllStakeStorageRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAllStakeStorageRequest>, I>>(object: I): QueryAllStakeStorageRequest {
@@ -311,22 +352,31 @@ export const QueryAllStakeStorageResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllStakeStorageResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllStakeStorageResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.stakeStorage.push(StakeStorage.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.pagination = PageResponse.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -352,6 +402,10 @@ export const QueryAllStakeStorageResponse = {
     return obj;
   },
 
+  create<I extends Exact<DeepPartial<QueryAllStakeStorageResponse>, I>>(base?: I): QueryAllStakeStorageResponse {
+    return QueryAllStakeStorageResponse.fromPartial(base ?? {});
+  },
+
   fromPartial<I extends Exact<DeepPartial<QueryAllStakeStorageResponse>, I>>(object: I): QueryAllStakeStorageResponse {
     const message = createBaseQueryAllStakeStorageResponse();
     message.stakeStorage = object.stakeStorage?.map((e) => StakeStorage.fromPartial(e)) || [];
@@ -372,16 +426,17 @@ export const QueryGetEpochDetailsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetEpochDetailsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetEpochDetailsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -393,6 +448,10 @@ export const QueryGetEpochDetailsRequest = {
   toJSON(_: QueryGetEpochDetailsRequest): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryGetEpochDetailsRequest>, I>>(base?: I): QueryGetEpochDetailsRequest {
+    return QueryGetEpochDetailsRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryGetEpochDetailsRequest>, I>>(_: I): QueryGetEpochDetailsRequest {
@@ -414,19 +473,24 @@ export const QueryGetEpochDetailsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetEpochDetailsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetEpochDetailsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.EpochDetails = EpochDetails.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -440,6 +504,10 @@ export const QueryGetEpochDetailsResponse = {
     message.EpochDetails !== undefined &&
       (obj.EpochDetails = message.EpochDetails ? EpochDetails.toJSON(message.EpochDetails) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryGetEpochDetailsResponse>, I>>(base?: I): QueryGetEpochDetailsResponse {
+    return QueryGetEpochDetailsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryGetEpochDetailsResponse>, I>>(object: I): QueryGetEpochDetailsResponse {
@@ -464,19 +532,24 @@ export const QueryGetFixatedParamsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetFixatedParamsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetFixatedParamsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.index = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -489,6 +562,10 @@ export const QueryGetFixatedParamsRequest = {
     const obj: any = {};
     message.index !== undefined && (obj.index = message.index);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryGetFixatedParamsRequest>, I>>(base?: I): QueryGetFixatedParamsRequest {
+    return QueryGetFixatedParamsRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryGetFixatedParamsRequest>, I>>(object: I): QueryGetFixatedParamsRequest {
@@ -511,19 +588,24 @@ export const QueryGetFixatedParamsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetFixatedParamsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryGetFixatedParamsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.fixatedParams = FixatedParams.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -537,6 +619,10 @@ export const QueryGetFixatedParamsResponse = {
     message.fixatedParams !== undefined &&
       (obj.fixatedParams = message.fixatedParams ? FixatedParams.toJSON(message.fixatedParams) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryGetFixatedParamsResponse>, I>>(base?: I): QueryGetFixatedParamsResponse {
+    return QueryGetFixatedParamsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryGetFixatedParamsResponse>, I>>(
@@ -563,19 +649,24 @@ export const QueryAllFixatedParamsRequest = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllFixatedParamsRequest {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllFixatedParamsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.pagination = PageRequest.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -589,6 +680,10 @@ export const QueryAllFixatedParamsRequest = {
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageRequest.toJSON(message.pagination) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllFixatedParamsRequest>, I>>(base?: I): QueryAllFixatedParamsRequest {
+    return QueryAllFixatedParamsRequest.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAllFixatedParamsRequest>, I>>(object: I): QueryAllFixatedParamsRequest {
@@ -616,22 +711,31 @@ export const QueryAllFixatedParamsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllFixatedParamsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryAllFixatedParamsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.fixatedParams.push(FixatedParams.decode(reader, reader.uint32()));
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.pagination = PageResponse.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -655,6 +759,10 @@ export const QueryAllFixatedParamsResponse = {
     message.pagination !== undefined &&
       (obj.pagination = message.pagination ? PageResponse.toJSON(message.pagination) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAllFixatedParamsResponse>, I>>(base?: I): QueryAllFixatedParamsResponse {
+    return QueryAllFixatedParamsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<QueryAllFixatedParamsResponse>, I>>(
@@ -701,37 +809,37 @@ export class QueryClientImpl implements Query {
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "Params", data);
-    return promise.then((data) => QueryParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => QueryParamsResponse.decode(_m0.Reader.create(data)));
   }
 
   StakeStorage(request: QueryGetStakeStorageRequest): Promise<QueryGetStakeStorageResponse> {
     const data = QueryGetStakeStorageRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "StakeStorage", data);
-    return promise.then((data) => QueryGetStakeStorageResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => QueryGetStakeStorageResponse.decode(_m0.Reader.create(data)));
   }
 
   StakeStorageAll(request: QueryAllStakeStorageRequest): Promise<QueryAllStakeStorageResponse> {
     const data = QueryAllStakeStorageRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "StakeStorageAll", data);
-    return promise.then((data) => QueryAllStakeStorageResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => QueryAllStakeStorageResponse.decode(_m0.Reader.create(data)));
   }
 
   EpochDetails(request: QueryGetEpochDetailsRequest): Promise<QueryGetEpochDetailsResponse> {
     const data = QueryGetEpochDetailsRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "EpochDetails", data);
-    return promise.then((data) => QueryGetEpochDetailsResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => QueryGetEpochDetailsResponse.decode(_m0.Reader.create(data)));
   }
 
   FixatedParams(request: QueryGetFixatedParamsRequest): Promise<QueryGetFixatedParamsResponse> {
     const data = QueryGetFixatedParamsRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "FixatedParams", data);
-    return promise.then((data) => QueryGetFixatedParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => QueryGetFixatedParamsResponse.decode(_m0.Reader.create(data)));
   }
 
   FixatedParamsAll(request: QueryAllFixatedParamsRequest): Promise<QueryAllFixatedParamsResponse> {
     const data = QueryAllFixatedParamsRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "FixatedParamsAll", data);
-    return promise.then((data) => QueryAllFixatedParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => QueryAllFixatedParamsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

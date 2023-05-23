@@ -10,6 +10,7 @@ export interface Params {
   epochBlocks: Long;
   epochsToSave: Long;
   latestParamChange: Long;
+  unstakeHoldBlocksStatic: Long;
 }
 
 function createBaseParams(): Params {
@@ -18,6 +19,7 @@ function createBaseParams(): Params {
     epochBlocks: Long.UZERO,
     epochsToSave: Long.UZERO,
     latestParamChange: Long.UZERO,
+    unstakeHoldBlocksStatic: Long.UZERO,
   };
 }
 
@@ -35,32 +37,59 @@ export const Params = {
     if (!message.latestParamChange.isZero()) {
       writer.uint32(32).uint64(message.latestParamChange);
     }
+    if (!message.unstakeHoldBlocksStatic.isZero()) {
+      writer.uint32(40).uint64(message.unstakeHoldBlocksStatic);
+    }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Params {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.unstakeHoldBlocks = reader.uint64() as Long;
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.epochBlocks = reader.uint64() as Long;
-          break;
+          continue;
         case 3:
+          if (tag != 24) {
+            break;
+          }
+
           message.epochsToSave = reader.uint64() as Long;
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.latestParamChange = reader.uint64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
+        case 5:
+          if (tag != 40) {
+            break;
+          }
+
+          message.unstakeHoldBlocksStatic = reader.uint64() as Long;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -71,6 +100,9 @@ export const Params = {
       epochBlocks: isSet(object.epochBlocks) ? Long.fromValue(object.epochBlocks) : Long.UZERO,
       epochsToSave: isSet(object.epochsToSave) ? Long.fromValue(object.epochsToSave) : Long.UZERO,
       latestParamChange: isSet(object.latestParamChange) ? Long.fromValue(object.latestParamChange) : Long.UZERO,
+      unstakeHoldBlocksStatic: isSet(object.unstakeHoldBlocksStatic)
+        ? Long.fromValue(object.unstakeHoldBlocksStatic)
+        : Long.UZERO,
     };
   },
 
@@ -82,7 +114,13 @@ export const Params = {
     message.epochsToSave !== undefined && (obj.epochsToSave = (message.epochsToSave || Long.UZERO).toString());
     message.latestParamChange !== undefined &&
       (obj.latestParamChange = (message.latestParamChange || Long.UZERO).toString());
+    message.unstakeHoldBlocksStatic !== undefined &&
+      (obj.unstakeHoldBlocksStatic = (message.unstakeHoldBlocksStatic || Long.UZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<Params>, I>>(base?: I): Params {
+    return Params.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<Params>, I>>(object: I): Params {
@@ -99,6 +137,10 @@ export const Params = {
     message.latestParamChange = (object.latestParamChange !== undefined && object.latestParamChange !== null)
       ? Long.fromValue(object.latestParamChange)
       : Long.UZERO;
+    message.unstakeHoldBlocksStatic =
+      (object.unstakeHoldBlocksStatic !== undefined && object.unstakeHoldBlocksStatic !== null)
+        ? Long.fromValue(object.unstakeHoldBlocksStatic)
+        : Long.UZERO;
     return message;
   },
 };

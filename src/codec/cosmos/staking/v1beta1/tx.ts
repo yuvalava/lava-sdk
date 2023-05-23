@@ -172,37 +172,66 @@ export const MsgCreateValidator = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateValidator {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCreateValidator();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.description = Description.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.commission = CommissionRates.decode(reader, reader.uint32());
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.minSelfDelegation = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.delegatorAddress = reader.string();
-          break;
+          continue;
         case 5:
+          if (tag != 42) {
+            break;
+          }
+
           message.validatorAddress = reader.string();
-          break;
+          continue;
         case 6:
+          if (tag != 50) {
+            break;
+          }
+
           message.pubkey = Any.decode(reader, reader.uint32());
-          break;
+          continue;
         case 7:
+          if (tag != 58) {
+            break;
+          }
+
           message.value = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -231,6 +260,10 @@ export const MsgCreateValidator = {
     message.pubkey !== undefined && (obj.pubkey = message.pubkey ? Any.toJSON(message.pubkey) : undefined);
     message.value !== undefined && (obj.value = message.value ? Coin.toJSON(message.value) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgCreateValidator>, I>>(base?: I): MsgCreateValidator {
+    return MsgCreateValidator.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgCreateValidator>, I>>(object: I): MsgCreateValidator {
@@ -262,16 +295,17 @@ export const MsgCreateValidatorResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateValidatorResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCreateValidatorResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -283,6 +317,10 @@ export const MsgCreateValidatorResponse = {
   toJSON(_: MsgCreateValidatorResponse): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgCreateValidatorResponse>, I>>(base?: I): MsgCreateValidatorResponse {
+    return MsgCreateValidatorResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgCreateValidatorResponse>, I>>(_: I): MsgCreateValidatorResponse {
@@ -313,28 +351,45 @@ export const MsgEditValidator = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgEditValidator {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgEditValidator();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.description = Description.decode(reader, reader.uint32());
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.validatorAddress = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.commissionRate = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.minSelfDelegation = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -356,6 +411,10 @@ export const MsgEditValidator = {
     message.commissionRate !== undefined && (obj.commissionRate = message.commissionRate);
     message.minSelfDelegation !== undefined && (obj.minSelfDelegation = message.minSelfDelegation);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgEditValidator>, I>>(base?: I): MsgEditValidator {
+    return MsgEditValidator.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgEditValidator>, I>>(object: I): MsgEditValidator {
@@ -380,16 +439,17 @@ export const MsgEditValidatorResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgEditValidatorResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgEditValidatorResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -401,6 +461,10 @@ export const MsgEditValidatorResponse = {
   toJSON(_: MsgEditValidatorResponse): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgEditValidatorResponse>, I>>(base?: I): MsgEditValidatorResponse {
+    return MsgEditValidatorResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgEditValidatorResponse>, I>>(_: I): MsgEditValidatorResponse {
@@ -428,25 +492,38 @@ export const MsgDelegate = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgDelegate {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDelegate();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.delegatorAddress = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.validatorAddress = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.amount = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -465,6 +542,10 @@ export const MsgDelegate = {
     message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress);
     message.amount !== undefined && (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgDelegate>, I>>(base?: I): MsgDelegate {
+    return MsgDelegate.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgDelegate>, I>>(object: I): MsgDelegate {
@@ -488,16 +569,17 @@ export const MsgDelegateResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgDelegateResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgDelegateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -509,6 +591,10 @@ export const MsgDelegateResponse = {
   toJSON(_: MsgDelegateResponse): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgDelegateResponse>, I>>(base?: I): MsgDelegateResponse {
+    return MsgDelegateResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgDelegateResponse>, I>>(_: I): MsgDelegateResponse {
@@ -539,28 +625,45 @@ export const MsgBeginRedelegate = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgBeginRedelegate {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgBeginRedelegate();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.delegatorAddress = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.validatorSrcAddress = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.validatorDstAddress = reader.string();
-          break;
+          continue;
         case 4:
+          if (tag != 34) {
+            break;
+          }
+
           message.amount = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -581,6 +684,10 @@ export const MsgBeginRedelegate = {
     message.validatorDstAddress !== undefined && (obj.validatorDstAddress = message.validatorDstAddress);
     message.amount !== undefined && (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgBeginRedelegate>, I>>(base?: I): MsgBeginRedelegate {
+    return MsgBeginRedelegate.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgBeginRedelegate>, I>>(object: I): MsgBeginRedelegate {
@@ -608,19 +715,24 @@ export const MsgBeginRedelegateResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgBeginRedelegateResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgBeginRedelegateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.completionTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -633,6 +745,10 @@ export const MsgBeginRedelegateResponse = {
     const obj: any = {};
     message.completionTime !== undefined && (obj.completionTime = message.completionTime.toISOString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgBeginRedelegateResponse>, I>>(base?: I): MsgBeginRedelegateResponse {
+    return MsgBeginRedelegateResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgBeginRedelegateResponse>, I>>(object: I): MsgBeginRedelegateResponse {
@@ -661,25 +777,38 @@ export const MsgUndelegate = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgUndelegate {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUndelegate();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.delegatorAddress = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.validatorAddress = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.amount = Coin.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -698,6 +827,10 @@ export const MsgUndelegate = {
     message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress);
     message.amount !== undefined && (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgUndelegate>, I>>(base?: I): MsgUndelegate {
+    return MsgUndelegate.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgUndelegate>, I>>(object: I): MsgUndelegate {
@@ -724,19 +857,24 @@ export const MsgUndelegateResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgUndelegateResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUndelegateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.completionTime = fromTimestamp(Timestamp.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -749,6 +887,10 @@ export const MsgUndelegateResponse = {
     const obj: any = {};
     message.completionTime !== undefined && (obj.completionTime = message.completionTime.toISOString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgUndelegateResponse>, I>>(base?: I): MsgUndelegateResponse {
+    return MsgUndelegateResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgUndelegateResponse>, I>>(object: I): MsgUndelegateResponse {
@@ -780,28 +922,45 @@ export const MsgCancelUnbondingDelegation = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelUnbondingDelegation {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCancelUnbondingDelegation();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.delegatorAddress = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.validatorAddress = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.amount = Coin.decode(reader, reader.uint32());
-          break;
+          continue;
         case 4:
+          if (tag != 32) {
+            break;
+          }
+
           message.creationHeight = reader.int64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -822,6 +981,10 @@ export const MsgCancelUnbondingDelegation = {
     message.amount !== undefined && (obj.amount = message.amount ? Coin.toJSON(message.amount) : undefined);
     message.creationHeight !== undefined && (obj.creationHeight = (message.creationHeight || Long.ZERO).toString());
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgCancelUnbondingDelegation>, I>>(base?: I): MsgCancelUnbondingDelegation {
+    return MsgCancelUnbondingDelegation.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgCancelUnbondingDelegation>, I>>(object: I): MsgCancelUnbondingDelegation {
@@ -848,16 +1011,17 @@ export const MsgCancelUnbondingDelegationResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelUnbondingDelegationResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgCancelUnbondingDelegationResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -869,6 +1033,12 @@ export const MsgCancelUnbondingDelegationResponse = {
   toJSON(_: MsgCancelUnbondingDelegationResponse): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgCancelUnbondingDelegationResponse>, I>>(
+    base?: I,
+  ): MsgCancelUnbondingDelegationResponse {
+    return MsgCancelUnbondingDelegationResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgCancelUnbondingDelegationResponse>, I>>(
@@ -895,22 +1065,31 @@ export const MsgUpdateParams = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateParams {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUpdateParams();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.authority = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.params = Params.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -927,6 +1106,10 @@ export const MsgUpdateParams = {
     message.authority !== undefined && (obj.authority = message.authority);
     message.params !== undefined && (obj.params = message.params ? Params.toJSON(message.params) : undefined);
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgUpdateParams>, I>>(base?: I): MsgUpdateParams {
+    return MsgUpdateParams.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParams>, I>>(object: I): MsgUpdateParams {
@@ -949,16 +1132,17 @@ export const MsgUpdateParamsResponse = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateParamsResponse {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMsgUpdateParamsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -970,6 +1154,10 @@ export const MsgUpdateParamsResponse = {
   toJSON(_: MsgUpdateParamsResponse): unknown {
     const obj: any = {};
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(base?: I): MsgUpdateParamsResponse {
+    return MsgUpdateParamsResponse.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<MsgUpdateParamsResponse>, I>>(_: I): MsgUpdateParamsResponse {
@@ -1031,43 +1219,43 @@ export class MsgClientImpl implements Msg {
   CreateValidator(request: MsgCreateValidator): Promise<MsgCreateValidatorResponse> {
     const data = MsgCreateValidator.encode(request).finish();
     const promise = this.rpc.request(this.service, "CreateValidator", data);
-    return promise.then((data) => MsgCreateValidatorResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => MsgCreateValidatorResponse.decode(_m0.Reader.create(data)));
   }
 
   EditValidator(request: MsgEditValidator): Promise<MsgEditValidatorResponse> {
     const data = MsgEditValidator.encode(request).finish();
     const promise = this.rpc.request(this.service, "EditValidator", data);
-    return promise.then((data) => MsgEditValidatorResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => MsgEditValidatorResponse.decode(_m0.Reader.create(data)));
   }
 
   Delegate(request: MsgDelegate): Promise<MsgDelegateResponse> {
     const data = MsgDelegate.encode(request).finish();
     const promise = this.rpc.request(this.service, "Delegate", data);
-    return promise.then((data) => MsgDelegateResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => MsgDelegateResponse.decode(_m0.Reader.create(data)));
   }
 
   BeginRedelegate(request: MsgBeginRedelegate): Promise<MsgBeginRedelegateResponse> {
     const data = MsgBeginRedelegate.encode(request).finish();
     const promise = this.rpc.request(this.service, "BeginRedelegate", data);
-    return promise.then((data) => MsgBeginRedelegateResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => MsgBeginRedelegateResponse.decode(_m0.Reader.create(data)));
   }
 
   Undelegate(request: MsgUndelegate): Promise<MsgUndelegateResponse> {
     const data = MsgUndelegate.encode(request).finish();
     const promise = this.rpc.request(this.service, "Undelegate", data);
-    return promise.then((data) => MsgUndelegateResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => MsgUndelegateResponse.decode(_m0.Reader.create(data)));
   }
 
   CancelUnbondingDelegation(request: MsgCancelUnbondingDelegation): Promise<MsgCancelUnbondingDelegationResponse> {
     const data = MsgCancelUnbondingDelegation.encode(request).finish();
     const promise = this.rpc.request(this.service, "CancelUnbondingDelegation", data);
-    return promise.then((data) => MsgCancelUnbondingDelegationResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => MsgCancelUnbondingDelegationResponse.decode(_m0.Reader.create(data)));
   }
 
   UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse> {
     const data = MsgUpdateParams.encode(request).finish();
     const promise = this.rpc.request(this.service, "UpdateParams", data);
-    return promise.then((data) => MsgUpdateParamsResponse.decode(new _m0.Reader(data)));
+    return promise.then((data) => MsgUpdateParamsResponse.decode(_m0.Reader.create(data)));
   }
 }
 

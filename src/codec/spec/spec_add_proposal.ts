@@ -30,25 +30,38 @@ export const SpecAddProposal = {
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SpecAddProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSpecAddProposal();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.title = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag != 18) {
+            break;
+          }
+
           message.description = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag != 26) {
+            break;
+          }
+
           message.specs.push(Spec.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -71,6 +84,10 @@ export const SpecAddProposal = {
       obj.specs = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<SpecAddProposal>, I>>(base?: I): SpecAddProposal {
+    return SpecAddProposal.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<SpecAddProposal>, I>>(object: I): SpecAddProposal {

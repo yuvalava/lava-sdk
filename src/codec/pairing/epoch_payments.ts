@@ -1,17 +1,16 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { ProviderPaymentStorage } from "./provider_payment_storage";
 
 export const protobufPackage = "lavanet.lava.pairing";
 
 export interface EpochPayments {
   index: string;
-  clientsPayments: ProviderPaymentStorage[];
+  providerPaymentStorageKeys: string[];
 }
 
 function createBaseEpochPayments(): EpochPayments {
-  return { index: "", clientsPayments: [] };
+  return { index: "", providerPaymentStorageKeys: [] };
 }
 
 export const EpochPayments = {
@@ -19,29 +18,38 @@ export const EpochPayments = {
     if (message.index !== "") {
       writer.uint32(10).string(message.index);
     }
-    for (const v of message.clientsPayments) {
-      ProviderPaymentStorage.encode(v!, writer.uint32(18).fork()).ldelim();
+    for (const v of message.providerPaymentStorageKeys) {
+      writer.uint32(26).string(v!);
     }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EpochPayments {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEpochPayments();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 10) {
+            break;
+          }
+
           message.index = reader.string();
-          break;
-        case 2:
-          message.clientsPayments.push(ProviderPaymentStorage.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
+        case 3:
+          if (tag != 26) {
+            break;
+          }
+
+          message.providerPaymentStorageKeys.push(reader.string());
+          continue;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -49,8 +57,8 @@ export const EpochPayments = {
   fromJSON(object: any): EpochPayments {
     return {
       index: isSet(object.index) ? String(object.index) : "",
-      clientsPayments: Array.isArray(object?.clientsPayments)
-        ? object.clientsPayments.map((e: any) => ProviderPaymentStorage.fromJSON(e))
+      providerPaymentStorageKeys: Array.isArray(object?.providerPaymentStorageKeys)
+        ? object.providerPaymentStorageKeys.map((e: any) => String(e))
         : [],
     };
   },
@@ -58,18 +66,22 @@ export const EpochPayments = {
   toJSON(message: EpochPayments): unknown {
     const obj: any = {};
     message.index !== undefined && (obj.index = message.index);
-    if (message.clientsPayments) {
-      obj.clientsPayments = message.clientsPayments.map((e) => e ? ProviderPaymentStorage.toJSON(e) : undefined);
+    if (message.providerPaymentStorageKeys) {
+      obj.providerPaymentStorageKeys = message.providerPaymentStorageKeys.map((e) => e);
     } else {
-      obj.clientsPayments = [];
+      obj.providerPaymentStorageKeys = [];
     }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EpochPayments>, I>>(base?: I): EpochPayments {
+    return EpochPayments.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EpochPayments>, I>>(object: I): EpochPayments {
     const message = createBaseEpochPayments();
     message.index = object.index ?? "";
-    message.clientsPayments = object.clientsPayments?.map((e) => ProviderPaymentStorage.fromPartial(e)) || [];
+    message.providerPaymentStorageKeys = object.providerPaymentStorageKeys?.map((e) => e) || [];
     return message;
   },
 };

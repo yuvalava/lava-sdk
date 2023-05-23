@@ -7,10 +7,11 @@ export const protobufPackage = "lavanet.lava.epochstorage";
 export interface EpochDetails {
   startBlock: Long;
   earliestStart: Long;
+  deletedEpochs: Long[];
 }
 
 function createBaseEpochDetails(): EpochDetails {
-  return { startBlock: Long.UZERO, earliestStart: Long.UZERO };
+  return { startBlock: Long.UZERO, earliestStart: Long.UZERO, deletedEpochs: [] };
 }
 
 export const EpochDetails = {
@@ -21,26 +22,56 @@ export const EpochDetails = {
     if (!message.earliestStart.isZero()) {
       writer.uint32(16).uint64(message.earliestStart);
     }
+    writer.uint32(26).fork();
+    for (const v of message.deletedEpochs) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EpochDetails {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEpochDetails();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag != 8) {
+            break;
+          }
+
           message.startBlock = reader.uint64() as Long;
-          break;
+          continue;
         case 2:
+          if (tag != 16) {
+            break;
+          }
+
           message.earliestStart = reader.uint64() as Long;
-          break;
-        default:
-          reader.skipType(tag & 7);
+          continue;
+        case 3:
+          if (tag == 24) {
+            message.deletedEpochs.push(reader.uint64() as Long);
+            continue;
+          }
+
+          if (tag == 26) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.deletedEpochs.push(reader.uint64() as Long);
+            }
+
+            continue;
+          }
+
           break;
       }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
@@ -49,6 +80,9 @@ export const EpochDetails = {
     return {
       startBlock: isSet(object.startBlock) ? Long.fromValue(object.startBlock) : Long.UZERO,
       earliestStart: isSet(object.earliestStart) ? Long.fromValue(object.earliestStart) : Long.UZERO,
+      deletedEpochs: Array.isArray(object?.deletedEpochs)
+        ? object.deletedEpochs.map((e: any) => Long.fromValue(e))
+        : [],
     };
   },
 
@@ -56,7 +90,16 @@ export const EpochDetails = {
     const obj: any = {};
     message.startBlock !== undefined && (obj.startBlock = (message.startBlock || Long.UZERO).toString());
     message.earliestStart !== undefined && (obj.earliestStart = (message.earliestStart || Long.UZERO).toString());
+    if (message.deletedEpochs) {
+      obj.deletedEpochs = message.deletedEpochs.map((e) => (e || Long.UZERO).toString());
+    } else {
+      obj.deletedEpochs = [];
+    }
     return obj;
+  },
+
+  create<I extends Exact<DeepPartial<EpochDetails>, I>>(base?: I): EpochDetails {
+    return EpochDetails.fromPartial(base ?? {});
   },
 
   fromPartial<I extends Exact<DeepPartial<EpochDetails>, I>>(object: I): EpochDetails {
@@ -67,6 +110,7 @@ export const EpochDetails = {
     message.earliestStart = (object.earliestStart !== undefined && object.earliestStart !== null)
       ? Long.fromValue(object.earliestStart)
       : Long.UZERO;
+    message.deletedEpochs = object.deletedEpochs?.map((e) => Long.fromValue(e)) || [];
     return message;
   },
 };
