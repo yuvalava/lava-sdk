@@ -108,40 +108,55 @@ export declare const MsgSetWithdrawAddress: {
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgSetWithdrawAddress;
     fromJSON(object: any): MsgSetWithdrawAddress;
     toJSON(message: MsgSetWithdrawAddress): unknown;
-    fromPartial<I extends {
+    create<I extends {
         delegatorAddress?: string | undefined;
         withdrawAddress?: string | undefined;
     } & {
         delegatorAddress?: string | undefined;
         withdrawAddress?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof MsgSetWithdrawAddress>]: never; }>(object: I): MsgSetWithdrawAddress;
+    } & { [K in Exclude<keyof I, keyof MsgSetWithdrawAddress>]: never; }>(base?: I | undefined): MsgSetWithdrawAddress;
+    fromPartial<I_1 extends {
+        delegatorAddress?: string | undefined;
+        withdrawAddress?: string | undefined;
+    } & {
+        delegatorAddress?: string | undefined;
+        withdrawAddress?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof MsgSetWithdrawAddress>]: never; }>(object: I_1): MsgSetWithdrawAddress;
 };
 export declare const MsgSetWithdrawAddressResponse: {
     encode(_: MsgSetWithdrawAddressResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgSetWithdrawAddressResponse;
     fromJSON(_: any): MsgSetWithdrawAddressResponse;
     toJSON(_: MsgSetWithdrawAddressResponse): unknown;
-    fromPartial<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(_: I): MsgSetWithdrawAddressResponse;
+    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgSetWithdrawAddressResponse;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): MsgSetWithdrawAddressResponse;
 };
 export declare const MsgWithdrawDelegatorReward: {
     encode(message: MsgWithdrawDelegatorReward, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawDelegatorReward;
     fromJSON(object: any): MsgWithdrawDelegatorReward;
     toJSON(message: MsgWithdrawDelegatorReward): unknown;
-    fromPartial<I extends {
+    create<I extends {
         delegatorAddress?: string | undefined;
         validatorAddress?: string | undefined;
     } & {
         delegatorAddress?: string | undefined;
         validatorAddress?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof MsgWithdrawDelegatorReward>]: never; }>(object: I): MsgWithdrawDelegatorReward;
+    } & { [K in Exclude<keyof I, keyof MsgWithdrawDelegatorReward>]: never; }>(base?: I | undefined): MsgWithdrawDelegatorReward;
+    fromPartial<I_1 extends {
+        delegatorAddress?: string | undefined;
+        validatorAddress?: string | undefined;
+    } & {
+        delegatorAddress?: string | undefined;
+        validatorAddress?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof MsgWithdrawDelegatorReward>]: never; }>(object: I_1): MsgWithdrawDelegatorReward;
 };
 export declare const MsgWithdrawDelegatorRewardResponse: {
     encode(message: MsgWithdrawDelegatorRewardResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawDelegatorRewardResponse;
     fromJSON(object: any): MsgWithdrawDelegatorRewardResponse;
     toJSON(message: MsgWithdrawDelegatorRewardResponse): unknown;
-    fromPartial<I extends {
+    create<I extends {
         amount?: {
             denom?: string | undefined;
             amount?: string | undefined;
@@ -160,25 +175,50 @@ export declare const MsgWithdrawDelegatorRewardResponse: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, "amount">]: never; }>(object: I): MsgWithdrawDelegatorRewardResponse;
+    } & { [K_2 in Exclude<keyof I, "amount">]: never; }>(base?: I | undefined): MsgWithdrawDelegatorRewardResponse;
+    fromPartial<I_1 extends {
+        amount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+    } & {
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["amount"][number], keyof Coin>]: never; })[] & { [K_4 in Exclude<keyof I_1["amount"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, "amount">]: never; }>(object: I_1): MsgWithdrawDelegatorRewardResponse;
 };
 export declare const MsgWithdrawValidatorCommission: {
     encode(message: MsgWithdrawValidatorCommission, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawValidatorCommission;
     fromJSON(object: any): MsgWithdrawValidatorCommission;
     toJSON(message: MsgWithdrawValidatorCommission): unknown;
-    fromPartial<I extends {
+    create<I extends {
         validatorAddress?: string | undefined;
     } & {
         validatorAddress?: string | undefined;
-    } & { [K in Exclude<keyof I, "validatorAddress">]: never; }>(object: I): MsgWithdrawValidatorCommission;
+    } & { [K in Exclude<keyof I, "validatorAddress">]: never; }>(base?: I | undefined): MsgWithdrawValidatorCommission;
+    fromPartial<I_1 extends {
+        validatorAddress?: string | undefined;
+    } & {
+        validatorAddress?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "validatorAddress">]: never; }>(object: I_1): MsgWithdrawValidatorCommission;
 };
 export declare const MsgWithdrawValidatorCommissionResponse: {
     encode(message: MsgWithdrawValidatorCommissionResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgWithdrawValidatorCommissionResponse;
     fromJSON(object: any): MsgWithdrawValidatorCommissionResponse;
     toJSON(message: MsgWithdrawValidatorCommissionResponse): unknown;
-    fromPartial<I extends {
+    create<I extends {
         amount?: {
             denom?: string | undefined;
             amount?: string | undefined;
@@ -197,14 +237,34 @@ export declare const MsgWithdrawValidatorCommissionResponse: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, "amount">]: never; }>(object: I): MsgWithdrawValidatorCommissionResponse;
+    } & { [K_2 in Exclude<keyof I, "amount">]: never; }>(base?: I | undefined): MsgWithdrawValidatorCommissionResponse;
+    fromPartial<I_1 extends {
+        amount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+    } & {
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["amount"][number], keyof Coin>]: never; })[] & { [K_4 in Exclude<keyof I_1["amount"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, "amount">]: never; }>(object: I_1): MsgWithdrawValidatorCommissionResponse;
 };
 export declare const MsgFundCommunityPool: {
     encode(message: MsgFundCommunityPool, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgFundCommunityPool;
     fromJSON(object: any): MsgFundCommunityPool;
     toJSON(message: MsgFundCommunityPool): unknown;
-    fromPartial<I extends {
+    create<I extends {
         amount?: {
             denom?: string | undefined;
             amount?: string | undefined;
@@ -225,21 +285,44 @@ export declare const MsgFundCommunityPool: {
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
         depositor?: string | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof MsgFundCommunityPool>]: never; }>(object: I): MsgFundCommunityPool;
+    } & { [K_2 in Exclude<keyof I, keyof MsgFundCommunityPool>]: never; }>(base?: I | undefined): MsgFundCommunityPool;
+    fromPartial<I_1 extends {
+        amount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+        depositor?: string | undefined;
+    } & {
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["amount"][number], keyof Coin>]: never; })[] & { [K_4 in Exclude<keyof I_1["amount"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+        depositor?: string | undefined;
+    } & { [K_5 in Exclude<keyof I_1, keyof MsgFundCommunityPool>]: never; }>(object: I_1): MsgFundCommunityPool;
 };
 export declare const MsgFundCommunityPoolResponse: {
     encode(_: MsgFundCommunityPoolResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgFundCommunityPoolResponse;
     fromJSON(_: any): MsgFundCommunityPoolResponse;
     toJSON(_: MsgFundCommunityPoolResponse): unknown;
-    fromPartial<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(_: I): MsgFundCommunityPoolResponse;
+    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgFundCommunityPoolResponse;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): MsgFundCommunityPoolResponse;
 };
 export declare const MsgUpdateParams: {
     encode(message: MsgUpdateParams, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateParams;
     fromJSON(object: any): MsgUpdateParams;
     toJSON(message: MsgUpdateParams): unknown;
-    fromPartial<I extends {
+    create<I extends {
         authority?: string | undefined;
         params?: {
             communityTax?: string | undefined;
@@ -260,21 +343,44 @@ export declare const MsgUpdateParams: {
             bonusProposerReward?: string | undefined;
             withdrawAddrEnabled?: boolean | undefined;
         } & { [K in Exclude<keyof I["params"], keyof Params>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof MsgUpdateParams>]: never; }>(object: I): MsgUpdateParams;
+    } & { [K_1 in Exclude<keyof I, keyof MsgUpdateParams>]: never; }>(base?: I | undefined): MsgUpdateParams;
+    fromPartial<I_1 extends {
+        authority?: string | undefined;
+        params?: {
+            communityTax?: string | undefined;
+            baseProposerReward?: string | undefined;
+            bonusProposerReward?: string | undefined;
+            withdrawAddrEnabled?: boolean | undefined;
+        } | undefined;
+    } & {
+        authority?: string | undefined;
+        params?: ({
+            communityTax?: string | undefined;
+            baseProposerReward?: string | undefined;
+            bonusProposerReward?: string | undefined;
+            withdrawAddrEnabled?: boolean | undefined;
+        } & {
+            communityTax?: string | undefined;
+            baseProposerReward?: string | undefined;
+            bonusProposerReward?: string | undefined;
+            withdrawAddrEnabled?: boolean | undefined;
+        } & { [K_2 in Exclude<keyof I_1["params"], keyof Params>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, keyof MsgUpdateParams>]: never; }>(object: I_1): MsgUpdateParams;
 };
 export declare const MsgUpdateParamsResponse: {
     encode(_: MsgUpdateParamsResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateParamsResponse;
     fromJSON(_: any): MsgUpdateParamsResponse;
     toJSON(_: MsgUpdateParamsResponse): unknown;
-    fromPartial<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(_: I): MsgUpdateParamsResponse;
+    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgUpdateParamsResponse;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): MsgUpdateParamsResponse;
 };
 export declare const MsgCommunityPoolSpend: {
     encode(message: MsgCommunityPoolSpend, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgCommunityPoolSpend;
     fromJSON(object: any): MsgCommunityPoolSpend;
     toJSON(message: MsgCommunityPoolSpend): unknown;
-    fromPartial<I extends {
+    create<I extends {
         authority?: string | undefined;
         recipient?: string | undefined;
         amount?: {
@@ -297,14 +403,39 @@ export declare const MsgCommunityPoolSpend: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof MsgCommunityPoolSpend>]: never; }>(object: I): MsgCommunityPoolSpend;
+    } & { [K_2 in Exclude<keyof I, keyof MsgCommunityPoolSpend>]: never; }>(base?: I | undefined): MsgCommunityPoolSpend;
+    fromPartial<I_1 extends {
+        authority?: string | undefined;
+        recipient?: string | undefined;
+        amount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+    } & {
+        authority?: string | undefined;
+        recipient?: string | undefined;
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["amount"][number], keyof Coin>]: never; })[] & { [K_4 in Exclude<keyof I_1["amount"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, keyof MsgCommunityPoolSpend>]: never; }>(object: I_1): MsgCommunityPoolSpend;
 };
 export declare const MsgCommunityPoolSpendResponse: {
     encode(_: MsgCommunityPoolSpendResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgCommunityPoolSpendResponse;
     fromJSON(_: any): MsgCommunityPoolSpendResponse;
     toJSON(_: MsgCommunityPoolSpendResponse): unknown;
-    fromPartial<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(_: I): MsgCommunityPoolSpendResponse;
+    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgCommunityPoolSpendResponse;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): MsgCommunityPoolSpendResponse;
 };
 /** Msg defines the distribution Msg service. */
 export interface Msg {

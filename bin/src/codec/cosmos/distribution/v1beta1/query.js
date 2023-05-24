@@ -19,16 +19,17 @@ exports.QueryParamsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -38,6 +39,9 @@ exports.QueryParamsRequest = {
     toJSON(_) {
         const obj = {};
         return obj;
+    },
+    create(base) {
+        return exports.QueryParamsRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(_) {
         const message = createBaseQueryParamsRequest();
@@ -55,19 +59,23 @@ exports.QueryParamsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.params = distribution_1.Params.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -78,6 +86,9 @@ exports.QueryParamsResponse = {
         const obj = {};
         message.params !== undefined && (obj.params = message.params ? distribution_1.Params.toJSON(message.params) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.QueryParamsResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseQueryParamsResponse();
@@ -98,19 +109,23 @@ exports.QueryValidatorDistributionInfoRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryValidatorDistributionInfoRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.validatorAddress = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -121,6 +136,9 @@ exports.QueryValidatorDistributionInfoRequest = {
         const obj = {};
         message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress);
         return obj;
+    },
+    create(base) {
+        return exports.QueryValidatorDistributionInfoRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -146,25 +164,35 @@ exports.QueryValidatorDistributionInfoResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryValidatorDistributionInfoResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.operatorAddress = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.selfBondRewards.push(coin_1.DecCoin.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.commission.push(coin_1.DecCoin.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -194,6 +222,9 @@ exports.QueryValidatorDistributionInfoResponse = {
         }
         return obj;
     },
+    create(base) {
+        return exports.QueryValidatorDistributionInfoResponse.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         var _a, _b, _c;
         const message = createBaseQueryValidatorDistributionInfoResponse();
@@ -214,19 +245,23 @@ exports.QueryValidatorOutstandingRewardsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryValidatorOutstandingRewardsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.validatorAddress = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -237,6 +272,9 @@ exports.QueryValidatorOutstandingRewardsRequest = {
         const obj = {};
         message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress);
         return obj;
+    },
+    create(base) {
+        return exports.QueryValidatorOutstandingRewardsRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -256,19 +294,23 @@ exports.QueryValidatorOutstandingRewardsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryValidatorOutstandingRewardsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.rewards = distribution_1.ValidatorOutstandingRewards.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -280,6 +322,9 @@ exports.QueryValidatorOutstandingRewardsResponse = {
         message.rewards !== undefined &&
             (obj.rewards = message.rewards ? distribution_1.ValidatorOutstandingRewards.toJSON(message.rewards) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.QueryValidatorOutstandingRewardsResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseQueryValidatorOutstandingRewardsResponse();
@@ -300,19 +345,23 @@ exports.QueryValidatorCommissionRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryValidatorCommissionRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.validatorAddress = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -323,6 +372,9 @@ exports.QueryValidatorCommissionRequest = {
         const obj = {};
         message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress);
         return obj;
+    },
+    create(base) {
+        return exports.QueryValidatorCommissionRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -342,19 +394,23 @@ exports.QueryValidatorCommissionResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryValidatorCommissionResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.commission = distribution_1.ValidatorAccumulatedCommission.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -368,6 +424,9 @@ exports.QueryValidatorCommissionResponse = {
         message.commission !== undefined &&
             (obj.commission = message.commission ? distribution_1.ValidatorAccumulatedCommission.toJSON(message.commission) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.QueryValidatorCommissionResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseQueryValidatorCommissionResponse();
@@ -397,28 +456,41 @@ exports.QueryValidatorSlashesRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryValidatorSlashesRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.validatorAddress = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 16) {
+                        break;
+                    }
                     message.startingHeight = reader.uint64();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 24) {
+                        break;
+                    }
                     message.endingHeight = reader.uint64();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 34) {
+                        break;
+                    }
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -438,6 +510,9 @@ exports.QueryValidatorSlashesRequest = {
         message.pagination !== undefined &&
             (obj.pagination = message.pagination ? pagination_1.PageRequest.toJSON(message.pagination) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.QueryValidatorSlashesRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -469,22 +544,29 @@ exports.QueryValidatorSlashesResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryValidatorSlashesResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.slashes.push(distribution_1.ValidatorSlashEvent.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -505,6 +587,9 @@ exports.QueryValidatorSlashesResponse = {
         message.pagination !== undefined &&
             (obj.pagination = message.pagination ? pagination_1.PageResponse.toJSON(message.pagination) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.QueryValidatorSlashesResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -530,22 +615,29 @@ exports.QueryDelegationRewardsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDelegationRewardsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.delegatorAddress = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.validatorAddress = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -560,6 +652,9 @@ exports.QueryDelegationRewardsRequest = {
         message.delegatorAddress !== undefined && (obj.delegatorAddress = message.delegatorAddress);
         message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress);
         return obj;
+    },
+    create(base) {
+        return exports.QueryDelegationRewardsRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
@@ -580,19 +675,23 @@ exports.QueryDelegationRewardsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDelegationRewardsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.rewards.push(coin_1.DecCoin.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -608,6 +707,9 @@ exports.QueryDelegationRewardsResponse = {
             obj.rewards = [];
         }
         return obj;
+    },
+    create(base) {
+        return exports.QueryDelegationRewardsResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -627,19 +729,23 @@ exports.QueryDelegationTotalRewardsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDelegationTotalRewardsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.delegatorAddress = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -650,6 +756,9 @@ exports.QueryDelegationTotalRewardsRequest = {
         const obj = {};
         message.delegatorAddress !== undefined && (obj.delegatorAddress = message.delegatorAddress);
         return obj;
+    },
+    create(base) {
+        return exports.QueryDelegationTotalRewardsRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -672,22 +781,29 @@ exports.QueryDelegationTotalRewardsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDelegationTotalRewardsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.rewards.push(distribution_1.DelegationDelegatorReward.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.total.push(coin_1.DecCoin.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -715,6 +831,9 @@ exports.QueryDelegationTotalRewardsResponse = {
         }
         return obj;
     },
+    create(base) {
+        return exports.QueryDelegationTotalRewardsResponse.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         var _a, _b;
         const message = createBaseQueryDelegationTotalRewardsResponse();
@@ -734,19 +853,23 @@ exports.QueryDelegatorValidatorsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDelegatorValidatorsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.delegatorAddress = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -757,6 +880,9 @@ exports.QueryDelegatorValidatorsRequest = {
         const obj = {};
         message.delegatorAddress !== undefined && (obj.delegatorAddress = message.delegatorAddress);
         return obj;
+    },
+    create(base) {
+        return exports.QueryDelegatorValidatorsRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -776,19 +902,23 @@ exports.QueryDelegatorValidatorsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDelegatorValidatorsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.validators.push(reader.string());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -804,6 +934,9 @@ exports.QueryDelegatorValidatorsResponse = {
             obj.validators = [];
         }
         return obj;
+    },
+    create(base) {
+        return exports.QueryDelegatorValidatorsResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -823,19 +956,23 @@ exports.QueryDelegatorWithdrawAddressRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDelegatorWithdrawAddressRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.delegatorAddress = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -846,6 +983,9 @@ exports.QueryDelegatorWithdrawAddressRequest = {
         const obj = {};
         message.delegatorAddress !== undefined && (obj.delegatorAddress = message.delegatorAddress);
         return obj;
+    },
+    create(base) {
+        return exports.QueryDelegatorWithdrawAddressRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -865,19 +1005,23 @@ exports.QueryDelegatorWithdrawAddressResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryDelegatorWithdrawAddressResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.withdrawAddress = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -888,6 +1032,9 @@ exports.QueryDelegatorWithdrawAddressResponse = {
         const obj = {};
         message.withdrawAddress !== undefined && (obj.withdrawAddress = message.withdrawAddress);
         return obj;
+    },
+    create(base) {
+        return exports.QueryDelegatorWithdrawAddressResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -904,16 +1051,17 @@ exports.QueryCommunityPoolRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryCommunityPoolRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -923,6 +1071,9 @@ exports.QueryCommunityPoolRequest = {
     toJSON(_) {
         const obj = {};
         return obj;
+    },
+    create(base) {
+        return exports.QueryCommunityPoolRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(_) {
         const message = createBaseQueryCommunityPoolRequest();
@@ -940,19 +1091,23 @@ exports.QueryCommunityPoolResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryCommunityPoolResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.pool.push(coin_1.DecCoin.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -968,6 +1123,9 @@ exports.QueryCommunityPoolResponse = {
             obj.pool = [];
         }
         return obj;
+    },
+    create(base) {
+        return exports.QueryCommunityPoolResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -994,52 +1152,52 @@ class QueryClientImpl {
     Params(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Params", data);
-        return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryParamsResponse.decode(minimal_1.default.Reader.create(data)));
     }
     ValidatorDistributionInfo(request) {
         const data = exports.QueryValidatorDistributionInfoRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "ValidatorDistributionInfo", data);
-        return promise.then((data) => exports.QueryValidatorDistributionInfoResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryValidatorDistributionInfoResponse.decode(minimal_1.default.Reader.create(data)));
     }
     ValidatorOutstandingRewards(request) {
         const data = exports.QueryValidatorOutstandingRewardsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "ValidatorOutstandingRewards", data);
-        return promise.then((data) => exports.QueryValidatorOutstandingRewardsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryValidatorOutstandingRewardsResponse.decode(minimal_1.default.Reader.create(data)));
     }
     ValidatorCommission(request) {
         const data = exports.QueryValidatorCommissionRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "ValidatorCommission", data);
-        return promise.then((data) => exports.QueryValidatorCommissionResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryValidatorCommissionResponse.decode(minimal_1.default.Reader.create(data)));
     }
     ValidatorSlashes(request) {
         const data = exports.QueryValidatorSlashesRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "ValidatorSlashes", data);
-        return promise.then((data) => exports.QueryValidatorSlashesResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryValidatorSlashesResponse.decode(minimal_1.default.Reader.create(data)));
     }
     DelegationRewards(request) {
         const data = exports.QueryDelegationRewardsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "DelegationRewards", data);
-        return promise.then((data) => exports.QueryDelegationRewardsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryDelegationRewardsResponse.decode(minimal_1.default.Reader.create(data)));
     }
     DelegationTotalRewards(request) {
         const data = exports.QueryDelegationTotalRewardsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "DelegationTotalRewards", data);
-        return promise.then((data) => exports.QueryDelegationTotalRewardsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryDelegationTotalRewardsResponse.decode(minimal_1.default.Reader.create(data)));
     }
     DelegatorValidators(request) {
         const data = exports.QueryDelegatorValidatorsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "DelegatorValidators", data);
-        return promise.then((data) => exports.QueryDelegatorValidatorsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryDelegatorValidatorsResponse.decode(minimal_1.default.Reader.create(data)));
     }
     DelegatorWithdrawAddress(request) {
         const data = exports.QueryDelegatorWithdrawAddressRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "DelegatorWithdrawAddress", data);
-        return promise.then((data) => exports.QueryDelegatorWithdrawAddressResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryDelegatorWithdrawAddressResponse.decode(minimal_1.default.Reader.create(data)));
     }
     CommunityPool(request) {
         const data = exports.QueryCommunityPoolRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "CommunityPool", data);
-        return promise.then((data) => exports.QueryCommunityPoolResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryCommunityPoolResponse.decode(minimal_1.default.Reader.create(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;

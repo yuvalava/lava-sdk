@@ -24,22 +24,29 @@ exports.MsgSetWithdrawAddress = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgSetWithdrawAddress();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.delegatorAddress = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.withdrawAddress = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -54,6 +61,9 @@ exports.MsgSetWithdrawAddress = {
         message.delegatorAddress !== undefined && (obj.delegatorAddress = message.delegatorAddress);
         message.withdrawAddress !== undefined && (obj.withdrawAddress = message.withdrawAddress);
         return obj;
+    },
+    create(base) {
+        return exports.MsgSetWithdrawAddress.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
@@ -71,16 +81,17 @@ exports.MsgSetWithdrawAddressResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgSetWithdrawAddressResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -90,6 +101,9 @@ exports.MsgSetWithdrawAddressResponse = {
     toJSON(_) {
         const obj = {};
         return obj;
+    },
+    create(base) {
+        return exports.MsgSetWithdrawAddressResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(_) {
         const message = createBaseMsgSetWithdrawAddressResponse();
@@ -110,22 +124,29 @@ exports.MsgWithdrawDelegatorReward = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgWithdrawDelegatorReward();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.delegatorAddress = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.validatorAddress = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -140,6 +161,9 @@ exports.MsgWithdrawDelegatorReward = {
         message.delegatorAddress !== undefined && (obj.delegatorAddress = message.delegatorAddress);
         message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress);
         return obj;
+    },
+    create(base) {
+        return exports.MsgWithdrawDelegatorReward.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
@@ -160,19 +184,23 @@ exports.MsgWithdrawDelegatorRewardResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgWithdrawDelegatorRewardResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.amount.push(coin_1.Coin.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -188,6 +216,9 @@ exports.MsgWithdrawDelegatorRewardResponse = {
             obj.amount = [];
         }
         return obj;
+    },
+    create(base) {
+        return exports.MsgWithdrawDelegatorRewardResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -207,19 +238,23 @@ exports.MsgWithdrawValidatorCommission = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgWithdrawValidatorCommission();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.validatorAddress = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -230,6 +265,9 @@ exports.MsgWithdrawValidatorCommission = {
         const obj = {};
         message.validatorAddress !== undefined && (obj.validatorAddress = message.validatorAddress);
         return obj;
+    },
+    create(base) {
+        return exports.MsgWithdrawValidatorCommission.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -249,19 +287,23 @@ exports.MsgWithdrawValidatorCommissionResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgWithdrawValidatorCommissionResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.amount.push(coin_1.Coin.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -277,6 +319,9 @@ exports.MsgWithdrawValidatorCommissionResponse = {
             obj.amount = [];
         }
         return obj;
+    },
+    create(base) {
+        return exports.MsgWithdrawValidatorCommissionResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -299,22 +344,29 @@ exports.MsgFundCommunityPool = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgFundCommunityPool();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.amount.push(coin_1.Coin.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.depositor = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -335,6 +387,9 @@ exports.MsgFundCommunityPool = {
         message.depositor !== undefined && (obj.depositor = message.depositor);
         return obj;
     },
+    create(base) {
+        return exports.MsgFundCommunityPool.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         var _a, _b;
         const message = createBaseMsgFundCommunityPool();
@@ -351,16 +406,17 @@ exports.MsgFundCommunityPoolResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgFundCommunityPoolResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -370,6 +426,9 @@ exports.MsgFundCommunityPoolResponse = {
     toJSON(_) {
         const obj = {};
         return obj;
+    },
+    create(base) {
+        return exports.MsgFundCommunityPoolResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(_) {
         const message = createBaseMsgFundCommunityPoolResponse();
@@ -390,22 +449,29 @@ exports.MsgUpdateParams = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgUpdateParams();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.authority = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.params = distribution_1.Params.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -420,6 +486,9 @@ exports.MsgUpdateParams = {
         message.authority !== undefined && (obj.authority = message.authority);
         message.params !== undefined && (obj.params = message.params ? distribution_1.Params.toJSON(message.params) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.MsgUpdateParams.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -439,16 +508,17 @@ exports.MsgUpdateParamsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgUpdateParamsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -458,6 +528,9 @@ exports.MsgUpdateParamsResponse = {
     toJSON(_) {
         const obj = {};
         return obj;
+    },
+    create(base) {
+        return exports.MsgUpdateParamsResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(_) {
         const message = createBaseMsgUpdateParamsResponse();
@@ -481,25 +554,35 @@ exports.MsgCommunityPoolSpend = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCommunityPoolSpend();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.authority = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.recipient = reader.string();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.amount.push(coin_1.Coin.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -522,6 +605,9 @@ exports.MsgCommunityPoolSpend = {
         }
         return obj;
     },
+    create(base) {
+        return exports.MsgCommunityPoolSpend.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         var _a, _b, _c;
         const message = createBaseMsgCommunityPoolSpend();
@@ -539,16 +625,17 @@ exports.MsgCommunityPoolSpendResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMsgCommunityPoolSpendResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -558,6 +645,9 @@ exports.MsgCommunityPoolSpendResponse = {
     toJSON(_) {
         const obj = {};
         return obj;
+    },
+    create(base) {
+        return exports.MsgCommunityPoolSpendResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(_) {
         const message = createBaseMsgCommunityPoolSpendResponse();
@@ -578,32 +668,32 @@ class MsgClientImpl {
     SetWithdrawAddress(request) {
         const data = exports.MsgSetWithdrawAddress.encode(request).finish();
         const promise = this.rpc.request(this.service, "SetWithdrawAddress", data);
-        return promise.then((data) => exports.MsgSetWithdrawAddressResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgSetWithdrawAddressResponse.decode(minimal_1.default.Reader.create(data)));
     }
     WithdrawDelegatorReward(request) {
         const data = exports.MsgWithdrawDelegatorReward.encode(request).finish();
         const promise = this.rpc.request(this.service, "WithdrawDelegatorReward", data);
-        return promise.then((data) => exports.MsgWithdrawDelegatorRewardResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgWithdrawDelegatorRewardResponse.decode(minimal_1.default.Reader.create(data)));
     }
     WithdrawValidatorCommission(request) {
         const data = exports.MsgWithdrawValidatorCommission.encode(request).finish();
         const promise = this.rpc.request(this.service, "WithdrawValidatorCommission", data);
-        return promise.then((data) => exports.MsgWithdrawValidatorCommissionResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgWithdrawValidatorCommissionResponse.decode(minimal_1.default.Reader.create(data)));
     }
     FundCommunityPool(request) {
         const data = exports.MsgFundCommunityPool.encode(request).finish();
         const promise = this.rpc.request(this.service, "FundCommunityPool", data);
-        return promise.then((data) => exports.MsgFundCommunityPoolResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgFundCommunityPoolResponse.decode(minimal_1.default.Reader.create(data)));
     }
     UpdateParams(request) {
         const data = exports.MsgUpdateParams.encode(request).finish();
         const promise = this.rpc.request(this.service, "UpdateParams", data);
-        return promise.then((data) => exports.MsgUpdateParamsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgUpdateParamsResponse.decode(minimal_1.default.Reader.create(data)));
     }
     CommunityPoolSpend(request) {
         const data = exports.MsgCommunityPoolSpend.encode(request).finish();
         const promise = this.rpc.request(this.service, "CommunityPoolSpend", data);
-        return promise.then((data) => exports.MsgCommunityPoolSpendResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.MsgCommunityPoolSpendResponse.decode(minimal_1.default.Reader.create(data)));
     }
 }
 exports.MsgClientImpl = MsgClientImpl;

@@ -14,6 +14,7 @@ function createBaseParams() {
         epochBlocks: long_1.default.UZERO,
         epochsToSave: long_1.default.UZERO,
         latestParamChange: long_1.default.UZERO,
+        unstakeHoldBlocksStatic: long_1.default.UZERO,
     };
 }
 exports.Params = {
@@ -30,31 +31,53 @@ exports.Params = {
         if (!message.latestParamChange.isZero()) {
             writer.uint32(32).uint64(message.latestParamChange);
         }
+        if (!message.unstakeHoldBlocksStatic.isZero()) {
+            writer.uint32(40).uint64(message.unstakeHoldBlocksStatic);
+        }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseParams();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.unstakeHoldBlocks = reader.uint64();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 16) {
+                        break;
+                    }
                     message.epochBlocks = reader.uint64();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 24) {
+                        break;
+                    }
                     message.epochsToSave = reader.uint64();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 32) {
+                        break;
+                    }
                     message.latestParamChange = reader.uint64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
+                case 5:
+                    if (tag != 40) {
+                        break;
+                    }
+                    message.unstakeHoldBlocksStatic = reader.uint64();
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -64,6 +87,9 @@ exports.Params = {
             epochBlocks: isSet(object.epochBlocks) ? long_1.default.fromValue(object.epochBlocks) : long_1.default.UZERO,
             epochsToSave: isSet(object.epochsToSave) ? long_1.default.fromValue(object.epochsToSave) : long_1.default.UZERO,
             latestParamChange: isSet(object.latestParamChange) ? long_1.default.fromValue(object.latestParamChange) : long_1.default.UZERO,
+            unstakeHoldBlocksStatic: isSet(object.unstakeHoldBlocksStatic)
+                ? long_1.default.fromValue(object.unstakeHoldBlocksStatic)
+                : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -74,7 +100,12 @@ exports.Params = {
         message.epochsToSave !== undefined && (obj.epochsToSave = (message.epochsToSave || long_1.default.UZERO).toString());
         message.latestParamChange !== undefined &&
             (obj.latestParamChange = (message.latestParamChange || long_1.default.UZERO).toString());
+        message.unstakeHoldBlocksStatic !== undefined &&
+            (obj.unstakeHoldBlocksStatic = (message.unstakeHoldBlocksStatic || long_1.default.UZERO).toString());
         return obj;
+    },
+    create(base) {
+        return exports.Params.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseParams();
@@ -90,6 +121,10 @@ exports.Params = {
         message.latestParamChange = (object.latestParamChange !== undefined && object.latestParamChange !== null)
             ? long_1.default.fromValue(object.latestParamChange)
             : long_1.default.UZERO;
+        message.unstakeHoldBlocksStatic =
+            (object.unstakeHoldBlocksStatic !== undefined && object.unstakeHoldBlocksStatic !== null)
+                ? long_1.default.fromValue(object.unstakeHoldBlocksStatic)
+                : long_1.default.UZERO;
         return message;
     },
 };

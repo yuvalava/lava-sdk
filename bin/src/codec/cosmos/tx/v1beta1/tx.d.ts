@@ -283,7 +283,7 @@ export declare const Tx: {
     decode(input: _m0.Reader | Uint8Array, length?: number): Tx;
     fromJSON(object: any): Tx;
     toJSON(message: Tx): unknown;
-    fromPartial<I extends {
+    create<I extends {
         body?: {
             messages?: {
                 typeUrl?: string | undefined;
@@ -902,14 +902,634 @@ export declare const Tx: {
             } & { [K_39 in Exclude<keyof I["authInfo"]["tip"], keyof Tip>]: never; }) | undefined;
         } & { [K_40 in Exclude<keyof I["authInfo"], keyof AuthInfo>]: never; }) | undefined;
         signatures?: (Uint8Array[] & Uint8Array[] & { [K_41 in Exclude<keyof I["signatures"], keyof Uint8Array[]>]: never; }) | undefined;
-    } & { [K_42 in Exclude<keyof I, keyof Tx>]: never; }>(object: I): Tx;
+    } & { [K_42 in Exclude<keyof I, keyof Tx>]: never; }>(base?: I | undefined): Tx;
+    fromPartial<I_1 extends {
+        body?: {
+            messages?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            }[] | undefined;
+            memo?: string | undefined;
+            timeoutHeight?: string | number | Long | undefined;
+            extensionOptions?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            }[] | undefined;
+            nonCriticalExtensionOptions?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            }[] | undefined;
+        } | undefined;
+        authInfo?: {
+            signerInfos?: {
+                publicKey?: {
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
+                } | undefined;
+                modeInfo?: {
+                    single?: {
+                        mode?: SignMode | undefined;
+                    } | undefined;
+                    multi?: {
+                        bitarray?: {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } | undefined;
+                        modeInfos?: any[] | undefined;
+                    } | undefined;
+                } | undefined;
+                sequence?: string | number | Long | undefined;
+            }[] | undefined;
+            fee?: {
+                amount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                }[] | undefined;
+                gasLimit?: string | number | Long | undefined;
+                payer?: string | undefined;
+                granter?: string | undefined;
+            } | undefined;
+            tip?: {
+                amount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                }[] | undefined;
+                tipper?: string | undefined;
+            } | undefined;
+        } | undefined;
+        signatures?: Uint8Array[] | undefined;
+    } & {
+        body?: ({
+            messages?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            }[] | undefined;
+            memo?: string | undefined;
+            timeoutHeight?: string | number | Long | undefined;
+            extensionOptions?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            }[] | undefined;
+            nonCriticalExtensionOptions?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            }[] | undefined;
+        } & {
+            messages?: ({
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            }[] & ({
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } & {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } & { [K_43 in Exclude<keyof I_1["body"]["messages"][number], keyof Any>]: never; })[] & { [K_44 in Exclude<keyof I_1["body"]["messages"], keyof {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            }[]>]: never; }) | undefined;
+            memo?: string | undefined;
+            timeoutHeight?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_45 in Exclude<keyof I_1["body"]["timeoutHeight"], keyof Long>]: never; }) | undefined;
+            extensionOptions?: ({
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            }[] & ({
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } & {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } & { [K_46 in Exclude<keyof I_1["body"]["extensionOptions"][number], keyof Any>]: never; })[] & { [K_47 in Exclude<keyof I_1["body"]["extensionOptions"], keyof {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            }[]>]: never; }) | undefined;
+            nonCriticalExtensionOptions?: ({
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            }[] & ({
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } & {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } & { [K_48 in Exclude<keyof I_1["body"]["nonCriticalExtensionOptions"][number], keyof Any>]: never; })[] & { [K_49 in Exclude<keyof I_1["body"]["nonCriticalExtensionOptions"], keyof {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            }[]>]: never; }) | undefined;
+        } & { [K_50 in Exclude<keyof I_1["body"], keyof TxBody>]: never; }) | undefined;
+        authInfo?: ({
+            signerInfos?: {
+                publicKey?: {
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
+                } | undefined;
+                modeInfo?: {
+                    single?: {
+                        mode?: SignMode | undefined;
+                    } | undefined;
+                    multi?: {
+                        bitarray?: {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } | undefined;
+                        modeInfos?: any[] | undefined;
+                    } | undefined;
+                } | undefined;
+                sequence?: string | number | Long | undefined;
+            }[] | undefined;
+            fee?: {
+                amount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                }[] | undefined;
+                gasLimit?: string | number | Long | undefined;
+                payer?: string | undefined;
+                granter?: string | undefined;
+            } | undefined;
+            tip?: {
+                amount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                }[] | undefined;
+                tipper?: string | undefined;
+            } | undefined;
+        } & {
+            signerInfos?: ({
+                publicKey?: {
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
+                } | undefined;
+                modeInfo?: {
+                    single?: {
+                        mode?: SignMode | undefined;
+                    } | undefined;
+                    multi?: {
+                        bitarray?: {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } | undefined;
+                        modeInfos?: any[] | undefined;
+                    } | undefined;
+                } | undefined;
+                sequence?: string | number | Long | undefined;
+            }[] & ({
+                publicKey?: {
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
+                } | undefined;
+                modeInfo?: {
+                    single?: {
+                        mode?: SignMode | undefined;
+                    } | undefined;
+                    multi?: {
+                        bitarray?: {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } | undefined;
+                        modeInfos?: any[] | undefined;
+                    } | undefined;
+                } | undefined;
+                sequence?: string | number | Long | undefined;
+            } & {
+                publicKey?: ({
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
+                } & {
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
+                } & { [K_51 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["publicKey"], keyof Any>]: never; }) | undefined;
+                modeInfo?: ({
+                    single?: {
+                        mode?: SignMode | undefined;
+                    } | undefined;
+                    multi?: {
+                        bitarray?: {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } | undefined;
+                        modeInfos?: any[] | undefined;
+                    } | undefined;
+                } & {
+                    single?: ({
+                        mode?: SignMode | undefined;
+                    } & {
+                        mode?: SignMode | undefined;
+                    } & { [K_52 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["single"], "mode">]: never; }) | undefined;
+                    multi?: ({
+                        bitarray?: {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } | undefined;
+                        modeInfos?: any[] | undefined;
+                    } & {
+                        bitarray?: ({
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } & {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } & { [K_53 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                        modeInfos?: (any[] & ({
+                            single?: {
+                                mode?: SignMode | undefined;
+                            } | undefined;
+                            multi?: {
+                                bitarray?: {
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } | undefined;
+                                modeInfos?: any[] | undefined;
+                            } | undefined;
+                        } & {
+                            single?: ({
+                                mode?: SignMode | undefined;
+                            } & {
+                                mode?: SignMode | undefined;
+                            } & { [K_54 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                            multi?: ({
+                                bitarray?: {
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } | undefined;
+                                modeInfos?: any[] | undefined;
+                            } & {
+                                bitarray?: ({
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } & {
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } & { [K_55 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                modeInfos?: (any[] & ({
+                                    single?: {
+                                        mode?: SignMode | undefined;
+                                    } | undefined;
+                                    multi?: {
+                                        bitarray?: {
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } | undefined;
+                                        modeInfos?: any[] | undefined;
+                                    } | undefined;
+                                } & {
+                                    single?: ({
+                                        mode?: SignMode | undefined;
+                                    } & {
+                                        mode?: SignMode | undefined;
+                                    } & { [K_56 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                                    multi?: ({
+                                        bitarray?: {
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } | undefined;
+                                        modeInfos?: any[] | undefined;
+                                    } & {
+                                        bitarray?: ({
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } & {
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } & { [K_57 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                        modeInfos?: (any[] & ({
+                                            single?: {
+                                                mode?: SignMode | undefined;
+                                            } | undefined;
+                                            multi?: {
+                                                bitarray?: {
+                                                    extraBitsStored?: number | undefined;
+                                                    elems?: Uint8Array | undefined;
+                                                } | undefined;
+                                                modeInfos?: any[] | undefined;
+                                            } | undefined;
+                                        } & {
+                                            single?: ({
+                                                mode?: SignMode | undefined;
+                                            } & {
+                                                mode?: SignMode | undefined;
+                                            } & { [K_58 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                                            multi?: ({
+                                                bitarray?: {
+                                                    extraBitsStored?: number | undefined;
+                                                    elems?: Uint8Array | undefined;
+                                                } | undefined;
+                                                modeInfos?: any[] | undefined;
+                                            } & {
+                                                bitarray?: ({
+                                                    extraBitsStored?: number | undefined;
+                                                    elems?: Uint8Array | undefined;
+                                                } & any & { [K_59 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                                modeInfos?: (any[] & ({
+                                                    single?: {
+                                                        mode?: SignMode | undefined;
+                                                    } | undefined;
+                                                    multi?: {
+                                                        bitarray?: {
+                                                            extraBitsStored?: number | undefined;
+                                                            elems?: Uint8Array | undefined;
+                                                        } | undefined;
+                                                        modeInfos?: any[] | undefined;
+                                                    } | undefined;
+                                                } & any & { [K_60 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_61 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                                            } & { [K_62 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                                        } & { [K_63 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_64 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                                    } & { [K_65 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                                } & { [K_66 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_67 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                            } & { [K_68 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                        } & { [K_69 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_70 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                    } & { [K_71 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                } & { [K_72 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["modeInfo"], keyof ModeInfo>]: never; }) | undefined;
+                sequence?: string | number | (Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long) => Long;
+                    and: (other: string | number | Long) => Long;
+                    compare: (other: string | number | Long) => number;
+                    comp: (other: string | number | Long) => number;
+                    divide: (divisor: string | number | Long) => Long;
+                    div: (divisor: string | number | Long) => Long;
+                    equals: (other: string | number | Long) => boolean;
+                    eq: (other: string | number | Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long) => boolean;
+                    gt: (other: string | number | Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long) => boolean;
+                    gte: (other: string | number | Long) => boolean;
+                    ge: (other: string | number | Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    eqz: () => boolean;
+                    lessThan: (other: string | number | Long) => boolean;
+                    lt: (other: string | number | Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long) => boolean;
+                    lte: (other: string | number | Long) => boolean;
+                    le: (other: string | number | Long) => boolean;
+                    modulo: (other: string | number | Long) => Long;
+                    mod: (other: string | number | Long) => Long;
+                    rem: (other: string | number | Long) => Long;
+                    multiply: (multiplier: string | number | Long) => Long;
+                    mul: (multiplier: string | number | Long) => Long;
+                    negate: () => Long;
+                    neg: () => Long;
+                    not: () => Long;
+                    countLeadingZeros: () => number;
+                    clz: () => number;
+                    countTrailingZeros: () => number;
+                    ctz: () => number;
+                    notEquals: (other: string | number | Long) => boolean;
+                    neq: (other: string | number | Long) => boolean;
+                    ne: (other: string | number | Long) => boolean;
+                    or: (other: string | number | Long) => Long;
+                    shiftLeft: (numBits: number | Long) => Long;
+                    shl: (numBits: number | Long) => Long;
+                    shiftRight: (numBits: number | Long) => Long;
+                    shr: (numBits: number | Long) => Long;
+                    shiftRightUnsigned: (numBits: number | Long) => Long;
+                    shru: (numBits: number | Long) => Long;
+                    shr_u: (numBits: number | Long) => Long;
+                    rotateLeft: (numBits: number | Long) => Long;
+                    rotl: (numBits: number | Long) => Long;
+                    rotateRight: (numBits: number | Long) => Long;
+                    rotr: (numBits: number | Long) => Long;
+                    subtract: (subtrahend: string | number | Long) => Long;
+                    sub: (subtrahend: string | number | Long) => Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long;
+                    xor: (other: string | number | Long) => Long;
+                } & { [K_73 in Exclude<keyof I_1["authInfo"]["signerInfos"][number]["sequence"], keyof Long>]: never; }) | undefined;
+            } & { [K_74 in Exclude<keyof I_1["authInfo"]["signerInfos"][number], keyof SignerInfo>]: never; })[] & { [K_75 in Exclude<keyof I_1["authInfo"]["signerInfos"], keyof {
+                publicKey?: {
+                    typeUrl?: string | undefined;
+                    value?: Uint8Array | undefined;
+                } | undefined;
+                modeInfo?: {
+                    single?: {
+                        mode?: SignMode | undefined;
+                    } | undefined;
+                    multi?: {
+                        bitarray?: {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } | undefined;
+                        modeInfos?: any[] | undefined;
+                    } | undefined;
+                } | undefined;
+                sequence?: string | number | Long | undefined;
+            }[]>]: never; }) | undefined;
+            fee?: ({
+                amount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                }[] | undefined;
+                gasLimit?: string | number | Long | undefined;
+                payer?: string | undefined;
+                granter?: string | undefined;
+            } & {
+                amount?: ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                }[] & ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & { [K_76 in Exclude<keyof I_1["authInfo"]["fee"]["amount"][number], keyof Coin>]: never; })[] & { [K_77 in Exclude<keyof I_1["authInfo"]["fee"]["amount"], keyof {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                }[]>]: never; }) | undefined;
+                gasLimit?: string | number | (Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long) => Long;
+                    and: (other: string | number | Long) => Long;
+                    compare: (other: string | number | Long) => number;
+                    comp: (other: string | number | Long) => number;
+                    divide: (divisor: string | number | Long) => Long;
+                    div: (divisor: string | number | Long) => Long;
+                    equals: (other: string | number | Long) => boolean;
+                    eq: (other: string | number | Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long) => boolean;
+                    gt: (other: string | number | Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long) => boolean;
+                    gte: (other: string | number | Long) => boolean;
+                    ge: (other: string | number | Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    eqz: () => boolean;
+                    lessThan: (other: string | number | Long) => boolean;
+                    lt: (other: string | number | Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long) => boolean;
+                    lte: (other: string | number | Long) => boolean;
+                    le: (other: string | number | Long) => boolean;
+                    modulo: (other: string | number | Long) => Long;
+                    mod: (other: string | number | Long) => Long;
+                    rem: (other: string | number | Long) => Long;
+                    multiply: (multiplier: string | number | Long) => Long;
+                    mul: (multiplier: string | number | Long) => Long;
+                    negate: () => Long;
+                    neg: () => Long;
+                    not: () => Long;
+                    countLeadingZeros: () => number;
+                    clz: () => number;
+                    countTrailingZeros: () => number;
+                    ctz: () => number;
+                    notEquals: (other: string | number | Long) => boolean;
+                    neq: (other: string | number | Long) => boolean;
+                    ne: (other: string | number | Long) => boolean;
+                    or: (other: string | number | Long) => Long;
+                    shiftLeft: (numBits: number | Long) => Long;
+                    shl: (numBits: number | Long) => Long;
+                    shiftRight: (numBits: number | Long) => Long;
+                    shr: (numBits: number | Long) => Long;
+                    shiftRightUnsigned: (numBits: number | Long) => Long;
+                    shru: (numBits: number | Long) => Long;
+                    shr_u: (numBits: number | Long) => Long;
+                    rotateLeft: (numBits: number | Long) => Long;
+                    rotl: (numBits: number | Long) => Long;
+                    rotateRight: (numBits: number | Long) => Long;
+                    rotr: (numBits: number | Long) => Long;
+                    subtract: (subtrahend: string | number | Long) => Long;
+                    sub: (subtrahend: string | number | Long) => Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long;
+                    xor: (other: string | number | Long) => Long;
+                } & { [K_78 in Exclude<keyof I_1["authInfo"]["fee"]["gasLimit"], keyof Long>]: never; }) | undefined;
+                payer?: string | undefined;
+                granter?: string | undefined;
+            } & { [K_79 in Exclude<keyof I_1["authInfo"]["fee"], keyof Fee>]: never; }) | undefined;
+            tip?: ({
+                amount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                }[] | undefined;
+                tipper?: string | undefined;
+            } & {
+                amount?: ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                }[] & ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & { [K_80 in Exclude<keyof I_1["authInfo"]["tip"]["amount"][number], keyof Coin>]: never; })[] & { [K_81 in Exclude<keyof I_1["authInfo"]["tip"]["amount"], keyof {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                }[]>]: never; }) | undefined;
+                tipper?: string | undefined;
+            } & { [K_82 in Exclude<keyof I_1["authInfo"]["tip"], keyof Tip>]: never; }) | undefined;
+        } & { [K_83 in Exclude<keyof I_1["authInfo"], keyof AuthInfo>]: never; }) | undefined;
+        signatures?: (Uint8Array[] & Uint8Array[] & { [K_84 in Exclude<keyof I_1["signatures"], keyof Uint8Array[]>]: never; }) | undefined;
+    } & { [K_85 in Exclude<keyof I_1, keyof Tx>]: never; }>(object: I_1): Tx;
 };
 export declare const TxRaw: {
     encode(message: TxRaw, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): TxRaw;
     fromJSON(object: any): TxRaw;
     toJSON(message: TxRaw): unknown;
-    fromPartial<I extends {
+    create<I extends {
         bodyBytes?: Uint8Array | undefined;
         authInfoBytes?: Uint8Array | undefined;
         signatures?: Uint8Array[] | undefined;
@@ -917,14 +1537,23 @@ export declare const TxRaw: {
         bodyBytes?: Uint8Array | undefined;
         authInfoBytes?: Uint8Array | undefined;
         signatures?: (Uint8Array[] & Uint8Array[] & { [K in Exclude<keyof I["signatures"], keyof Uint8Array[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof TxRaw>]: never; }>(object: I): TxRaw;
+    } & { [K_1 in Exclude<keyof I, keyof TxRaw>]: never; }>(base?: I | undefined): TxRaw;
+    fromPartial<I_1 extends {
+        bodyBytes?: Uint8Array | undefined;
+        authInfoBytes?: Uint8Array | undefined;
+        signatures?: Uint8Array[] | undefined;
+    } & {
+        bodyBytes?: Uint8Array | undefined;
+        authInfoBytes?: Uint8Array | undefined;
+        signatures?: (Uint8Array[] & Uint8Array[] & { [K_2 in Exclude<keyof I_1["signatures"], keyof Uint8Array[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, keyof TxRaw>]: never; }>(object: I_1): TxRaw;
 };
 export declare const SignDoc: {
     encode(message: SignDoc, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): SignDoc;
     fromJSON(object: any): SignDoc;
     toJSON(message: SignDoc): unknown;
-    fromPartial<I extends {
+    create<I extends {
         bodyBytes?: Uint8Array | undefined;
         authInfoBytes?: Uint8Array | undefined;
         chainId?: string | undefined;
@@ -1005,14 +1634,96 @@ export declare const SignDoc: {
             toUnsigned: () => Long;
             xor: (other: string | number | Long) => Long;
         } & { [K in Exclude<keyof I["accountNumber"], keyof Long>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof SignDoc>]: never; }>(object: I): SignDoc;
+    } & { [K_1 in Exclude<keyof I, keyof SignDoc>]: never; }>(base?: I | undefined): SignDoc;
+    fromPartial<I_1 extends {
+        bodyBytes?: Uint8Array | undefined;
+        authInfoBytes?: Uint8Array | undefined;
+        chainId?: string | undefined;
+        accountNumber?: string | number | Long | undefined;
+    } & {
+        bodyBytes?: Uint8Array | undefined;
+        authInfoBytes?: Uint8Array | undefined;
+        chainId?: string | undefined;
+        accountNumber?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_2 in Exclude<keyof I_1["accountNumber"], keyof Long>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, keyof SignDoc>]: never; }>(object: I_1): SignDoc;
 };
 export declare const SignDocDirectAux: {
     encode(message: SignDocDirectAux, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): SignDocDirectAux;
     fromJSON(object: any): SignDocDirectAux;
     toJSON(message: SignDocDirectAux): unknown;
-    fromPartial<I extends {
+    create<I extends {
         bodyBytes?: Uint8Array | undefined;
         publicKey?: {
             typeUrl?: string | undefined;
@@ -1204,14 +1915,207 @@ export declare const SignDocDirectAux: {
             }[]>]: never; }) | undefined;
             tipper?: string | undefined;
         } & { [K_5 in Exclude<keyof I["tip"], keyof Tip>]: never; }) | undefined;
-    } & { [K_6 in Exclude<keyof I, keyof SignDocDirectAux>]: never; }>(object: I): SignDocDirectAux;
+    } & { [K_6 in Exclude<keyof I, keyof SignDocDirectAux>]: never; }>(base?: I | undefined): SignDocDirectAux;
+    fromPartial<I_1 extends {
+        bodyBytes?: Uint8Array | undefined;
+        publicKey?: {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } | undefined;
+        chainId?: string | undefined;
+        accountNumber?: string | number | Long | undefined;
+        sequence?: string | number | Long | undefined;
+        tip?: {
+            amount?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
+            tipper?: string | undefined;
+        } | undefined;
+    } & {
+        bodyBytes?: Uint8Array | undefined;
+        publicKey?: ({
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & { [K_7 in Exclude<keyof I_1["publicKey"], keyof Any>]: never; }) | undefined;
+        chainId?: string | undefined;
+        accountNumber?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_8 in Exclude<keyof I_1["accountNumber"], keyof Long>]: never; }) | undefined;
+        sequence?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_9 in Exclude<keyof I_1["sequence"], keyof Long>]: never; }) | undefined;
+        tip?: ({
+            amount?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
+            tipper?: string | undefined;
+        } & {
+            amount?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] & ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_10 in Exclude<keyof I_1["tip"]["amount"][number], keyof Coin>]: never; })[] & { [K_11 in Exclude<keyof I_1["tip"]["amount"], keyof {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[]>]: never; }) | undefined;
+            tipper?: string | undefined;
+        } & { [K_12 in Exclude<keyof I_1["tip"], keyof Tip>]: never; }) | undefined;
+    } & { [K_13 in Exclude<keyof I_1, keyof SignDocDirectAux>]: never; }>(object: I_1): SignDocDirectAux;
 };
 export declare const TxBody: {
     encode(message: TxBody, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): TxBody;
     fromJSON(object: any): TxBody;
     toJSON(message: TxBody): unknown;
-    fromPartial<I extends {
+    create<I extends {
         messages?: {
             typeUrl?: string | undefined;
             value?: Uint8Array | undefined;
@@ -1339,14 +2243,143 @@ export declare const TxBody: {
             typeUrl?: string | undefined;
             value?: Uint8Array | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I, keyof TxBody>]: never; }>(object: I): TxBody;
+    } & { [K_7 in Exclude<keyof I, keyof TxBody>]: never; }>(base?: I | undefined): TxBody;
+    fromPartial<I_1 extends {
+        messages?: {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        }[] | undefined;
+        memo?: string | undefined;
+        timeoutHeight?: string | number | Long | undefined;
+        extensionOptions?: {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        }[] | undefined;
+        nonCriticalExtensionOptions?: {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        }[] | undefined;
+    } & {
+        messages?: ({
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        }[] & ({
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & { [K_8 in Exclude<keyof I_1["messages"][number], keyof Any>]: never; })[] & { [K_9 in Exclude<keyof I_1["messages"], keyof {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        }[]>]: never; }) | undefined;
+        memo?: string | undefined;
+        timeoutHeight?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_10 in Exclude<keyof I_1["timeoutHeight"], keyof Long>]: never; }) | undefined;
+        extensionOptions?: ({
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        }[] & ({
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & { [K_11 in Exclude<keyof I_1["extensionOptions"][number], keyof Any>]: never; })[] & { [K_12 in Exclude<keyof I_1["extensionOptions"], keyof {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        }[]>]: never; }) | undefined;
+        nonCriticalExtensionOptions?: ({
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        }[] & ({
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & { [K_13 in Exclude<keyof I_1["nonCriticalExtensionOptions"][number], keyof Any>]: never; })[] & { [K_14 in Exclude<keyof I_1["nonCriticalExtensionOptions"], keyof {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_15 in Exclude<keyof I_1, keyof TxBody>]: never; }>(object: I_1): TxBody;
 };
 export declare const AuthInfo: {
     encode(message: AuthInfo, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): AuthInfo;
     fromJSON(object: any): AuthInfo;
     toJSON(message: AuthInfo): unknown;
-    fromPartial<I extends {
+    create<I extends {
         signerInfos?: {
             publicKey?: {
                 typeUrl?: string | undefined;
@@ -1792,14 +2825,461 @@ export declare const AuthInfo: {
             }[]>]: never; }) | undefined;
             tipper?: string | undefined;
         } & { [K_33 in Exclude<keyof I["tip"], keyof Tip>]: never; }) | undefined;
-    } & { [K_34 in Exclude<keyof I, keyof AuthInfo>]: never; }>(object: I): AuthInfo;
+    } & { [K_34 in Exclude<keyof I, keyof AuthInfo>]: never; }>(base?: I | undefined): AuthInfo;
+    fromPartial<I_1 extends {
+        signerInfos?: {
+            publicKey?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } | undefined;
+            modeInfo?: {
+                single?: {
+                    mode?: SignMode | undefined;
+                } | undefined;
+                multi?: {
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    modeInfos?: any[] | undefined;
+                } | undefined;
+            } | undefined;
+            sequence?: string | number | Long | undefined;
+        }[] | undefined;
+        fee?: {
+            amount?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
+            gasLimit?: string | number | Long | undefined;
+            payer?: string | undefined;
+            granter?: string | undefined;
+        } | undefined;
+        tip?: {
+            amount?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
+            tipper?: string | undefined;
+        } | undefined;
+    } & {
+        signerInfos?: ({
+            publicKey?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } | undefined;
+            modeInfo?: {
+                single?: {
+                    mode?: SignMode | undefined;
+                } | undefined;
+                multi?: {
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    modeInfos?: any[] | undefined;
+                } | undefined;
+            } | undefined;
+            sequence?: string | number | Long | undefined;
+        }[] & ({
+            publicKey?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } | undefined;
+            modeInfo?: {
+                single?: {
+                    mode?: SignMode | undefined;
+                } | undefined;
+                multi?: {
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    modeInfos?: any[] | undefined;
+                } | undefined;
+            } | undefined;
+            sequence?: string | number | Long | undefined;
+        } & {
+            publicKey?: ({
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } & {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } & { [K_35 in Exclude<keyof I_1["signerInfos"][number]["publicKey"], keyof Any>]: never; }) | undefined;
+            modeInfo?: ({
+                single?: {
+                    mode?: SignMode | undefined;
+                } | undefined;
+                multi?: {
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    modeInfos?: any[] | undefined;
+                } | undefined;
+            } & {
+                single?: ({
+                    mode?: SignMode | undefined;
+                } & {
+                    mode?: SignMode | undefined;
+                } & { [K_36 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["single"], "mode">]: never; }) | undefined;
+                multi?: ({
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    modeInfos?: any[] | undefined;
+                } & {
+                    bitarray?: ({
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } & {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } & { [K_37 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                    modeInfos?: (any[] & ({
+                        single?: {
+                            mode?: SignMode | undefined;
+                        } | undefined;
+                        multi?: {
+                            bitarray?: {
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } | undefined;
+                            modeInfos?: any[] | undefined;
+                        } | undefined;
+                    } & {
+                        single?: ({
+                            mode?: SignMode | undefined;
+                        } & {
+                            mode?: SignMode | undefined;
+                        } & { [K_38 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                        multi?: ({
+                            bitarray?: {
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } | undefined;
+                            modeInfos?: any[] | undefined;
+                        } & {
+                            bitarray?: ({
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } & {
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } & { [K_39 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                            modeInfos?: (any[] & ({
+                                single?: {
+                                    mode?: SignMode | undefined;
+                                } | undefined;
+                                multi?: {
+                                    bitarray?: {
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } | undefined;
+                                    modeInfos?: any[] | undefined;
+                                } | undefined;
+                            } & {
+                                single?: ({
+                                    mode?: SignMode | undefined;
+                                } & {
+                                    mode?: SignMode | undefined;
+                                } & { [K_40 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                                multi?: ({
+                                    bitarray?: {
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } | undefined;
+                                    modeInfos?: any[] | undefined;
+                                } & {
+                                    bitarray?: ({
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } & {
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } & { [K_41 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                    modeInfos?: (any[] & ({
+                                        single?: {
+                                            mode?: SignMode | undefined;
+                                        } | undefined;
+                                        multi?: {
+                                            bitarray?: {
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } | undefined;
+                                            modeInfos?: any[] | undefined;
+                                        } | undefined;
+                                    } & {
+                                        single?: ({
+                                            mode?: SignMode | undefined;
+                                        } & {
+                                            mode?: SignMode | undefined;
+                                        } & { [K_42 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                                        multi?: ({
+                                            bitarray?: {
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } | undefined;
+                                            modeInfos?: any[] | undefined;
+                                        } & {
+                                            bitarray?: ({
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } & {
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } & { [K_43 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                            modeInfos?: (any[] & ({
+                                                single?: {
+                                                    mode?: SignMode | undefined;
+                                                } | undefined;
+                                                multi?: {
+                                                    bitarray?: {
+                                                        extraBitsStored?: number | undefined;
+                                                        elems?: Uint8Array | undefined;
+                                                    } | undefined;
+                                                    modeInfos?: any[] | undefined;
+                                                } | undefined;
+                                            } & {
+                                                single?: ({
+                                                    mode?: SignMode | undefined;
+                                                } & any & { [K_44 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                                                multi?: ({
+                                                    bitarray?: {
+                                                        extraBitsStored?: number | undefined;
+                                                        elems?: Uint8Array | undefined;
+                                                    } | undefined;
+                                                    modeInfos?: any[] | undefined;
+                                                } & any & { [K_45 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                                            } & { [K_46 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_47 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                                        } & { [K_48 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                                    } & { [K_49 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_50 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                                } & { [K_51 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                            } & { [K_52 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_53 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                        } & { [K_54 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                    } & { [K_55 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_56 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                } & { [K_57 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+            } & { [K_58 in Exclude<keyof I_1["signerInfos"][number]["modeInfo"], keyof ModeInfo>]: never; }) | undefined;
+            sequence?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_59 in Exclude<keyof I_1["signerInfos"][number]["sequence"], keyof Long>]: never; }) | undefined;
+        } & { [K_60 in Exclude<keyof I_1["signerInfos"][number], keyof SignerInfo>]: never; })[] & { [K_61 in Exclude<keyof I_1["signerInfos"], keyof {
+            publicKey?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } | undefined;
+            modeInfo?: {
+                single?: {
+                    mode?: SignMode | undefined;
+                } | undefined;
+                multi?: {
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    modeInfos?: any[] | undefined;
+                } | undefined;
+            } | undefined;
+            sequence?: string | number | Long | undefined;
+        }[]>]: never; }) | undefined;
+        fee?: ({
+            amount?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
+            gasLimit?: string | number | Long | undefined;
+            payer?: string | undefined;
+            granter?: string | undefined;
+        } & {
+            amount?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] & ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_62 in Exclude<keyof I_1["fee"]["amount"][number], keyof Coin>]: never; })[] & { [K_63 in Exclude<keyof I_1["fee"]["amount"], keyof {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[]>]: never; }) | undefined;
+            gasLimit?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_64 in Exclude<keyof I_1["fee"]["gasLimit"], keyof Long>]: never; }) | undefined;
+            payer?: string | undefined;
+            granter?: string | undefined;
+        } & { [K_65 in Exclude<keyof I_1["fee"], keyof Fee>]: never; }) | undefined;
+        tip?: ({
+            amount?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] | undefined;
+            tipper?: string | undefined;
+        } & {
+            amount?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[] & ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_66 in Exclude<keyof I_1["tip"]["amount"][number], keyof Coin>]: never; })[] & { [K_67 in Exclude<keyof I_1["tip"]["amount"], keyof {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            }[]>]: never; }) | undefined;
+            tipper?: string | undefined;
+        } & { [K_68 in Exclude<keyof I_1["tip"], keyof Tip>]: never; }) | undefined;
+    } & { [K_69 in Exclude<keyof I_1, keyof AuthInfo>]: never; }>(object: I_1): AuthInfo;
 };
 export declare const SignerInfo: {
     encode(message: SignerInfo, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): SignerInfo;
     fromJSON(object: any): SignerInfo;
     toJSON(message: SignerInfo): unknown;
-    fromPartial<I extends {
+    create<I extends {
         publicKey?: {
             typeUrl?: string | undefined;
             value?: Uint8Array | undefined;
@@ -2071,14 +3551,287 @@ export declare const SignerInfo: {
             toUnsigned: () => Long;
             xor: (other: string | number | Long) => Long;
         } & { [K_27 in Exclude<keyof I["sequence"], keyof Long>]: never; }) | undefined;
-    } & { [K_28 in Exclude<keyof I, keyof SignerInfo>]: never; }>(object: I): SignerInfo;
+    } & { [K_28 in Exclude<keyof I, keyof SignerInfo>]: never; }>(base?: I | undefined): SignerInfo;
+    fromPartial<I_1 extends {
+        publicKey?: {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } | undefined;
+        modeInfo?: {
+            single?: {
+                mode?: SignMode | undefined;
+            } | undefined;
+            multi?: {
+                bitarray?: {
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } | undefined;
+                modeInfos?: any[] | undefined;
+            } | undefined;
+        } | undefined;
+        sequence?: string | number | Long | undefined;
+    } & {
+        publicKey?: ({
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & { [K_29 in Exclude<keyof I_1["publicKey"], keyof Any>]: never; }) | undefined;
+        modeInfo?: ({
+            single?: {
+                mode?: SignMode | undefined;
+            } | undefined;
+            multi?: {
+                bitarray?: {
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } | undefined;
+                modeInfos?: any[] | undefined;
+            } | undefined;
+        } & {
+            single?: ({
+                mode?: SignMode | undefined;
+            } & {
+                mode?: SignMode | undefined;
+            } & { [K_30 in Exclude<keyof I_1["modeInfo"]["single"], "mode">]: never; }) | undefined;
+            multi?: ({
+                bitarray?: {
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } | undefined;
+                modeInfos?: any[] | undefined;
+            } & {
+                bitarray?: ({
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } & {
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } & { [K_31 in Exclude<keyof I_1["modeInfo"]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                modeInfos?: (any[] & ({
+                    single?: {
+                        mode?: SignMode | undefined;
+                    } | undefined;
+                    multi?: {
+                        bitarray?: {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } | undefined;
+                        modeInfos?: any[] | undefined;
+                    } | undefined;
+                } & {
+                    single?: ({
+                        mode?: SignMode | undefined;
+                    } & {
+                        mode?: SignMode | undefined;
+                    } & { [K_32 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                    multi?: ({
+                        bitarray?: {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } | undefined;
+                        modeInfos?: any[] | undefined;
+                    } & {
+                        bitarray?: ({
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } & {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } & { [K_33 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                        modeInfos?: (any[] & ({
+                            single?: {
+                                mode?: SignMode | undefined;
+                            } | undefined;
+                            multi?: {
+                                bitarray?: {
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } | undefined;
+                                modeInfos?: any[] | undefined;
+                            } | undefined;
+                        } & {
+                            single?: ({
+                                mode?: SignMode | undefined;
+                            } & {
+                                mode?: SignMode | undefined;
+                            } & { [K_34 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                            multi?: ({
+                                bitarray?: {
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } | undefined;
+                                modeInfos?: any[] | undefined;
+                            } & {
+                                bitarray?: ({
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } & {
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } & { [K_35 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                modeInfos?: (any[] & ({
+                                    single?: {
+                                        mode?: SignMode | undefined;
+                                    } | undefined;
+                                    multi?: {
+                                        bitarray?: {
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } | undefined;
+                                        modeInfos?: any[] | undefined;
+                                    } | undefined;
+                                } & {
+                                    single?: ({
+                                        mode?: SignMode | undefined;
+                                    } & {
+                                        mode?: SignMode | undefined;
+                                    } & { [K_36 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                                    multi?: ({
+                                        bitarray?: {
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } | undefined;
+                                        modeInfos?: any[] | undefined;
+                                    } & {
+                                        bitarray?: ({
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } & {
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } & { [K_37 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                        modeInfos?: (any[] & ({
+                                            single?: {
+                                                mode?: SignMode | undefined;
+                                            } | undefined;
+                                            multi?: {
+                                                bitarray?: {
+                                                    extraBitsStored?: number | undefined;
+                                                    elems?: Uint8Array | undefined;
+                                                } | undefined;
+                                                modeInfos?: any[] | undefined;
+                                            } | undefined;
+                                        } & {
+                                            single?: ({
+                                                mode?: SignMode | undefined;
+                                            } & {
+                                                mode?: SignMode | undefined;
+                                            } & { [K_38 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                                            multi?: ({
+                                                bitarray?: {
+                                                    extraBitsStored?: number | undefined;
+                                                    elems?: Uint8Array | undefined;
+                                                } | undefined;
+                                                modeInfos?: any[] | undefined;
+                                            } & {
+                                                bitarray?: ({
+                                                    extraBitsStored?: number | undefined;
+                                                    elems?: Uint8Array | undefined;
+                                                } & any & { [K_39 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                                modeInfos?: (any[] & ({
+                                                    single?: {
+                                                        mode?: SignMode | undefined;
+                                                    } | undefined;
+                                                    multi?: {
+                                                        bitarray?: {
+                                                            extraBitsStored?: number | undefined;
+                                                            elems?: Uint8Array | undefined;
+                                                        } | undefined;
+                                                        modeInfos?: any[] | undefined;
+                                                    } | undefined;
+                                                } & any & { [K_40 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_41 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                                            } & { [K_42 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                                        } & { [K_43 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_44 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                                    } & { [K_45 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                                } & { [K_46 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_47 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                            } & { [K_48 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                        } & { [K_49 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_50 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                    } & { [K_51 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                } & { [K_52 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_53 in Exclude<keyof I_1["modeInfo"]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+            } & { [K_54 in Exclude<keyof I_1["modeInfo"]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+        } & { [K_55 in Exclude<keyof I_1["modeInfo"], keyof ModeInfo>]: never; }) | undefined;
+        sequence?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_56 in Exclude<keyof I_1["sequence"], keyof Long>]: never; }) | undefined;
+    } & { [K_57 in Exclude<keyof I_1, keyof SignerInfo>]: never; }>(object: I_1): SignerInfo;
 };
 export declare const ModeInfo: {
     encode(message: ModeInfo, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): ModeInfo;
     fromJSON(object: any): ModeInfo;
     toJSON(message: ModeInfo): unknown;
-    fromPartial<I extends {
+    create<I extends {
         single?: {
             mode?: SignMode | undefined;
         } | undefined;
@@ -2265,25 +4018,218 @@ export declare const ModeInfo: {
                 } & { [K_23 in Exclude<keyof I["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
             } & { [K_24 in Exclude<keyof I["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_25 in Exclude<keyof I["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
         } & { [K_26 in Exclude<keyof I["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
-    } & { [K_27 in Exclude<keyof I, keyof ModeInfo>]: never; }>(object: I): ModeInfo;
+    } & { [K_27 in Exclude<keyof I, keyof ModeInfo>]: never; }>(base?: I | undefined): ModeInfo;
+    fromPartial<I_1 extends {
+        single?: {
+            mode?: SignMode | undefined;
+        } | undefined;
+        multi?: {
+            bitarray?: {
+                extraBitsStored?: number | undefined;
+                elems?: Uint8Array | undefined;
+            } | undefined;
+            modeInfos?: any[] | undefined;
+        } | undefined;
+    } & {
+        single?: ({
+            mode?: SignMode | undefined;
+        } & {
+            mode?: SignMode | undefined;
+        } & { [K_28 in Exclude<keyof I_1["single"], "mode">]: never; }) | undefined;
+        multi?: ({
+            bitarray?: {
+                extraBitsStored?: number | undefined;
+                elems?: Uint8Array | undefined;
+            } | undefined;
+            modeInfos?: any[] | undefined;
+        } & {
+            bitarray?: ({
+                extraBitsStored?: number | undefined;
+                elems?: Uint8Array | undefined;
+            } & {
+                extraBitsStored?: number | undefined;
+                elems?: Uint8Array | undefined;
+            } & { [K_29 in Exclude<keyof I_1["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+            modeInfos?: (any[] & ({
+                single?: {
+                    mode?: SignMode | undefined;
+                } | undefined;
+                multi?: {
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    modeInfos?: any[] | undefined;
+                } | undefined;
+            } & {
+                single?: ({
+                    mode?: SignMode | undefined;
+                } & {
+                    mode?: SignMode | undefined;
+                } & { [K_30 in Exclude<keyof I_1["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                multi?: ({
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    modeInfos?: any[] | undefined;
+                } & {
+                    bitarray?: ({
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } & {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } & { [K_31 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                    modeInfos?: (any[] & ({
+                        single?: {
+                            mode?: SignMode | undefined;
+                        } | undefined;
+                        multi?: {
+                            bitarray?: {
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } | undefined;
+                            modeInfos?: any[] | undefined;
+                        } | undefined;
+                    } & {
+                        single?: ({
+                            mode?: SignMode | undefined;
+                        } & {
+                            mode?: SignMode | undefined;
+                        } & { [K_32 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                        multi?: ({
+                            bitarray?: {
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } | undefined;
+                            modeInfos?: any[] | undefined;
+                        } & {
+                            bitarray?: ({
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } & {
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } & { [K_33 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                            modeInfos?: (any[] & ({
+                                single?: {
+                                    mode?: SignMode | undefined;
+                                } | undefined;
+                                multi?: {
+                                    bitarray?: {
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } | undefined;
+                                    modeInfos?: any[] | undefined;
+                                } | undefined;
+                            } & {
+                                single?: ({
+                                    mode?: SignMode | undefined;
+                                } & {
+                                    mode?: SignMode | undefined;
+                                } & { [K_34 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                                multi?: ({
+                                    bitarray?: {
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } | undefined;
+                                    modeInfos?: any[] | undefined;
+                                } & {
+                                    bitarray?: ({
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } & {
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } & { [K_35 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                    modeInfos?: (any[] & ({
+                                        single?: {
+                                            mode?: SignMode | undefined;
+                                        } | undefined;
+                                        multi?: {
+                                            bitarray?: {
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } | undefined;
+                                            modeInfos?: any[] | undefined;
+                                        } | undefined;
+                                    } & {
+                                        single?: ({
+                                            mode?: SignMode | undefined;
+                                        } & {
+                                            mode?: SignMode | undefined;
+                                        } & { [K_36 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                                        multi?: ({
+                                            bitarray?: {
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } | undefined;
+                                            modeInfos?: any[] | undefined;
+                                        } & {
+                                            bitarray?: ({
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } & {
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } & { [K_37 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                            modeInfos?: (any[] & ({
+                                                single?: {
+                                                    mode?: SignMode | undefined;
+                                                } | undefined;
+                                                multi?: {
+                                                    bitarray?: {
+                                                        extraBitsStored?: number | undefined;
+                                                        elems?: Uint8Array | undefined;
+                                                    } | undefined;
+                                                    modeInfos?: any[] | undefined;
+                                                } | undefined;
+                                            } & {
+                                                single?: ({
+                                                    mode?: SignMode | undefined;
+                                                } & any & { [K_38 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                                                multi?: ({
+                                                    bitarray?: {
+                                                        extraBitsStored?: number | undefined;
+                                                        elems?: Uint8Array | undefined;
+                                                    } | undefined;
+                                                    modeInfos?: any[] | undefined;
+                                                } & any & { [K_39 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                                            } & { [K_40 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_41 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                                        } & { [K_42 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                                    } & { [K_43 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_44 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                                } & { [K_45 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                            } & { [K_46 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_47 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                        } & { [K_48 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                    } & { [K_49 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_50 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                } & { [K_51 in Exclude<keyof I_1["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+            } & { [K_52 in Exclude<keyof I_1["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_53 in Exclude<keyof I_1["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+        } & { [K_54 in Exclude<keyof I_1["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+    } & { [K_55 in Exclude<keyof I_1, keyof ModeInfo>]: never; }>(object: I_1): ModeInfo;
 };
 export declare const ModeInfo_Single: {
     encode(message: ModeInfo_Single, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): ModeInfo_Single;
     fromJSON(object: any): ModeInfo_Single;
     toJSON(message: ModeInfo_Single): unknown;
-    fromPartial<I extends {
+    create<I extends {
         mode?: SignMode | undefined;
     } & {
         mode?: SignMode | undefined;
-    } & { [K in Exclude<keyof I, "mode">]: never; }>(object: I): ModeInfo_Single;
+    } & { [K in Exclude<keyof I, "mode">]: never; }>(base?: I | undefined): ModeInfo_Single;
+    fromPartial<I_1 extends {
+        mode?: SignMode | undefined;
+    } & {
+        mode?: SignMode | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "mode">]: never; }>(object: I_1): ModeInfo_Single;
 };
 export declare const ModeInfo_Multi: {
     encode(message: ModeInfo_Multi, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): ModeInfo_Multi;
     fromJSON(object: any): ModeInfo_Multi;
     toJSON(message: ModeInfo_Multi): unknown;
-    fromPartial<I extends {
+    create<I extends {
         bitarray?: {
             extraBitsStored?: number | undefined;
             elems?: Uint8Array | undefined;
@@ -2471,14 +4417,203 @@ export declare const ModeInfo_Multi: {
                 } & { [K_23 in Exclude<keyof I["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_24 in Exclude<keyof I["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
             } & { [K_25 in Exclude<keyof I["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
         } & { [K_26 in Exclude<keyof I["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_27 in Exclude<keyof I["modeInfos"], keyof any[]>]: never; }) | undefined;
-    } & { [K_28 in Exclude<keyof I, keyof ModeInfo_Multi>]: never; }>(object: I): ModeInfo_Multi;
+    } & { [K_28 in Exclude<keyof I, keyof ModeInfo_Multi>]: never; }>(base?: I | undefined): ModeInfo_Multi;
+    fromPartial<I_1 extends {
+        bitarray?: {
+            extraBitsStored?: number | undefined;
+            elems?: Uint8Array | undefined;
+        } | undefined;
+        modeInfos?: any[] | undefined;
+    } & {
+        bitarray?: ({
+            extraBitsStored?: number | undefined;
+            elems?: Uint8Array | undefined;
+        } & {
+            extraBitsStored?: number | undefined;
+            elems?: Uint8Array | undefined;
+        } & { [K_29 in Exclude<keyof I_1["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+        modeInfos?: (any[] & ({
+            single?: {
+                mode?: SignMode | undefined;
+            } | undefined;
+            multi?: {
+                bitarray?: {
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } | undefined;
+                modeInfos?: any[] | undefined;
+            } | undefined;
+        } & {
+            single?: ({
+                mode?: SignMode | undefined;
+            } & {
+                mode?: SignMode | undefined;
+            } & { [K_30 in Exclude<keyof I_1["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+            multi?: ({
+                bitarray?: {
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } | undefined;
+                modeInfos?: any[] | undefined;
+            } & {
+                bitarray?: ({
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } & {
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } & { [K_31 in Exclude<keyof I_1["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                modeInfos?: (any[] & ({
+                    single?: {
+                        mode?: SignMode | undefined;
+                    } | undefined;
+                    multi?: {
+                        bitarray?: {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } | undefined;
+                        modeInfos?: any[] | undefined;
+                    } | undefined;
+                } & {
+                    single?: ({
+                        mode?: SignMode | undefined;
+                    } & {
+                        mode?: SignMode | undefined;
+                    } & { [K_32 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                    multi?: ({
+                        bitarray?: {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } | undefined;
+                        modeInfos?: any[] | undefined;
+                    } & {
+                        bitarray?: ({
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } & {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } & { [K_33 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                        modeInfos?: (any[] & ({
+                            single?: {
+                                mode?: SignMode | undefined;
+                            } | undefined;
+                            multi?: {
+                                bitarray?: {
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } | undefined;
+                                modeInfos?: any[] | undefined;
+                            } | undefined;
+                        } & {
+                            single?: ({
+                                mode?: SignMode | undefined;
+                            } & {
+                                mode?: SignMode | undefined;
+                            } & { [K_34 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                            multi?: ({
+                                bitarray?: {
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } | undefined;
+                                modeInfos?: any[] | undefined;
+                            } & {
+                                bitarray?: ({
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } & {
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } & { [K_35 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                modeInfos?: (any[] & ({
+                                    single?: {
+                                        mode?: SignMode | undefined;
+                                    } | undefined;
+                                    multi?: {
+                                        bitarray?: {
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } | undefined;
+                                        modeInfos?: any[] | undefined;
+                                    } | undefined;
+                                } & {
+                                    single?: ({
+                                        mode?: SignMode | undefined;
+                                    } & {
+                                        mode?: SignMode | undefined;
+                                    } & { [K_36 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                                    multi?: ({
+                                        bitarray?: {
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } | undefined;
+                                        modeInfos?: any[] | undefined;
+                                    } & {
+                                        bitarray?: ({
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } & {
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } & { [K_37 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                        modeInfos?: (any[] & ({
+                                            single?: {
+                                                mode?: SignMode | undefined;
+                                            } | undefined;
+                                            multi?: {
+                                                bitarray?: {
+                                                    extraBitsStored?: number | undefined;
+                                                    elems?: Uint8Array | undefined;
+                                                } | undefined;
+                                                modeInfos?: any[] | undefined;
+                                            } | undefined;
+                                        } & {
+                                            single?: ({
+                                                mode?: SignMode | undefined;
+                                            } & {
+                                                mode?: SignMode | undefined;
+                                            } & { [K_38 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["single"], "mode">]: never; }) | undefined;
+                                            multi?: ({
+                                                bitarray?: {
+                                                    extraBitsStored?: number | undefined;
+                                                    elems?: Uint8Array | undefined;
+                                                } | undefined;
+                                                modeInfos?: any[] | undefined;
+                                            } & {
+                                                bitarray?: ({
+                                                    extraBitsStored?: number | undefined;
+                                                    elems?: Uint8Array | undefined;
+                                                } & any & { [K_39 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                                modeInfos?: (any[] & ({
+                                                    single?: {
+                                                        mode?: SignMode | undefined;
+                                                    } | undefined;
+                                                    multi?: {
+                                                        bitarray?: {
+                                                            extraBitsStored?: number | undefined;
+                                                            elems?: Uint8Array | undefined;
+                                                        } | undefined;
+                                                        modeInfos?: any[] | undefined;
+                                                    } | undefined;
+                                                } & any & { [K_40 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_41 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                                            } & { [K_42 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                                        } & { [K_43 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_44 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                                    } & { [K_45 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                                } & { [K_46 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_47 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                            } & { [K_48 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                        } & { [K_49 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_50 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+                    } & { [K_51 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+                } & { [K_52 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_53 in Exclude<keyof I_1["modeInfos"][number]["multi"]["modeInfos"], keyof any[]>]: never; }) | undefined;
+            } & { [K_54 in Exclude<keyof I_1["modeInfos"][number]["multi"], keyof ModeInfo_Multi>]: never; }) | undefined;
+        } & { [K_55 in Exclude<keyof I_1["modeInfos"][number], keyof ModeInfo>]: never; })[] & { [K_56 in Exclude<keyof I_1["modeInfos"], keyof any[]>]: never; }) | undefined;
+    } & { [K_57 in Exclude<keyof I_1, keyof ModeInfo_Multi>]: never; }>(object: I_1): ModeInfo_Multi;
 };
 export declare const Fee: {
     encode(message: Fee, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): Fee;
     fromJSON(object: any): Fee;
     toJSON(message: Fee): unknown;
-    fromPartial<I extends {
+    create<I extends {
         amount?: {
             denom?: string | undefined;
             amount?: string | undefined;
@@ -2574,14 +4709,111 @@ export declare const Fee: {
         } & { [K_2 in Exclude<keyof I["gasLimit"], keyof Long>]: never; }) | undefined;
         payer?: string | undefined;
         granter?: string | undefined;
-    } & { [K_3 in Exclude<keyof I, keyof Fee>]: never; }>(object: I): Fee;
+    } & { [K_3 in Exclude<keyof I, keyof Fee>]: never; }>(base?: I | undefined): Fee;
+    fromPartial<I_1 extends {
+        amount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+        gasLimit?: string | number | Long | undefined;
+        payer?: string | undefined;
+        granter?: string | undefined;
+    } & {
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_4 in Exclude<keyof I_1["amount"][number], keyof Coin>]: never; })[] & { [K_5 in Exclude<keyof I_1["amount"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+        gasLimit?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_6 in Exclude<keyof I_1["gasLimit"], keyof Long>]: never; }) | undefined;
+        payer?: string | undefined;
+        granter?: string | undefined;
+    } & { [K_7 in Exclude<keyof I_1, keyof Fee>]: never; }>(object: I_1): Fee;
 };
 export declare const Tip: {
     encode(message: Tip, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): Tip;
     fromJSON(object: any): Tip;
     toJSON(message: Tip): unknown;
-    fromPartial<I extends {
+    create<I extends {
         amount?: {
             denom?: string | undefined;
             amount?: string | undefined;
@@ -2602,14 +4834,36 @@ export declare const Tip: {
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
         tipper?: string | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof Tip>]: never; }>(object: I): Tip;
+    } & { [K_2 in Exclude<keyof I, keyof Tip>]: never; }>(base?: I | undefined): Tip;
+    fromPartial<I_1 extends {
+        amount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+        tipper?: string | undefined;
+    } & {
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["amount"][number], keyof Coin>]: never; })[] & { [K_4 in Exclude<keyof I_1["amount"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+        tipper?: string | undefined;
+    } & { [K_5 in Exclude<keyof I_1, keyof Tip>]: never; }>(object: I_1): Tip;
 };
 export declare const AuxSignerData: {
     encode(message: AuxSignerData, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): AuxSignerData;
     fromJSON(object: any): AuxSignerData;
     toJSON(message: AuxSignerData): unknown;
-    fromPartial<I extends {
+    create<I extends {
         address?: string | undefined;
         signDoc?: {
             bodyBytes?: Uint8Array | undefined;
@@ -2827,7 +5081,226 @@ export declare const AuxSignerData: {
         } & { [K_6 in Exclude<keyof I["signDoc"], keyof SignDocDirectAux>]: never; }) | undefined;
         mode?: SignMode | undefined;
         sig?: Uint8Array | undefined;
-    } & { [K_7 in Exclude<keyof I, keyof AuxSignerData>]: never; }>(object: I): AuxSignerData;
+    } & { [K_7 in Exclude<keyof I, keyof AuxSignerData>]: never; }>(base?: I | undefined): AuxSignerData;
+    fromPartial<I_1 extends {
+        address?: string | undefined;
+        signDoc?: {
+            bodyBytes?: Uint8Array | undefined;
+            publicKey?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } | undefined;
+            chainId?: string | undefined;
+            accountNumber?: string | number | Long | undefined;
+            sequence?: string | number | Long | undefined;
+            tip?: {
+                amount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                }[] | undefined;
+                tipper?: string | undefined;
+            } | undefined;
+        } | undefined;
+        mode?: SignMode | undefined;
+        sig?: Uint8Array | undefined;
+    } & {
+        address?: string | undefined;
+        signDoc?: ({
+            bodyBytes?: Uint8Array | undefined;
+            publicKey?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } | undefined;
+            chainId?: string | undefined;
+            accountNumber?: string | number | Long | undefined;
+            sequence?: string | number | Long | undefined;
+            tip?: {
+                amount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                }[] | undefined;
+                tipper?: string | undefined;
+            } | undefined;
+        } & {
+            bodyBytes?: Uint8Array | undefined;
+            publicKey?: ({
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } & {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } & { [K_8 in Exclude<keyof I_1["signDoc"]["publicKey"], keyof Any>]: never; }) | undefined;
+            chainId?: string | undefined;
+            accountNumber?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_9 in Exclude<keyof I_1["signDoc"]["accountNumber"], keyof Long>]: never; }) | undefined;
+            sequence?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_10 in Exclude<keyof I_1["signDoc"]["sequence"], keyof Long>]: never; }) | undefined;
+            tip?: ({
+                amount?: {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                }[] | undefined;
+                tipper?: string | undefined;
+            } & {
+                amount?: ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                }[] & ({
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                } & { [K_11 in Exclude<keyof I_1["signDoc"]["tip"]["amount"][number], keyof Coin>]: never; })[] & { [K_12 in Exclude<keyof I_1["signDoc"]["tip"]["amount"], keyof {
+                    denom?: string | undefined;
+                    amount?: string | undefined;
+                }[]>]: never; }) | undefined;
+                tipper?: string | undefined;
+            } & { [K_13 in Exclude<keyof I_1["signDoc"]["tip"], keyof Tip>]: never; }) | undefined;
+        } & { [K_14 in Exclude<keyof I_1["signDoc"], keyof SignDocDirectAux>]: never; }) | undefined;
+        mode?: SignMode | undefined;
+        sig?: Uint8Array | undefined;
+    } & { [K_15 in Exclude<keyof I_1, keyof AuxSignerData>]: never; }>(object: I_1): AuxSignerData;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

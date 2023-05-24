@@ -130,7 +130,7 @@ export declare const Params: {
     decode(input: _m0.Reader | Uint8Array, length?: number): Params;
     fromJSON(object: any): Params;
     toJSON(message: Params): unknown;
-    fromPartial<I extends {
+    create<I extends {
         communityTax?: string | undefined;
         baseProposerReward?: string | undefined;
         bonusProposerReward?: string | undefined;
@@ -140,14 +140,25 @@ export declare const Params: {
         baseProposerReward?: string | undefined;
         bonusProposerReward?: string | undefined;
         withdrawAddrEnabled?: boolean | undefined;
-    } & { [K in Exclude<keyof I, keyof Params>]: never; }>(object: I): Params;
+    } & { [K in Exclude<keyof I, keyof Params>]: never; }>(base?: I | undefined): Params;
+    fromPartial<I_1 extends {
+        communityTax?: string | undefined;
+        baseProposerReward?: string | undefined;
+        bonusProposerReward?: string | undefined;
+        withdrawAddrEnabled?: boolean | undefined;
+    } & {
+        communityTax?: string | undefined;
+        baseProposerReward?: string | undefined;
+        bonusProposerReward?: string | undefined;
+        withdrawAddrEnabled?: boolean | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof Params>]: never; }>(object: I_1): Params;
 };
 export declare const ValidatorHistoricalRewards: {
     encode(message: ValidatorHistoricalRewards, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): ValidatorHistoricalRewards;
     fromJSON(object: any): ValidatorHistoricalRewards;
     toJSON(message: ValidatorHistoricalRewards): unknown;
-    fromPartial<I extends {
+    create<I extends {
         cumulativeRewardRatio?: {
             denom?: string | undefined;
             amount?: string | undefined;
@@ -168,14 +179,36 @@ export declare const ValidatorHistoricalRewards: {
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
         referenceCount?: number | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof ValidatorHistoricalRewards>]: never; }>(object: I): ValidatorHistoricalRewards;
+    } & { [K_2 in Exclude<keyof I, keyof ValidatorHistoricalRewards>]: never; }>(base?: I | undefined): ValidatorHistoricalRewards;
+    fromPartial<I_1 extends {
+        cumulativeRewardRatio?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+        referenceCount?: number | undefined;
+    } & {
+        cumulativeRewardRatio?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["cumulativeRewardRatio"][number], keyof DecCoin>]: never; })[] & { [K_4 in Exclude<keyof I_1["cumulativeRewardRatio"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+        referenceCount?: number | undefined;
+    } & { [K_5 in Exclude<keyof I_1, keyof ValidatorHistoricalRewards>]: never; }>(object: I_1): ValidatorHistoricalRewards;
 };
 export declare const ValidatorCurrentRewards: {
     encode(message: ValidatorCurrentRewards, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): ValidatorCurrentRewards;
     fromJSON(object: any): ValidatorCurrentRewards;
     toJSON(message: ValidatorCurrentRewards): unknown;
-    fromPartial<I extends {
+    create<I extends {
         rewards?: {
             denom?: string | undefined;
             amount?: string | undefined;
@@ -267,14 +300,107 @@ export declare const ValidatorCurrentRewards: {
             toUnsigned: () => Long;
             xor: (other: string | number | Long) => Long;
         } & { [K_2 in Exclude<keyof I["period"], keyof Long>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, keyof ValidatorCurrentRewards>]: never; }>(object: I): ValidatorCurrentRewards;
+    } & { [K_3 in Exclude<keyof I, keyof ValidatorCurrentRewards>]: never; }>(base?: I | undefined): ValidatorCurrentRewards;
+    fromPartial<I_1 extends {
+        rewards?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+        period?: string | number | Long | undefined;
+    } & {
+        rewards?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_4 in Exclude<keyof I_1["rewards"][number], keyof DecCoin>]: never; })[] & { [K_5 in Exclude<keyof I_1["rewards"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+        period?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_6 in Exclude<keyof I_1["period"], keyof Long>]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I_1, keyof ValidatorCurrentRewards>]: never; }>(object: I_1): ValidatorCurrentRewards;
 };
 export declare const ValidatorAccumulatedCommission: {
     encode(message: ValidatorAccumulatedCommission, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): ValidatorAccumulatedCommission;
     fromJSON(object: any): ValidatorAccumulatedCommission;
     toJSON(message: ValidatorAccumulatedCommission): unknown;
-    fromPartial<I extends {
+    create<I extends {
         commission?: {
             denom?: string | undefined;
             amount?: string | undefined;
@@ -293,14 +419,34 @@ export declare const ValidatorAccumulatedCommission: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, "commission">]: never; }>(object: I): ValidatorAccumulatedCommission;
+    } & { [K_2 in Exclude<keyof I, "commission">]: never; }>(base?: I | undefined): ValidatorAccumulatedCommission;
+    fromPartial<I_1 extends {
+        commission?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+    } & {
+        commission?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["commission"][number], keyof DecCoin>]: never; })[] & { [K_4 in Exclude<keyof I_1["commission"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, "commission">]: never; }>(object: I_1): ValidatorAccumulatedCommission;
 };
 export declare const ValidatorOutstandingRewards: {
     encode(message: ValidatorOutstandingRewards, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): ValidatorOutstandingRewards;
     fromJSON(object: any): ValidatorOutstandingRewards;
     toJSON(message: ValidatorOutstandingRewards): unknown;
-    fromPartial<I extends {
+    create<I extends {
         rewards?: {
             denom?: string | undefined;
             amount?: string | undefined;
@@ -319,14 +465,34 @@ export declare const ValidatorOutstandingRewards: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, "rewards">]: never; }>(object: I): ValidatorOutstandingRewards;
+    } & { [K_2 in Exclude<keyof I, "rewards">]: never; }>(base?: I | undefined): ValidatorOutstandingRewards;
+    fromPartial<I_1 extends {
+        rewards?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+    } & {
+        rewards?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["rewards"][number], keyof DecCoin>]: never; })[] & { [K_4 in Exclude<keyof I_1["rewards"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, "rewards">]: never; }>(object: I_1): ValidatorOutstandingRewards;
 };
 export declare const ValidatorSlashEvent: {
     encode(message: ValidatorSlashEvent, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): ValidatorSlashEvent;
     fromJSON(object: any): ValidatorSlashEvent;
     toJSON(message: ValidatorSlashEvent): unknown;
-    fromPartial<I extends {
+    create<I extends {
         validatorPeriod?: string | number | Long | undefined;
         fraction?: string | undefined;
     } & {
@@ -403,14 +569,92 @@ export declare const ValidatorSlashEvent: {
             xor: (other: string | number | Long) => Long;
         } & { [K in Exclude<keyof I["validatorPeriod"], keyof Long>]: never; }) | undefined;
         fraction?: string | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof ValidatorSlashEvent>]: never; }>(object: I): ValidatorSlashEvent;
+    } & { [K_1 in Exclude<keyof I, keyof ValidatorSlashEvent>]: never; }>(base?: I | undefined): ValidatorSlashEvent;
+    fromPartial<I_1 extends {
+        validatorPeriod?: string | number | Long | undefined;
+        fraction?: string | undefined;
+    } & {
+        validatorPeriod?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_2 in Exclude<keyof I_1["validatorPeriod"], keyof Long>]: never; }) | undefined;
+        fraction?: string | undefined;
+    } & { [K_3 in Exclude<keyof I_1, keyof ValidatorSlashEvent>]: never; }>(object: I_1): ValidatorSlashEvent;
 };
 export declare const ValidatorSlashEvents: {
     encode(message: ValidatorSlashEvents, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): ValidatorSlashEvents;
     fromJSON(object: any): ValidatorSlashEvents;
     toJSON(message: ValidatorSlashEvents): unknown;
-    fromPartial<I extends {
+    create<I extends {
         validatorSlashEvents?: {
             validatorPeriod?: string | number | Long | undefined;
             fraction?: string | undefined;
@@ -500,14 +744,105 @@ export declare const ValidatorSlashEvents: {
             validatorPeriod?: string | number | Long | undefined;
             fraction?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, "validatorSlashEvents">]: never; }>(object: I): ValidatorSlashEvents;
+    } & { [K_3 in Exclude<keyof I, "validatorSlashEvents">]: never; }>(base?: I | undefined): ValidatorSlashEvents;
+    fromPartial<I_1 extends {
+        validatorSlashEvents?: {
+            validatorPeriod?: string | number | Long | undefined;
+            fraction?: string | undefined;
+        }[] | undefined;
+    } & {
+        validatorSlashEvents?: ({
+            validatorPeriod?: string | number | Long | undefined;
+            fraction?: string | undefined;
+        }[] & ({
+            validatorPeriod?: string | number | Long | undefined;
+            fraction?: string | undefined;
+        } & {
+            validatorPeriod?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_4 in Exclude<keyof I_1["validatorSlashEvents"][number]["validatorPeriod"], keyof Long>]: never; }) | undefined;
+            fraction?: string | undefined;
+        } & { [K_5 in Exclude<keyof I_1["validatorSlashEvents"][number], keyof ValidatorSlashEvent>]: never; })[] & { [K_6 in Exclude<keyof I_1["validatorSlashEvents"], keyof {
+            validatorPeriod?: string | number | Long | undefined;
+            fraction?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I_1, "validatorSlashEvents">]: never; }>(object: I_1): ValidatorSlashEvents;
 };
 export declare const FeePool: {
     encode(message: FeePool, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): FeePool;
     fromJSON(object: any): FeePool;
     toJSON(message: FeePool): unknown;
-    fromPartial<I extends {
+    create<I extends {
         communityPool?: {
             denom?: string | undefined;
             amount?: string | undefined;
@@ -526,14 +861,34 @@ export declare const FeePool: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, "communityPool">]: never; }>(object: I): FeePool;
+    } & { [K_2 in Exclude<keyof I, "communityPool">]: never; }>(base?: I | undefined): FeePool;
+    fromPartial<I_1 extends {
+        communityPool?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+    } & {
+        communityPool?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["communityPool"][number], keyof DecCoin>]: never; })[] & { [K_4 in Exclude<keyof I_1["communityPool"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, "communityPool">]: never; }>(object: I_1): FeePool;
 };
 export declare const CommunityPoolSpendProposal: {
     encode(message: CommunityPoolSpendProposal, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): CommunityPoolSpendProposal;
     fromJSON(object: any): CommunityPoolSpendProposal;
     toJSON(message: CommunityPoolSpendProposal): unknown;
-    fromPartial<I extends {
+    create<I extends {
         title?: string | undefined;
         description?: string | undefined;
         recipient?: string | undefined;
@@ -558,14 +913,40 @@ export declare const CommunityPoolSpendProposal: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof CommunityPoolSpendProposal>]: never; }>(object: I): CommunityPoolSpendProposal;
+    } & { [K_2 in Exclude<keyof I, keyof CommunityPoolSpendProposal>]: never; }>(base?: I | undefined): CommunityPoolSpendProposal;
+    fromPartial<I_1 extends {
+        title?: string | undefined;
+        description?: string | undefined;
+        recipient?: string | undefined;
+        amount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+    } & {
+        title?: string | undefined;
+        description?: string | undefined;
+        recipient?: string | undefined;
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["amount"][number], keyof Coin>]: never; })[] & { [K_4 in Exclude<keyof I_1["amount"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, keyof CommunityPoolSpendProposal>]: never; }>(object: I_1): CommunityPoolSpendProposal;
 };
 export declare const DelegatorStartingInfo: {
     encode(message: DelegatorStartingInfo, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): DelegatorStartingInfo;
     fromJSON(object: any): DelegatorStartingInfo;
     toJSON(message: DelegatorStartingInfo): unknown;
-    fromPartial<I extends {
+    create<I extends {
         previousPeriod?: string | number | Long | undefined;
         stake?: string | undefined;
         height?: string | number | Long | undefined;
@@ -715,14 +1096,165 @@ export declare const DelegatorStartingInfo: {
             toUnsigned: () => Long;
             xor: (other: string | number | Long) => Long;
         } & { [K_1 in Exclude<keyof I["height"], keyof Long>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof DelegatorStartingInfo>]: never; }>(object: I): DelegatorStartingInfo;
+    } & { [K_2 in Exclude<keyof I, keyof DelegatorStartingInfo>]: never; }>(base?: I | undefined): DelegatorStartingInfo;
+    fromPartial<I_1 extends {
+        previousPeriod?: string | number | Long | undefined;
+        stake?: string | undefined;
+        height?: string | number | Long | undefined;
+    } & {
+        previousPeriod?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_3 in Exclude<keyof I_1["previousPeriod"], keyof Long>]: never; }) | undefined;
+        stake?: string | undefined;
+        height?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_4 in Exclude<keyof I_1["height"], keyof Long>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, keyof DelegatorStartingInfo>]: never; }>(object: I_1): DelegatorStartingInfo;
 };
 export declare const DelegationDelegatorReward: {
     encode(message: DelegationDelegatorReward, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): DelegationDelegatorReward;
     fromJSON(object: any): DelegationDelegatorReward;
     toJSON(message: DelegationDelegatorReward): unknown;
-    fromPartial<I extends {
+    create<I extends {
         validatorAddress?: string | undefined;
         reward?: {
             denom?: string | undefined;
@@ -743,14 +1275,36 @@ export declare const DelegationDelegatorReward: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof DelegationDelegatorReward>]: never; }>(object: I): DelegationDelegatorReward;
+    } & { [K_2 in Exclude<keyof I, keyof DelegationDelegatorReward>]: never; }>(base?: I | undefined): DelegationDelegatorReward;
+    fromPartial<I_1 extends {
+        validatorAddress?: string | undefined;
+        reward?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+    } & {
+        validatorAddress?: string | undefined;
+        reward?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["reward"][number], keyof DecCoin>]: never; })[] & { [K_4 in Exclude<keyof I_1["reward"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, keyof DelegationDelegatorReward>]: never; }>(object: I_1): DelegationDelegatorReward;
 };
 export declare const CommunityPoolSpendProposalWithDeposit: {
     encode(message: CommunityPoolSpendProposalWithDeposit, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): CommunityPoolSpendProposalWithDeposit;
     fromJSON(object: any): CommunityPoolSpendProposalWithDeposit;
     toJSON(message: CommunityPoolSpendProposalWithDeposit): unknown;
-    fromPartial<I extends {
+    create<I extends {
         title?: string | undefined;
         description?: string | undefined;
         recipient?: string | undefined;
@@ -762,7 +1316,20 @@ export declare const CommunityPoolSpendProposalWithDeposit: {
         recipient?: string | undefined;
         amount?: string | undefined;
         deposit?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof CommunityPoolSpendProposalWithDeposit>]: never; }>(object: I): CommunityPoolSpendProposalWithDeposit;
+    } & { [K in Exclude<keyof I, keyof CommunityPoolSpendProposalWithDeposit>]: never; }>(base?: I | undefined): CommunityPoolSpendProposalWithDeposit;
+    fromPartial<I_1 extends {
+        title?: string | undefined;
+        description?: string | undefined;
+        recipient?: string | undefined;
+        amount?: string | undefined;
+        deposit?: string | undefined;
+    } & {
+        title?: string | undefined;
+        description?: string | undefined;
+        recipient?: string | undefined;
+        amount?: string | undefined;
+        deposit?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof CommunityPoolSpendProposalWithDeposit>]: never; }>(object: I_1): CommunityPoolSpendProposalWithDeposit;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

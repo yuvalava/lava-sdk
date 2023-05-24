@@ -18,11 +18,14 @@ export declare const SpecModifyProposal: {
         specs?: {
             index?: string | undefined;
             name?: string | undefined;
+            imports?: string[] | undefined;
             apis?: {
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -30,12 +33,26 @@ export declare const SpecModifyProposal: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -43,17 +60,29 @@ export declare const SpecModifyProposal: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[] | undefined;
             enabled?: boolean | undefined;
             reliabilityThreshold?: number | undefined;
-            comparesHashes?: boolean | undefined;
-            finalizationCriteria?: number | undefined;
-            savedBlocks?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
             averageBlockTime?: string | number | Long | undefined;
             allowedBlockLagForQosSync?: string | number | Long | undefined;
             blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
         }[] | undefined;
     } & {
         title?: string | undefined;
@@ -61,11 +90,14 @@ export declare const SpecModifyProposal: {
         specs?: ({
             index?: string | undefined;
             name?: string | undefined;
+            imports?: string[] | undefined;
             apis?: {
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -73,12 +105,26 @@ export declare const SpecModifyProposal: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -86,25 +132,40 @@ export declare const SpecModifyProposal: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[] | undefined;
             enabled?: boolean | undefined;
             reliabilityThreshold?: number | undefined;
-            comparesHashes?: boolean | undefined;
-            finalizationCriteria?: number | undefined;
-            savedBlocks?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
             averageBlockTime?: string | number | Long | undefined;
             allowedBlockLagForQosSync?: string | number | Long | undefined;
             blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
         }[] & ({
             index?: string | undefined;
             name?: string | undefined;
+            imports?: string[] | undefined;
             apis?: {
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -112,12 +173,26 @@ export declare const SpecModifyProposal: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -125,25 +200,40 @@ export declare const SpecModifyProposal: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[] | undefined;
             enabled?: boolean | undefined;
             reliabilityThreshold?: number | undefined;
-            comparesHashes?: boolean | undefined;
-            finalizationCriteria?: number | undefined;
-            savedBlocks?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
             averageBlockTime?: string | number | Long | undefined;
             allowedBlockLagForQosSync?: string | number | Long | undefined;
             blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
         } & {
             index?: string | undefined;
             name?: string | undefined;
+            imports?: (string[] & string[] & { [K in Exclude<keyof I["specs"][number]["imports"], keyof string[]>]: never; }) | undefined;
             apis?: ({
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -151,12 +241,26 @@ export declare const SpecModifyProposal: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -164,13 +268,18 @@ export declare const SpecModifyProposal: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[] & ({
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -178,12 +287,26 @@ export declare const SpecModifyProposal: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -191,17 +314,24 @@ export declare const SpecModifyProposal: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             } & {
                 name?: string | undefined;
                 blockParsing?: ({
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } & {
-                    parserArg?: (string[] & string[] & { [K in Exclude<keyof I["specs"][number]["apis"][number]["blockParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
+                    parserArg?: (string[] & string[] & { [K_1 in Exclude<keyof I["specs"][number]["apis"][number]["blockParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
-                } & { [K_1 in Exclude<keyof I["specs"][number]["apis"][number]["blockParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } & { [K_2 in Exclude<keyof I["specs"][number]["apis"][number]["blockParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
                 computeUnits?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -273,16 +403,42 @@ export declare const SpecModifyProposal: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_2 in Exclude<keyof I["specs"][number]["apis"][number]["computeUnits"], keyof Long>]: never; }) | undefined;
+                } & { [K_3 in Exclude<keyof I["specs"][number]["apis"][number]["computeUnits"], keyof Long>]: never; }) | undefined;
                 enabled?: boolean | undefined;
                 apiInterfaces?: ({
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] & ({
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 } & {
                     interface?: string | undefined;
                     type?: string | undefined;
@@ -357,29 +513,70 @@ export declare const SpecModifyProposal: {
                         toString: (radix?: number | undefined) => string;
                         toUnsigned: () => Long;
                         xor: (other: string | number | Long) => Long;
-                    } & { [K_3 in Exclude<keyof I["specs"][number]["apis"][number]["apiInterfaces"][number]["extraComputeUnits"], keyof Long>]: never; }) | undefined;
-                } & { [K_4 in Exclude<keyof I["specs"][number]["apis"][number]["apiInterfaces"][number], keyof import("./service_api").ApiInterface>]: never; })[] & { [K_5 in Exclude<keyof I["specs"][number]["apis"][number]["apiInterfaces"], keyof {
+                    } & { [K_4 in Exclude<keyof I["specs"][number]["apis"][number]["apiInterfaces"][number]["extraComputeUnits"], keyof Long>]: never; }) | undefined;
+                    category?: ({
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } & {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } & { [K_5 in Exclude<keyof I["specs"][number]["apis"][number]["apiInterfaces"][number]["category"], keyof import("./service_api").SpecCategory>]: never; }) | undefined;
+                    overwriteBlockParsing?: ({
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & {
+                        parserArg?: (string[] & string[] & { [K_6 in Exclude<keyof I["specs"][number]["apis"][number]["apiInterfaces"][number]["overwriteBlockParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & { [K_7 in Exclude<keyof I["specs"][number]["apis"][number]["apiInterfaces"][number]["overwriteBlockParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
+                } & { [K_8 in Exclude<keyof I["specs"][number]["apis"][number]["apiInterfaces"][number], keyof import("./service_api").ApiInterface>]: never; })[] & { [K_9 in Exclude<keyof I["specs"][number]["apis"][number]["apiInterfaces"], keyof {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[]>]: never; }) | undefined;
-                category?: ({
+                reserved?: ({
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } & {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
-                } & { [K_6 in Exclude<keyof I["specs"][number]["apis"][number]["category"], keyof import("./service_api").SpecCategory>]: never; }) | undefined;
+                    hangingApi?: boolean | undefined;
+                } & { [K_10 in Exclude<keyof I["specs"][number]["apis"][number]["reserved"], keyof import("./service_api").SpecCategory>]: never; }) | undefined;
                 parsing?: ({
                     functionTag?: string | undefined;
                     functionTemplate?: string | undefined;
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } & {
                     functionTag?: string | undefined;
@@ -387,16 +584,23 @@ export declare const SpecModifyProposal: {
                     resultParsing?: ({
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } & {
-                        parserArg?: (string[] & string[] & { [K_7 in Exclude<keyof I["specs"][number]["apis"][number]["parsing"]["resultParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
+                        parserArg?: (string[] & string[] & { [K_11 in Exclude<keyof I["specs"][number]["apis"][number]["parsing"]["resultParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
-                    } & { [K_8 in Exclude<keyof I["specs"][number]["apis"][number]["parsing"]["resultParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
-                } & { [K_9 in Exclude<keyof I["specs"][number]["apis"][number]["parsing"], keyof import("./service_api").Parsing>]: never; }) | undefined;
-            } & { [K_10 in Exclude<keyof I["specs"][number]["apis"][number], keyof import("./service_api").ServiceApi>]: never; })[] & { [K_11 in Exclude<keyof I["specs"][number]["apis"], keyof {
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & { [K_12 in Exclude<keyof I["specs"][number]["apis"][number]["parsing"]["resultParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
+                } & { [K_13 in Exclude<keyof I["specs"][number]["apis"][number]["parsing"], keyof import("./service_api").Parsing>]: never; }) | undefined;
+                internalPath?: string | undefined;
+            } & { [K_14 in Exclude<keyof I["specs"][number]["apis"][number], keyof import("./service_api").ServiceApi>]: never; })[] & { [K_15 in Exclude<keyof I["specs"][number]["apis"], keyof {
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -404,12 +608,26 @@ export declare const SpecModifyProposal: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -417,14 +635,17 @@ export declare const SpecModifyProposal: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[]>]: never; }) | undefined;
             enabled?: boolean | undefined;
             reliabilityThreshold?: number | undefined;
-            comparesHashes?: boolean | undefined;
-            finalizationCriteria?: number | undefined;
-            savedBlocks?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
             averageBlockTime?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -496,7 +717,7 @@ export declare const SpecModifyProposal: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_12 in Exclude<keyof I["specs"][number]["averageBlockTime"], keyof Long>]: never; }) | undefined;
+            } & { [K_16 in Exclude<keyof I["specs"][number]["averageBlockTime"], keyof Long>]: never; }) | undefined;
             allowedBlockLagForQosSync?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -568,7 +789,7 @@ export declare const SpecModifyProposal: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_13 in Exclude<keyof I["specs"][number]["allowedBlockLagForQosSync"], keyof Long>]: never; }) | undefined;
+            } & { [K_17 in Exclude<keyof I["specs"][number]["allowedBlockLagForQosSync"], keyof Long>]: never; }) | undefined;
             blockLastUpdated?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -640,15 +861,33 @@ export declare const SpecModifyProposal: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_14 in Exclude<keyof I["specs"][number]["blockLastUpdated"], keyof Long>]: never; }) | undefined;
-        } & { [K_15 in Exclude<keyof I["specs"][number], keyof Spec>]: never; })[] & { [K_16 in Exclude<keyof I["specs"], keyof {
+            } & { [K_18 in Exclude<keyof I["specs"][number]["blockLastUpdated"], keyof Long>]: never; }) | undefined;
+            minStakeProvider?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_19 in Exclude<keyof I["specs"][number]["minStakeProvider"], keyof import("../cosmos/base/v1beta1/coin").Coin>]: never; }) | undefined;
+            minStakeClient?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_20 in Exclude<keyof I["specs"][number]["minStakeClient"], keyof import("../cosmos/base/v1beta1/coin").Coin>]: never; }) | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
+        } & { [K_21 in Exclude<keyof I["specs"][number], keyof Spec>]: never; })[] & { [K_22 in Exclude<keyof I["specs"], keyof {
             index?: string | undefined;
             name?: string | undefined;
+            imports?: string[] | undefined;
             apis?: {
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -656,12 +895,26 @@ export declare const SpecModifyProposal: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -669,19 +922,31 @@ export declare const SpecModifyProposal: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[] | undefined;
             enabled?: boolean | undefined;
             reliabilityThreshold?: number | undefined;
-            comparesHashes?: boolean | undefined;
-            finalizationCriteria?: number | undefined;
-            savedBlocks?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
             averageBlockTime?: string | number | Long | undefined;
             allowedBlockLagForQosSync?: string | number | Long | undefined;
             blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_17 in Exclude<keyof I, keyof SpecModifyProposal>]: never; }>(object: I): SpecModifyProposal;
+    } & { [K_23 in Exclude<keyof I, keyof SpecModifyProposal>]: never; }>(object: I): SpecModifyProposal;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

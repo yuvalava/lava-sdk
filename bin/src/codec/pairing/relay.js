@@ -3,11 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RelayerClientImpl = exports.VRFData = exports.RelayReply = exports.Badge = exports.RelayRequest = exports.RelayPrivateData = exports.RelaySession = exports.protobufPackage = void 0;
+exports.RelayerClientImpl = exports.QualityOfServiceReport = exports.RelayReply = exports.Badge = exports.RelayRequest = exports.RelayPrivateData = exports.RelaySession = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const operators_1 = require("rxjs/operators");
+const wrappers_1 = require("../google/protobuf/wrappers");
 exports.protobufPackage = "lavanet.lava.pairing";
 function createBaseRelaySession() {
     return {
@@ -17,6 +18,7 @@ function createBaseRelaySession() {
         cuSum: long_1.default.UZERO,
         provider: "",
         relayNum: long_1.default.UZERO,
+        qosReport: undefined,
         epoch: long_1.default.ZERO,
         unresponsiveProviders: new Uint8Array(),
         lavaChainId: "",
@@ -44,6 +46,9 @@ exports.RelaySession = {
         if (!message.relayNum.isZero()) {
             writer.uint32(48).uint64(message.relayNum);
         }
+        if (message.qosReport !== undefined) {
+            exports.QualityOfServiceReport.encode(message.qosReport, writer.uint32(58).fork()).ldelim();
+        }
         if (!message.epoch.isZero()) {
             writer.uint32(64).int64(message.epoch);
         }
@@ -62,49 +67,89 @@ exports.RelaySession = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRelaySession();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.specId = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.contentHash = reader.bytes();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 24) {
+                        break;
+                    }
                     message.sessionId = reader.uint64();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 32) {
+                        break;
+                    }
                     message.cuSum = reader.uint64();
-                    break;
+                    continue;
                 case 5:
+                    if (tag != 42) {
+                        break;
+                    }
                     message.provider = reader.string();
-                    break;
+                    continue;
                 case 6:
+                    if (tag != 48) {
+                        break;
+                    }
                     message.relayNum = reader.uint64();
-                    break;
+                    continue;
+                case 7:
+                    if (tag != 58) {
+                        break;
+                    }
+                    message.qosReport = exports.QualityOfServiceReport.decode(reader, reader.uint32());
+                    continue;
                 case 8:
+                    if (tag != 64) {
+                        break;
+                    }
                     message.epoch = reader.int64();
-                    break;
+                    continue;
                 case 9:
+                    if (tag != 74) {
+                        break;
+                    }
                     message.unresponsiveProviders = reader.bytes();
-                    break;
+                    continue;
                 case 10:
+                    if (tag != 82) {
+                        break;
+                    }
                     message.lavaChainId = reader.string();
-                    break;
+                    continue;
                 case 11:
+                    if (tag != 90) {
+                        break;
+                    }
                     message.sig = reader.bytes();
-                    break;
+                    continue;
                 case 12:
+                    if (tag != 98) {
+                        break;
+                    }
                     message.badge = exports.Badge.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -116,6 +161,7 @@ exports.RelaySession = {
             cuSum: isSet(object.cuSum) ? long_1.default.fromValue(object.cuSum) : long_1.default.UZERO,
             provider: isSet(object.provider) ? String(object.provider) : "",
             relayNum: isSet(object.relayNum) ? long_1.default.fromValue(object.relayNum) : long_1.default.UZERO,
+            qosReport: isSet(object.qosReport) ? exports.QualityOfServiceReport.fromJSON(object.qosReport) : undefined,
             epoch: isSet(object.epoch) ? long_1.default.fromValue(object.epoch) : long_1.default.ZERO,
             unresponsiveProviders: isSet(object.unresponsiveProviders)
                 ? bytesFromBase64(object.unresponsiveProviders)
@@ -134,6 +180,8 @@ exports.RelaySession = {
         message.cuSum !== undefined && (obj.cuSum = (message.cuSum || long_1.default.UZERO).toString());
         message.provider !== undefined && (obj.provider = message.provider);
         message.relayNum !== undefined && (obj.relayNum = (message.relayNum || long_1.default.UZERO).toString());
+        message.qosReport !== undefined &&
+            (obj.qosReport = message.qosReport ? exports.QualityOfServiceReport.toJSON(message.qosReport) : undefined);
         message.epoch !== undefined && (obj.epoch = (message.epoch || long_1.default.ZERO).toString());
         message.unresponsiveProviders !== undefined &&
             (obj.unresponsiveProviders = base64FromBytes(message.unresponsiveProviders !== undefined ? message.unresponsiveProviders : new Uint8Array()));
@@ -142,6 +190,9 @@ exports.RelaySession = {
             (obj.sig = base64FromBytes(message.sig !== undefined ? message.sig : new Uint8Array()));
         message.badge !== undefined && (obj.badge = message.badge ? exports.Badge.toJSON(message.badge) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.RelaySession.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c, _d, _e, _f;
@@ -156,6 +207,9 @@ exports.RelaySession = {
         message.relayNum = (object.relayNum !== undefined && object.relayNum !== null)
             ? long_1.default.fromValue(object.relayNum)
             : long_1.default.UZERO;
+        message.qosReport = (object.qosReport !== undefined && object.qosReport !== null)
+            ? exports.QualityOfServiceReport.fromPartial(object.qosReport)
+            : undefined;
         message.epoch = (object.epoch !== undefined && object.epoch !== null) ? long_1.default.fromValue(object.epoch) : long_1.default.ZERO;
         message.unresponsiveProviders = (_d = object.unresponsiveProviders) !== null && _d !== void 0 ? _d : new Uint8Array();
         message.lavaChainId = (_e = object.lavaChainId) !== null && _e !== void 0 ? _e : "";
@@ -197,34 +251,53 @@ exports.RelayPrivateData = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRelayPrivateData();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.connectionType = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.apiUrl = reader.string();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.data = reader.bytes();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 32) {
+                        break;
+                    }
                     message.requestBlock = reader.int64();
-                    break;
+                    continue;
                 case 5:
+                    if (tag != 42) {
+                        break;
+                    }
                     message.apiInterface = reader.string();
-                    break;
+                    continue;
                 case 6:
+                    if (tag != 50) {
+                        break;
+                    }
                     message.salt = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -250,6 +323,9 @@ exports.RelayPrivateData = {
             (obj.salt = base64FromBytes(message.salt !== undefined ? message.salt : new Uint8Array()));
         return obj;
     },
+    create(base) {
+        return exports.RelayPrivateData.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         var _a, _b, _c, _d, _e;
         const message = createBaseRelayPrivateData();
@@ -265,7 +341,7 @@ exports.RelayPrivateData = {
     },
 };
 function createBaseRelayRequest() {
-    return { relaySession: undefined, relayData: undefined, dataReliability: undefined };
+    return { relaySession: undefined, relayData: undefined };
 }
 exports.RelayRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -275,31 +351,32 @@ exports.RelayRequest = {
         if (message.relayData !== undefined) {
             exports.RelayPrivateData.encode(message.relayData, writer.uint32(18).fork()).ldelim();
         }
-        if (message.dataReliability !== undefined) {
-            exports.VRFData.encode(message.dataReliability, writer.uint32(26).fork()).ldelim();
-        }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRelayRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.relaySession = exports.RelaySession.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.relayData = exports.RelayPrivateData.decode(reader, reader.uint32());
-                    break;
-                case 3:
-                    message.dataReliability = exports.VRFData.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -307,7 +384,6 @@ exports.RelayRequest = {
         return {
             relaySession: isSet(object.relaySession) ? exports.RelaySession.fromJSON(object.relaySession) : undefined,
             relayData: isSet(object.relayData) ? exports.RelayPrivateData.fromJSON(object.relayData) : undefined,
-            dataReliability: isSet(object.dataReliability) ? exports.VRFData.fromJSON(object.dataReliability) : undefined,
         };
     },
     toJSON(message) {
@@ -316,9 +392,10 @@ exports.RelayRequest = {
             (obj.relaySession = message.relaySession ? exports.RelaySession.toJSON(message.relaySession) : undefined);
         message.relayData !== undefined &&
             (obj.relayData = message.relayData ? exports.RelayPrivateData.toJSON(message.relayData) : undefined);
-        message.dataReliability !== undefined &&
-            (obj.dataReliability = message.dataReliability ? exports.VRFData.toJSON(message.dataReliability) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.RelayRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseRelayRequest();
@@ -328,20 +405,11 @@ exports.RelayRequest = {
         message.relayData = (object.relayData !== undefined && object.relayData !== null)
             ? exports.RelayPrivateData.fromPartial(object.relayData)
             : undefined;
-        message.dataReliability = (object.dataReliability !== undefined && object.dataReliability !== null)
-            ? exports.VRFData.fromPartial(object.dataReliability)
-            : undefined;
         return message;
     },
 };
 function createBaseBadge() {
-    return {
-        cuAllocation: long_1.default.UZERO,
-        epoch: long_1.default.ZERO,
-        badgePk: new Uint8Array(),
-        specId: "",
-        projectSig: new Uint8Array(),
-    };
+    return { cuAllocation: long_1.default.UZERO, epoch: long_1.default.UZERO, address: "", lavaChainId: "", projectSig: new Uint8Array() };
 }
 exports.Badge = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -349,13 +417,13 @@ exports.Badge = {
             writer.uint32(8).uint64(message.cuAllocation);
         }
         if (!message.epoch.isZero()) {
-            writer.uint32(16).int64(message.epoch);
+            writer.uint32(16).uint64(message.epoch);
         }
-        if (message.badgePk.length !== 0) {
-            writer.uint32(26).bytes(message.badgePk);
+        if (message.address !== "") {
+            writer.uint32(26).string(message.address);
         }
-        if (message.specId !== "") {
-            writer.uint32(34).string(message.specId);
+        if (message.lavaChainId !== "") {
+            writer.uint32(34).string(message.lavaChainId);
         }
         if (message.projectSig.length !== 0) {
             writer.uint32(42).bytes(message.projectSig);
@@ -363,53 +431,71 @@ exports.Badge = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseBadge();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.cuAllocation = reader.uint64();
-                    break;
+                    continue;
                 case 2:
-                    message.epoch = reader.int64();
-                    break;
+                    if (tag != 16) {
+                        break;
+                    }
+                    message.epoch = reader.uint64();
+                    continue;
                 case 3:
-                    message.badgePk = reader.bytes();
-                    break;
+                    if (tag != 26) {
+                        break;
+                    }
+                    message.address = reader.string();
+                    continue;
                 case 4:
-                    message.specId = reader.string();
-                    break;
+                    if (tag != 34) {
+                        break;
+                    }
+                    message.lavaChainId = reader.string();
+                    continue;
                 case 5:
+                    if (tag != 42) {
+                        break;
+                    }
                     message.projectSig = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
     fromJSON(object) {
         return {
             cuAllocation: isSet(object.cuAllocation) ? long_1.default.fromValue(object.cuAllocation) : long_1.default.UZERO,
-            epoch: isSet(object.epoch) ? long_1.default.fromValue(object.epoch) : long_1.default.ZERO,
-            badgePk: isSet(object.badgePk) ? bytesFromBase64(object.badgePk) : new Uint8Array(),
-            specId: isSet(object.specId) ? String(object.specId) : "",
+            epoch: isSet(object.epoch) ? long_1.default.fromValue(object.epoch) : long_1.default.UZERO,
+            address: isSet(object.address) ? String(object.address) : "",
+            lavaChainId: isSet(object.lavaChainId) ? String(object.lavaChainId) : "",
             projectSig: isSet(object.projectSig) ? bytesFromBase64(object.projectSig) : new Uint8Array(),
         };
     },
     toJSON(message) {
         const obj = {};
         message.cuAllocation !== undefined && (obj.cuAllocation = (message.cuAllocation || long_1.default.UZERO).toString());
-        message.epoch !== undefined && (obj.epoch = (message.epoch || long_1.default.ZERO).toString());
-        message.badgePk !== undefined &&
-            (obj.badgePk = base64FromBytes(message.badgePk !== undefined ? message.badgePk : new Uint8Array()));
-        message.specId !== undefined && (obj.specId = message.specId);
+        message.epoch !== undefined && (obj.epoch = (message.epoch || long_1.default.UZERO).toString());
+        message.address !== undefined && (obj.address = message.address);
+        message.lavaChainId !== undefined && (obj.lavaChainId = message.lavaChainId);
         message.projectSig !== undefined &&
             (obj.projectSig = base64FromBytes(message.projectSig !== undefined ? message.projectSig : new Uint8Array()));
         return obj;
+    },
+    create(base) {
+        return exports.Badge.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c;
@@ -417,9 +503,9 @@ exports.Badge = {
         message.cuAllocation = (object.cuAllocation !== undefined && object.cuAllocation !== null)
             ? long_1.default.fromValue(object.cuAllocation)
             : long_1.default.UZERO;
-        message.epoch = (object.epoch !== undefined && object.epoch !== null) ? long_1.default.fromValue(object.epoch) : long_1.default.ZERO;
-        message.badgePk = (_a = object.badgePk) !== null && _a !== void 0 ? _a : new Uint8Array();
-        message.specId = (_b = object.specId) !== null && _b !== void 0 ? _b : "";
+        message.epoch = (object.epoch !== undefined && object.epoch !== null) ? long_1.default.fromValue(object.epoch) : long_1.default.UZERO;
+        message.address = (_a = object.address) !== null && _a !== void 0 ? _a : "";
+        message.lavaChainId = (_b = object.lavaChainId) !== null && _b !== void 0 ? _b : "";
         message.projectSig = (_c = object.projectSig) !== null && _c !== void 0 ? _c : new Uint8Array();
         return message;
     },
@@ -457,34 +543,53 @@ exports.RelayReply = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRelayReply();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.data = reader.bytes();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.sig = reader.bytes();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 24) {
+                        break;
+                    }
                     message.nonce = reader.uint32();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 32) {
+                        break;
+                    }
                     message.latestBlock = reader.int64();
-                    break;
+                    continue;
                 case 5:
+                    if (tag != 42) {
+                        break;
+                    }
                     message.finalizedBlocksHashes = reader.bytes();
-                    break;
+                    continue;
                 case 6:
+                    if (tag != 50) {
+                        break;
+                    }
                     message.sigBlocks = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -514,6 +619,9 @@ exports.RelayReply = {
             (obj.sigBlocks = base64FromBytes(message.sigBlocks !== undefined ? message.sigBlocks : new Uint8Array()));
         return obj;
     },
+    create(base) {
+        return exports.RelayReply.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         var _a, _b, _c, _d, _e;
         const message = createBaseRelayReply();
@@ -528,135 +636,78 @@ exports.RelayReply = {
         return message;
     },
 };
-function createBaseVRFData() {
-    return {
-        chainId: "",
-        epoch: long_1.default.ZERO,
-        differentiator: false,
-        vrfValue: new Uint8Array(),
-        vrfProof: new Uint8Array(),
-        providerSig: new Uint8Array(),
-        allDataHash: new Uint8Array(),
-        queryHash: new Uint8Array(),
-        sig: new Uint8Array(),
-    };
+function createBaseQualityOfServiceReport() {
+    return { latency: "", availability: "", sync: "" };
 }
-exports.VRFData = {
+exports.QualityOfServiceReport = {
     encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.chainId !== "") {
-            writer.uint32(10).string(message.chainId);
+        if (message.latency !== "") {
+            writer.uint32(10).string(message.latency);
         }
-        if (!message.epoch.isZero()) {
-            writer.uint32(16).int64(message.epoch);
+        if (message.availability !== "") {
+            writer.uint32(18).string(message.availability);
         }
-        if (message.differentiator === true) {
-            writer.uint32(24).bool(message.differentiator);
-        }
-        if (message.vrfValue.length !== 0) {
-            writer.uint32(34).bytes(message.vrfValue);
-        }
-        if (message.vrfProof.length !== 0) {
-            writer.uint32(42).bytes(message.vrfProof);
-        }
-        if (message.providerSig.length !== 0) {
-            writer.uint32(50).bytes(message.providerSig);
-        }
-        if (message.allDataHash.length !== 0) {
-            writer.uint32(58).bytes(message.allDataHash);
-        }
-        if (message.queryHash.length !== 0) {
-            writer.uint32(66).bytes(message.queryHash);
-        }
-        if (message.sig.length !== 0) {
-            writer.uint32(74).bytes(message.sig);
+        if (message.sync !== "") {
+            writer.uint32(26).string(message.sync);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseVRFData();
+        const message = createBaseQualityOfServiceReport();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.chainId = reader.string();
-                    break;
+                    if (tag != 10) {
+                        break;
+                    }
+                    message.latency = reader.string();
+                    continue;
                 case 2:
-                    message.epoch = reader.int64();
-                    break;
+                    if (tag != 18) {
+                        break;
+                    }
+                    message.availability = reader.string();
+                    continue;
                 case 3:
-                    message.differentiator = reader.bool();
-                    break;
-                case 4:
-                    message.vrfValue = reader.bytes();
-                    break;
-                case 5:
-                    message.vrfProof = reader.bytes();
-                    break;
-                case 6:
-                    message.providerSig = reader.bytes();
-                    break;
-                case 7:
-                    message.allDataHash = reader.bytes();
-                    break;
-                case 8:
-                    message.queryHash = reader.bytes();
-                    break;
-                case 9:
-                    message.sig = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    if (tag != 26) {
+                        break;
+                    }
+                    message.sync = reader.string();
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
     fromJSON(object) {
         return {
-            chainId: isSet(object.chainId) ? String(object.chainId) : "",
-            epoch: isSet(object.epoch) ? long_1.default.fromValue(object.epoch) : long_1.default.ZERO,
-            differentiator: isSet(object.differentiator) ? Boolean(object.differentiator) : false,
-            vrfValue: isSet(object.vrfValue) ? bytesFromBase64(object.vrfValue) : new Uint8Array(),
-            vrfProof: isSet(object.vrfProof) ? bytesFromBase64(object.vrfProof) : new Uint8Array(),
-            providerSig: isSet(object.providerSig) ? bytesFromBase64(object.providerSig) : new Uint8Array(),
-            allDataHash: isSet(object.allDataHash) ? bytesFromBase64(object.allDataHash) : new Uint8Array(),
-            queryHash: isSet(object.queryHash) ? bytesFromBase64(object.queryHash) : new Uint8Array(),
-            sig: isSet(object.sig) ? bytesFromBase64(object.sig) : new Uint8Array(),
+            latency: isSet(object.latency) ? String(object.latency) : "",
+            availability: isSet(object.availability) ? String(object.availability) : "",
+            sync: isSet(object.sync) ? String(object.sync) : "",
         };
     },
     toJSON(message) {
         const obj = {};
-        message.chainId !== undefined && (obj.chainId = message.chainId);
-        message.epoch !== undefined && (obj.epoch = (message.epoch || long_1.default.ZERO).toString());
-        message.differentiator !== undefined && (obj.differentiator = message.differentiator);
-        message.vrfValue !== undefined &&
-            (obj.vrfValue = base64FromBytes(message.vrfValue !== undefined ? message.vrfValue : new Uint8Array()));
-        message.vrfProof !== undefined &&
-            (obj.vrfProof = base64FromBytes(message.vrfProof !== undefined ? message.vrfProof : new Uint8Array()));
-        message.providerSig !== undefined &&
-            (obj.providerSig = base64FromBytes(message.providerSig !== undefined ? message.providerSig : new Uint8Array()));
-        message.allDataHash !== undefined &&
-            (obj.allDataHash = base64FromBytes(message.allDataHash !== undefined ? message.allDataHash : new Uint8Array()));
-        message.queryHash !== undefined &&
-            (obj.queryHash = base64FromBytes(message.queryHash !== undefined ? message.queryHash : new Uint8Array()));
-        message.sig !== undefined &&
-            (obj.sig = base64FromBytes(message.sig !== undefined ? message.sig : new Uint8Array()));
+        message.latency !== undefined && (obj.latency = message.latency);
+        message.availability !== undefined && (obj.availability = message.availability);
+        message.sync !== undefined && (obj.sync = message.sync);
         return obj;
     },
+    create(base) {
+        return exports.QualityOfServiceReport.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
-        const message = createBaseVRFData();
-        message.chainId = (_a = object.chainId) !== null && _a !== void 0 ? _a : "";
-        message.epoch = (object.epoch !== undefined && object.epoch !== null) ? long_1.default.fromValue(object.epoch) : long_1.default.ZERO;
-        message.differentiator = (_b = object.differentiator) !== null && _b !== void 0 ? _b : false;
-        message.vrfValue = (_c = object.vrfValue) !== null && _c !== void 0 ? _c : new Uint8Array();
-        message.vrfProof = (_d = object.vrfProof) !== null && _d !== void 0 ? _d : new Uint8Array();
-        message.providerSig = (_e = object.providerSig) !== null && _e !== void 0 ? _e : new Uint8Array();
-        message.allDataHash = (_f = object.allDataHash) !== null && _f !== void 0 ? _f : new Uint8Array();
-        message.queryHash = (_g = object.queryHash) !== null && _g !== void 0 ? _g : new Uint8Array();
-        message.sig = (_h = object.sig) !== null && _h !== void 0 ? _h : new Uint8Array();
+        var _a, _b, _c;
+        const message = createBaseQualityOfServiceReport();
+        message.latency = (_a = object.latency) !== null && _a !== void 0 ? _a : "";
+        message.availability = (_b = object.availability) !== null && _b !== void 0 ? _b : "";
+        message.sync = (_c = object.sync) !== null && _c !== void 0 ? _c : "";
         return message;
     },
 };
@@ -666,20 +717,26 @@ class RelayerClientImpl {
         this.rpc = rpc;
         this.Relay = this.Relay.bind(this);
         this.RelaySubscribe = this.RelaySubscribe.bind(this);
+        this.Probe = this.Probe.bind(this);
     }
     Relay(request) {
         const data = exports.RelayRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Relay", data);
-        return promise.then((data) => exports.RelayReply.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.RelayReply.decode(minimal_1.default.Reader.create(data)));
     }
     RelaySubscribe(request) {
         const data = exports.RelayRequest.encode(request).finish();
         const result = this.rpc.serverStreamingRequest(this.service, "RelaySubscribe", data);
-        return result.pipe((0, operators_1.map)((data) => exports.RelayReply.decode(new minimal_1.default.Reader(data))));
+        return result.pipe((0, operators_1.map)((data) => exports.RelayReply.decode(minimal_1.default.Reader.create(data))));
+    }
+    Probe(request) {
+        const data = wrappers_1.UInt64Value.encode(request).finish();
+        const promise = this.rpc.request(this.service, "Probe", data);
+        return promise.then((data) => wrappers_1.UInt64Value.decode(minimal_1.default.Reader.create(data)));
     }
 }
 exports.RelayerClientImpl = RelayerClientImpl;
-var globalThis = (() => {
+var tsProtoGlobalThis = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;
     }
@@ -695,11 +752,11 @@ var globalThis = (() => {
     throw "Unable to locate global object";
 })();
 function bytesFromBase64(b64) {
-    if (globalThis.Buffer) {
-        return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
+    if (tsProtoGlobalThis.Buffer) {
+        return Uint8Array.from(tsProtoGlobalThis.Buffer.from(b64, "base64"));
     }
     else {
-        const bin = globalThis.atob(b64);
+        const bin = tsProtoGlobalThis.atob(b64);
         const arr = new Uint8Array(bin.length);
         for (let i = 0; i < bin.length; ++i) {
             arr[i] = bin.charCodeAt(i);
@@ -708,15 +765,15 @@ function bytesFromBase64(b64) {
     }
 }
 function base64FromBytes(arr) {
-    if (globalThis.Buffer) {
-        return globalThis.Buffer.from(arr).toString("base64");
+    if (tsProtoGlobalThis.Buffer) {
+        return tsProtoGlobalThis.Buffer.from(arr).toString("base64");
     }
     else {
         const bin = [];
         arr.forEach((byte) => {
             bin.push(String.fromCharCode(byte));
         });
-        return globalThis.btoa(bin.join(""));
+        return tsProtoGlobalThis.btoa(bin.join(""));
     }
 }
 if (minimal_1.default.util.Long !== long_1.default) {

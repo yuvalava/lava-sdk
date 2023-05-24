@@ -19,16 +19,17 @@ exports.QueryParamsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -38,6 +39,9 @@ exports.QueryParamsRequest = {
     toJSON(_) {
         const obj = {};
         return obj;
+    },
+    create(base) {
+        return exports.QueryParamsRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(_) {
         const message = createBaseQueryParamsRequest();
@@ -55,19 +59,23 @@ exports.QueryParamsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.params = params_1.Params.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -78,6 +86,9 @@ exports.QueryParamsResponse = {
         const obj = {};
         message.params !== undefined && (obj.params = message.params ? params_1.Params.toJSON(message.params) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.QueryParamsResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseQueryParamsResponse();
@@ -98,19 +109,23 @@ exports.QueryGetConflictVoteRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryGetConflictVoteRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.index = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -121,6 +136,9 @@ exports.QueryGetConflictVoteRequest = {
         const obj = {};
         message.index !== undefined && (obj.index = message.index);
         return obj;
+    },
+    create(base) {
+        return exports.QueryGetConflictVoteRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -140,19 +158,23 @@ exports.QueryGetConflictVoteResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryGetConflictVoteResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.conflictVote = conflict_vote_1.ConflictVote.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -164,6 +186,9 @@ exports.QueryGetConflictVoteResponse = {
         message.conflictVote !== undefined &&
             (obj.conflictVote = message.conflictVote ? conflict_vote_1.ConflictVote.toJSON(message.conflictVote) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.QueryGetConflictVoteResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseQueryGetConflictVoteResponse();
@@ -184,19 +209,23 @@ exports.QueryAllConflictVoteRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllConflictVoteRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -208,6 +237,9 @@ exports.QueryAllConflictVoteRequest = {
         message.pagination !== undefined &&
             (obj.pagination = message.pagination ? pagination_1.PageRequest.toJSON(message.pagination) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.QueryAllConflictVoteRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseQueryAllConflictVoteRequest();
@@ -231,22 +263,29 @@ exports.QueryAllConflictVoteResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAllConflictVoteResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.conflictVote.push(conflict_vote_1.ConflictVote.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -270,6 +309,9 @@ exports.QueryAllConflictVoteResponse = {
             (obj.pagination = message.pagination ? pagination_1.PageResponse.toJSON(message.pagination) : undefined);
         return obj;
     },
+    create(base) {
+        return exports.QueryAllConflictVoteResponse.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryAllConflictVoteResponse();
@@ -291,17 +333,17 @@ class QueryClientImpl {
     Params(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Params", data);
-        return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryParamsResponse.decode(minimal_1.default.Reader.create(data)));
     }
     ConflictVote(request) {
         const data = exports.QueryGetConflictVoteRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "ConflictVote", data);
-        return promise.then((data) => exports.QueryGetConflictVoteResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryGetConflictVoteResponse.decode(minimal_1.default.Reader.create(data)));
     }
     ConflictVoteAll(request) {
         const data = exports.QueryAllConflictVoteRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "ConflictVoteAll", data);
-        return promise.then((data) => exports.QueryAllConflictVoteResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAllConflictVoteResponse.decode(minimal_1.default.Reader.create(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;

@@ -22,19 +22,23 @@ exports.QueryAccountsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAccountsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -46,6 +50,9 @@ exports.QueryAccountsRequest = {
         message.pagination !== undefined &&
             (obj.pagination = message.pagination ? pagination_1.PageRequest.toJSON(message.pagination) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.QueryAccountsRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseQueryAccountsRequest();
@@ -69,22 +76,29 @@ exports.QueryAccountsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAccountsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.accounts.push(any_1.Any.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -105,6 +119,9 @@ exports.QueryAccountsResponse = {
         message.pagination !== undefined &&
             (obj.pagination = message.pagination ? pagination_1.PageResponse.toJSON(message.pagination) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.QueryAccountsResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -127,19 +144,23 @@ exports.QueryAccountRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAccountRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.address = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -150,6 +171,9 @@ exports.QueryAccountRequest = {
         const obj = {};
         message.address !== undefined && (obj.address = message.address);
         return obj;
+    },
+    create(base) {
+        return exports.QueryAccountRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -166,16 +190,17 @@ exports.QueryModuleAccountsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryModuleAccountsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -185,6 +210,9 @@ exports.QueryModuleAccountsRequest = {
     toJSON(_) {
         const obj = {};
         return obj;
+    },
+    create(base) {
+        return exports.QueryModuleAccountsRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(_) {
         const message = createBaseQueryModuleAccountsRequest();
@@ -202,19 +230,23 @@ exports.QueryParamsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.params = auth_1.Params.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -225,6 +257,9 @@ exports.QueryParamsResponse = {
         const obj = {};
         message.params !== undefined && (obj.params = message.params ? auth_1.Params.toJSON(message.params) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.QueryParamsResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseQueryParamsResponse();
@@ -245,19 +280,23 @@ exports.QueryAccountResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAccountResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.account = any_1.Any.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -268,6 +307,9 @@ exports.QueryAccountResponse = {
         const obj = {};
         message.account !== undefined && (obj.account = message.account ? any_1.Any.toJSON(message.account) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.QueryAccountResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseQueryAccountResponse();
@@ -285,16 +327,17 @@ exports.QueryParamsRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryParamsRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -304,6 +347,9 @@ exports.QueryParamsRequest = {
     toJSON(_) {
         const obj = {};
         return obj;
+    },
+    create(base) {
+        return exports.QueryParamsRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(_) {
         const message = createBaseQueryParamsRequest();
@@ -321,19 +367,23 @@ exports.QueryModuleAccountsResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryModuleAccountsResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.accounts.push(any_1.Any.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -350,6 +400,9 @@ exports.QueryModuleAccountsResponse = {
         }
         return obj;
     },
+    create(base) {
+        return exports.QueryModuleAccountsResponse.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         var _a;
         const message = createBaseQueryModuleAccountsResponse();
@@ -365,16 +418,17 @@ exports.Bech32PrefixRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseBech32PrefixRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -384,6 +438,9 @@ exports.Bech32PrefixRequest = {
     toJSON(_) {
         const obj = {};
         return obj;
+    },
+    create(base) {
+        return exports.Bech32PrefixRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(_) {
         const message = createBaseBech32PrefixRequest();
@@ -401,19 +458,23 @@ exports.Bech32PrefixResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseBech32PrefixResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.bech32Prefix = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -424,6 +485,9 @@ exports.Bech32PrefixResponse = {
         const obj = {};
         message.bech32Prefix !== undefined && (obj.bech32Prefix = message.bech32Prefix);
         return obj;
+    },
+    create(base) {
+        return exports.Bech32PrefixResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -443,19 +507,23 @@ exports.AddressBytesToStringRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAddressBytesToStringRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.addressBytes = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -467,6 +535,9 @@ exports.AddressBytesToStringRequest = {
         message.addressBytes !== undefined &&
             (obj.addressBytes = base64FromBytes(message.addressBytes !== undefined ? message.addressBytes : new Uint8Array()));
         return obj;
+    },
+    create(base) {
+        return exports.AddressBytesToStringRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -486,19 +557,23 @@ exports.AddressBytesToStringResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAddressBytesToStringResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.addressString = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -509,6 +584,9 @@ exports.AddressBytesToStringResponse = {
         const obj = {};
         message.addressString !== undefined && (obj.addressString = message.addressString);
         return obj;
+    },
+    create(base) {
+        return exports.AddressBytesToStringResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -528,19 +606,23 @@ exports.AddressStringToBytesRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAddressStringToBytesRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.addressString = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -551,6 +633,9 @@ exports.AddressStringToBytesRequest = {
         const obj = {};
         message.addressString !== undefined && (obj.addressString = message.addressString);
         return obj;
+    },
+    create(base) {
+        return exports.AddressStringToBytesRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -570,19 +655,23 @@ exports.AddressStringToBytesResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseAddressStringToBytesResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.addressBytes = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -594,6 +683,9 @@ exports.AddressStringToBytesResponse = {
         message.addressBytes !== undefined &&
             (obj.addressBytes = base64FromBytes(message.addressBytes !== undefined ? message.addressBytes : new Uint8Array()));
         return obj;
+    },
+    create(base) {
+        return exports.AddressStringToBytesResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -613,19 +705,23 @@ exports.QueryAccountAddressByIDRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAccountAddressByIDRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.id = reader.int64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -636,6 +732,9 @@ exports.QueryAccountAddressByIDRequest = {
         const obj = {};
         message.id !== undefined && (obj.id = (message.id || long_1.default.ZERO).toString());
         return obj;
+    },
+    create(base) {
+        return exports.QueryAccountAddressByIDRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseQueryAccountAddressByIDRequest();
@@ -654,19 +753,23 @@ exports.QueryAccountAddressByIDResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAccountAddressByIDResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.accountAddress = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -677,6 +780,9 @@ exports.QueryAccountAddressByIDResponse = {
         const obj = {};
         message.accountAddress !== undefined && (obj.accountAddress = message.accountAddress);
         return obj;
+    },
+    create(base) {
+        return exports.QueryAccountAddressByIDResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -696,19 +802,23 @@ exports.QueryAccountInfoRequest = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAccountInfoRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.address = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -719,6 +829,9 @@ exports.QueryAccountInfoRequest = {
         const obj = {};
         message.address !== undefined && (obj.address = message.address);
         return obj;
+    },
+    create(base) {
+        return exports.QueryAccountInfoRequest.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -738,19 +851,23 @@ exports.QueryAccountInfoResponse = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseQueryAccountInfoResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.info = auth_1.BaseAccount.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -761,6 +878,9 @@ exports.QueryAccountInfoResponse = {
         const obj = {};
         message.info !== undefined && (obj.info = message.info ? auth_1.BaseAccount.toJSON(message.info) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.QueryAccountInfoResponse.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseQueryAccountInfoResponse();
@@ -787,51 +907,51 @@ class QueryClientImpl {
     Accounts(request) {
         const data = exports.QueryAccountsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Accounts", data);
-        return promise.then((data) => exports.QueryAccountsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAccountsResponse.decode(minimal_1.default.Reader.create(data)));
     }
     Account(request) {
         const data = exports.QueryAccountRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Account", data);
-        return promise.then((data) => exports.QueryAccountResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAccountResponse.decode(minimal_1.default.Reader.create(data)));
     }
     AccountAddressByID(request) {
         const data = exports.QueryAccountAddressByIDRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "AccountAddressByID", data);
-        return promise.then((data) => exports.QueryAccountAddressByIDResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAccountAddressByIDResponse.decode(minimal_1.default.Reader.create(data)));
     }
     Params(request) {
         const data = exports.QueryParamsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Params", data);
-        return promise.then((data) => exports.QueryParamsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryParamsResponse.decode(minimal_1.default.Reader.create(data)));
     }
     ModuleAccounts(request) {
         const data = exports.QueryModuleAccountsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "ModuleAccounts", data);
-        return promise.then((data) => exports.QueryModuleAccountsResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryModuleAccountsResponse.decode(minimal_1.default.Reader.create(data)));
     }
     Bech32Prefix(request) {
         const data = exports.Bech32PrefixRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "Bech32Prefix", data);
-        return promise.then((data) => exports.Bech32PrefixResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.Bech32PrefixResponse.decode(minimal_1.default.Reader.create(data)));
     }
     AddressBytesToString(request) {
         const data = exports.AddressBytesToStringRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "AddressBytesToString", data);
-        return promise.then((data) => exports.AddressBytesToStringResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.AddressBytesToStringResponse.decode(minimal_1.default.Reader.create(data)));
     }
     AddressStringToBytes(request) {
         const data = exports.AddressStringToBytesRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "AddressStringToBytes", data);
-        return promise.then((data) => exports.AddressStringToBytesResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.AddressStringToBytesResponse.decode(minimal_1.default.Reader.create(data)));
     }
     AccountInfo(request) {
         const data = exports.QueryAccountInfoRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "AccountInfo", data);
-        return promise.then((data) => exports.QueryAccountInfoResponse.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.QueryAccountInfoResponse.decode(minimal_1.default.Reader.create(data)));
     }
 }
 exports.QueryClientImpl = QueryClientImpl;
-var globalThis = (() => {
+var tsProtoGlobalThis = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;
     }
@@ -847,11 +967,11 @@ var globalThis = (() => {
     throw "Unable to locate global object";
 })();
 function bytesFromBase64(b64) {
-    if (globalThis.Buffer) {
-        return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
+    if (tsProtoGlobalThis.Buffer) {
+        return Uint8Array.from(tsProtoGlobalThis.Buffer.from(b64, "base64"));
     }
     else {
-        const bin = globalThis.atob(b64);
+        const bin = tsProtoGlobalThis.atob(b64);
         const arr = new Uint8Array(bin.length);
         for (let i = 0; i < bin.length; ++i) {
             arr[i] = bin.charCodeAt(i);
@@ -860,15 +980,15 @@ function bytesFromBase64(b64) {
     }
 }
 function base64FromBytes(arr) {
-    if (globalThis.Buffer) {
-        return globalThis.Buffer.from(arr).toString("base64");
+    if (tsProtoGlobalThis.Buffer) {
+        return tsProtoGlobalThis.Buffer.from(arr).toString("base64");
     }
     else {
         const bin = [];
         arr.forEach((byte) => {
             bin.push(String.fromCharCode(byte));
         });
-        return globalThis.btoa(bin.join(""));
+        return tsProtoGlobalThis.btoa(bin.join(""));
     }
 }
 if (minimal_1.default.util.Long !== long_1.default) {

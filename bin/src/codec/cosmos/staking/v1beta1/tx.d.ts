@@ -120,7 +120,7 @@ export declare const MsgCreateValidator: {
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateValidator;
     fromJSON(object: any): MsgCreateValidator;
     toJSON(message: MsgCreateValidator): unknown;
-    fromPartial<I extends {
+    create<I extends {
         description?: {
             moniker?: string | undefined;
             identity?: string | undefined;
@@ -184,21 +184,87 @@ export declare const MsgCreateValidator: {
             denom?: string | undefined;
             amount?: string | undefined;
         } & { [K_3 in Exclude<keyof I["value"], keyof Coin>]: never; }) | undefined;
-    } & { [K_4 in Exclude<keyof I, keyof MsgCreateValidator>]: never; }>(object: I): MsgCreateValidator;
+    } & { [K_4 in Exclude<keyof I, keyof MsgCreateValidator>]: never; }>(base?: I | undefined): MsgCreateValidator;
+    fromPartial<I_1 extends {
+        description?: {
+            moniker?: string | undefined;
+            identity?: string | undefined;
+            website?: string | undefined;
+            securityContact?: string | undefined;
+            details?: string | undefined;
+        } | undefined;
+        commission?: {
+            rate?: string | undefined;
+            maxRate?: string | undefined;
+            maxChangeRate?: string | undefined;
+        } | undefined;
+        minSelfDelegation?: string | undefined;
+        delegatorAddress?: string | undefined;
+        validatorAddress?: string | undefined;
+        pubkey?: {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } | undefined;
+        value?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+    } & {
+        description?: ({
+            moniker?: string | undefined;
+            identity?: string | undefined;
+            website?: string | undefined;
+            securityContact?: string | undefined;
+            details?: string | undefined;
+        } & {
+            moniker?: string | undefined;
+            identity?: string | undefined;
+            website?: string | undefined;
+            securityContact?: string | undefined;
+            details?: string | undefined;
+        } & { [K_5 in Exclude<keyof I_1["description"], keyof Description>]: never; }) | undefined;
+        commission?: ({
+            rate?: string | undefined;
+            maxRate?: string | undefined;
+            maxChangeRate?: string | undefined;
+        } & {
+            rate?: string | undefined;
+            maxRate?: string | undefined;
+            maxChangeRate?: string | undefined;
+        } & { [K_6 in Exclude<keyof I_1["commission"], keyof CommissionRates>]: never; }) | undefined;
+        minSelfDelegation?: string | undefined;
+        delegatorAddress?: string | undefined;
+        validatorAddress?: string | undefined;
+        pubkey?: ({
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & { [K_7 in Exclude<keyof I_1["pubkey"], keyof Any>]: never; }) | undefined;
+        value?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_8 in Exclude<keyof I_1["value"], keyof Coin>]: never; }) | undefined;
+    } & { [K_9 in Exclude<keyof I_1, keyof MsgCreateValidator>]: never; }>(object: I_1): MsgCreateValidator;
 };
 export declare const MsgCreateValidatorResponse: {
     encode(_: MsgCreateValidatorResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgCreateValidatorResponse;
     fromJSON(_: any): MsgCreateValidatorResponse;
     toJSON(_: MsgCreateValidatorResponse): unknown;
-    fromPartial<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(_: I): MsgCreateValidatorResponse;
+    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgCreateValidatorResponse;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): MsgCreateValidatorResponse;
 };
 export declare const MsgEditValidator: {
     encode(message: MsgEditValidator, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgEditValidator;
     fromJSON(object: any): MsgEditValidator;
     toJSON(message: MsgEditValidator): unknown;
-    fromPartial<I extends {
+    create<I extends {
         description?: {
             moniker?: string | undefined;
             identity?: string | undefined;
@@ -226,21 +292,51 @@ export declare const MsgEditValidator: {
         validatorAddress?: string | undefined;
         commissionRate?: string | undefined;
         minSelfDelegation?: string | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof MsgEditValidator>]: never; }>(object: I): MsgEditValidator;
+    } & { [K_1 in Exclude<keyof I, keyof MsgEditValidator>]: never; }>(base?: I | undefined): MsgEditValidator;
+    fromPartial<I_1 extends {
+        description?: {
+            moniker?: string | undefined;
+            identity?: string | undefined;
+            website?: string | undefined;
+            securityContact?: string | undefined;
+            details?: string | undefined;
+        } | undefined;
+        validatorAddress?: string | undefined;
+        commissionRate?: string | undefined;
+        minSelfDelegation?: string | undefined;
+    } & {
+        description?: ({
+            moniker?: string | undefined;
+            identity?: string | undefined;
+            website?: string | undefined;
+            securityContact?: string | undefined;
+            details?: string | undefined;
+        } & {
+            moniker?: string | undefined;
+            identity?: string | undefined;
+            website?: string | undefined;
+            securityContact?: string | undefined;
+            details?: string | undefined;
+        } & { [K_2 in Exclude<keyof I_1["description"], keyof Description>]: never; }) | undefined;
+        validatorAddress?: string | undefined;
+        commissionRate?: string | undefined;
+        minSelfDelegation?: string | undefined;
+    } & { [K_3 in Exclude<keyof I_1, keyof MsgEditValidator>]: never; }>(object: I_1): MsgEditValidator;
 };
 export declare const MsgEditValidatorResponse: {
     encode(_: MsgEditValidatorResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgEditValidatorResponse;
     fromJSON(_: any): MsgEditValidatorResponse;
     toJSON(_: MsgEditValidatorResponse): unknown;
-    fromPartial<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(_: I): MsgEditValidatorResponse;
+    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgEditValidatorResponse;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): MsgEditValidatorResponse;
 };
 export declare const MsgDelegate: {
     encode(message: MsgDelegate, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgDelegate;
     fromJSON(object: any): MsgDelegate;
     toJSON(message: MsgDelegate): unknown;
-    fromPartial<I extends {
+    create<I extends {
         delegatorAddress?: string | undefined;
         validatorAddress?: string | undefined;
         amount?: {
@@ -257,21 +353,40 @@ export declare const MsgDelegate: {
             denom?: string | undefined;
             amount?: string | undefined;
         } & { [K in Exclude<keyof I["amount"], keyof Coin>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof MsgDelegate>]: never; }>(object: I): MsgDelegate;
+    } & { [K_1 in Exclude<keyof I, keyof MsgDelegate>]: never; }>(base?: I | undefined): MsgDelegate;
+    fromPartial<I_1 extends {
+        delegatorAddress?: string | undefined;
+        validatorAddress?: string | undefined;
+        amount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+    } & {
+        delegatorAddress?: string | undefined;
+        validatorAddress?: string | undefined;
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_2 in Exclude<keyof I_1["amount"], keyof Coin>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, keyof MsgDelegate>]: never; }>(object: I_1): MsgDelegate;
 };
 export declare const MsgDelegateResponse: {
     encode(_: MsgDelegateResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgDelegateResponse;
     fromJSON(_: any): MsgDelegateResponse;
     toJSON(_: MsgDelegateResponse): unknown;
-    fromPartial<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(_: I): MsgDelegateResponse;
+    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgDelegateResponse;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): MsgDelegateResponse;
 };
 export declare const MsgBeginRedelegate: {
     encode(message: MsgBeginRedelegate, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgBeginRedelegate;
     fromJSON(object: any): MsgBeginRedelegate;
     toJSON(message: MsgBeginRedelegate): unknown;
-    fromPartial<I extends {
+    create<I extends {
         delegatorAddress?: string | undefined;
         validatorSrcAddress?: string | undefined;
         validatorDstAddress?: string | undefined;
@@ -290,25 +405,50 @@ export declare const MsgBeginRedelegate: {
             denom?: string | undefined;
             amount?: string | undefined;
         } & { [K in Exclude<keyof I["amount"], keyof Coin>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof MsgBeginRedelegate>]: never; }>(object: I): MsgBeginRedelegate;
+    } & { [K_1 in Exclude<keyof I, keyof MsgBeginRedelegate>]: never; }>(base?: I | undefined): MsgBeginRedelegate;
+    fromPartial<I_1 extends {
+        delegatorAddress?: string | undefined;
+        validatorSrcAddress?: string | undefined;
+        validatorDstAddress?: string | undefined;
+        amount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+    } & {
+        delegatorAddress?: string | undefined;
+        validatorSrcAddress?: string | undefined;
+        validatorDstAddress?: string | undefined;
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_2 in Exclude<keyof I_1["amount"], keyof Coin>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, keyof MsgBeginRedelegate>]: never; }>(object: I_1): MsgBeginRedelegate;
 };
 export declare const MsgBeginRedelegateResponse: {
     encode(message: MsgBeginRedelegateResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgBeginRedelegateResponse;
     fromJSON(object: any): MsgBeginRedelegateResponse;
     toJSON(message: MsgBeginRedelegateResponse): unknown;
-    fromPartial<I extends {
+    create<I extends {
         completionTime?: Date | undefined;
     } & {
         completionTime?: Date | undefined;
-    } & { [K in Exclude<keyof I, "completionTime">]: never; }>(object: I): MsgBeginRedelegateResponse;
+    } & { [K in Exclude<keyof I, "completionTime">]: never; }>(base?: I | undefined): MsgBeginRedelegateResponse;
+    fromPartial<I_1 extends {
+        completionTime?: Date | undefined;
+    } & {
+        completionTime?: Date | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "completionTime">]: never; }>(object: I_1): MsgBeginRedelegateResponse;
 };
 export declare const MsgUndelegate: {
     encode(message: MsgUndelegate, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgUndelegate;
     fromJSON(object: any): MsgUndelegate;
     toJSON(message: MsgUndelegate): unknown;
-    fromPartial<I extends {
+    create<I extends {
         delegatorAddress?: string | undefined;
         validatorAddress?: string | undefined;
         amount?: {
@@ -325,25 +465,48 @@ export declare const MsgUndelegate: {
             denom?: string | undefined;
             amount?: string | undefined;
         } & { [K in Exclude<keyof I["amount"], keyof Coin>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof MsgUndelegate>]: never; }>(object: I): MsgUndelegate;
+    } & { [K_1 in Exclude<keyof I, keyof MsgUndelegate>]: never; }>(base?: I | undefined): MsgUndelegate;
+    fromPartial<I_1 extends {
+        delegatorAddress?: string | undefined;
+        validatorAddress?: string | undefined;
+        amount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+    } & {
+        delegatorAddress?: string | undefined;
+        validatorAddress?: string | undefined;
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_2 in Exclude<keyof I_1["amount"], keyof Coin>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, keyof MsgUndelegate>]: never; }>(object: I_1): MsgUndelegate;
 };
 export declare const MsgUndelegateResponse: {
     encode(message: MsgUndelegateResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgUndelegateResponse;
     fromJSON(object: any): MsgUndelegateResponse;
     toJSON(message: MsgUndelegateResponse): unknown;
-    fromPartial<I extends {
+    create<I extends {
         completionTime?: Date | undefined;
     } & {
         completionTime?: Date | undefined;
-    } & { [K in Exclude<keyof I, "completionTime">]: never; }>(object: I): MsgUndelegateResponse;
+    } & { [K in Exclude<keyof I, "completionTime">]: never; }>(base?: I | undefined): MsgUndelegateResponse;
+    fromPartial<I_1 extends {
+        completionTime?: Date | undefined;
+    } & {
+        completionTime?: Date | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "completionTime">]: never; }>(object: I_1): MsgUndelegateResponse;
 };
 export declare const MsgCancelUnbondingDelegation: {
     encode(message: MsgCancelUnbondingDelegation, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelUnbondingDelegation;
     fromJSON(object: any): MsgCancelUnbondingDelegation;
     toJSON(message: MsgCancelUnbondingDelegation): unknown;
-    fromPartial<I extends {
+    create<I extends {
         delegatorAddress?: string | undefined;
         validatorAddress?: string | undefined;
         amount?: {
@@ -433,21 +596,113 @@ export declare const MsgCancelUnbondingDelegation: {
             toUnsigned: () => Long;
             xor: (other: string | number | Long) => Long;
         } & { [K_1 in Exclude<keyof I["creationHeight"], keyof Long>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof MsgCancelUnbondingDelegation>]: never; }>(object: I): MsgCancelUnbondingDelegation;
+    } & { [K_2 in Exclude<keyof I, keyof MsgCancelUnbondingDelegation>]: never; }>(base?: I | undefined): MsgCancelUnbondingDelegation;
+    fromPartial<I_1 extends {
+        delegatorAddress?: string | undefined;
+        validatorAddress?: string | undefined;
+        amount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+        creationHeight?: string | number | Long | undefined;
+    } & {
+        delegatorAddress?: string | undefined;
+        validatorAddress?: string | undefined;
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["amount"], keyof Coin>]: never; }) | undefined;
+        creationHeight?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_4 in Exclude<keyof I_1["creationHeight"], keyof Long>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, keyof MsgCancelUnbondingDelegation>]: never; }>(object: I_1): MsgCancelUnbondingDelegation;
 };
 export declare const MsgCancelUnbondingDelegationResponse: {
     encode(_: MsgCancelUnbondingDelegationResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgCancelUnbondingDelegationResponse;
     fromJSON(_: any): MsgCancelUnbondingDelegationResponse;
     toJSON(_: MsgCancelUnbondingDelegationResponse): unknown;
-    fromPartial<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(_: I): MsgCancelUnbondingDelegationResponse;
+    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgCancelUnbondingDelegationResponse;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): MsgCancelUnbondingDelegationResponse;
 };
 export declare const MsgUpdateParams: {
     encode(message: MsgUpdateParams, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateParams;
     fromJSON(object: any): MsgUpdateParams;
     toJSON(message: MsgUpdateParams): unknown;
-    fromPartial<I extends {
+    create<I extends {
         authority?: string | undefined;
         params?: {
             unbondingTime?: {
@@ -557,14 +812,126 @@ export declare const MsgUpdateParams: {
             bondDenom?: string | undefined;
             minCommissionRate?: string | undefined;
         } & { [K_2 in Exclude<keyof I["params"], keyof Params>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, keyof MsgUpdateParams>]: never; }>(object: I): MsgUpdateParams;
+    } & { [K_3 in Exclude<keyof I, keyof MsgUpdateParams>]: never; }>(base?: I | undefined): MsgUpdateParams;
+    fromPartial<I_1 extends {
+        authority?: string | undefined;
+        params?: {
+            unbondingTime?: {
+                seconds?: string | number | Long | undefined;
+                nanos?: number | undefined;
+            } | undefined;
+            maxValidators?: number | undefined;
+            maxEntries?: number | undefined;
+            historicalEntries?: number | undefined;
+            bondDenom?: string | undefined;
+            minCommissionRate?: string | undefined;
+        } | undefined;
+    } & {
+        authority?: string | undefined;
+        params?: ({
+            unbondingTime?: {
+                seconds?: string | number | Long | undefined;
+                nanos?: number | undefined;
+            } | undefined;
+            maxValidators?: number | undefined;
+            maxEntries?: number | undefined;
+            historicalEntries?: number | undefined;
+            bondDenom?: string | undefined;
+            minCommissionRate?: string | undefined;
+        } & {
+            unbondingTime?: ({
+                seconds?: string | number | Long | undefined;
+                nanos?: number | undefined;
+            } & {
+                seconds?: string | number | (Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long) => Long;
+                    and: (other: string | number | Long) => Long;
+                    compare: (other: string | number | Long) => number;
+                    comp: (other: string | number | Long) => number;
+                    divide: (divisor: string | number | Long) => Long;
+                    div: (divisor: string | number | Long) => Long;
+                    equals: (other: string | number | Long) => boolean;
+                    eq: (other: string | number | Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long) => boolean;
+                    gt: (other: string | number | Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long) => boolean;
+                    gte: (other: string | number | Long) => boolean;
+                    ge: (other: string | number | Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    eqz: () => boolean;
+                    lessThan: (other: string | number | Long) => boolean;
+                    lt: (other: string | number | Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long) => boolean;
+                    lte: (other: string | number | Long) => boolean;
+                    le: (other: string | number | Long) => boolean;
+                    modulo: (other: string | number | Long) => Long;
+                    mod: (other: string | number | Long) => Long;
+                    rem: (other: string | number | Long) => Long;
+                    multiply: (multiplier: string | number | Long) => Long;
+                    mul: (multiplier: string | number | Long) => Long;
+                    negate: () => Long;
+                    neg: () => Long;
+                    not: () => Long;
+                    countLeadingZeros: () => number;
+                    clz: () => number;
+                    countTrailingZeros: () => number;
+                    ctz: () => number;
+                    notEquals: (other: string | number | Long) => boolean;
+                    neq: (other: string | number | Long) => boolean;
+                    ne: (other: string | number | Long) => boolean;
+                    or: (other: string | number | Long) => Long;
+                    shiftLeft: (numBits: number | Long) => Long;
+                    shl: (numBits: number | Long) => Long;
+                    shiftRight: (numBits: number | Long) => Long;
+                    shr: (numBits: number | Long) => Long;
+                    shiftRightUnsigned: (numBits: number | Long) => Long;
+                    shru: (numBits: number | Long) => Long;
+                    shr_u: (numBits: number | Long) => Long;
+                    rotateLeft: (numBits: number | Long) => Long;
+                    rotl: (numBits: number | Long) => Long;
+                    rotateRight: (numBits: number | Long) => Long;
+                    rotr: (numBits: number | Long) => Long;
+                    subtract: (subtrahend: string | number | Long) => Long;
+                    sub: (subtrahend: string | number | Long) => Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long;
+                    xor: (other: string | number | Long) => Long;
+                } & { [K_4 in Exclude<keyof I_1["params"]["unbondingTime"]["seconds"], keyof Long>]: never; }) | undefined;
+                nanos?: number | undefined;
+            } & { [K_5 in Exclude<keyof I_1["params"]["unbondingTime"], keyof import("../../../google/protobuf/duration").Duration>]: never; }) | undefined;
+            maxValidators?: number | undefined;
+            maxEntries?: number | undefined;
+            historicalEntries?: number | undefined;
+            bondDenom?: string | undefined;
+            minCommissionRate?: string | undefined;
+        } & { [K_6 in Exclude<keyof I_1["params"], keyof Params>]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I_1, keyof MsgUpdateParams>]: never; }>(object: I_1): MsgUpdateParams;
 };
 export declare const MsgUpdateParamsResponse: {
     encode(_: MsgUpdateParamsResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): MsgUpdateParamsResponse;
     fromJSON(_: any): MsgUpdateParamsResponse;
     toJSON(_: MsgUpdateParamsResponse): unknown;
-    fromPartial<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(_: I): MsgUpdateParamsResponse;
+    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgUpdateParamsResponse;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): MsgUpdateParamsResponse;
 };
 /** Msg defines the staking Msg service. */
 export interface Msg {

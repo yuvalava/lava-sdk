@@ -324,64 +324,113 @@ exports.Request = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequest();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.echo = exports.RequestEcho.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.flush = exports.RequestFlush.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.info = exports.RequestInfo.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 5:
+                    if (tag != 42) {
+                        break;
+                    }
                     message.initChain = exports.RequestInitChain.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 6:
+                    if (tag != 50) {
+                        break;
+                    }
                     message.query = exports.RequestQuery.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 7:
+                    if (tag != 58) {
+                        break;
+                    }
                     message.beginBlock = exports.RequestBeginBlock.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 8:
+                    if (tag != 66) {
+                        break;
+                    }
                     message.checkTx = exports.RequestCheckTx.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 9:
+                    if (tag != 74) {
+                        break;
+                    }
                     message.deliverTx = exports.RequestDeliverTx.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 10:
+                    if (tag != 82) {
+                        break;
+                    }
                     message.endBlock = exports.RequestEndBlock.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 11:
+                    if (tag != 90) {
+                        break;
+                    }
                     message.commit = exports.RequestCommit.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 12:
+                    if (tag != 98) {
+                        break;
+                    }
                     message.listSnapshots = exports.RequestListSnapshots.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 13:
+                    if (tag != 106) {
+                        break;
+                    }
                     message.offerSnapshot = exports.RequestOfferSnapshot.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 14:
+                    if (tag != 114) {
+                        break;
+                    }
                     message.loadSnapshotChunk = exports.RequestLoadSnapshotChunk.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 15:
+                    if (tag != 122) {
+                        break;
+                    }
                     message.applySnapshotChunk = exports.RequestApplySnapshotChunk.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 16:
+                    if (tag != 130) {
+                        break;
+                    }
                     message.prepareProposal = exports.RequestPrepareProposal.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 17:
+                    if (tag != 138) {
+                        break;
+                    }
                     message.processProposal = exports.RequestProcessProposal.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -448,6 +497,9 @@ exports.Request = {
             : undefined);
         return obj;
     },
+    create(base) {
+        return exports.Request.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         const message = createBaseRequest();
         message.echo = (object.echo !== undefined && object.echo !== null)
@@ -512,19 +564,23 @@ exports.RequestEcho = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestEcho();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.message = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -535,6 +591,9 @@ exports.RequestEcho = {
         const obj = {};
         message.message !== undefined && (obj.message = message.message);
         return obj;
+    },
+    create(base) {
+        return exports.RequestEcho.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -551,16 +610,17 @@ exports.RequestFlush = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestFlush();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -570,6 +630,9 @@ exports.RequestFlush = {
     toJSON(_) {
         const obj = {};
         return obj;
+    },
+    create(base) {
+        return exports.RequestFlush.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(_) {
         const message = createBaseRequestFlush();
@@ -596,28 +659,41 @@ exports.RequestInfo = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestInfo();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.version = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 16) {
+                        break;
+                    }
                     message.blockVersion = reader.uint64();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 24) {
+                        break;
+                    }
                     message.p2pVersion = reader.uint64();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 34) {
+                        break;
+                    }
                     message.abciVersion = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -636,6 +712,9 @@ exports.RequestInfo = {
         message.p2pVersion !== undefined && (obj.p2pVersion = (message.p2pVersion || long_1.default.UZERO).toString());
         message.abciVersion !== undefined && (obj.abciVersion = message.abciVersion);
         return obj;
+    },
+    create(base) {
+        return exports.RequestInfo.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
@@ -684,34 +763,53 @@ exports.RequestInitChain = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestInitChain();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.time = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.chainId = reader.string();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.consensusParams = params_1.ConsensusParams.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 34) {
+                        break;
+                    }
                     message.validators.push(exports.ValidatorUpdate.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 5:
+                    if (tag != 42) {
+                        break;
+                    }
                     message.appStateBytes = reader.bytes();
-                    break;
+                    continue;
                 case 6:
+                    if (tag != 48) {
+                        break;
+                    }
                     message.initialHeight = reader.int64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -743,6 +841,9 @@ exports.RequestInitChain = {
             (obj.appStateBytes = base64FromBytes(message.appStateBytes !== undefined ? message.appStateBytes : new Uint8Array()));
         message.initialHeight !== undefined && (obj.initialHeight = (message.initialHeight || long_1.default.ZERO).toString());
         return obj;
+    },
+    create(base) {
+        return exports.RequestInitChain.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c, _d;
@@ -780,28 +881,41 @@ exports.RequestQuery = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestQuery();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.data = reader.bytes();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.path = reader.string();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 24) {
+                        break;
+                    }
                     message.height = reader.int64();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 32) {
+                        break;
+                    }
                     message.prove = reader.bool();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -821,6 +935,9 @@ exports.RequestQuery = {
         message.height !== undefined && (obj.height = (message.height || long_1.default.ZERO).toString());
         message.prove !== undefined && (obj.prove = message.prove);
         return obj;
+    },
+    create(base) {
+        return exports.RequestQuery.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c;
@@ -854,28 +971,41 @@ exports.RequestBeginBlock = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestBeginBlock();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.hash = reader.bytes();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.header = types_1.Header.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.lastCommitInfo = exports.CommitInfo.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 34) {
+                        break;
+                    }
                     message.byzantineValidators.push(exports.Misbehavior.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -903,6 +1033,9 @@ exports.RequestBeginBlock = {
             obj.byzantineValidators = [];
         }
         return obj;
+    },
+    create(base) {
+        return exports.RequestBeginBlock.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
@@ -932,22 +1065,29 @@ exports.RequestCheckTx = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestCheckTx();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.tx = reader.bytes();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 16) {
+                        break;
+                    }
                     message.type = reader.int32();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -962,6 +1102,9 @@ exports.RequestCheckTx = {
         message.tx !== undefined && (obj.tx = base64FromBytes(message.tx !== undefined ? message.tx : new Uint8Array()));
         message.type !== undefined && (obj.type = checkTxTypeToJSON(message.type));
         return obj;
+    },
+    create(base) {
+        return exports.RequestCheckTx.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
@@ -982,19 +1125,23 @@ exports.RequestDeliverTx = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestDeliverTx();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.tx = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -1005,6 +1152,9 @@ exports.RequestDeliverTx = {
         const obj = {};
         message.tx !== undefined && (obj.tx = base64FromBytes(message.tx !== undefined ? message.tx : new Uint8Array()));
         return obj;
+    },
+    create(base) {
+        return exports.RequestDeliverTx.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -1024,19 +1174,23 @@ exports.RequestEndBlock = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestEndBlock();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.height = reader.int64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -1047,6 +1201,9 @@ exports.RequestEndBlock = {
         const obj = {};
         message.height !== undefined && (obj.height = (message.height || long_1.default.ZERO).toString());
         return obj;
+    },
+    create(base) {
+        return exports.RequestEndBlock.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseRequestEndBlock();
@@ -1064,16 +1221,17 @@ exports.RequestCommit = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestCommit();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -1083,6 +1241,9 @@ exports.RequestCommit = {
     toJSON(_) {
         const obj = {};
         return obj;
+    },
+    create(base) {
+        return exports.RequestCommit.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(_) {
         const message = createBaseRequestCommit();
@@ -1097,16 +1258,17 @@ exports.RequestListSnapshots = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestListSnapshots();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -1116,6 +1278,9 @@ exports.RequestListSnapshots = {
     toJSON(_) {
         const obj = {};
         return obj;
+    },
+    create(base) {
+        return exports.RequestListSnapshots.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(_) {
         const message = createBaseRequestListSnapshots();
@@ -1136,22 +1301,29 @@ exports.RequestOfferSnapshot = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestOfferSnapshot();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.snapshot = exports.Snapshot.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.appHash = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -1167,6 +1339,9 @@ exports.RequestOfferSnapshot = {
         message.appHash !== undefined &&
             (obj.appHash = base64FromBytes(message.appHash !== undefined ? message.appHash : new Uint8Array()));
         return obj;
+    },
+    create(base) {
+        return exports.RequestOfferSnapshot.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -1195,25 +1370,35 @@ exports.RequestLoadSnapshotChunk = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestLoadSnapshotChunk();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.height = reader.uint64();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 16) {
+                        break;
+                    }
                     message.format = reader.uint32();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 24) {
+                        break;
+                    }
                     message.chunk = reader.uint32();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -1230,6 +1415,9 @@ exports.RequestLoadSnapshotChunk = {
         message.format !== undefined && (obj.format = Math.round(message.format));
         message.chunk !== undefined && (obj.chunk = Math.round(message.chunk));
         return obj;
+    },
+    create(base) {
+        return exports.RequestLoadSnapshotChunk.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
@@ -1259,25 +1447,35 @@ exports.RequestApplySnapshotChunk = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestApplySnapshotChunk();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.index = reader.uint32();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.chunk = reader.bytes();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.sender = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -1295,6 +1493,9 @@ exports.RequestApplySnapshotChunk = {
             (obj.chunk = base64FromBytes(message.chunk !== undefined ? message.chunk : new Uint8Array()));
         message.sender !== undefined && (obj.sender = message.sender);
         return obj;
+    },
+    create(base) {
+        return exports.RequestApplySnapshotChunk.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c;
@@ -1346,40 +1547,65 @@ exports.RequestPrepareProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestPrepareProposal();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.maxTxBytes = reader.int64();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.txs.push(reader.bytes());
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.localLastCommit = exports.ExtendedCommitInfo.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 34) {
+                        break;
+                    }
                     message.misbehavior.push(exports.Misbehavior.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 5:
+                    if (tag != 40) {
+                        break;
+                    }
                     message.height = reader.int64();
-                    break;
+                    continue;
                 case 6:
+                    if (tag != 50) {
+                        break;
+                    }
                     message.time = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 7:
+                    if (tag != 58) {
+                        break;
+                    }
                     message.nextValidatorsHash = reader.bytes();
-                    break;
+                    continue;
                 case 8:
+                    if (tag != 66) {
+                        break;
+                    }
                     message.proposerAddress = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -1423,6 +1649,9 @@ exports.RequestPrepareProposal = {
         message.proposerAddress !== undefined &&
             (obj.proposerAddress = base64FromBytes(message.proposerAddress !== undefined ? message.proposerAddress : new Uint8Array()));
         return obj;
+    },
+    create(base) {
+        return exports.RequestPrepareProposal.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c, _d, _e;
@@ -1485,40 +1714,65 @@ exports.RequestProcessProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseRequestProcessProposal();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.txs.push(reader.bytes());
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.proposedLastCommit = exports.CommitInfo.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.misbehavior.push(exports.Misbehavior.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 34) {
+                        break;
+                    }
                     message.hash = reader.bytes();
-                    break;
+                    continue;
                 case 5:
+                    if (tag != 40) {
+                        break;
+                    }
                     message.height = reader.int64();
-                    break;
+                    continue;
                 case 6:
+                    if (tag != 50) {
+                        break;
+                    }
                     message.time = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 7:
+                    if (tag != 58) {
+                        break;
+                    }
                     message.nextValidatorsHash = reader.bytes();
-                    break;
+                    continue;
                 case 8:
+                    if (tag != 66) {
+                        break;
+                    }
                     message.proposerAddress = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -1563,6 +1817,9 @@ exports.RequestProcessProposal = {
         message.proposerAddress !== undefined &&
             (obj.proposerAddress = base64FromBytes(message.proposerAddress !== undefined ? message.proposerAddress : new Uint8Array()));
         return obj;
+    },
+    create(base) {
+        return exports.RequestProcessProposal.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c, _d, _e, _f;
@@ -1659,67 +1916,119 @@ exports.Response = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponse();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.exception = exports.ResponseException.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.echo = exports.ResponseEcho.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.flush = exports.ResponseFlush.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 34) {
+                        break;
+                    }
                     message.info = exports.ResponseInfo.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 6:
+                    if (tag != 50) {
+                        break;
+                    }
                     message.initChain = exports.ResponseInitChain.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 7:
+                    if (tag != 58) {
+                        break;
+                    }
                     message.query = exports.ResponseQuery.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 8:
+                    if (tag != 66) {
+                        break;
+                    }
                     message.beginBlock = exports.ResponseBeginBlock.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 9:
+                    if (tag != 74) {
+                        break;
+                    }
                     message.checkTx = exports.ResponseCheckTx.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 10:
+                    if (tag != 82) {
+                        break;
+                    }
                     message.deliverTx = exports.ResponseDeliverTx.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 11:
+                    if (tag != 90) {
+                        break;
+                    }
                     message.endBlock = exports.ResponseEndBlock.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 12:
+                    if (tag != 98) {
+                        break;
+                    }
                     message.commit = exports.ResponseCommit.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 13:
+                    if (tag != 106) {
+                        break;
+                    }
                     message.listSnapshots = exports.ResponseListSnapshots.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 14:
+                    if (tag != 114) {
+                        break;
+                    }
                     message.offerSnapshot = exports.ResponseOfferSnapshot.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 15:
+                    if (tag != 122) {
+                        break;
+                    }
                     message.loadSnapshotChunk = exports.ResponseLoadSnapshotChunk.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 16:
+                    if (tag != 130) {
+                        break;
+                    }
                     message.applySnapshotChunk = exports.ResponseApplySnapshotChunk.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 17:
+                    if (tag != 138) {
+                        break;
+                    }
                     message.prepareProposal = exports.ResponsePrepareProposal.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 18:
+                    if (tag != 146) {
+                        break;
+                    }
                     message.processProposal = exports.ResponseProcessProposal.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -1789,6 +2098,9 @@ exports.Response = {
             : undefined);
         return obj;
     },
+    create(base) {
+        return exports.Response.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         const message = createBaseResponse();
         message.exception = (object.exception !== undefined && object.exception !== null)
@@ -1856,19 +2168,23 @@ exports.ResponseException = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseException();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.error = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -1879,6 +2195,9 @@ exports.ResponseException = {
         const obj = {};
         message.error !== undefined && (obj.error = message.error);
         return obj;
+    },
+    create(base) {
+        return exports.ResponseException.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -1898,19 +2217,23 @@ exports.ResponseEcho = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseEcho();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.message = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -1921,6 +2244,9 @@ exports.ResponseEcho = {
         const obj = {};
         message.message !== undefined && (obj.message = message.message);
         return obj;
+    },
+    create(base) {
+        return exports.ResponseEcho.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -1937,16 +2263,17 @@ exports.ResponseFlush = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseFlush();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
-                default:
-                    reader.skipType(tag & 7);
-                    break;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -1956,6 +2283,9 @@ exports.ResponseFlush = {
     toJSON(_) {
         const obj = {};
         return obj;
+    },
+    create(base) {
+        return exports.ResponseFlush.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(_) {
         const message = createBaseResponseFlush();
@@ -1991,31 +2321,47 @@ exports.ResponseInfo = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseInfo();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.data = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.version = reader.string();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 24) {
+                        break;
+                    }
                     message.appVersion = reader.uint64();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 32) {
+                        break;
+                    }
                     message.lastBlockHeight = reader.int64();
-                    break;
+                    continue;
                 case 5:
+                    if (tag != 42) {
+                        break;
+                    }
                     message.lastBlockAppHash = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -2037,6 +2383,9 @@ exports.ResponseInfo = {
         message.lastBlockAppHash !== undefined &&
             (obj.lastBlockAppHash = base64FromBytes(message.lastBlockAppHash !== undefined ? message.lastBlockAppHash : new Uint8Array()));
         return obj;
+    },
+    create(base) {
+        return exports.ResponseInfo.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c;
@@ -2070,25 +2419,35 @@ exports.ResponseInitChain = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseInitChain();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.consensusParams = params_1.ConsensusParams.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.validators.push(exports.ValidatorUpdate.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.appHash = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -2114,6 +2473,9 @@ exports.ResponseInitChain = {
         message.appHash !== undefined &&
             (obj.appHash = base64FromBytes(message.appHash !== undefined ? message.appHash : new Uint8Array()));
         return obj;
+    },
+    create(base) {
+        return exports.ResponseInitChain.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
@@ -2171,43 +2533,71 @@ exports.ResponseQuery = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseQuery();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.code = reader.uint32();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.log = reader.string();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 34) {
+                        break;
+                    }
                     message.info = reader.string();
-                    break;
+                    continue;
                 case 5:
+                    if (tag != 40) {
+                        break;
+                    }
                     message.index = reader.int64();
-                    break;
+                    continue;
                 case 6:
+                    if (tag != 50) {
+                        break;
+                    }
                     message.key = reader.bytes();
-                    break;
+                    continue;
                 case 7:
+                    if (tag != 58) {
+                        break;
+                    }
                     message.value = reader.bytes();
-                    break;
+                    continue;
                 case 8:
+                    if (tag != 66) {
+                        break;
+                    }
                     message.proofOps = proof_1.ProofOps.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 9:
+                    if (tag != 72) {
+                        break;
+                    }
                     message.height = reader.int64();
-                    break;
+                    continue;
                 case 10:
+                    if (tag != 82) {
+                        break;
+                    }
                     message.codespace = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -2239,6 +2629,9 @@ exports.ResponseQuery = {
         message.codespace !== undefined && (obj.codespace = message.codespace);
         return obj;
     },
+    create(base) {
+        return exports.ResponseQuery.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         var _a, _b, _c, _d, _e, _f;
         const message = createBaseResponseQuery();
@@ -2269,19 +2662,23 @@ exports.ResponseBeginBlock = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseBeginBlock();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.events.push(exports.Event.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -2297,6 +2694,9 @@ exports.ResponseBeginBlock = {
             obj.events = [];
         }
         return obj;
+    },
+    create(base) {
+        return exports.ResponseBeginBlock.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -2358,49 +2758,83 @@ exports.ResponseCheckTx = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseCheckTx();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.code = reader.uint32();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.data = reader.bytes();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.log = reader.string();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 34) {
+                        break;
+                    }
                     message.info = reader.string();
-                    break;
+                    continue;
                 case 5:
+                    if (tag != 40) {
+                        break;
+                    }
                     message.gasWanted = reader.int64();
-                    break;
+                    continue;
                 case 6:
+                    if (tag != 48) {
+                        break;
+                    }
                     message.gasUsed = reader.int64();
-                    break;
+                    continue;
                 case 7:
+                    if (tag != 58) {
+                        break;
+                    }
                     message.events.push(exports.Event.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 8:
+                    if (tag != 66) {
+                        break;
+                    }
                     message.codespace = reader.string();
-                    break;
+                    continue;
                 case 9:
+                    if (tag != 74) {
+                        break;
+                    }
                     message.sender = reader.string();
-                    break;
+                    continue;
                 case 10:
+                    if (tag != 80) {
+                        break;
+                    }
                     message.priority = reader.int64();
-                    break;
+                    continue;
                 case 11:
+                    if (tag != 90) {
+                        break;
+                    }
                     message.mempoolError = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -2439,6 +2873,9 @@ exports.ResponseCheckTx = {
         message.priority !== undefined && (obj.priority = (message.priority || long_1.default.ZERO).toString());
         message.mempoolError !== undefined && (obj.mempoolError = message.mempoolError);
         return obj;
+    },
+    create(base) {
+        return exports.ResponseCheckTx.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c, _d, _e, _f, _g, _h;
@@ -2504,40 +2941,65 @@ exports.ResponseDeliverTx = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseDeliverTx();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.code = reader.uint32();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.data = reader.bytes();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.log = reader.string();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 34) {
+                        break;
+                    }
                     message.info = reader.string();
-                    break;
+                    continue;
                 case 5:
+                    if (tag != 40) {
+                        break;
+                    }
                     message.gasWanted = reader.int64();
-                    break;
+                    continue;
                 case 6:
+                    if (tag != 48) {
+                        break;
+                    }
                     message.gasUsed = reader.int64();
-                    break;
+                    continue;
                 case 7:
+                    if (tag != 58) {
+                        break;
+                    }
                     message.events.push(exports.Event.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 8:
+                    if (tag != 66) {
+                        break;
+                    }
                     message.codespace = reader.string();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -2570,6 +3032,9 @@ exports.ResponseDeliverTx = {
         }
         message.codespace !== undefined && (obj.codespace = message.codespace);
         return obj;
+    },
+    create(base) {
+        return exports.ResponseDeliverTx.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c, _d, _e, _f;
@@ -2606,25 +3071,35 @@ exports.ResponseEndBlock = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseEndBlock();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.validatorUpdates.push(exports.ValidatorUpdate.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.consensusParamUpdates = params_1.ConsensusParams.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.events.push(exports.Event.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -2658,6 +3133,9 @@ exports.ResponseEndBlock = {
         }
         return obj;
     },
+    create(base) {
+        return exports.ResponseEndBlock.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         var _a, _b;
         const message = createBaseResponseEndBlock();
@@ -2684,22 +3162,29 @@ exports.ResponseCommit = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseCommit();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.data = reader.bytes();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 24) {
+                        break;
+                    }
                     message.retainHeight = reader.int64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -2715,6 +3200,9 @@ exports.ResponseCommit = {
             (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
         message.retainHeight !== undefined && (obj.retainHeight = (message.retainHeight || long_1.default.ZERO).toString());
         return obj;
+    },
+    create(base) {
+        return exports.ResponseCommit.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -2737,19 +3225,23 @@ exports.ResponseListSnapshots = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseListSnapshots();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.snapshots.push(exports.Snapshot.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -2767,6 +3259,9 @@ exports.ResponseListSnapshots = {
             obj.snapshots = [];
         }
         return obj;
+    },
+    create(base) {
+        return exports.ResponseListSnapshots.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -2786,19 +3281,23 @@ exports.ResponseOfferSnapshot = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseOfferSnapshot();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.result = reader.int32();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -2809,6 +3308,9 @@ exports.ResponseOfferSnapshot = {
         const obj = {};
         message.result !== undefined && (obj.result = responseOfferSnapshot_ResultToJSON(message.result));
         return obj;
+    },
+    create(base) {
+        return exports.ResponseOfferSnapshot.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -2828,19 +3330,23 @@ exports.ResponseLoadSnapshotChunk = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseLoadSnapshotChunk();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.chunk = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -2852,6 +3358,9 @@ exports.ResponseLoadSnapshotChunk = {
         message.chunk !== undefined &&
             (obj.chunk = base64FromBytes(message.chunk !== undefined ? message.chunk : new Uint8Array()));
         return obj;
+    },
+    create(base) {
+        return exports.ResponseLoadSnapshotChunk.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -2879,33 +3388,42 @@ exports.ResponseApplySnapshotChunk = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseApplySnapshotChunk();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.result = reader.int32();
-                    break;
+                    continue;
                 case 2:
-                    if ((tag & 7) === 2) {
+                    if (tag == 16) {
+                        message.refetchChunks.push(reader.uint32());
+                        continue;
+                    }
+                    if (tag == 18) {
                         const end2 = reader.uint32() + reader.pos;
                         while (reader.pos < end2) {
                             message.refetchChunks.push(reader.uint32());
                         }
-                    }
-                    else {
-                        message.refetchChunks.push(reader.uint32());
+                        continue;
                     }
                     break;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.rejectSenders.push(reader.string());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -2933,6 +3451,9 @@ exports.ResponseApplySnapshotChunk = {
         }
         return obj;
     },
+    create(base) {
+        return exports.ResponseApplySnapshotChunk.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         var _a, _b, _c;
         const message = createBaseResponseApplySnapshotChunk();
@@ -2953,19 +3474,23 @@ exports.ResponsePrepareProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponsePrepareProposal();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.txs.push(reader.bytes());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -2981,6 +3506,9 @@ exports.ResponsePrepareProposal = {
             obj.txs = [];
         }
         return obj;
+    },
+    create(base) {
+        return exports.ResponsePrepareProposal.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -3000,19 +3528,23 @@ exports.ResponseProcessProposal = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseProcessProposal();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.status = reader.int32();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -3023,6 +3555,9 @@ exports.ResponseProcessProposal = {
         const obj = {};
         message.status !== undefined && (obj.status = responseProcessProposal_ProposalStatusToJSON(message.status));
         return obj;
+    },
+    create(base) {
+        return exports.ResponseProcessProposal.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -3045,22 +3580,29 @@ exports.CommitInfo = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseCommitInfo();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.round = reader.int32();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.votes.push(exports.VoteInfo.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -3080,6 +3622,9 @@ exports.CommitInfo = {
             obj.votes = [];
         }
         return obj;
+    },
+    create(base) {
+        return exports.CommitInfo.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
@@ -3103,22 +3648,29 @@ exports.ExtendedCommitInfo = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseExtendedCommitInfo();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.round = reader.int32();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.votes.push(exports.ExtendedVoteInfo.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -3138,6 +3690,9 @@ exports.ExtendedCommitInfo = {
             obj.votes = [];
         }
         return obj;
+    },
+    create(base) {
+        return exports.ExtendedCommitInfo.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
@@ -3161,22 +3716,29 @@ exports.Event = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseEvent();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.type = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.attributes.push(exports.EventAttribute.decode(reader, reader.uint32()));
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -3198,6 +3760,9 @@ exports.Event = {
             obj.attributes = [];
         }
         return obj;
+    },
+    create(base) {
+        return exports.Event.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
@@ -3224,25 +3789,35 @@ exports.EventAttribute = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseEventAttribute();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.key = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.value = reader.string();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 24) {
+                        break;
+                    }
                     message.index = reader.bool();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -3259,6 +3834,9 @@ exports.EventAttribute = {
         message.value !== undefined && (obj.value = message.value);
         message.index !== undefined && (obj.index = message.index);
         return obj;
+    },
+    create(base) {
+        return exports.EventAttribute.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c;
@@ -3289,28 +3867,41 @@ exports.TxResult = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseTxResult();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.height = reader.int64();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 16) {
+                        break;
+                    }
                     message.index = reader.uint32();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.tx = reader.bytes();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 34) {
+                        break;
+                    }
                     message.result = exports.ResponseDeliverTx.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -3330,6 +3921,9 @@ exports.TxResult = {
         message.result !== undefined &&
             (obj.result = message.result ? exports.ResponseDeliverTx.toJSON(message.result) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.TxResult.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
@@ -3359,22 +3953,29 @@ exports.Validator = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseValidator();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.address = reader.bytes();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 24) {
+                        break;
+                    }
                     message.power = reader.int64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -3390,6 +3991,9 @@ exports.Validator = {
             (obj.address = base64FromBytes(message.address !== undefined ? message.address : new Uint8Array()));
         message.power !== undefined && (obj.power = (message.power || long_1.default.ZERO).toString());
         return obj;
+    },
+    create(base) {
+        return exports.Validator.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -3413,22 +4017,29 @@ exports.ValidatorUpdate = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseValidatorUpdate();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.pubKey = keys_1.PublicKey.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 16) {
+                        break;
+                    }
                     message.power = reader.int64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -3443,6 +4054,9 @@ exports.ValidatorUpdate = {
         message.pubKey !== undefined && (obj.pubKey = message.pubKey ? keys_1.PublicKey.toJSON(message.pubKey) : undefined);
         message.power !== undefined && (obj.power = (message.power || long_1.default.ZERO).toString());
         return obj;
+    },
+    create(base) {
+        return exports.ValidatorUpdate.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseValidatorUpdate();
@@ -3467,22 +4081,29 @@ exports.VoteInfo = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseVoteInfo();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.validator = exports.Validator.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 16) {
+                        break;
+                    }
                     message.signedLastBlock = reader.bool();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -3498,6 +4119,9 @@ exports.VoteInfo = {
             (obj.validator = message.validator ? exports.Validator.toJSON(message.validator) : undefined);
         message.signedLastBlock !== undefined && (obj.signedLastBlock = message.signedLastBlock);
         return obj;
+    },
+    create(base) {
+        return exports.VoteInfo.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;
@@ -3526,25 +4150,35 @@ exports.ExtendedVoteInfo = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseExtendedVoteInfo();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.validator = exports.Validator.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 16) {
+                        break;
+                    }
                     message.signedLastBlock = reader.bool();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 26) {
+                        break;
+                    }
                     message.voteExtension = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -3563,6 +4197,9 @@ exports.ExtendedVoteInfo = {
         message.voteExtension !== undefined &&
             (obj.voteExtension = base64FromBytes(message.voteExtension !== undefined ? message.voteExtension : new Uint8Array()));
         return obj;
+    },
+    create(base) {
+        return exports.ExtendedVoteInfo.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
@@ -3598,31 +4235,47 @@ exports.Misbehavior = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseMisbehavior();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.type = reader.int32();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.validator = exports.Validator.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 24) {
+                        break;
+                    }
                     message.height = reader.int64();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 34) {
+                        break;
+                    }
                     message.time = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 5:
+                    if (tag != 40) {
+                        break;
+                    }
                     message.totalVotingPower = reader.int64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -3645,6 +4298,9 @@ exports.Misbehavior = {
         message.totalVotingPower !== undefined &&
             (obj.totalVotingPower = (message.totalVotingPower || long_1.default.ZERO).toString());
         return obj;
+    },
+    create(base) {
+        return exports.Misbehavior.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
@@ -3686,31 +4342,47 @@ exports.Snapshot = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseSnapshot();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.height = reader.uint64();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 16) {
+                        break;
+                    }
                     message.format = reader.uint32();
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 24) {
+                        break;
+                    }
                     message.chunks = reader.uint32();
-                    break;
+                    continue;
                 case 4:
+                    if (tag != 34) {
+                        break;
+                    }
                     message.hash = reader.bytes();
-                    break;
+                    continue;
                 case 5:
+                    if (tag != 42) {
+                        break;
+                    }
                     message.metadata = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -3733,6 +4405,9 @@ exports.Snapshot = {
         message.metadata !== undefined &&
             (obj.metadata = base64FromBytes(message.metadata !== undefined ? message.metadata : new Uint8Array()));
         return obj;
+    },
+    create(base) {
+        return exports.Snapshot.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c, _d;
@@ -3771,86 +4446,86 @@ class ABCIApplicationClientImpl {
     Echo(request) {
         const data = exports.RequestEcho.encode(request).finish();
         const promise = this.rpc.request(this.service, "Echo", data);
-        return promise.then((data) => exports.ResponseEcho.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponseEcho.decode(minimal_1.default.Reader.create(data)));
     }
     Flush(request) {
         const data = exports.RequestFlush.encode(request).finish();
         const promise = this.rpc.request(this.service, "Flush", data);
-        return promise.then((data) => exports.ResponseFlush.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponseFlush.decode(minimal_1.default.Reader.create(data)));
     }
     Info(request) {
         const data = exports.RequestInfo.encode(request).finish();
         const promise = this.rpc.request(this.service, "Info", data);
-        return promise.then((data) => exports.ResponseInfo.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponseInfo.decode(minimal_1.default.Reader.create(data)));
     }
     DeliverTx(request) {
         const data = exports.RequestDeliverTx.encode(request).finish();
         const promise = this.rpc.request(this.service, "DeliverTx", data);
-        return promise.then((data) => exports.ResponseDeliverTx.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponseDeliverTx.decode(minimal_1.default.Reader.create(data)));
     }
     CheckTx(request) {
         const data = exports.RequestCheckTx.encode(request).finish();
         const promise = this.rpc.request(this.service, "CheckTx", data);
-        return promise.then((data) => exports.ResponseCheckTx.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponseCheckTx.decode(minimal_1.default.Reader.create(data)));
     }
     Query(request) {
         const data = exports.RequestQuery.encode(request).finish();
         const promise = this.rpc.request(this.service, "Query", data);
-        return promise.then((data) => exports.ResponseQuery.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponseQuery.decode(minimal_1.default.Reader.create(data)));
     }
     Commit(request) {
         const data = exports.RequestCommit.encode(request).finish();
         const promise = this.rpc.request(this.service, "Commit", data);
-        return promise.then((data) => exports.ResponseCommit.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponseCommit.decode(minimal_1.default.Reader.create(data)));
     }
     InitChain(request) {
         const data = exports.RequestInitChain.encode(request).finish();
         const promise = this.rpc.request(this.service, "InitChain", data);
-        return promise.then((data) => exports.ResponseInitChain.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponseInitChain.decode(minimal_1.default.Reader.create(data)));
     }
     BeginBlock(request) {
         const data = exports.RequestBeginBlock.encode(request).finish();
         const promise = this.rpc.request(this.service, "BeginBlock", data);
-        return promise.then((data) => exports.ResponseBeginBlock.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponseBeginBlock.decode(minimal_1.default.Reader.create(data)));
     }
     EndBlock(request) {
         const data = exports.RequestEndBlock.encode(request).finish();
         const promise = this.rpc.request(this.service, "EndBlock", data);
-        return promise.then((data) => exports.ResponseEndBlock.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponseEndBlock.decode(minimal_1.default.Reader.create(data)));
     }
     ListSnapshots(request) {
         const data = exports.RequestListSnapshots.encode(request).finish();
         const promise = this.rpc.request(this.service, "ListSnapshots", data);
-        return promise.then((data) => exports.ResponseListSnapshots.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponseListSnapshots.decode(minimal_1.default.Reader.create(data)));
     }
     OfferSnapshot(request) {
         const data = exports.RequestOfferSnapshot.encode(request).finish();
         const promise = this.rpc.request(this.service, "OfferSnapshot", data);
-        return promise.then((data) => exports.ResponseOfferSnapshot.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponseOfferSnapshot.decode(minimal_1.default.Reader.create(data)));
     }
     LoadSnapshotChunk(request) {
         const data = exports.RequestLoadSnapshotChunk.encode(request).finish();
         const promise = this.rpc.request(this.service, "LoadSnapshotChunk", data);
-        return promise.then((data) => exports.ResponseLoadSnapshotChunk.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponseLoadSnapshotChunk.decode(minimal_1.default.Reader.create(data)));
     }
     ApplySnapshotChunk(request) {
         const data = exports.RequestApplySnapshotChunk.encode(request).finish();
         const promise = this.rpc.request(this.service, "ApplySnapshotChunk", data);
-        return promise.then((data) => exports.ResponseApplySnapshotChunk.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponseApplySnapshotChunk.decode(minimal_1.default.Reader.create(data)));
     }
     PrepareProposal(request) {
         const data = exports.RequestPrepareProposal.encode(request).finish();
         const promise = this.rpc.request(this.service, "PrepareProposal", data);
-        return promise.then((data) => exports.ResponsePrepareProposal.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponsePrepareProposal.decode(minimal_1.default.Reader.create(data)));
     }
     ProcessProposal(request) {
         const data = exports.RequestProcessProposal.encode(request).finish();
         const promise = this.rpc.request(this.service, "ProcessProposal", data);
-        return promise.then((data) => exports.ResponseProcessProposal.decode(new minimal_1.default.Reader(data)));
+        return promise.then((data) => exports.ResponseProcessProposal.decode(minimal_1.default.Reader.create(data)));
     }
 }
 exports.ABCIApplicationClientImpl = ABCIApplicationClientImpl;
-var globalThis = (() => {
+var tsProtoGlobalThis = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;
     }
@@ -3866,11 +4541,11 @@ var globalThis = (() => {
     throw "Unable to locate global object";
 })();
 function bytesFromBase64(b64) {
-    if (globalThis.Buffer) {
-        return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
+    if (tsProtoGlobalThis.Buffer) {
+        return Uint8Array.from(tsProtoGlobalThis.Buffer.from(b64, "base64"));
     }
     else {
-        const bin = globalThis.atob(b64);
+        const bin = tsProtoGlobalThis.atob(b64);
         const arr = new Uint8Array(bin.length);
         for (let i = 0; i < bin.length; ++i) {
             arr[i] = bin.charCodeAt(i);
@@ -3879,15 +4554,15 @@ function bytesFromBase64(b64) {
     }
 }
 function base64FromBytes(arr) {
-    if (globalThis.Buffer) {
-        return globalThis.Buffer.from(arr).toString("base64");
+    if (tsProtoGlobalThis.Buffer) {
+        return tsProtoGlobalThis.Buffer.from(arr).toString("base64");
     }
     else {
         const bin = [];
         arr.forEach((byte) => {
             bin.push(String.fromCharCode(byte));
         });
-        return globalThis.btoa(bin.join(""));
+        return tsProtoGlobalThis.btoa(bin.join(""));
     }
 }
 function toTimestamp(date) {

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConflictVote_VotersHashEntry = exports.ConflictVote = exports.Vote = exports.Provider = exports.protobufPackage = void 0;
+exports.ConflictVote = exports.Vote = exports.Provider = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
@@ -22,22 +22,29 @@ exports.Provider = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseProvider();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.account = reader.string();
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.response = reader.bytes();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -54,6 +61,9 @@ exports.Provider = {
             (obj.response = base64FromBytes(message.response !== undefined ? message.response : new Uint8Array()));
         return obj;
     },
+    create(base) {
+        return exports.Provider.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
         var _a, _b;
         const message = createBaseProvider();
@@ -63,55 +73,77 @@ exports.Provider = {
     },
 };
 function createBaseVote() {
-    return { Hash: new Uint8Array(), Result: long_1.default.ZERO };
+    return { address: "", Hash: new Uint8Array(), Result: long_1.default.ZERO };
 }
 exports.Vote = {
     encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.address !== "") {
+            writer.uint32(10).string(message.address);
+        }
         if (message.Hash.length !== 0) {
-            writer.uint32(10).bytes(message.Hash);
+            writer.uint32(18).bytes(message.Hash);
         }
         if (!message.Result.isZero()) {
-            writer.uint32(16).int64(message.Result);
+            writer.uint32(24).int64(message.Result);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseVote();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.Hash = reader.bytes();
-                    break;
+                    if (tag != 10) {
+                        break;
+                    }
+                    message.address = reader.string();
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
+                    message.Hash = reader.bytes();
+                    continue;
+                case 3:
+                    if (tag != 24) {
+                        break;
+                    }
                     message.Result = reader.int64();
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
     fromJSON(object) {
         return {
+            address: isSet(object.address) ? String(object.address) : "",
             Hash: isSet(object.Hash) ? bytesFromBase64(object.Hash) : new Uint8Array(),
             Result: isSet(object.Result) ? long_1.default.fromValue(object.Result) : long_1.default.ZERO,
         };
     },
     toJSON(message) {
         const obj = {};
+        message.address !== undefined && (obj.address = message.address);
         message.Hash !== undefined &&
             (obj.Hash = base64FromBytes(message.Hash !== undefined ? message.Hash : new Uint8Array()));
         message.Result !== undefined && (obj.Result = (message.Result || long_1.default.ZERO).toString());
         return obj;
     },
+    create(base) {
+        return exports.Vote.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
-        var _a;
+        var _a, _b;
         const message = createBaseVote();
-        message.Hash = (_a = object.Hash) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.address = (_a = object.address) !== null && _a !== void 0 ? _a : "";
+        message.Hash = (_b = object.Hash) !== null && _b !== void 0 ? _b : new Uint8Array();
         message.Result = (object.Result !== undefined && object.Result !== null)
             ? long_1.default.fromValue(object.Result)
             : long_1.default.ZERO;
@@ -131,7 +163,7 @@ function createBaseConflictVote() {
         requestBlock: long_1.default.UZERO,
         firstProvider: undefined,
         secondProvider: undefined,
-        votersHash: {},
+        votes: [],
     };
 }
 exports.ConflictVote = {
@@ -169,61 +201,95 @@ exports.ConflictVote = {
         if (message.secondProvider !== undefined) {
             exports.Provider.encode(message.secondProvider, writer.uint32(90).fork()).ldelim();
         }
-        Object.entries(message.votersHash).forEach(([key, value]) => {
-            exports.ConflictVote_VotersHashEntry.encode({ key: key, value }, writer.uint32(106).fork()).ldelim();
-        });
+        for (const v of message.votes) {
+            exports.Vote.encode(v, writer.uint32(98).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseConflictVote();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    message.index = reader.string();
-                    break;
-                case 2:
-                    message.clientAddress = reader.string();
-                    break;
-                case 3:
-                    message.voteDeadline = reader.uint64();
-                    break;
-                case 4:
-                    message.voteStartBlock = reader.uint64();
-                    break;
-                case 5:
-                    message.voteState = reader.int64();
-                    break;
-                case 6:
-                    message.chainID = reader.string();
-                    break;
-                case 7:
-                    message.apiUrl = reader.string();
-                    break;
-                case 8:
-                    message.requestData = reader.bytes();
-                    break;
-                case 9:
-                    message.requestBlock = reader.uint64();
-                    break;
-                case 10:
-                    message.firstProvider = exports.Provider.decode(reader, reader.uint32());
-                    break;
-                case 11:
-                    message.secondProvider = exports.Provider.decode(reader, reader.uint32());
-                    break;
-                case 13:
-                    const entry13 = exports.ConflictVote_VotersHashEntry.decode(reader, reader.uint32());
-                    if (entry13.value !== undefined) {
-                        message.votersHash[entry13.key] = entry13.value;
+                    if (tag != 10) {
+                        break;
                     }
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    message.index = reader.string();
+                    continue;
+                case 2:
+                    if (tag != 18) {
+                        break;
+                    }
+                    message.clientAddress = reader.string();
+                    continue;
+                case 3:
+                    if (tag != 24) {
+                        break;
+                    }
+                    message.voteDeadline = reader.uint64();
+                    continue;
+                case 4:
+                    if (tag != 32) {
+                        break;
+                    }
+                    message.voteStartBlock = reader.uint64();
+                    continue;
+                case 5:
+                    if (tag != 40) {
+                        break;
+                    }
+                    message.voteState = reader.int64();
+                    continue;
+                case 6:
+                    if (tag != 50) {
+                        break;
+                    }
+                    message.chainID = reader.string();
+                    continue;
+                case 7:
+                    if (tag != 58) {
+                        break;
+                    }
+                    message.apiUrl = reader.string();
+                    continue;
+                case 8:
+                    if (tag != 66) {
+                        break;
+                    }
+                    message.requestData = reader.bytes();
+                    continue;
+                case 9:
+                    if (tag != 72) {
+                        break;
+                    }
+                    message.requestBlock = reader.uint64();
+                    continue;
+                case 10:
+                    if (tag != 82) {
+                        break;
+                    }
+                    message.firstProvider = exports.Provider.decode(reader, reader.uint32());
+                    continue;
+                case 11:
+                    if (tag != 90) {
+                        break;
+                    }
+                    message.secondProvider = exports.Provider.decode(reader, reader.uint32());
+                    continue;
+                case 12:
+                    if (tag != 98) {
+                        break;
+                    }
+                    message.votes.push(exports.Vote.decode(reader, reader.uint32()));
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -240,12 +306,7 @@ exports.ConflictVote = {
             requestBlock: isSet(object.requestBlock) ? long_1.default.fromValue(object.requestBlock) : long_1.default.UZERO,
             firstProvider: isSet(object.firstProvider) ? exports.Provider.fromJSON(object.firstProvider) : undefined,
             secondProvider: isSet(object.secondProvider) ? exports.Provider.fromJSON(object.secondProvider) : undefined,
-            votersHash: isObject(object.votersHash)
-                ? Object.entries(object.votersHash).reduce((acc, [key, value]) => {
-                    acc[key] = exports.Vote.fromJSON(value);
-                    return acc;
-                }, {})
-                : {},
+            votes: Array.isArray(object === null || object === void 0 ? void 0 : object.votes) ? object.votes.map((e) => exports.Vote.fromJSON(e)) : [],
         };
     },
     toJSON(message) {
@@ -264,13 +325,16 @@ exports.ConflictVote = {
             (obj.firstProvider = message.firstProvider ? exports.Provider.toJSON(message.firstProvider) : undefined);
         message.secondProvider !== undefined &&
             (obj.secondProvider = message.secondProvider ? exports.Provider.toJSON(message.secondProvider) : undefined);
-        obj.votersHash = {};
-        if (message.votersHash) {
-            Object.entries(message.votersHash).forEach(([k, v]) => {
-                obj.votersHash[k] = exports.Vote.toJSON(v);
-            });
+        if (message.votes) {
+            obj.votes = message.votes.map((e) => e ? exports.Vote.toJSON(e) : undefined);
+        }
+        else {
+            obj.votes = [];
         }
         return obj;
+    },
+    create(base) {
+        return exports.ConflictVote.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c, _d, _e, _f;
@@ -298,69 +362,11 @@ exports.ConflictVote = {
         message.secondProvider = (object.secondProvider !== undefined && object.secondProvider !== null)
             ? exports.Provider.fromPartial(object.secondProvider)
             : undefined;
-        message.votersHash = Object.entries((_f = object.votersHash) !== null && _f !== void 0 ? _f : {}).reduce((acc, [key, value]) => {
-            if (value !== undefined) {
-                acc[key] = exports.Vote.fromPartial(value);
-            }
-            return acc;
-        }, {});
+        message.votes = ((_f = object.votes) === null || _f === void 0 ? void 0 : _f.map((e) => exports.Vote.fromPartial(e))) || [];
         return message;
     },
 };
-function createBaseConflictVote_VotersHashEntry() {
-    return { key: "", value: undefined };
-}
-exports.ConflictVote_VotersHashEntry = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.key !== "") {
-            writer.uint32(10).string(message.key);
-        }
-        if (message.value !== undefined) {
-            exports.Vote.encode(message.value, writer.uint32(18).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseConflictVote_VotersHashEntry();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    message.key = reader.string();
-                    break;
-                case 2:
-                    message.value = exports.Vote.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
-            }
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            key: isSet(object.key) ? String(object.key) : "",
-            value: isSet(object.value) ? exports.Vote.fromJSON(object.value) : undefined,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.key !== undefined && (obj.key = message.key);
-        message.value !== undefined && (obj.value = message.value ? exports.Vote.toJSON(message.value) : undefined);
-        return obj;
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseConflictVote_VotersHashEntry();
-        message.key = (_a = object.key) !== null && _a !== void 0 ? _a : "";
-        message.value = (object.value !== undefined && object.value !== null) ? exports.Vote.fromPartial(object.value) : undefined;
-        return message;
-    },
-};
-var globalThis = (() => {
+var tsProtoGlobalThis = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;
     }
@@ -376,11 +382,11 @@ var globalThis = (() => {
     throw "Unable to locate global object";
 })();
 function bytesFromBase64(b64) {
-    if (globalThis.Buffer) {
-        return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
+    if (tsProtoGlobalThis.Buffer) {
+        return Uint8Array.from(tsProtoGlobalThis.Buffer.from(b64, "base64"));
     }
     else {
-        const bin = globalThis.atob(b64);
+        const bin = tsProtoGlobalThis.atob(b64);
         const arr = new Uint8Array(bin.length);
         for (let i = 0; i < bin.length; ++i) {
             arr[i] = bin.charCodeAt(i);
@@ -389,23 +395,20 @@ function bytesFromBase64(b64) {
     }
 }
 function base64FromBytes(arr) {
-    if (globalThis.Buffer) {
-        return globalThis.Buffer.from(arr).toString("base64");
+    if (tsProtoGlobalThis.Buffer) {
+        return tsProtoGlobalThis.Buffer.from(arr).toString("base64");
     }
     else {
         const bin = [];
         arr.forEach((byte) => {
             bin.push(String.fromCharCode(byte));
         });
-        return globalThis.btoa(bin.join(""));
+        return tsProtoGlobalThis.btoa(bin.join(""));
     }
 }
 if (minimal_1.default.util.Long !== long_1.default) {
     minimal_1.default.util.Long = long_1.default;
     minimal_1.default.configure();
-}
-function isObject(value) {
-    return typeof value === "object" && value !== null;
 }
 function isSet(value) {
     return value !== null && value !== undefined;

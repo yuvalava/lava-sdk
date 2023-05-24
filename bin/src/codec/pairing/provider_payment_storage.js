@@ -7,91 +7,101 @@ exports.ProviderPaymentStorage = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
-const unique_payment_storage_client_provider_1 = require("./unique_payment_storage_client_provider");
 exports.protobufPackage = "lavanet.lava.pairing";
 function createBaseProviderPaymentStorage() {
-    return { index: "", uniquePaymentStorageClientProvider: [], epoch: long_1.default.UZERO, unresponsivenessComplaints: [] };
+    return { index: "", epoch: long_1.default.UZERO, uniquePaymentStorageClientProviderKeys: [], complainersTotalCu: long_1.default.UZERO };
 }
 exports.ProviderPaymentStorage = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.index !== "") {
             writer.uint32(10).string(message.index);
         }
-        for (const v of message.uniquePaymentStorageClientProvider) {
-            unique_payment_storage_client_provider_1.UniquePaymentStorageClientProvider.encode(v, writer.uint32(18).fork()).ldelim();
-        }
         if (!message.epoch.isZero()) {
             writer.uint32(24).uint64(message.epoch);
         }
-        for (const v of message.unresponsivenessComplaints) {
-            writer.uint32(34).string(v);
+        for (const v of message.uniquePaymentStorageClientProviderKeys) {
+            writer.uint32(42).string(v);
+        }
+        if (!message.complainersTotalCu.isZero()) {
+            writer.uint32(48).uint64(message.complainersTotalCu);
         }
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseProviderPaymentStorage();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.index = reader.string();
-                    break;
-                case 2:
-                    message.uniquePaymentStorageClientProvider.push(unique_payment_storage_client_provider_1.UniquePaymentStorageClientProvider.decode(reader, reader.uint32()));
-                    break;
+                    continue;
                 case 3:
+                    if (tag != 24) {
+                        break;
+                    }
                     message.epoch = reader.uint64();
-                    break;
-                case 4:
-                    message.unresponsivenessComplaints.push(reader.string());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
+                case 5:
+                    if (tag != 42) {
+                        break;
+                    }
+                    message.uniquePaymentStorageClientProviderKeys.push(reader.string());
+                    continue;
+                case 6:
+                    if (tag != 48) {
+                        break;
+                    }
+                    message.complainersTotalCu = reader.uint64();
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
     fromJSON(object) {
         return {
             index: isSet(object.index) ? String(object.index) : "",
-            uniquePaymentStorageClientProvider: Array.isArray(object === null || object === void 0 ? void 0 : object.uniquePaymentStorageClientProvider)
-                ? object.uniquePaymentStorageClientProvider.map((e) => unique_payment_storage_client_provider_1.UniquePaymentStorageClientProvider.fromJSON(e))
-                : [],
             epoch: isSet(object.epoch) ? long_1.default.fromValue(object.epoch) : long_1.default.UZERO,
-            unresponsivenessComplaints: Array.isArray(object === null || object === void 0 ? void 0 : object.unresponsivenessComplaints)
-                ? object.unresponsivenessComplaints.map((e) => String(e))
+            uniquePaymentStorageClientProviderKeys: Array.isArray(object === null || object === void 0 ? void 0 : object.uniquePaymentStorageClientProviderKeys)
+                ? object.uniquePaymentStorageClientProviderKeys.map((e) => String(e))
                 : [],
+            complainersTotalCu: isSet(object.complainersTotalCu) ? long_1.default.fromValue(object.complainersTotalCu) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
         const obj = {};
         message.index !== undefined && (obj.index = message.index);
-        if (message.uniquePaymentStorageClientProvider) {
-            obj.uniquePaymentStorageClientProvider = message.uniquePaymentStorageClientProvider.map((e) => e ? unique_payment_storage_client_provider_1.UniquePaymentStorageClientProvider.toJSON(e) : undefined);
-        }
-        else {
-            obj.uniquePaymentStorageClientProvider = [];
-        }
         message.epoch !== undefined && (obj.epoch = (message.epoch || long_1.default.UZERO).toString());
-        if (message.unresponsivenessComplaints) {
-            obj.unresponsivenessComplaints = message.unresponsivenessComplaints.map((e) => e);
+        if (message.uniquePaymentStorageClientProviderKeys) {
+            obj.uniquePaymentStorageClientProviderKeys = message.uniquePaymentStorageClientProviderKeys.map((e) => e);
         }
         else {
-            obj.unresponsivenessComplaints = [];
+            obj.uniquePaymentStorageClientProviderKeys = [];
         }
+        message.complainersTotalCu !== undefined &&
+            (obj.complainersTotalCu = (message.complainersTotalCu || long_1.default.UZERO).toString());
         return obj;
     },
+    create(base) {
+        return exports.ProviderPaymentStorage.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b;
         const message = createBaseProviderPaymentStorage();
         message.index = (_a = object.index) !== null && _a !== void 0 ? _a : "";
-        message.uniquePaymentStorageClientProvider =
-            ((_b = object.uniquePaymentStorageClientProvider) === null || _b === void 0 ? void 0 : _b.map((e) => unique_payment_storage_client_provider_1.UniquePaymentStorageClientProvider.fromPartial(e))) || [];
         message.epoch = (object.epoch !== undefined && object.epoch !== null) ? long_1.default.fromValue(object.epoch) : long_1.default.UZERO;
-        message.unresponsivenessComplaints = ((_c = object.unresponsivenessComplaints) === null || _c === void 0 ? void 0 : _c.map((e) => e)) || [];
+        message.uniquePaymentStorageClientProviderKeys = ((_b = object.uniquePaymentStorageClientProviderKeys) === null || _b === void 0 ? void 0 : _b.map((e) => e)) || [];
+        message.complainersTotalCu = (object.complainersTotalCu !== undefined && object.complainersTotalCu !== null)
+            ? long_1.default.fromValue(object.complainersTotalCu)
+            : long_1.default.UZERO;
         return message;
     },
 };

@@ -11,13 +11,20 @@ export declare const PublicKey: {
     decode(input: _m0.Reader | Uint8Array, length?: number): PublicKey;
     fromJSON(object: any): PublicKey;
     toJSON(message: PublicKey): unknown;
-    fromPartial<I extends {
+    create<I extends {
         ed25519?: Uint8Array | undefined;
         secp256k1?: Uint8Array | undefined;
     } & {
         ed25519?: Uint8Array | undefined;
         secp256k1?: Uint8Array | undefined;
-    } & { [K in Exclude<keyof I, keyof PublicKey>]: never; }>(object: I): PublicKey;
+    } & { [K in Exclude<keyof I, keyof PublicKey>]: never; }>(base?: I | undefined): PublicKey;
+    fromPartial<I_1 extends {
+        ed25519?: Uint8Array | undefined;
+        secp256k1?: Uint8Array | undefined;
+    } & {
+        ed25519?: Uint8Array | undefined;
+        secp256k1?: Uint8Array | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof PublicKey>]: never; }>(object: I_1): PublicKey;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

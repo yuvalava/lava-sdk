@@ -40,13 +40,10 @@ export declare const protobufPackage = "google.protobuf";
  *  Example 4: Pack and unpack a message in Go
  *
  *      foo := &pb.Foo{...}
- *      any, err := anypb.New(foo)
- *      if err != nil {
- *        ...
- *      }
+ *      any, err := ptypes.MarshalAny(foo)
  *      ...
  *      foo := &pb.Foo{}
- *      if err := any.UnmarshalTo(foo); err != nil {
+ *      if err := ptypes.UnmarshalAny(any, foo); err != nil {
  *        ...
  *      }
  *
@@ -87,8 +84,7 @@ export declare const protobufPackage = "google.protobuf";
 export interface Any {
     /**
      * A URL/resource name that uniquely identifies the type of the serialized
-     * protocol buffer message. This string must contain at least
-     * one "/" character. The last segment of the URL's path must represent
+     * protocol buffer message. The last segment of the URL's path must represent
      * the fully qualified name of the type (as in
      * `path/google.protobuf.Duration`). The name should be in a canonical form
      * (e.g., leading "." is not accepted).
@@ -123,13 +119,20 @@ export declare const Any: {
     decode(input: _m0.Reader | Uint8Array, length?: number): Any;
     fromJSON(object: any): Any;
     toJSON(message: Any): unknown;
-    fromPartial<I extends {
+    create<I extends {
         typeUrl?: string | undefined;
         value?: Uint8Array | undefined;
     } & {
         typeUrl?: string | undefined;
         value?: Uint8Array | undefined;
-    } & { [K in Exclude<keyof I, keyof Any>]: never; }>(object: I): Any;
+    } & { [K in Exclude<keyof I, keyof Any>]: never; }>(base?: I | undefined): Any;
+    fromPartial<I_1 extends {
+        typeUrl?: string | undefined;
+        value?: Uint8Array | undefined;
+    } & {
+        typeUrl?: string | undefined;
+        value?: Uint8Array | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof Any>]: never; }>(object: I_1): Any;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

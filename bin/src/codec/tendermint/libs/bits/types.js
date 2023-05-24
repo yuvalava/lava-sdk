@@ -24,30 +24,36 @@ exports.BitArray = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseBitArray();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 8) {
+                        break;
+                    }
                     message.bits = reader.int64();
-                    break;
+                    continue;
                 case 2:
-                    if ((tag & 7) === 2) {
+                    if (tag == 16) {
+                        message.elems.push(reader.uint64());
+                        continue;
+                    }
+                    if (tag == 18) {
                         const end2 = reader.uint32() + reader.pos;
                         while (reader.pos < end2) {
                             message.elems.push(reader.uint64());
                         }
+                        continue;
                     }
-                    else {
-                        message.elems.push(reader.uint64());
-                    }
-                    break;
-                default:
-                    reader.skipType(tag & 7);
                     break;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -67,6 +73,9 @@ exports.BitArray = {
             obj.elems = [];
         }
         return obj;
+    },
+    create(base) {
+        return exports.BitArray.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a;

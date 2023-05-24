@@ -109,7 +109,7 @@ export declare const Params: {
     decode(input: _m0.Reader | Uint8Array, length?: number): Params;
     fromJSON(object: any): Params;
     toJSON(message: Params): unknown;
-    fromPartial<I extends {
+    create<I extends {
         sendEnabled?: {
             denom?: string | undefined;
             enabled?: boolean | undefined;
@@ -130,27 +130,56 @@ export declare const Params: {
             enabled?: boolean | undefined;
         }[]>]: never; }) | undefined;
         defaultSendEnabled?: boolean | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof Params>]: never; }>(object: I): Params;
+    } & { [K_2 in Exclude<keyof I, keyof Params>]: never; }>(base?: I | undefined): Params;
+    fromPartial<I_1 extends {
+        sendEnabled?: {
+            denom?: string | undefined;
+            enabled?: boolean | undefined;
+        }[] | undefined;
+        defaultSendEnabled?: boolean | undefined;
+    } & {
+        sendEnabled?: ({
+            denom?: string | undefined;
+            enabled?: boolean | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            enabled?: boolean | undefined;
+        } & {
+            denom?: string | undefined;
+            enabled?: boolean | undefined;
+        } & { [K_3 in Exclude<keyof I_1["sendEnabled"][number], keyof SendEnabled>]: never; })[] & { [K_4 in Exclude<keyof I_1["sendEnabled"], keyof {
+            denom?: string | undefined;
+            enabled?: boolean | undefined;
+        }[]>]: never; }) | undefined;
+        defaultSendEnabled?: boolean | undefined;
+    } & { [K_5 in Exclude<keyof I_1, keyof Params>]: never; }>(object: I_1): Params;
 };
 export declare const SendEnabled: {
     encode(message: SendEnabled, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): SendEnabled;
     fromJSON(object: any): SendEnabled;
     toJSON(message: SendEnabled): unknown;
-    fromPartial<I extends {
+    create<I extends {
         denom?: string | undefined;
         enabled?: boolean | undefined;
     } & {
         denom?: string | undefined;
         enabled?: boolean | undefined;
-    } & { [K in Exclude<keyof I, keyof SendEnabled>]: never; }>(object: I): SendEnabled;
+    } & { [K in Exclude<keyof I, keyof SendEnabled>]: never; }>(base?: I | undefined): SendEnabled;
+    fromPartial<I_1 extends {
+        denom?: string | undefined;
+        enabled?: boolean | undefined;
+    } & {
+        denom?: string | undefined;
+        enabled?: boolean | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof SendEnabled>]: never; }>(object: I_1): SendEnabled;
 };
 export declare const Input: {
     encode(message: Input, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): Input;
     fromJSON(object: any): Input;
     toJSON(message: Input): unknown;
-    fromPartial<I extends {
+    create<I extends {
         address?: string | undefined;
         coins?: {
             denom?: string | undefined;
@@ -171,14 +200,36 @@ export declare const Input: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof Input>]: never; }>(object: I): Input;
+    } & { [K_2 in Exclude<keyof I, keyof Input>]: never; }>(base?: I | undefined): Input;
+    fromPartial<I_1 extends {
+        address?: string | undefined;
+        coins?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+    } & {
+        address?: string | undefined;
+        coins?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["coins"][number], keyof Coin>]: never; })[] & { [K_4 in Exclude<keyof I_1["coins"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, keyof Input>]: never; }>(object: I_1): Input;
 };
 export declare const Output: {
     encode(message: Output, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): Output;
     fromJSON(object: any): Output;
     toJSON(message: Output): unknown;
-    fromPartial<I extends {
+    create<I extends {
         address?: string | undefined;
         coins?: {
             denom?: string | undefined;
@@ -199,14 +250,36 @@ export declare const Output: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof Output>]: never; }>(object: I): Output;
+    } & { [K_2 in Exclude<keyof I, keyof Output>]: never; }>(base?: I | undefined): Output;
+    fromPartial<I_1 extends {
+        address?: string | undefined;
+        coins?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+    } & {
+        address?: string | undefined;
+        coins?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["coins"][number], keyof Coin>]: never; })[] & { [K_4 in Exclude<keyof I_1["coins"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, keyof Output>]: never; }>(object: I_1): Output;
 };
 export declare const Supply: {
     encode(message: Supply, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): Supply;
     fromJSON(object: any): Supply;
     toJSON(message: Supply): unknown;
-    fromPartial<I extends {
+    create<I extends {
         total?: {
             denom?: string | undefined;
             amount?: string | undefined;
@@ -225,14 +298,34 @@ export declare const Supply: {
             denom?: string | undefined;
             amount?: string | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, "total">]: never; }>(object: I): Supply;
+    } & { [K_2 in Exclude<keyof I, "total">]: never; }>(base?: I | undefined): Supply;
+    fromPartial<I_1 extends {
+        total?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+    } & {
+        total?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["total"][number], keyof Coin>]: never; })[] & { [K_4 in Exclude<keyof I_1["total"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, "total">]: never; }>(object: I_1): Supply;
 };
 export declare const DenomUnit: {
     encode(message: DenomUnit, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): DenomUnit;
     fromJSON(object: any): DenomUnit;
     toJSON(message: DenomUnit): unknown;
-    fromPartial<I extends {
+    create<I extends {
         denom?: string | undefined;
         exponent?: number | undefined;
         aliases?: string[] | undefined;
@@ -240,14 +333,23 @@ export declare const DenomUnit: {
         denom?: string | undefined;
         exponent?: number | undefined;
         aliases?: (string[] & string[] & { [K in Exclude<keyof I["aliases"], keyof string[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof DenomUnit>]: never; }>(object: I): DenomUnit;
+    } & { [K_1 in Exclude<keyof I, keyof DenomUnit>]: never; }>(base?: I | undefined): DenomUnit;
+    fromPartial<I_1 extends {
+        denom?: string | undefined;
+        exponent?: number | undefined;
+        aliases?: string[] | undefined;
+    } & {
+        denom?: string | undefined;
+        exponent?: number | undefined;
+        aliases?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["aliases"], keyof string[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, keyof DenomUnit>]: never; }>(object: I_1): DenomUnit;
 };
 export declare const Metadata: {
     encode(message: Metadata, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): Metadata;
     fromJSON(object: any): Metadata;
     toJSON(message: Metadata): unknown;
-    fromPartial<I extends {
+    create<I extends {
         description?: string | undefined;
         denomUnits?: {
             denom?: string | undefined;
@@ -285,7 +387,46 @@ export declare const Metadata: {
         symbol?: string | undefined;
         uri?: string | undefined;
         uriHash?: string | undefined;
-    } & { [K_3 in Exclude<keyof I, keyof Metadata>]: never; }>(object: I): Metadata;
+    } & { [K_3 in Exclude<keyof I, keyof Metadata>]: never; }>(base?: I | undefined): Metadata;
+    fromPartial<I_1 extends {
+        description?: string | undefined;
+        denomUnits?: {
+            denom?: string | undefined;
+            exponent?: number | undefined;
+            aliases?: string[] | undefined;
+        }[] | undefined;
+        base?: string | undefined;
+        display?: string | undefined;
+        name?: string | undefined;
+        symbol?: string | undefined;
+        uri?: string | undefined;
+        uriHash?: string | undefined;
+    } & {
+        description?: string | undefined;
+        denomUnits?: ({
+            denom?: string | undefined;
+            exponent?: number | undefined;
+            aliases?: string[] | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            exponent?: number | undefined;
+            aliases?: string[] | undefined;
+        } & {
+            denom?: string | undefined;
+            exponent?: number | undefined;
+            aliases?: (string[] & string[] & { [K_4 in Exclude<keyof I_1["denomUnits"][number]["aliases"], keyof string[]>]: never; }) | undefined;
+        } & { [K_5 in Exclude<keyof I_1["denomUnits"][number], keyof DenomUnit>]: never; })[] & { [K_6 in Exclude<keyof I_1["denomUnits"], keyof {
+            denom?: string | undefined;
+            exponent?: number | undefined;
+            aliases?: string[] | undefined;
+        }[]>]: never; }) | undefined;
+        base?: string | undefined;
+        display?: string | undefined;
+        name?: string | undefined;
+        symbol?: string | undefined;
+        uri?: string | undefined;
+        uriHash?: string | undefined;
+    } & { [K_7 in Exclude<keyof I_1, keyof Metadata>]: never; }>(object: I_1): Metadata;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

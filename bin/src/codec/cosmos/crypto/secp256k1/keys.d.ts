@@ -20,22 +20,32 @@ export declare const PubKey: {
     decode(input: _m0.Reader | Uint8Array, length?: number): PubKey;
     fromJSON(object: any): PubKey;
     toJSON(message: PubKey): unknown;
-    fromPartial<I extends {
+    create<I extends {
         key?: Uint8Array | undefined;
     } & {
         key?: Uint8Array | undefined;
-    } & { [K in Exclude<keyof I, "key">]: never; }>(object: I): PubKey;
+    } & { [K in Exclude<keyof I, "key">]: never; }>(base?: I | undefined): PubKey;
+    fromPartial<I_1 extends {
+        key?: Uint8Array | undefined;
+    } & {
+        key?: Uint8Array | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "key">]: never; }>(object: I_1): PubKey;
 };
 export declare const PrivKey: {
     encode(message: PrivKey, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): PrivKey;
     fromJSON(object: any): PrivKey;
     toJSON(message: PrivKey): unknown;
-    fromPartial<I extends {
+    create<I extends {
         key?: Uint8Array | undefined;
     } & {
         key?: Uint8Array | undefined;
-    } & { [K in Exclude<keyof I, "key">]: never; }>(object: I): PrivKey;
+    } & { [K in Exclude<keyof I, "key">]: never; }>(base?: I | undefined): PrivKey;
+    fromPartial<I_1 extends {
+        key?: Uint8Array | undefined;
+    } & {
+        key?: Uint8Array | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "key">]: never; }>(object: I_1): PrivKey;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

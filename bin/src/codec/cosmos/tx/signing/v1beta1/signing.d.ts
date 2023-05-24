@@ -109,7 +109,7 @@ export declare const SignatureDescriptors: {
     decode(input: _m0.Reader | Uint8Array, length?: number): SignatureDescriptors;
     fromJSON(object: any): SignatureDescriptors;
     toJSON(message: SignatureDescriptors): unknown;
-    fromPartial<I extends {
+    create<I extends {
         signatures?: {
             publicKey?: {
                 typeUrl?: string | undefined;
@@ -438,14 +438,344 @@ export declare const SignatureDescriptors: {
             } | undefined;
             sequence?: string | number | Long | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_27 in Exclude<keyof I, "signatures">]: never; }>(object: I): SignatureDescriptors;
+    } & { [K_27 in Exclude<keyof I, "signatures">]: never; }>(base?: I | undefined): SignatureDescriptors;
+    fromPartial<I_1 extends {
+        signatures?: {
+            publicKey?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } | undefined;
+            data?: {
+                single?: {
+                    mode?: SignMode | undefined;
+                    signature?: Uint8Array | undefined;
+                } | undefined;
+                multi?: {
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    signatures?: any[] | undefined;
+                } | undefined;
+            } | undefined;
+            sequence?: string | number | Long | undefined;
+        }[] | undefined;
+    } & {
+        signatures?: ({
+            publicKey?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } | undefined;
+            data?: {
+                single?: {
+                    mode?: SignMode | undefined;
+                    signature?: Uint8Array | undefined;
+                } | undefined;
+                multi?: {
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    signatures?: any[] | undefined;
+                } | undefined;
+            } | undefined;
+            sequence?: string | number | Long | undefined;
+        }[] & ({
+            publicKey?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } | undefined;
+            data?: {
+                single?: {
+                    mode?: SignMode | undefined;
+                    signature?: Uint8Array | undefined;
+                } | undefined;
+                multi?: {
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    signatures?: any[] | undefined;
+                } | undefined;
+            } | undefined;
+            sequence?: string | number | Long | undefined;
+        } & {
+            publicKey?: ({
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } & {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } & { [K_28 in Exclude<keyof I_1["signatures"][number]["publicKey"], keyof Any>]: never; }) | undefined;
+            data?: ({
+                single?: {
+                    mode?: SignMode | undefined;
+                    signature?: Uint8Array | undefined;
+                } | undefined;
+                multi?: {
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    signatures?: any[] | undefined;
+                } | undefined;
+            } & {
+                single?: ({
+                    mode?: SignMode | undefined;
+                    signature?: Uint8Array | undefined;
+                } & {
+                    mode?: SignMode | undefined;
+                    signature?: Uint8Array | undefined;
+                } & { [K_29 in Exclude<keyof I_1["signatures"][number]["data"]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                multi?: ({
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    signatures?: any[] | undefined;
+                } & {
+                    bitarray?: ({
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } & {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } & { [K_30 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                    signatures?: (any[] & ({
+                        single?: {
+                            mode?: SignMode | undefined;
+                            signature?: Uint8Array | undefined;
+                        } | undefined;
+                        multi?: {
+                            bitarray?: {
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } | undefined;
+                            signatures?: any[] | undefined;
+                        } | undefined;
+                    } & {
+                        single?: ({
+                            mode?: SignMode | undefined;
+                            signature?: Uint8Array | undefined;
+                        } & {
+                            mode?: SignMode | undefined;
+                            signature?: Uint8Array | undefined;
+                        } & { [K_31 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                        multi?: ({
+                            bitarray?: {
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } | undefined;
+                            signatures?: any[] | undefined;
+                        } & {
+                            bitarray?: ({
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } & {
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } & { [K_32 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                            signatures?: (any[] & ({
+                                single?: {
+                                    mode?: SignMode | undefined;
+                                    signature?: Uint8Array | undefined;
+                                } | undefined;
+                                multi?: {
+                                    bitarray?: {
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } | undefined;
+                                    signatures?: any[] | undefined;
+                                } | undefined;
+                            } & {
+                                single?: ({
+                                    mode?: SignMode | undefined;
+                                    signature?: Uint8Array | undefined;
+                                } & {
+                                    mode?: SignMode | undefined;
+                                    signature?: Uint8Array | undefined;
+                                } & { [K_33 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                                multi?: ({
+                                    bitarray?: {
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } | undefined;
+                                    signatures?: any[] | undefined;
+                                } & {
+                                    bitarray?: ({
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } & {
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } & { [K_34 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                    signatures?: (any[] & ({
+                                        single?: {
+                                            mode?: SignMode | undefined;
+                                            signature?: Uint8Array | undefined;
+                                        } | undefined;
+                                        multi?: {
+                                            bitarray?: {
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } | undefined;
+                                            signatures?: any[] | undefined;
+                                        } | undefined;
+                                    } & {
+                                        single?: ({
+                                            mode?: SignMode | undefined;
+                                            signature?: Uint8Array | undefined;
+                                        } & {
+                                            mode?: SignMode | undefined;
+                                            signature?: Uint8Array | undefined;
+                                        } & { [K_35 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                                        multi?: ({
+                                            bitarray?: {
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } | undefined;
+                                            signatures?: any[] | undefined;
+                                        } & {
+                                            bitarray?: ({
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } & {
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } & { [K_36 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                            signatures?: (any[] & ({
+                                                single?: {
+                                                    mode?: SignMode | undefined;
+                                                    signature?: Uint8Array | undefined;
+                                                } | undefined;
+                                                multi?: {
+                                                    bitarray?: {
+                                                        extraBitsStored?: number | undefined;
+                                                        elems?: Uint8Array | undefined;
+                                                    } | undefined;
+                                                    signatures?: any[] | undefined;
+                                                } | undefined;
+                                            } & {
+                                                single?: ({
+                                                    mode?: SignMode | undefined;
+                                                    signature?: Uint8Array | undefined;
+                                                } & any & { [K_37 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                                                multi?: ({
+                                                    bitarray?: {
+                                                        extraBitsStored?: number | undefined;
+                                                        elems?: Uint8Array | undefined;
+                                                    } | undefined;
+                                                    signatures?: any[] | undefined;
+                                                } & any & { [K_38 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                                            } & { [K_39 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_40 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                                        } & { [K_41 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                                    } & { [K_42 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_43 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                                } & { [K_44 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                            } & { [K_45 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_46 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                        } & { [K_47 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                    } & { [K_48 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_49 in Exclude<keyof I_1["signatures"][number]["data"]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                } & { [K_50 in Exclude<keyof I_1["signatures"][number]["data"]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+            } & { [K_51 in Exclude<keyof I_1["signatures"][number]["data"], keyof SignatureDescriptor_Data>]: never; }) | undefined;
+            sequence?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_52 in Exclude<keyof I_1["signatures"][number]["sequence"], keyof Long>]: never; }) | undefined;
+        } & { [K_53 in Exclude<keyof I_1["signatures"][number], keyof SignatureDescriptor>]: never; })[] & { [K_54 in Exclude<keyof I_1["signatures"], keyof {
+            publicKey?: {
+                typeUrl?: string | undefined;
+                value?: Uint8Array | undefined;
+            } | undefined;
+            data?: {
+                single?: {
+                    mode?: SignMode | undefined;
+                    signature?: Uint8Array | undefined;
+                } | undefined;
+                multi?: {
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    signatures?: any[] | undefined;
+                } | undefined;
+            } | undefined;
+            sequence?: string | number | Long | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_55 in Exclude<keyof I_1, "signatures">]: never; }>(object: I_1): SignatureDescriptors;
 };
 export declare const SignatureDescriptor: {
     encode(message: SignatureDescriptor, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): SignatureDescriptor;
     fromJSON(object: any): SignatureDescriptor;
     toJSON(message: SignatureDescriptor): unknown;
-    fromPartial<I extends {
+    create<I extends {
         publicKey?: {
             typeUrl?: string | undefined;
             value?: Uint8Array | undefined;
@@ -734,14 +1064,304 @@ export declare const SignatureDescriptor: {
             toUnsigned: () => Long;
             xor: (other: string | number | Long) => Long;
         } & { [K_27 in Exclude<keyof I["sequence"], keyof Long>]: never; }) | undefined;
-    } & { [K_28 in Exclude<keyof I, keyof SignatureDescriptor>]: never; }>(object: I): SignatureDescriptor;
+    } & { [K_28 in Exclude<keyof I, keyof SignatureDescriptor>]: never; }>(base?: I | undefined): SignatureDescriptor;
+    fromPartial<I_1 extends {
+        publicKey?: {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } | undefined;
+        data?: {
+            single?: {
+                mode?: SignMode | undefined;
+                signature?: Uint8Array | undefined;
+            } | undefined;
+            multi?: {
+                bitarray?: {
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } | undefined;
+                signatures?: any[] | undefined;
+            } | undefined;
+        } | undefined;
+        sequence?: string | number | Long | undefined;
+    } & {
+        publicKey?: ({
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & { [K_29 in Exclude<keyof I_1["publicKey"], keyof Any>]: never; }) | undefined;
+        data?: ({
+            single?: {
+                mode?: SignMode | undefined;
+                signature?: Uint8Array | undefined;
+            } | undefined;
+            multi?: {
+                bitarray?: {
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } | undefined;
+                signatures?: any[] | undefined;
+            } | undefined;
+        } & {
+            single?: ({
+                mode?: SignMode | undefined;
+                signature?: Uint8Array | undefined;
+            } & {
+                mode?: SignMode | undefined;
+                signature?: Uint8Array | undefined;
+            } & { [K_30 in Exclude<keyof I_1["data"]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+            multi?: ({
+                bitarray?: {
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } | undefined;
+                signatures?: any[] | undefined;
+            } & {
+                bitarray?: ({
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } & {
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } & { [K_31 in Exclude<keyof I_1["data"]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                signatures?: (any[] & ({
+                    single?: {
+                        mode?: SignMode | undefined;
+                        signature?: Uint8Array | undefined;
+                    } | undefined;
+                    multi?: {
+                        bitarray?: {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } | undefined;
+                        signatures?: any[] | undefined;
+                    } | undefined;
+                } & {
+                    single?: ({
+                        mode?: SignMode | undefined;
+                        signature?: Uint8Array | undefined;
+                    } & {
+                        mode?: SignMode | undefined;
+                        signature?: Uint8Array | undefined;
+                    } & { [K_32 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                    multi?: ({
+                        bitarray?: {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } | undefined;
+                        signatures?: any[] | undefined;
+                    } & {
+                        bitarray?: ({
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } & {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } & { [K_33 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                        signatures?: (any[] & ({
+                            single?: {
+                                mode?: SignMode | undefined;
+                                signature?: Uint8Array | undefined;
+                            } | undefined;
+                            multi?: {
+                                bitarray?: {
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } | undefined;
+                                signatures?: any[] | undefined;
+                            } | undefined;
+                        } & {
+                            single?: ({
+                                mode?: SignMode | undefined;
+                                signature?: Uint8Array | undefined;
+                            } & {
+                                mode?: SignMode | undefined;
+                                signature?: Uint8Array | undefined;
+                            } & { [K_34 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                            multi?: ({
+                                bitarray?: {
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } | undefined;
+                                signatures?: any[] | undefined;
+                            } & {
+                                bitarray?: ({
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } & {
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } & { [K_35 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                signatures?: (any[] & ({
+                                    single?: {
+                                        mode?: SignMode | undefined;
+                                        signature?: Uint8Array | undefined;
+                                    } | undefined;
+                                    multi?: {
+                                        bitarray?: {
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } | undefined;
+                                        signatures?: any[] | undefined;
+                                    } | undefined;
+                                } & {
+                                    single?: ({
+                                        mode?: SignMode | undefined;
+                                        signature?: Uint8Array | undefined;
+                                    } & {
+                                        mode?: SignMode | undefined;
+                                        signature?: Uint8Array | undefined;
+                                    } & { [K_36 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                                    multi?: ({
+                                        bitarray?: {
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } | undefined;
+                                        signatures?: any[] | undefined;
+                                    } & {
+                                        bitarray?: ({
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } & {
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } & { [K_37 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                        signatures?: (any[] & ({
+                                            single?: {
+                                                mode?: SignMode | undefined;
+                                                signature?: Uint8Array | undefined;
+                                            } | undefined;
+                                            multi?: {
+                                                bitarray?: {
+                                                    extraBitsStored?: number | undefined;
+                                                    elems?: Uint8Array | undefined;
+                                                } | undefined;
+                                                signatures?: any[] | undefined;
+                                            } | undefined;
+                                        } & {
+                                            single?: ({
+                                                mode?: SignMode | undefined;
+                                                signature?: Uint8Array | undefined;
+                                            } & {
+                                                mode?: SignMode | undefined;
+                                                signature?: Uint8Array | undefined;
+                                            } & { [K_38 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                                            multi?: ({
+                                                bitarray?: {
+                                                    extraBitsStored?: number | undefined;
+                                                    elems?: Uint8Array | undefined;
+                                                } | undefined;
+                                                signatures?: any[] | undefined;
+                                            } & {
+                                                bitarray?: ({
+                                                    extraBitsStored?: number | undefined;
+                                                    elems?: Uint8Array | undefined;
+                                                } & any & { [K_39 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                                signatures?: (any[] & ({
+                                                    single?: {
+                                                        mode?: SignMode | undefined;
+                                                        signature?: Uint8Array | undefined;
+                                                    } | undefined;
+                                                    multi?: {
+                                                        bitarray?: {
+                                                            extraBitsStored?: number | undefined;
+                                                            elems?: Uint8Array | undefined;
+                                                        } | undefined;
+                                                        signatures?: any[] | undefined;
+                                                    } | undefined;
+                                                } & any & { [K_40 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_41 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                                            } & { [K_42 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                                        } & { [K_43 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_44 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                                    } & { [K_45 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                                } & { [K_46 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_47 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                            } & { [K_48 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                        } & { [K_49 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_50 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                    } & { [K_51 in Exclude<keyof I_1["data"]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                } & { [K_52 in Exclude<keyof I_1["data"]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_53 in Exclude<keyof I_1["data"]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+            } & { [K_54 in Exclude<keyof I_1["data"]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+        } & { [K_55 in Exclude<keyof I_1["data"], keyof SignatureDescriptor_Data>]: never; }) | undefined;
+        sequence?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_56 in Exclude<keyof I_1["sequence"], keyof Long>]: never; }) | undefined;
+    } & { [K_57 in Exclude<keyof I_1, keyof SignatureDescriptor>]: never; }>(object: I_1): SignatureDescriptor;
 };
 export declare const SignatureDescriptor_Data: {
     encode(message: SignatureDescriptor_Data, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): SignatureDescriptor_Data;
     fromJSON(object: any): SignatureDescriptor_Data;
     toJSON(message: SignatureDescriptor_Data): unknown;
-    fromPartial<I extends {
+    create<I extends {
         single?: {
             mode?: SignMode | undefined;
             signature?: Uint8Array | undefined;
@@ -945,27 +1565,239 @@ export declare const SignatureDescriptor_Data: {
                 } & { [K_23 in Exclude<keyof I["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
             } & { [K_24 in Exclude<keyof I["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_25 in Exclude<keyof I["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
         } & { [K_26 in Exclude<keyof I["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
-    } & { [K_27 in Exclude<keyof I, keyof SignatureDescriptor_Data>]: never; }>(object: I): SignatureDescriptor_Data;
+    } & { [K_27 in Exclude<keyof I, keyof SignatureDescriptor_Data>]: never; }>(base?: I | undefined): SignatureDescriptor_Data;
+    fromPartial<I_1 extends {
+        single?: {
+            mode?: SignMode | undefined;
+            signature?: Uint8Array | undefined;
+        } | undefined;
+        multi?: {
+            bitarray?: {
+                extraBitsStored?: number | undefined;
+                elems?: Uint8Array | undefined;
+            } | undefined;
+            signatures?: any[] | undefined;
+        } | undefined;
+    } & {
+        single?: ({
+            mode?: SignMode | undefined;
+            signature?: Uint8Array | undefined;
+        } & {
+            mode?: SignMode | undefined;
+            signature?: Uint8Array | undefined;
+        } & { [K_28 in Exclude<keyof I_1["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+        multi?: ({
+            bitarray?: {
+                extraBitsStored?: number | undefined;
+                elems?: Uint8Array | undefined;
+            } | undefined;
+            signatures?: any[] | undefined;
+        } & {
+            bitarray?: ({
+                extraBitsStored?: number | undefined;
+                elems?: Uint8Array | undefined;
+            } & {
+                extraBitsStored?: number | undefined;
+                elems?: Uint8Array | undefined;
+            } & { [K_29 in Exclude<keyof I_1["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+            signatures?: (any[] & ({
+                single?: {
+                    mode?: SignMode | undefined;
+                    signature?: Uint8Array | undefined;
+                } | undefined;
+                multi?: {
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    signatures?: any[] | undefined;
+                } | undefined;
+            } & {
+                single?: ({
+                    mode?: SignMode | undefined;
+                    signature?: Uint8Array | undefined;
+                } & {
+                    mode?: SignMode | undefined;
+                    signature?: Uint8Array | undefined;
+                } & { [K_30 in Exclude<keyof I_1["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                multi?: ({
+                    bitarray?: {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } | undefined;
+                    signatures?: any[] | undefined;
+                } & {
+                    bitarray?: ({
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } & {
+                        extraBitsStored?: number | undefined;
+                        elems?: Uint8Array | undefined;
+                    } & { [K_31 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                    signatures?: (any[] & ({
+                        single?: {
+                            mode?: SignMode | undefined;
+                            signature?: Uint8Array | undefined;
+                        } | undefined;
+                        multi?: {
+                            bitarray?: {
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } | undefined;
+                            signatures?: any[] | undefined;
+                        } | undefined;
+                    } & {
+                        single?: ({
+                            mode?: SignMode | undefined;
+                            signature?: Uint8Array | undefined;
+                        } & {
+                            mode?: SignMode | undefined;
+                            signature?: Uint8Array | undefined;
+                        } & { [K_32 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                        multi?: ({
+                            bitarray?: {
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } | undefined;
+                            signatures?: any[] | undefined;
+                        } & {
+                            bitarray?: ({
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } & {
+                                extraBitsStored?: number | undefined;
+                                elems?: Uint8Array | undefined;
+                            } & { [K_33 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                            signatures?: (any[] & ({
+                                single?: {
+                                    mode?: SignMode | undefined;
+                                    signature?: Uint8Array | undefined;
+                                } | undefined;
+                                multi?: {
+                                    bitarray?: {
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } | undefined;
+                                    signatures?: any[] | undefined;
+                                } | undefined;
+                            } & {
+                                single?: ({
+                                    mode?: SignMode | undefined;
+                                    signature?: Uint8Array | undefined;
+                                } & {
+                                    mode?: SignMode | undefined;
+                                    signature?: Uint8Array | undefined;
+                                } & { [K_34 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                                multi?: ({
+                                    bitarray?: {
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } | undefined;
+                                    signatures?: any[] | undefined;
+                                } & {
+                                    bitarray?: ({
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } & {
+                                        extraBitsStored?: number | undefined;
+                                        elems?: Uint8Array | undefined;
+                                    } & { [K_35 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                    signatures?: (any[] & ({
+                                        single?: {
+                                            mode?: SignMode | undefined;
+                                            signature?: Uint8Array | undefined;
+                                        } | undefined;
+                                        multi?: {
+                                            bitarray?: {
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } | undefined;
+                                            signatures?: any[] | undefined;
+                                        } | undefined;
+                                    } & {
+                                        single?: ({
+                                            mode?: SignMode | undefined;
+                                            signature?: Uint8Array | undefined;
+                                        } & {
+                                            mode?: SignMode | undefined;
+                                            signature?: Uint8Array | undefined;
+                                        } & { [K_36 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                                        multi?: ({
+                                            bitarray?: {
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } | undefined;
+                                            signatures?: any[] | undefined;
+                                        } & {
+                                            bitarray?: ({
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } & {
+                                                extraBitsStored?: number | undefined;
+                                                elems?: Uint8Array | undefined;
+                                            } & { [K_37 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                            signatures?: (any[] & ({
+                                                single?: {
+                                                    mode?: SignMode | undefined;
+                                                    signature?: Uint8Array | undefined;
+                                                } | undefined;
+                                                multi?: {
+                                                    bitarray?: {
+                                                        extraBitsStored?: number | undefined;
+                                                        elems?: Uint8Array | undefined;
+                                                    } | undefined;
+                                                    signatures?: any[] | undefined;
+                                                } | undefined;
+                                            } & {
+                                                single?: ({
+                                                    mode?: SignMode | undefined;
+                                                    signature?: Uint8Array | undefined;
+                                                } & any & { [K_38 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                                                multi?: ({
+                                                    bitarray?: {
+                                                        extraBitsStored?: number | undefined;
+                                                        elems?: Uint8Array | undefined;
+                                                    } | undefined;
+                                                    signatures?: any[] | undefined;
+                                                } & any & { [K_39 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                                            } & { [K_40 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_41 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                                        } & { [K_42 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                                    } & { [K_43 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_44 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                                } & { [K_45 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                            } & { [K_46 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_47 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                        } & { [K_48 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                    } & { [K_49 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_50 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                } & { [K_51 in Exclude<keyof I_1["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+            } & { [K_52 in Exclude<keyof I_1["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_53 in Exclude<keyof I_1["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+        } & { [K_54 in Exclude<keyof I_1["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+    } & { [K_55 in Exclude<keyof I_1, keyof SignatureDescriptor_Data>]: never; }>(object: I_1): SignatureDescriptor_Data;
 };
 export declare const SignatureDescriptor_Data_Single: {
     encode(message: SignatureDescriptor_Data_Single, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): SignatureDescriptor_Data_Single;
     fromJSON(object: any): SignatureDescriptor_Data_Single;
     toJSON(message: SignatureDescriptor_Data_Single): unknown;
-    fromPartial<I extends {
+    create<I extends {
         mode?: SignMode | undefined;
         signature?: Uint8Array | undefined;
     } & {
         mode?: SignMode | undefined;
         signature?: Uint8Array | undefined;
-    } & { [K in Exclude<keyof I, keyof SignatureDescriptor_Data_Single>]: never; }>(object: I): SignatureDescriptor_Data_Single;
+    } & { [K in Exclude<keyof I, keyof SignatureDescriptor_Data_Single>]: never; }>(base?: I | undefined): SignatureDescriptor_Data_Single;
+    fromPartial<I_1 extends {
+        mode?: SignMode | undefined;
+        signature?: Uint8Array | undefined;
+    } & {
+        mode?: SignMode | undefined;
+        signature?: Uint8Array | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof SignatureDescriptor_Data_Single>]: never; }>(object: I_1): SignatureDescriptor_Data_Single;
 };
 export declare const SignatureDescriptor_Data_Multi: {
     encode(message: SignatureDescriptor_Data_Multi, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): SignatureDescriptor_Data_Multi;
     fromJSON(object: any): SignatureDescriptor_Data_Multi;
     toJSON(message: SignatureDescriptor_Data_Multi): unknown;
-    fromPartial<I extends {
+    create<I extends {
         bitarray?: {
             extraBitsStored?: number | undefined;
             elems?: Uint8Array | undefined;
@@ -1169,7 +2001,212 @@ export declare const SignatureDescriptor_Data_Multi: {
                 } & { [K_23 in Exclude<keyof I["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_24 in Exclude<keyof I["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
             } & { [K_25 in Exclude<keyof I["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
         } & { [K_26 in Exclude<keyof I["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_27 in Exclude<keyof I["signatures"], keyof any[]>]: never; }) | undefined;
-    } & { [K_28 in Exclude<keyof I, keyof SignatureDescriptor_Data_Multi>]: never; }>(object: I): SignatureDescriptor_Data_Multi;
+    } & { [K_28 in Exclude<keyof I, keyof SignatureDescriptor_Data_Multi>]: never; }>(base?: I | undefined): SignatureDescriptor_Data_Multi;
+    fromPartial<I_1 extends {
+        bitarray?: {
+            extraBitsStored?: number | undefined;
+            elems?: Uint8Array | undefined;
+        } | undefined;
+        signatures?: any[] | undefined;
+    } & {
+        bitarray?: ({
+            extraBitsStored?: number | undefined;
+            elems?: Uint8Array | undefined;
+        } & {
+            extraBitsStored?: number | undefined;
+            elems?: Uint8Array | undefined;
+        } & { [K_29 in Exclude<keyof I_1["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+        signatures?: (any[] & ({
+            single?: {
+                mode?: SignMode | undefined;
+                signature?: Uint8Array | undefined;
+            } | undefined;
+            multi?: {
+                bitarray?: {
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } | undefined;
+                signatures?: any[] | undefined;
+            } | undefined;
+        } & {
+            single?: ({
+                mode?: SignMode | undefined;
+                signature?: Uint8Array | undefined;
+            } & {
+                mode?: SignMode | undefined;
+                signature?: Uint8Array | undefined;
+            } & { [K_30 in Exclude<keyof I_1["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+            multi?: ({
+                bitarray?: {
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } | undefined;
+                signatures?: any[] | undefined;
+            } & {
+                bitarray?: ({
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } & {
+                    extraBitsStored?: number | undefined;
+                    elems?: Uint8Array | undefined;
+                } & { [K_31 in Exclude<keyof I_1["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                signatures?: (any[] & ({
+                    single?: {
+                        mode?: SignMode | undefined;
+                        signature?: Uint8Array | undefined;
+                    } | undefined;
+                    multi?: {
+                        bitarray?: {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } | undefined;
+                        signatures?: any[] | undefined;
+                    } | undefined;
+                } & {
+                    single?: ({
+                        mode?: SignMode | undefined;
+                        signature?: Uint8Array | undefined;
+                    } & {
+                        mode?: SignMode | undefined;
+                        signature?: Uint8Array | undefined;
+                    } & { [K_32 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                    multi?: ({
+                        bitarray?: {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } | undefined;
+                        signatures?: any[] | undefined;
+                    } & {
+                        bitarray?: ({
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } & {
+                            extraBitsStored?: number | undefined;
+                            elems?: Uint8Array | undefined;
+                        } & { [K_33 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                        signatures?: (any[] & ({
+                            single?: {
+                                mode?: SignMode | undefined;
+                                signature?: Uint8Array | undefined;
+                            } | undefined;
+                            multi?: {
+                                bitarray?: {
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } | undefined;
+                                signatures?: any[] | undefined;
+                            } | undefined;
+                        } & {
+                            single?: ({
+                                mode?: SignMode | undefined;
+                                signature?: Uint8Array | undefined;
+                            } & {
+                                mode?: SignMode | undefined;
+                                signature?: Uint8Array | undefined;
+                            } & { [K_34 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                            multi?: ({
+                                bitarray?: {
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } | undefined;
+                                signatures?: any[] | undefined;
+                            } & {
+                                bitarray?: ({
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } & {
+                                    extraBitsStored?: number | undefined;
+                                    elems?: Uint8Array | undefined;
+                                } & { [K_35 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                signatures?: (any[] & ({
+                                    single?: {
+                                        mode?: SignMode | undefined;
+                                        signature?: Uint8Array | undefined;
+                                    } | undefined;
+                                    multi?: {
+                                        bitarray?: {
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } | undefined;
+                                        signatures?: any[] | undefined;
+                                    } | undefined;
+                                } & {
+                                    single?: ({
+                                        mode?: SignMode | undefined;
+                                        signature?: Uint8Array | undefined;
+                                    } & {
+                                        mode?: SignMode | undefined;
+                                        signature?: Uint8Array | undefined;
+                                    } & { [K_36 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                                    multi?: ({
+                                        bitarray?: {
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } | undefined;
+                                        signatures?: any[] | undefined;
+                                    } & {
+                                        bitarray?: ({
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } & {
+                                            extraBitsStored?: number | undefined;
+                                            elems?: Uint8Array | undefined;
+                                        } & { [K_37 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                        signatures?: (any[] & ({
+                                            single?: {
+                                                mode?: SignMode | undefined;
+                                                signature?: Uint8Array | undefined;
+                                            } | undefined;
+                                            multi?: {
+                                                bitarray?: {
+                                                    extraBitsStored?: number | undefined;
+                                                    elems?: Uint8Array | undefined;
+                                                } | undefined;
+                                                signatures?: any[] | undefined;
+                                            } | undefined;
+                                        } & {
+                                            single?: ({
+                                                mode?: SignMode | undefined;
+                                                signature?: Uint8Array | undefined;
+                                            } & {
+                                                mode?: SignMode | undefined;
+                                                signature?: Uint8Array | undefined;
+                                            } & { [K_38 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["single"], keyof SignatureDescriptor_Data_Single>]: never; }) | undefined;
+                                            multi?: ({
+                                                bitarray?: {
+                                                    extraBitsStored?: number | undefined;
+                                                    elems?: Uint8Array | undefined;
+                                                } | undefined;
+                                                signatures?: any[] | undefined;
+                                            } & {
+                                                bitarray?: ({
+                                                    extraBitsStored?: number | undefined;
+                                                    elems?: Uint8Array | undefined;
+                                                } & any & { [K_39 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["bitarray"], keyof CompactBitArray>]: never; }) | undefined;
+                                                signatures?: (any[] & ({
+                                                    single?: {
+                                                        mode?: SignMode | undefined;
+                                                        signature?: Uint8Array | undefined;
+                                                    } | undefined;
+                                                    multi?: {
+                                                        bitarray?: {
+                                                            extraBitsStored?: number | undefined;
+                                                            elems?: Uint8Array | undefined;
+                                                        } | undefined;
+                                                        signatures?: any[] | undefined;
+                                                    } | undefined;
+                                                } & any & { [K_40 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_41 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                                            } & { [K_42 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                                        } & { [K_43 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_44 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                                    } & { [K_45 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                                } & { [K_46 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_47 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                            } & { [K_48 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                        } & { [K_49 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_50 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+                    } & { [K_51 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+                } & { [K_52 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_53 in Exclude<keyof I_1["signatures"][number]["multi"]["signatures"], keyof any[]>]: never; }) | undefined;
+            } & { [K_54 in Exclude<keyof I_1["signatures"][number]["multi"], keyof SignatureDescriptor_Data_Multi>]: never; }) | undefined;
+        } & { [K_55 in Exclude<keyof I_1["signatures"][number], keyof SignatureDescriptor_Data>]: never; })[] & { [K_56 in Exclude<keyof I_1["signatures"], keyof any[]>]: never; }) | undefined;
+    } & { [K_57 in Exclude<keyof I_1, keyof SignatureDescriptor_Data_Multi>]: never; }>(object: I_1): SignatureDescriptor_Data_Multi;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

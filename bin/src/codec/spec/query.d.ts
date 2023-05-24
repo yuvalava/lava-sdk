@@ -52,14 +52,15 @@ export declare const QueryParamsRequest: {
     decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest;
     fromJSON(_: any): QueryParamsRequest;
     toJSON(_: QueryParamsRequest): unknown;
-    fromPartial<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(_: I): QueryParamsRequest;
+    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): QueryParamsRequest;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): QueryParamsRequest;
 };
 export declare const QueryParamsResponse: {
     encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsResponse;
     fromJSON(object: any): QueryParamsResponse;
     toJSON(message: QueryParamsResponse): unknown;
-    fromPartial<I extends {
+    create<I extends {
         params?: {
             geolocationCount?: string | number | Long | undefined;
             maxCU?: string | number | Long | undefined;
@@ -214,33 +215,197 @@ export declare const QueryParamsResponse: {
                 xor: (other: string | number | Long) => Long;
             } & { [K_1 in Exclude<keyof I["params"]["maxCU"], keyof Long>]: never; }) | undefined;
         } & { [K_2 in Exclude<keyof I["params"], keyof Params>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, "params">]: never; }>(object: I): QueryParamsResponse;
+    } & { [K_3 in Exclude<keyof I, "params">]: never; }>(base?: I | undefined): QueryParamsResponse;
+    fromPartial<I_1 extends {
+        params?: {
+            geolocationCount?: string | number | Long | undefined;
+            maxCU?: string | number | Long | undefined;
+        } | undefined;
+    } & {
+        params?: ({
+            geolocationCount?: string | number | Long | undefined;
+            maxCU?: string | number | Long | undefined;
+        } & {
+            geolocationCount?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_4 in Exclude<keyof I_1["params"]["geolocationCount"], keyof Long>]: never; }) | undefined;
+            maxCU?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_5 in Exclude<keyof I_1["params"]["maxCU"], keyof Long>]: never; }) | undefined;
+        } & { [K_6 in Exclude<keyof I_1["params"], keyof Params>]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I_1, "params">]: never; }>(object: I_1): QueryParamsResponse;
 };
 export declare const QueryGetSpecRequest: {
     encode(message: QueryGetSpecRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetSpecRequest;
     fromJSON(object: any): QueryGetSpecRequest;
     toJSON(message: QueryGetSpecRequest): unknown;
-    fromPartial<I extends {
+    create<I extends {
         ChainID?: string | undefined;
     } & {
         ChainID?: string | undefined;
-    } & { [K in Exclude<keyof I, "ChainID">]: never; }>(object: I): QueryGetSpecRequest;
+    } & { [K in Exclude<keyof I, "ChainID">]: never; }>(base?: I | undefined): QueryGetSpecRequest;
+    fromPartial<I_1 extends {
+        ChainID?: string | undefined;
+    } & {
+        ChainID?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "ChainID">]: never; }>(object: I_1): QueryGetSpecRequest;
 };
 export declare const QueryGetSpecResponse: {
     encode(message: QueryGetSpecResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): QueryGetSpecResponse;
     fromJSON(object: any): QueryGetSpecResponse;
     toJSON(message: QueryGetSpecResponse): unknown;
-    fromPartial<I extends {
+    create<I extends {
         Spec?: {
             index?: string | undefined;
             name?: string | undefined;
+            imports?: string[] | undefined;
             apis?: {
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -248,12 +413,26 @@ export declare const QueryGetSpecResponse: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -261,27 +440,42 @@ export declare const QueryGetSpecResponse: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[] | undefined;
             enabled?: boolean | undefined;
             reliabilityThreshold?: number | undefined;
-            comparesHashes?: boolean | undefined;
-            finalizationCriteria?: number | undefined;
-            savedBlocks?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
             averageBlockTime?: string | number | Long | undefined;
             allowedBlockLagForQosSync?: string | number | Long | undefined;
             blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
         } | undefined;
     } & {
         Spec?: ({
             index?: string | undefined;
             name?: string | undefined;
+            imports?: string[] | undefined;
             apis?: {
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -289,12 +483,26 @@ export declare const QueryGetSpecResponse: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -302,25 +510,40 @@ export declare const QueryGetSpecResponse: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[] | undefined;
             enabled?: boolean | undefined;
             reliabilityThreshold?: number | undefined;
-            comparesHashes?: boolean | undefined;
-            finalizationCriteria?: number | undefined;
-            savedBlocks?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
             averageBlockTime?: string | number | Long | undefined;
             allowedBlockLagForQosSync?: string | number | Long | undefined;
             blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
         } & {
             index?: string | undefined;
             name?: string | undefined;
+            imports?: (string[] & string[] & { [K in Exclude<keyof I["Spec"]["imports"], keyof string[]>]: never; }) | undefined;
             apis?: ({
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -328,12 +551,26 @@ export declare const QueryGetSpecResponse: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -341,13 +578,18 @@ export declare const QueryGetSpecResponse: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[] & ({
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -355,12 +597,26 @@ export declare const QueryGetSpecResponse: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -368,17 +624,24 @@ export declare const QueryGetSpecResponse: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             } & {
                 name?: string | undefined;
                 blockParsing?: ({
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } & {
-                    parserArg?: (string[] & string[] & { [K in Exclude<keyof I["Spec"]["apis"][number]["blockParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
+                    parserArg?: (string[] & string[] & { [K_1 in Exclude<keyof I["Spec"]["apis"][number]["blockParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
-                } & { [K_1 in Exclude<keyof I["Spec"]["apis"][number]["blockParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } & { [K_2 in Exclude<keyof I["Spec"]["apis"][number]["blockParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
                 computeUnits?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -450,16 +713,42 @@ export declare const QueryGetSpecResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_2 in Exclude<keyof I["Spec"]["apis"][number]["computeUnits"], keyof Long>]: never; }) | undefined;
+                } & { [K_3 in Exclude<keyof I["Spec"]["apis"][number]["computeUnits"], keyof Long>]: never; }) | undefined;
                 enabled?: boolean | undefined;
                 apiInterfaces?: ({
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] & ({
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 } & {
                     interface?: string | undefined;
                     type?: string | undefined;
@@ -534,29 +823,70 @@ export declare const QueryGetSpecResponse: {
                         toString: (radix?: number | undefined) => string;
                         toUnsigned: () => Long;
                         xor: (other: string | number | Long) => Long;
-                    } & { [K_3 in Exclude<keyof I["Spec"]["apis"][number]["apiInterfaces"][number]["extraComputeUnits"], keyof Long>]: never; }) | undefined;
-                } & { [K_4 in Exclude<keyof I["Spec"]["apis"][number]["apiInterfaces"][number], keyof import("./service_api").ApiInterface>]: never; })[] & { [K_5 in Exclude<keyof I["Spec"]["apis"][number]["apiInterfaces"], keyof {
+                    } & { [K_4 in Exclude<keyof I["Spec"]["apis"][number]["apiInterfaces"][number]["extraComputeUnits"], keyof Long>]: never; }) | undefined;
+                    category?: ({
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } & {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } & { [K_5 in Exclude<keyof I["Spec"]["apis"][number]["apiInterfaces"][number]["category"], keyof import("./service_api").SpecCategory>]: never; }) | undefined;
+                    overwriteBlockParsing?: ({
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & {
+                        parserArg?: (string[] & string[] & { [K_6 in Exclude<keyof I["Spec"]["apis"][number]["apiInterfaces"][number]["overwriteBlockParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & { [K_7 in Exclude<keyof I["Spec"]["apis"][number]["apiInterfaces"][number]["overwriteBlockParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
+                } & { [K_8 in Exclude<keyof I["Spec"]["apis"][number]["apiInterfaces"][number], keyof import("./service_api").ApiInterface>]: never; })[] & { [K_9 in Exclude<keyof I["Spec"]["apis"][number]["apiInterfaces"], keyof {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[]>]: never; }) | undefined;
-                category?: ({
+                reserved?: ({
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } & {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
-                } & { [K_6 in Exclude<keyof I["Spec"]["apis"][number]["category"], keyof import("./service_api").SpecCategory>]: never; }) | undefined;
+                    hangingApi?: boolean | undefined;
+                } & { [K_10 in Exclude<keyof I["Spec"]["apis"][number]["reserved"], keyof import("./service_api").SpecCategory>]: never; }) | undefined;
                 parsing?: ({
                     functionTag?: string | undefined;
                     functionTemplate?: string | undefined;
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } & {
                     functionTag?: string | undefined;
@@ -564,16 +894,23 @@ export declare const QueryGetSpecResponse: {
                     resultParsing?: ({
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } & {
-                        parserArg?: (string[] & string[] & { [K_7 in Exclude<keyof I["Spec"]["apis"][number]["parsing"]["resultParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
+                        parserArg?: (string[] & string[] & { [K_11 in Exclude<keyof I["Spec"]["apis"][number]["parsing"]["resultParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
-                    } & { [K_8 in Exclude<keyof I["Spec"]["apis"][number]["parsing"]["resultParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
-                } & { [K_9 in Exclude<keyof I["Spec"]["apis"][number]["parsing"], keyof import("./service_api").Parsing>]: never; }) | undefined;
-            } & { [K_10 in Exclude<keyof I["Spec"]["apis"][number], keyof import("./service_api").ServiceApi>]: never; })[] & { [K_11 in Exclude<keyof I["Spec"]["apis"], keyof {
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & { [K_12 in Exclude<keyof I["Spec"]["apis"][number]["parsing"]["resultParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
+                } & { [K_13 in Exclude<keyof I["Spec"]["apis"][number]["parsing"], keyof import("./service_api").Parsing>]: never; }) | undefined;
+                internalPath?: string | undefined;
+            } & { [K_14 in Exclude<keyof I["Spec"]["apis"][number], keyof import("./service_api").ServiceApi>]: never; })[] & { [K_15 in Exclude<keyof I["Spec"]["apis"], keyof {
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -581,12 +918,26 @@ export declare const QueryGetSpecResponse: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -594,14 +945,17 @@ export declare const QueryGetSpecResponse: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[]>]: never; }) | undefined;
             enabled?: boolean | undefined;
             reliabilityThreshold?: number | undefined;
-            comparesHashes?: boolean | undefined;
-            finalizationCriteria?: number | undefined;
-            savedBlocks?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
             averageBlockTime?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -673,7 +1027,7 @@ export declare const QueryGetSpecResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_12 in Exclude<keyof I["Spec"]["averageBlockTime"], keyof Long>]: never; }) | undefined;
+            } & { [K_16 in Exclude<keyof I["Spec"]["averageBlockTime"], keyof Long>]: never; }) | undefined;
             allowedBlockLagForQosSync?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -745,7 +1099,7 @@ export declare const QueryGetSpecResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_13 in Exclude<keyof I["Spec"]["allowedBlockLagForQosSync"], keyof Long>]: never; }) | undefined;
+            } & { [K_17 in Exclude<keyof I["Spec"]["allowedBlockLagForQosSync"], keyof Long>]: never; }) | undefined;
             blockLastUpdated?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -817,16 +1171,826 @@ export declare const QueryGetSpecResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_14 in Exclude<keyof I["Spec"]["blockLastUpdated"], keyof Long>]: never; }) | undefined;
-        } & { [K_15 in Exclude<keyof I["Spec"], keyof Spec>]: never; }) | undefined;
-    } & { [K_16 in Exclude<keyof I, "Spec">]: never; }>(object: I): QueryGetSpecResponse;
+            } & { [K_18 in Exclude<keyof I["Spec"]["blockLastUpdated"], keyof Long>]: never; }) | undefined;
+            minStakeProvider?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_19 in Exclude<keyof I["Spec"]["minStakeProvider"], keyof import("../cosmos/base/v1beta1/coin").Coin>]: never; }) | undefined;
+            minStakeClient?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_20 in Exclude<keyof I["Spec"]["minStakeClient"], keyof import("../cosmos/base/v1beta1/coin").Coin>]: never; }) | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
+        } & { [K_21 in Exclude<keyof I["Spec"], keyof Spec>]: never; }) | undefined;
+    } & { [K_22 in Exclude<keyof I, "Spec">]: never; }>(base?: I | undefined): QueryGetSpecResponse;
+    fromPartial<I_1 extends {
+        Spec?: {
+            index?: string | undefined;
+            name?: string | undefined;
+            imports?: string[] | undefined;
+            apis?: {
+                name?: string | undefined;
+                blockParsing?: {
+                    parserArg?: string[] | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } | undefined;
+                computeUnits?: string | number | Long | undefined;
+                enabled?: boolean | undefined;
+                apiInterfaces?: {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[] | undefined;
+                reserved?: {
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } | undefined;
+                parsing?: {
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                internalPath?: string | undefined;
+            }[] | undefined;
+            enabled?: boolean | undefined;
+            reliabilityThreshold?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
+            averageBlockTime?: string | number | Long | undefined;
+            allowedBlockLagForQosSync?: string | number | Long | undefined;
+            blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
+        } | undefined;
+    } & {
+        Spec?: ({
+            index?: string | undefined;
+            name?: string | undefined;
+            imports?: string[] | undefined;
+            apis?: {
+                name?: string | undefined;
+                blockParsing?: {
+                    parserArg?: string[] | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } | undefined;
+                computeUnits?: string | number | Long | undefined;
+                enabled?: boolean | undefined;
+                apiInterfaces?: {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[] | undefined;
+                reserved?: {
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } | undefined;
+                parsing?: {
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                internalPath?: string | undefined;
+            }[] | undefined;
+            enabled?: boolean | undefined;
+            reliabilityThreshold?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
+            averageBlockTime?: string | number | Long | undefined;
+            allowedBlockLagForQosSync?: string | number | Long | undefined;
+            blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
+        } & {
+            index?: string | undefined;
+            name?: string | undefined;
+            imports?: (string[] & string[] & { [K_23 in Exclude<keyof I_1["Spec"]["imports"], keyof string[]>]: never; }) | undefined;
+            apis?: ({
+                name?: string | undefined;
+                blockParsing?: {
+                    parserArg?: string[] | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } | undefined;
+                computeUnits?: string | number | Long | undefined;
+                enabled?: boolean | undefined;
+                apiInterfaces?: {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[] | undefined;
+                reserved?: {
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } | undefined;
+                parsing?: {
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                internalPath?: string | undefined;
+            }[] & ({
+                name?: string | undefined;
+                blockParsing?: {
+                    parserArg?: string[] | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } | undefined;
+                computeUnits?: string | number | Long | undefined;
+                enabled?: boolean | undefined;
+                apiInterfaces?: {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[] | undefined;
+                reserved?: {
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } | undefined;
+                parsing?: {
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                internalPath?: string | undefined;
+            } & {
+                name?: string | undefined;
+                blockParsing?: ({
+                    parserArg?: string[] | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } & {
+                    parserArg?: (string[] & string[] & { [K_24 in Exclude<keyof I_1["Spec"]["apis"][number]["blockParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } & { [K_25 in Exclude<keyof I_1["Spec"]["apis"][number]["blockParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
+                computeUnits?: string | number | (Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long) => Long;
+                    and: (other: string | number | Long) => Long;
+                    compare: (other: string | number | Long) => number;
+                    comp: (other: string | number | Long) => number;
+                    divide: (divisor: string | number | Long) => Long;
+                    div: (divisor: string | number | Long) => Long;
+                    equals: (other: string | number | Long) => boolean;
+                    eq: (other: string | number | Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long) => boolean;
+                    gt: (other: string | number | Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long) => boolean;
+                    gte: (other: string | number | Long) => boolean;
+                    ge: (other: string | number | Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    eqz: () => boolean;
+                    lessThan: (other: string | number | Long) => boolean;
+                    lt: (other: string | number | Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long) => boolean;
+                    lte: (other: string | number | Long) => boolean;
+                    le: (other: string | number | Long) => boolean;
+                    modulo: (other: string | number | Long) => Long;
+                    mod: (other: string | number | Long) => Long;
+                    rem: (other: string | number | Long) => Long;
+                    multiply: (multiplier: string | number | Long) => Long;
+                    mul: (multiplier: string | number | Long) => Long;
+                    negate: () => Long;
+                    neg: () => Long;
+                    not: () => Long;
+                    countLeadingZeros: () => number;
+                    clz: () => number;
+                    countTrailingZeros: () => number;
+                    ctz: () => number;
+                    notEquals: (other: string | number | Long) => boolean;
+                    neq: (other: string | number | Long) => boolean;
+                    ne: (other: string | number | Long) => boolean;
+                    or: (other: string | number | Long) => Long;
+                    shiftLeft: (numBits: number | Long) => Long;
+                    shl: (numBits: number | Long) => Long;
+                    shiftRight: (numBits: number | Long) => Long;
+                    shr: (numBits: number | Long) => Long;
+                    shiftRightUnsigned: (numBits: number | Long) => Long;
+                    shru: (numBits: number | Long) => Long;
+                    shr_u: (numBits: number | Long) => Long;
+                    rotateLeft: (numBits: number | Long) => Long;
+                    rotl: (numBits: number | Long) => Long;
+                    rotateRight: (numBits: number | Long) => Long;
+                    rotr: (numBits: number | Long) => Long;
+                    subtract: (subtrahend: string | number | Long) => Long;
+                    sub: (subtrahend: string | number | Long) => Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long;
+                    xor: (other: string | number | Long) => Long;
+                } & { [K_26 in Exclude<keyof I_1["Spec"]["apis"][number]["computeUnits"], keyof Long>]: never; }) | undefined;
+                enabled?: boolean | undefined;
+                apiInterfaces?: ({
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[] & ({
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } & {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | (Long & {
+                        high: number;
+                        low: number;
+                        unsigned: boolean;
+                        add: (addend: string | number | Long) => Long;
+                        and: (other: string | number | Long) => Long;
+                        compare: (other: string | number | Long) => number;
+                        comp: (other: string | number | Long) => number;
+                        divide: (divisor: string | number | Long) => Long;
+                        div: (divisor: string | number | Long) => Long;
+                        equals: (other: string | number | Long) => boolean;
+                        eq: (other: string | number | Long) => boolean;
+                        getHighBits: () => number;
+                        getHighBitsUnsigned: () => number;
+                        getLowBits: () => number;
+                        getLowBitsUnsigned: () => number;
+                        getNumBitsAbs: () => number;
+                        greaterThan: (other: string | number | Long) => boolean;
+                        gt: (other: string | number | Long) => boolean;
+                        greaterThanOrEqual: (other: string | number | Long) => boolean;
+                        gte: (other: string | number | Long) => boolean;
+                        ge: (other: string | number | Long) => boolean;
+                        isEven: () => boolean;
+                        isNegative: () => boolean;
+                        isOdd: () => boolean;
+                        isPositive: () => boolean;
+                        isZero: () => boolean;
+                        eqz: () => boolean;
+                        lessThan: (other: string | number | Long) => boolean;
+                        lt: (other: string | number | Long) => boolean;
+                        lessThanOrEqual: (other: string | number | Long) => boolean;
+                        lte: (other: string | number | Long) => boolean;
+                        le: (other: string | number | Long) => boolean;
+                        modulo: (other: string | number | Long) => Long;
+                        mod: (other: string | number | Long) => Long;
+                        rem: (other: string | number | Long) => Long;
+                        multiply: (multiplier: string | number | Long) => Long;
+                        mul: (multiplier: string | number | Long) => Long;
+                        negate: () => Long;
+                        neg: () => Long;
+                        not: () => Long;
+                        countLeadingZeros: () => number;
+                        clz: () => number;
+                        countTrailingZeros: () => number;
+                        ctz: () => number;
+                        notEquals: (other: string | number | Long) => boolean;
+                        neq: (other: string | number | Long) => boolean;
+                        ne: (other: string | number | Long) => boolean;
+                        or: (other: string | number | Long) => Long;
+                        shiftLeft: (numBits: number | Long) => Long;
+                        shl: (numBits: number | Long) => Long;
+                        shiftRight: (numBits: number | Long) => Long;
+                        shr: (numBits: number | Long) => Long;
+                        shiftRightUnsigned: (numBits: number | Long) => Long;
+                        shru: (numBits: number | Long) => Long;
+                        shr_u: (numBits: number | Long) => Long;
+                        rotateLeft: (numBits: number | Long) => Long;
+                        rotl: (numBits: number | Long) => Long;
+                        rotateRight: (numBits: number | Long) => Long;
+                        rotr: (numBits: number | Long) => Long;
+                        subtract: (subtrahend: string | number | Long) => Long;
+                        sub: (subtrahend: string | number | Long) => Long;
+                        toInt: () => number;
+                        toNumber: () => number;
+                        toBytes: (le?: boolean | undefined) => number[];
+                        toBytesLE: () => number[];
+                        toBytesBE: () => number[];
+                        toSigned: () => Long;
+                        toString: (radix?: number | undefined) => string;
+                        toUnsigned: () => Long;
+                        xor: (other: string | number | Long) => Long;
+                    } & { [K_27 in Exclude<keyof I_1["Spec"]["apis"][number]["apiInterfaces"][number]["extraComputeUnits"], keyof Long>]: never; }) | undefined;
+                    category?: ({
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } & {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } & { [K_28 in Exclude<keyof I_1["Spec"]["apis"][number]["apiInterfaces"][number]["category"], keyof import("./service_api").SpecCategory>]: never; }) | undefined;
+                    overwriteBlockParsing?: ({
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & {
+                        parserArg?: (string[] & string[] & { [K_29 in Exclude<keyof I_1["Spec"]["apis"][number]["apiInterfaces"][number]["overwriteBlockParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & { [K_30 in Exclude<keyof I_1["Spec"]["apis"][number]["apiInterfaces"][number]["overwriteBlockParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
+                } & { [K_31 in Exclude<keyof I_1["Spec"]["apis"][number]["apiInterfaces"][number], keyof import("./service_api").ApiInterface>]: never; })[] & { [K_32 in Exclude<keyof I_1["Spec"]["apis"][number]["apiInterfaces"], keyof {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[]>]: never; }) | undefined;
+                reserved?: ({
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } & {
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } & { [K_33 in Exclude<keyof I_1["Spec"]["apis"][number]["reserved"], keyof import("./service_api").SpecCategory>]: never; }) | undefined;
+                parsing?: ({
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } & {
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: ({
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & {
+                        parserArg?: (string[] & string[] & { [K_34 in Exclude<keyof I_1["Spec"]["apis"][number]["parsing"]["resultParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & { [K_35 in Exclude<keyof I_1["Spec"]["apis"][number]["parsing"]["resultParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
+                } & { [K_36 in Exclude<keyof I_1["Spec"]["apis"][number]["parsing"], keyof import("./service_api").Parsing>]: never; }) | undefined;
+                internalPath?: string | undefined;
+            } & { [K_37 in Exclude<keyof I_1["Spec"]["apis"][number], keyof import("./service_api").ServiceApi>]: never; })[] & { [K_38 in Exclude<keyof I_1["Spec"]["apis"], keyof {
+                name?: string | undefined;
+                blockParsing?: {
+                    parserArg?: string[] | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } | undefined;
+                computeUnits?: string | number | Long | undefined;
+                enabled?: boolean | undefined;
+                apiInterfaces?: {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[] | undefined;
+                reserved?: {
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } | undefined;
+                parsing?: {
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                internalPath?: string | undefined;
+            }[]>]: never; }) | undefined;
+            enabled?: boolean | undefined;
+            reliabilityThreshold?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
+            averageBlockTime?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_39 in Exclude<keyof I_1["Spec"]["averageBlockTime"], keyof Long>]: never; }) | undefined;
+            allowedBlockLagForQosSync?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_40 in Exclude<keyof I_1["Spec"]["allowedBlockLagForQosSync"], keyof Long>]: never; }) | undefined;
+            blockLastUpdated?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_41 in Exclude<keyof I_1["Spec"]["blockLastUpdated"], keyof Long>]: never; }) | undefined;
+            minStakeProvider?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_42 in Exclude<keyof I_1["Spec"]["minStakeProvider"], keyof import("../cosmos/base/v1beta1/coin").Coin>]: never; }) | undefined;
+            minStakeClient?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_43 in Exclude<keyof I_1["Spec"]["minStakeClient"], keyof import("../cosmos/base/v1beta1/coin").Coin>]: never; }) | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
+        } & { [K_44 in Exclude<keyof I_1["Spec"], keyof Spec>]: never; }) | undefined;
+    } & { [K_45 in Exclude<keyof I_1, "Spec">]: never; }>(object: I_1): QueryGetSpecResponse;
 };
 export declare const QueryAllSpecRequest: {
     encode(message: QueryAllSpecRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllSpecRequest;
     fromJSON(object: any): QueryAllSpecRequest;
     toJSON(message: QueryAllSpecRequest): unknown;
-    fromPartial<I extends {
+    create<I extends {
         pagination?: {
             key?: Uint8Array | undefined;
             offset?: string | number | Long | undefined;
@@ -990,22 +2154,190 @@ export declare const QueryAllSpecRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & { [K_2 in Exclude<keyof I["pagination"], keyof PageRequest>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, "pagination">]: never; }>(object: I): QueryAllSpecRequest;
+    } & { [K_3 in Exclude<keyof I, "pagination">]: never; }>(base?: I | undefined): QueryAllSpecRequest;
+    fromPartial<I_1 extends {
+        pagination?: {
+            key?: Uint8Array | undefined;
+            offset?: string | number | Long | undefined;
+            limit?: string | number | Long | undefined;
+            countTotal?: boolean | undefined;
+            reverse?: boolean | undefined;
+        } | undefined;
+    } & {
+        pagination?: ({
+            key?: Uint8Array | undefined;
+            offset?: string | number | Long | undefined;
+            limit?: string | number | Long | undefined;
+            countTotal?: boolean | undefined;
+            reverse?: boolean | undefined;
+        } & {
+            key?: Uint8Array | undefined;
+            offset?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_4 in Exclude<keyof I_1["pagination"]["offset"], keyof Long>]: never; }) | undefined;
+            limit?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_5 in Exclude<keyof I_1["pagination"]["limit"], keyof Long>]: never; }) | undefined;
+            countTotal?: boolean | undefined;
+            reverse?: boolean | undefined;
+        } & { [K_6 in Exclude<keyof I_1["pagination"], keyof PageRequest>]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I_1, "pagination">]: never; }>(object: I_1): QueryAllSpecRequest;
 };
 export declare const QueryAllSpecResponse: {
     encode(message: QueryAllSpecResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): QueryAllSpecResponse;
     fromJSON(object: any): QueryAllSpecResponse;
     toJSON(message: QueryAllSpecResponse): unknown;
-    fromPartial<I extends {
+    create<I extends {
         Spec?: {
             index?: string | undefined;
             name?: string | undefined;
+            imports?: string[] | undefined;
             apis?: {
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -1013,12 +2345,26 @@ export declare const QueryAllSpecResponse: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -1026,17 +2372,29 @@ export declare const QueryAllSpecResponse: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[] | undefined;
             enabled?: boolean | undefined;
             reliabilityThreshold?: number | undefined;
-            comparesHashes?: boolean | undefined;
-            finalizationCriteria?: number | undefined;
-            savedBlocks?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
             averageBlockTime?: string | number | Long | undefined;
             allowedBlockLagForQosSync?: string | number | Long | undefined;
             blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
         }[] | undefined;
         pagination?: {
             nextKey?: Uint8Array | undefined;
@@ -1046,11 +2404,14 @@ export declare const QueryAllSpecResponse: {
         Spec?: ({
             index?: string | undefined;
             name?: string | undefined;
+            imports?: string[] | undefined;
             apis?: {
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -1058,12 +2419,26 @@ export declare const QueryAllSpecResponse: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -1071,25 +2446,40 @@ export declare const QueryAllSpecResponse: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[] | undefined;
             enabled?: boolean | undefined;
             reliabilityThreshold?: number | undefined;
-            comparesHashes?: boolean | undefined;
-            finalizationCriteria?: number | undefined;
-            savedBlocks?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
             averageBlockTime?: string | number | Long | undefined;
             allowedBlockLagForQosSync?: string | number | Long | undefined;
             blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
         }[] & ({
             index?: string | undefined;
             name?: string | undefined;
+            imports?: string[] | undefined;
             apis?: {
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -1097,12 +2487,26 @@ export declare const QueryAllSpecResponse: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -1110,25 +2514,40 @@ export declare const QueryAllSpecResponse: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[] | undefined;
             enabled?: boolean | undefined;
             reliabilityThreshold?: number | undefined;
-            comparesHashes?: boolean | undefined;
-            finalizationCriteria?: number | undefined;
-            savedBlocks?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
             averageBlockTime?: string | number | Long | undefined;
             allowedBlockLagForQosSync?: string | number | Long | undefined;
             blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
         } & {
             index?: string | undefined;
             name?: string | undefined;
+            imports?: (string[] & string[] & { [K in Exclude<keyof I["Spec"][number]["imports"], keyof string[]>]: never; }) | undefined;
             apis?: ({
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -1136,12 +2555,26 @@ export declare const QueryAllSpecResponse: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -1149,13 +2582,18 @@ export declare const QueryAllSpecResponse: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[] & ({
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -1163,12 +2601,26 @@ export declare const QueryAllSpecResponse: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -1176,17 +2628,24 @@ export declare const QueryAllSpecResponse: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             } & {
                 name?: string | undefined;
                 blockParsing?: ({
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } & {
-                    parserArg?: (string[] & string[] & { [K in Exclude<keyof I["Spec"][number]["apis"][number]["blockParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
+                    parserArg?: (string[] & string[] & { [K_1 in Exclude<keyof I["Spec"][number]["apis"][number]["blockParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
-                } & { [K_1 in Exclude<keyof I["Spec"][number]["apis"][number]["blockParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } & { [K_2 in Exclude<keyof I["Spec"][number]["apis"][number]["blockParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
                 computeUnits?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -1258,16 +2717,42 @@ export declare const QueryAllSpecResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_2 in Exclude<keyof I["Spec"][number]["apis"][number]["computeUnits"], keyof Long>]: never; }) | undefined;
+                } & { [K_3 in Exclude<keyof I["Spec"][number]["apis"][number]["computeUnits"], keyof Long>]: never; }) | undefined;
                 enabled?: boolean | undefined;
                 apiInterfaces?: ({
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] & ({
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 } & {
                     interface?: string | undefined;
                     type?: string | undefined;
@@ -1342,29 +2827,70 @@ export declare const QueryAllSpecResponse: {
                         toString: (radix?: number | undefined) => string;
                         toUnsigned: () => Long;
                         xor: (other: string | number | Long) => Long;
-                    } & { [K_3 in Exclude<keyof I["Spec"][number]["apis"][number]["apiInterfaces"][number]["extraComputeUnits"], keyof Long>]: never; }) | undefined;
-                } & { [K_4 in Exclude<keyof I["Spec"][number]["apis"][number]["apiInterfaces"][number], keyof import("./service_api").ApiInterface>]: never; })[] & { [K_5 in Exclude<keyof I["Spec"][number]["apis"][number]["apiInterfaces"], keyof {
+                    } & { [K_4 in Exclude<keyof I["Spec"][number]["apis"][number]["apiInterfaces"][number]["extraComputeUnits"], keyof Long>]: never; }) | undefined;
+                    category?: ({
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } & {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } & { [K_5 in Exclude<keyof I["Spec"][number]["apis"][number]["apiInterfaces"][number]["category"], keyof import("./service_api").SpecCategory>]: never; }) | undefined;
+                    overwriteBlockParsing?: ({
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & {
+                        parserArg?: (string[] & string[] & { [K_6 in Exclude<keyof I["Spec"][number]["apis"][number]["apiInterfaces"][number]["overwriteBlockParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & { [K_7 in Exclude<keyof I["Spec"][number]["apis"][number]["apiInterfaces"][number]["overwriteBlockParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
+                } & { [K_8 in Exclude<keyof I["Spec"][number]["apis"][number]["apiInterfaces"][number], keyof import("./service_api").ApiInterface>]: never; })[] & { [K_9 in Exclude<keyof I["Spec"][number]["apis"][number]["apiInterfaces"], keyof {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[]>]: never; }) | undefined;
-                category?: ({
+                reserved?: ({
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } & {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
-                } & { [K_6 in Exclude<keyof I["Spec"][number]["apis"][number]["category"], keyof import("./service_api").SpecCategory>]: never; }) | undefined;
+                    hangingApi?: boolean | undefined;
+                } & { [K_10 in Exclude<keyof I["Spec"][number]["apis"][number]["reserved"], keyof import("./service_api").SpecCategory>]: never; }) | undefined;
                 parsing?: ({
                     functionTag?: string | undefined;
                     functionTemplate?: string | undefined;
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } & {
                     functionTag?: string | undefined;
@@ -1372,16 +2898,23 @@ export declare const QueryAllSpecResponse: {
                     resultParsing?: ({
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } & {
-                        parserArg?: (string[] & string[] & { [K_7 in Exclude<keyof I["Spec"][number]["apis"][number]["parsing"]["resultParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
+                        parserArg?: (string[] & string[] & { [K_11 in Exclude<keyof I["Spec"][number]["apis"][number]["parsing"]["resultParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
-                    } & { [K_8 in Exclude<keyof I["Spec"][number]["apis"][number]["parsing"]["resultParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
-                } & { [K_9 in Exclude<keyof I["Spec"][number]["apis"][number]["parsing"], keyof import("./service_api").Parsing>]: never; }) | undefined;
-            } & { [K_10 in Exclude<keyof I["Spec"][number]["apis"][number], keyof import("./service_api").ServiceApi>]: never; })[] & { [K_11 in Exclude<keyof I["Spec"][number]["apis"], keyof {
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & { [K_12 in Exclude<keyof I["Spec"][number]["apis"][number]["parsing"]["resultParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
+                } & { [K_13 in Exclude<keyof I["Spec"][number]["apis"][number]["parsing"], keyof import("./service_api").Parsing>]: never; }) | undefined;
+                internalPath?: string | undefined;
+            } & { [K_14 in Exclude<keyof I["Spec"][number]["apis"][number], keyof import("./service_api").ServiceApi>]: never; })[] & { [K_15 in Exclude<keyof I["Spec"][number]["apis"], keyof {
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -1389,12 +2922,26 @@ export declare const QueryAllSpecResponse: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -1402,14 +2949,17 @@ export declare const QueryAllSpecResponse: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[]>]: never; }) | undefined;
             enabled?: boolean | undefined;
             reliabilityThreshold?: number | undefined;
-            comparesHashes?: boolean | undefined;
-            finalizationCriteria?: number | undefined;
-            savedBlocks?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
             averageBlockTime?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -1481,7 +3031,7 @@ export declare const QueryAllSpecResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_12 in Exclude<keyof I["Spec"][number]["averageBlockTime"], keyof Long>]: never; }) | undefined;
+            } & { [K_16 in Exclude<keyof I["Spec"][number]["averageBlockTime"], keyof Long>]: never; }) | undefined;
             allowedBlockLagForQosSync?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -1553,7 +3103,7 @@ export declare const QueryAllSpecResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_13 in Exclude<keyof I["Spec"][number]["allowedBlockLagForQosSync"], keyof Long>]: never; }) | undefined;
+            } & { [K_17 in Exclude<keyof I["Spec"][number]["allowedBlockLagForQosSync"], keyof Long>]: never; }) | undefined;
             blockLastUpdated?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -1625,15 +3175,33 @@ export declare const QueryAllSpecResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_14 in Exclude<keyof I["Spec"][number]["blockLastUpdated"], keyof Long>]: never; }) | undefined;
-        } & { [K_15 in Exclude<keyof I["Spec"][number], keyof Spec>]: never; })[] & { [K_16 in Exclude<keyof I["Spec"], keyof {
+            } & { [K_18 in Exclude<keyof I["Spec"][number]["blockLastUpdated"], keyof Long>]: never; }) | undefined;
+            minStakeProvider?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_19 in Exclude<keyof I["Spec"][number]["minStakeProvider"], keyof import("../cosmos/base/v1beta1/coin").Coin>]: never; }) | undefined;
+            minStakeClient?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_20 in Exclude<keyof I["Spec"][number]["minStakeClient"], keyof import("../cosmos/base/v1beta1/coin").Coin>]: never; }) | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
+        } & { [K_21 in Exclude<keyof I["Spec"][number], keyof Spec>]: never; })[] & { [K_22 in Exclude<keyof I["Spec"], keyof {
             index?: string | undefined;
             name?: string | undefined;
+            imports?: string[] | undefined;
             apis?: {
                 name?: string | undefined;
                 blockParsing?: {
                     parserArg?: string[] | undefined;
                     parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
                 } | undefined;
                 computeUnits?: string | number | Long | undefined;
                 enabled?: boolean | undefined;
@@ -1641,12 +3209,26 @@ export declare const QueryAllSpecResponse: {
                     interface?: string | undefined;
                     type?: string | undefined;
                     extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
                 }[] | undefined;
-                category?: {
+                reserved?: {
                     deterministic?: boolean | undefined;
                     local?: boolean | undefined;
                     subscription?: boolean | undefined;
                     stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
                 } | undefined;
                 parsing?: {
                     functionTag?: string | undefined;
@@ -1654,17 +3236,29 @@ export declare const QueryAllSpecResponse: {
                     resultParsing?: {
                         parserArg?: string[] | undefined;
                         parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
                     } | undefined;
                 } | undefined;
+                internalPath?: string | undefined;
             }[] | undefined;
             enabled?: boolean | undefined;
             reliabilityThreshold?: number | undefined;
-            comparesHashes?: boolean | undefined;
-            finalizationCriteria?: number | undefined;
-            savedBlocks?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
             averageBlockTime?: string | number | Long | undefined;
             allowedBlockLagForQosSync?: string | number | Long | undefined;
             blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
         }[]>]: never; }) | undefined;
         pagination?: ({
             nextKey?: Uint8Array | undefined;
@@ -1742,23 +3336,1037 @@ export declare const QueryAllSpecResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_17 in Exclude<keyof I["pagination"]["total"], keyof Long>]: never; }) | undefined;
-        } & { [K_18 in Exclude<keyof I["pagination"], keyof PageResponse>]: never; }) | undefined;
-    } & { [K_19 in Exclude<keyof I, keyof QueryAllSpecResponse>]: never; }>(object: I): QueryAllSpecResponse;
+            } & { [K_23 in Exclude<keyof I["pagination"]["total"], keyof Long>]: never; }) | undefined;
+        } & { [K_24 in Exclude<keyof I["pagination"], keyof PageResponse>]: never; }) | undefined;
+    } & { [K_25 in Exclude<keyof I, keyof QueryAllSpecResponse>]: never; }>(base?: I | undefined): QueryAllSpecResponse;
+    fromPartial<I_1 extends {
+        Spec?: {
+            index?: string | undefined;
+            name?: string | undefined;
+            imports?: string[] | undefined;
+            apis?: {
+                name?: string | undefined;
+                blockParsing?: {
+                    parserArg?: string[] | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } | undefined;
+                computeUnits?: string | number | Long | undefined;
+                enabled?: boolean | undefined;
+                apiInterfaces?: {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[] | undefined;
+                reserved?: {
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } | undefined;
+                parsing?: {
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                internalPath?: string | undefined;
+            }[] | undefined;
+            enabled?: boolean | undefined;
+            reliabilityThreshold?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
+            averageBlockTime?: string | number | Long | undefined;
+            allowedBlockLagForQosSync?: string | number | Long | undefined;
+            blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
+        }[] | undefined;
+        pagination?: {
+            nextKey?: Uint8Array | undefined;
+            total?: string | number | Long | undefined;
+        } | undefined;
+    } & {
+        Spec?: ({
+            index?: string | undefined;
+            name?: string | undefined;
+            imports?: string[] | undefined;
+            apis?: {
+                name?: string | undefined;
+                blockParsing?: {
+                    parserArg?: string[] | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } | undefined;
+                computeUnits?: string | number | Long | undefined;
+                enabled?: boolean | undefined;
+                apiInterfaces?: {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[] | undefined;
+                reserved?: {
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } | undefined;
+                parsing?: {
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                internalPath?: string | undefined;
+            }[] | undefined;
+            enabled?: boolean | undefined;
+            reliabilityThreshold?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
+            averageBlockTime?: string | number | Long | undefined;
+            allowedBlockLagForQosSync?: string | number | Long | undefined;
+            blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
+        }[] & ({
+            index?: string | undefined;
+            name?: string | undefined;
+            imports?: string[] | undefined;
+            apis?: {
+                name?: string | undefined;
+                blockParsing?: {
+                    parserArg?: string[] | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } | undefined;
+                computeUnits?: string | number | Long | undefined;
+                enabled?: boolean | undefined;
+                apiInterfaces?: {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[] | undefined;
+                reserved?: {
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } | undefined;
+                parsing?: {
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                internalPath?: string | undefined;
+            }[] | undefined;
+            enabled?: boolean | undefined;
+            reliabilityThreshold?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
+            averageBlockTime?: string | number | Long | undefined;
+            allowedBlockLagForQosSync?: string | number | Long | undefined;
+            blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
+        } & {
+            index?: string | undefined;
+            name?: string | undefined;
+            imports?: (string[] & string[] & { [K_26 in Exclude<keyof I_1["Spec"][number]["imports"], keyof string[]>]: never; }) | undefined;
+            apis?: ({
+                name?: string | undefined;
+                blockParsing?: {
+                    parserArg?: string[] | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } | undefined;
+                computeUnits?: string | number | Long | undefined;
+                enabled?: boolean | undefined;
+                apiInterfaces?: {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[] | undefined;
+                reserved?: {
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } | undefined;
+                parsing?: {
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                internalPath?: string | undefined;
+            }[] & ({
+                name?: string | undefined;
+                blockParsing?: {
+                    parserArg?: string[] | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } | undefined;
+                computeUnits?: string | number | Long | undefined;
+                enabled?: boolean | undefined;
+                apiInterfaces?: {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[] | undefined;
+                reserved?: {
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } | undefined;
+                parsing?: {
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                internalPath?: string | undefined;
+            } & {
+                name?: string | undefined;
+                blockParsing?: ({
+                    parserArg?: string[] | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } & {
+                    parserArg?: (string[] & string[] & { [K_27 in Exclude<keyof I_1["Spec"][number]["apis"][number]["blockParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } & { [K_28 in Exclude<keyof I_1["Spec"][number]["apis"][number]["blockParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
+                computeUnits?: string | number | (Long & {
+                    high: number;
+                    low: number;
+                    unsigned: boolean;
+                    add: (addend: string | number | Long) => Long;
+                    and: (other: string | number | Long) => Long;
+                    compare: (other: string | number | Long) => number;
+                    comp: (other: string | number | Long) => number;
+                    divide: (divisor: string | number | Long) => Long;
+                    div: (divisor: string | number | Long) => Long;
+                    equals: (other: string | number | Long) => boolean;
+                    eq: (other: string | number | Long) => boolean;
+                    getHighBits: () => number;
+                    getHighBitsUnsigned: () => number;
+                    getLowBits: () => number;
+                    getLowBitsUnsigned: () => number;
+                    getNumBitsAbs: () => number;
+                    greaterThan: (other: string | number | Long) => boolean;
+                    gt: (other: string | number | Long) => boolean;
+                    greaterThanOrEqual: (other: string | number | Long) => boolean;
+                    gte: (other: string | number | Long) => boolean;
+                    ge: (other: string | number | Long) => boolean;
+                    isEven: () => boolean;
+                    isNegative: () => boolean;
+                    isOdd: () => boolean;
+                    isPositive: () => boolean;
+                    isZero: () => boolean;
+                    eqz: () => boolean;
+                    lessThan: (other: string | number | Long) => boolean;
+                    lt: (other: string | number | Long) => boolean;
+                    lessThanOrEqual: (other: string | number | Long) => boolean;
+                    lte: (other: string | number | Long) => boolean;
+                    le: (other: string | number | Long) => boolean;
+                    modulo: (other: string | number | Long) => Long;
+                    mod: (other: string | number | Long) => Long;
+                    rem: (other: string | number | Long) => Long;
+                    multiply: (multiplier: string | number | Long) => Long;
+                    mul: (multiplier: string | number | Long) => Long;
+                    negate: () => Long;
+                    neg: () => Long;
+                    not: () => Long;
+                    countLeadingZeros: () => number;
+                    clz: () => number;
+                    countTrailingZeros: () => number;
+                    ctz: () => number;
+                    notEquals: (other: string | number | Long) => boolean;
+                    neq: (other: string | number | Long) => boolean;
+                    ne: (other: string | number | Long) => boolean;
+                    or: (other: string | number | Long) => Long;
+                    shiftLeft: (numBits: number | Long) => Long;
+                    shl: (numBits: number | Long) => Long;
+                    shiftRight: (numBits: number | Long) => Long;
+                    shr: (numBits: number | Long) => Long;
+                    shiftRightUnsigned: (numBits: number | Long) => Long;
+                    shru: (numBits: number | Long) => Long;
+                    shr_u: (numBits: number | Long) => Long;
+                    rotateLeft: (numBits: number | Long) => Long;
+                    rotl: (numBits: number | Long) => Long;
+                    rotateRight: (numBits: number | Long) => Long;
+                    rotr: (numBits: number | Long) => Long;
+                    subtract: (subtrahend: string | number | Long) => Long;
+                    sub: (subtrahend: string | number | Long) => Long;
+                    toInt: () => number;
+                    toNumber: () => number;
+                    toBytes: (le?: boolean | undefined) => number[];
+                    toBytesLE: () => number[];
+                    toBytesBE: () => number[];
+                    toSigned: () => Long;
+                    toString: (radix?: number | undefined) => string;
+                    toUnsigned: () => Long;
+                    xor: (other: string | number | Long) => Long;
+                } & { [K_29 in Exclude<keyof I_1["Spec"][number]["apis"][number]["computeUnits"], keyof Long>]: never; }) | undefined;
+                enabled?: boolean | undefined;
+                apiInterfaces?: ({
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[] & ({
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } & {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | (Long & {
+                        high: number;
+                        low: number;
+                        unsigned: boolean;
+                        add: (addend: string | number | Long) => Long;
+                        and: (other: string | number | Long) => Long;
+                        compare: (other: string | number | Long) => number;
+                        comp: (other: string | number | Long) => number;
+                        divide: (divisor: string | number | Long) => Long;
+                        div: (divisor: string | number | Long) => Long;
+                        equals: (other: string | number | Long) => boolean;
+                        eq: (other: string | number | Long) => boolean;
+                        getHighBits: () => number;
+                        getHighBitsUnsigned: () => number;
+                        getLowBits: () => number;
+                        getLowBitsUnsigned: () => number;
+                        getNumBitsAbs: () => number;
+                        greaterThan: (other: string | number | Long) => boolean;
+                        gt: (other: string | number | Long) => boolean;
+                        greaterThanOrEqual: (other: string | number | Long) => boolean;
+                        gte: (other: string | number | Long) => boolean;
+                        ge: (other: string | number | Long) => boolean;
+                        isEven: () => boolean;
+                        isNegative: () => boolean;
+                        isOdd: () => boolean;
+                        isPositive: () => boolean;
+                        isZero: () => boolean;
+                        eqz: () => boolean;
+                        lessThan: (other: string | number | Long) => boolean;
+                        lt: (other: string | number | Long) => boolean;
+                        lessThanOrEqual: (other: string | number | Long) => boolean;
+                        lte: (other: string | number | Long) => boolean;
+                        le: (other: string | number | Long) => boolean;
+                        modulo: (other: string | number | Long) => Long;
+                        mod: (other: string | number | Long) => Long;
+                        rem: (other: string | number | Long) => Long;
+                        multiply: (multiplier: string | number | Long) => Long;
+                        mul: (multiplier: string | number | Long) => Long;
+                        negate: () => Long;
+                        neg: () => Long;
+                        not: () => Long;
+                        countLeadingZeros: () => number;
+                        clz: () => number;
+                        countTrailingZeros: () => number;
+                        ctz: () => number;
+                        notEquals: (other: string | number | Long) => boolean;
+                        neq: (other: string | number | Long) => boolean;
+                        ne: (other: string | number | Long) => boolean;
+                        or: (other: string | number | Long) => Long;
+                        shiftLeft: (numBits: number | Long) => Long;
+                        shl: (numBits: number | Long) => Long;
+                        shiftRight: (numBits: number | Long) => Long;
+                        shr: (numBits: number | Long) => Long;
+                        shiftRightUnsigned: (numBits: number | Long) => Long;
+                        shru: (numBits: number | Long) => Long;
+                        shr_u: (numBits: number | Long) => Long;
+                        rotateLeft: (numBits: number | Long) => Long;
+                        rotl: (numBits: number | Long) => Long;
+                        rotateRight: (numBits: number | Long) => Long;
+                        rotr: (numBits: number | Long) => Long;
+                        subtract: (subtrahend: string | number | Long) => Long;
+                        sub: (subtrahend: string | number | Long) => Long;
+                        toInt: () => number;
+                        toNumber: () => number;
+                        toBytes: (le?: boolean | undefined) => number[];
+                        toBytesLE: () => number[];
+                        toBytesBE: () => number[];
+                        toSigned: () => Long;
+                        toString: (radix?: number | undefined) => string;
+                        toUnsigned: () => Long;
+                        xor: (other: string | number | Long) => Long;
+                    } & { [K_30 in Exclude<keyof I_1["Spec"][number]["apis"][number]["apiInterfaces"][number]["extraComputeUnits"], keyof Long>]: never; }) | undefined;
+                    category?: ({
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } & {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } & { [K_31 in Exclude<keyof I_1["Spec"][number]["apis"][number]["apiInterfaces"][number]["category"], keyof import("./service_api").SpecCategory>]: never; }) | undefined;
+                    overwriteBlockParsing?: ({
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & {
+                        parserArg?: (string[] & string[] & { [K_32 in Exclude<keyof I_1["Spec"][number]["apis"][number]["apiInterfaces"][number]["overwriteBlockParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & { [K_33 in Exclude<keyof I_1["Spec"][number]["apis"][number]["apiInterfaces"][number]["overwriteBlockParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
+                } & { [K_34 in Exclude<keyof I_1["Spec"][number]["apis"][number]["apiInterfaces"][number], keyof import("./service_api").ApiInterface>]: never; })[] & { [K_35 in Exclude<keyof I_1["Spec"][number]["apis"][number]["apiInterfaces"], keyof {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[]>]: never; }) | undefined;
+                reserved?: ({
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } & {
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } & { [K_36 in Exclude<keyof I_1["Spec"][number]["apis"][number]["reserved"], keyof import("./service_api").SpecCategory>]: never; }) | undefined;
+                parsing?: ({
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } & {
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: ({
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & {
+                        parserArg?: (string[] & string[] & { [K_37 in Exclude<keyof I_1["Spec"][number]["apis"][number]["parsing"]["resultParsing"]["parserArg"], keyof string[]>]: never; }) | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } & { [K_38 in Exclude<keyof I_1["Spec"][number]["apis"][number]["parsing"]["resultParsing"], keyof import("./service_api").BlockParser>]: never; }) | undefined;
+                } & { [K_39 in Exclude<keyof I_1["Spec"][number]["apis"][number]["parsing"], keyof import("./service_api").Parsing>]: never; }) | undefined;
+                internalPath?: string | undefined;
+            } & { [K_40 in Exclude<keyof I_1["Spec"][number]["apis"][number], keyof import("./service_api").ServiceApi>]: never; })[] & { [K_41 in Exclude<keyof I_1["Spec"][number]["apis"], keyof {
+                name?: string | undefined;
+                blockParsing?: {
+                    parserArg?: string[] | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } | undefined;
+                computeUnits?: string | number | Long | undefined;
+                enabled?: boolean | undefined;
+                apiInterfaces?: {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[] | undefined;
+                reserved?: {
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } | undefined;
+                parsing?: {
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                internalPath?: string | undefined;
+            }[]>]: never; }) | undefined;
+            enabled?: boolean | undefined;
+            reliabilityThreshold?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
+            averageBlockTime?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_42 in Exclude<keyof I_1["Spec"][number]["averageBlockTime"], keyof Long>]: never; }) | undefined;
+            allowedBlockLagForQosSync?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_43 in Exclude<keyof I_1["Spec"][number]["allowedBlockLagForQosSync"], keyof Long>]: never; }) | undefined;
+            blockLastUpdated?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_44 in Exclude<keyof I_1["Spec"][number]["blockLastUpdated"], keyof Long>]: never; }) | undefined;
+            minStakeProvider?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_45 in Exclude<keyof I_1["Spec"][number]["minStakeProvider"], keyof import("../cosmos/base/v1beta1/coin").Coin>]: never; }) | undefined;
+            minStakeClient?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_46 in Exclude<keyof I_1["Spec"][number]["minStakeClient"], keyof import("../cosmos/base/v1beta1/coin").Coin>]: never; }) | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
+        } & { [K_47 in Exclude<keyof I_1["Spec"][number], keyof Spec>]: never; })[] & { [K_48 in Exclude<keyof I_1["Spec"], keyof {
+            index?: string | undefined;
+            name?: string | undefined;
+            imports?: string[] | undefined;
+            apis?: {
+                name?: string | undefined;
+                blockParsing?: {
+                    parserArg?: string[] | undefined;
+                    parserFunc?: import("./service_api").parserFunc | undefined;
+                    defaultValue?: string | undefined;
+                    encoding?: string | undefined;
+                } | undefined;
+                computeUnits?: string | number | Long | undefined;
+                enabled?: boolean | undefined;
+                apiInterfaces?: {
+                    interface?: string | undefined;
+                    type?: string | undefined;
+                    extraComputeUnits?: string | number | Long | undefined;
+                    category?: {
+                        deterministic?: boolean | undefined;
+                        local?: boolean | undefined;
+                        subscription?: boolean | undefined;
+                        stateful?: number | undefined;
+                        hangingApi?: boolean | undefined;
+                    } | undefined;
+                    overwriteBlockParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                }[] | undefined;
+                reserved?: {
+                    deterministic?: boolean | undefined;
+                    local?: boolean | undefined;
+                    subscription?: boolean | undefined;
+                    stateful?: number | undefined;
+                    hangingApi?: boolean | undefined;
+                } | undefined;
+                parsing?: {
+                    functionTag?: string | undefined;
+                    functionTemplate?: string | undefined;
+                    resultParsing?: {
+                        parserArg?: string[] | undefined;
+                        parserFunc?: import("./service_api").parserFunc | undefined;
+                        defaultValue?: string | undefined;
+                        encoding?: string | undefined;
+                    } | undefined;
+                } | undefined;
+                internalPath?: string | undefined;
+            }[] | undefined;
+            enabled?: boolean | undefined;
+            reliabilityThreshold?: number | undefined;
+            dataReliabilityEnabled?: boolean | undefined;
+            blockDistanceForFinalizedData?: number | undefined;
+            blocksInFinalizationProof?: number | undefined;
+            averageBlockTime?: string | number | Long | undefined;
+            allowedBlockLagForQosSync?: string | number | Long | undefined;
+            blockLastUpdated?: string | number | Long | undefined;
+            minStakeProvider?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            minStakeClient?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            providersTypes?: import("./spec").Spec_ProvidersTypes | undefined;
+        }[]>]: never; }) | undefined;
+        pagination?: ({
+            nextKey?: Uint8Array | undefined;
+            total?: string | number | Long | undefined;
+        } & {
+            nextKey?: Uint8Array | undefined;
+            total?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_49 in Exclude<keyof I_1["pagination"]["total"], keyof Long>]: never; }) | undefined;
+        } & { [K_50 in Exclude<keyof I_1["pagination"], keyof PageResponse>]: never; }) | undefined;
+    } & { [K_51 in Exclude<keyof I_1, keyof QueryAllSpecResponse>]: never; }>(object: I_1): QueryAllSpecResponse;
 };
 export declare const QueryShowAllChainsRequest: {
     encode(_: QueryShowAllChainsRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): QueryShowAllChainsRequest;
     fromJSON(_: any): QueryShowAllChainsRequest;
     toJSON(_: QueryShowAllChainsRequest): unknown;
-    fromPartial<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(_: I): QueryShowAllChainsRequest;
+    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): QueryShowAllChainsRequest;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): QueryShowAllChainsRequest;
 };
 export declare const QueryShowAllChainsResponse: {
     encode(message: QueryShowAllChainsResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): QueryShowAllChainsResponse;
     fromJSON(object: any): QueryShowAllChainsResponse;
     toJSON(message: QueryShowAllChainsResponse): unknown;
-    fromPartial<I extends {
+    create<I extends {
         chainInfoList?: {
             chainName?: string | undefined;
             chainID?: string | undefined;
@@ -1782,14 +4390,39 @@ export declare const QueryShowAllChainsResponse: {
             chainID?: string | undefined;
             enabledApiInterfaces?: string[] | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, "chainInfoList">]: never; }>(object: I): QueryShowAllChainsResponse;
+    } & { [K_3 in Exclude<keyof I, "chainInfoList">]: never; }>(base?: I | undefined): QueryShowAllChainsResponse;
+    fromPartial<I_1 extends {
+        chainInfoList?: {
+            chainName?: string | undefined;
+            chainID?: string | undefined;
+            enabledApiInterfaces?: string[] | undefined;
+        }[] | undefined;
+    } & {
+        chainInfoList?: ({
+            chainName?: string | undefined;
+            chainID?: string | undefined;
+            enabledApiInterfaces?: string[] | undefined;
+        }[] & ({
+            chainName?: string | undefined;
+            chainID?: string | undefined;
+            enabledApiInterfaces?: string[] | undefined;
+        } & {
+            chainName?: string | undefined;
+            chainID?: string | undefined;
+            enabledApiInterfaces?: (string[] & string[] & { [K_4 in Exclude<keyof I_1["chainInfoList"][number]["enabledApiInterfaces"], keyof string[]>]: never; }) | undefined;
+        } & { [K_5 in Exclude<keyof I_1["chainInfoList"][number], keyof showAllChainsInfoStruct>]: never; })[] & { [K_6 in Exclude<keyof I_1["chainInfoList"], keyof {
+            chainName?: string | undefined;
+            chainID?: string | undefined;
+            enabledApiInterfaces?: string[] | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I_1, "chainInfoList">]: never; }>(object: I_1): QueryShowAllChainsResponse;
 };
 export declare const showAllChainsInfoStruct: {
     encode(message: showAllChainsInfoStruct, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): showAllChainsInfoStruct;
     fromJSON(object: any): showAllChainsInfoStruct;
     toJSON(message: showAllChainsInfoStruct): unknown;
-    fromPartial<I extends {
+    create<I extends {
         chainName?: string | undefined;
         chainID?: string | undefined;
         enabledApiInterfaces?: string[] | undefined;
@@ -1797,38 +4430,59 @@ export declare const showAllChainsInfoStruct: {
         chainName?: string | undefined;
         chainID?: string | undefined;
         enabledApiInterfaces?: (string[] & string[] & { [K in Exclude<keyof I["enabledApiInterfaces"], keyof string[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof showAllChainsInfoStruct>]: never; }>(object: I): showAllChainsInfoStruct;
+    } & { [K_1 in Exclude<keyof I, keyof showAllChainsInfoStruct>]: never; }>(base?: I | undefined): showAllChainsInfoStruct;
+    fromPartial<I_1 extends {
+        chainName?: string | undefined;
+        chainID?: string | undefined;
+        enabledApiInterfaces?: string[] | undefined;
+    } & {
+        chainName?: string | undefined;
+        chainID?: string | undefined;
+        enabledApiInterfaces?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["enabledApiInterfaces"], keyof string[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, keyof showAllChainsInfoStruct>]: never; }>(object: I_1): showAllChainsInfoStruct;
 };
 export declare const QueryShowChainInfoRequest: {
     encode(message: QueryShowChainInfoRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): QueryShowChainInfoRequest;
     fromJSON(object: any): QueryShowChainInfoRequest;
     toJSON(message: QueryShowChainInfoRequest): unknown;
-    fromPartial<I extends {
+    create<I extends {
         chainName?: string | undefined;
     } & {
         chainName?: string | undefined;
-    } & { [K in Exclude<keyof I, "chainName">]: never; }>(object: I): QueryShowChainInfoRequest;
+    } & { [K in Exclude<keyof I, "chainName">]: never; }>(base?: I | undefined): QueryShowChainInfoRequest;
+    fromPartial<I_1 extends {
+        chainName?: string | undefined;
+    } & {
+        chainName?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "chainName">]: never; }>(object: I_1): QueryShowChainInfoRequest;
 };
 export declare const apiList: {
     encode(message: apiList, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): apiList;
     fromJSON(object: any): apiList;
     toJSON(message: apiList): unknown;
-    fromPartial<I extends {
+    create<I extends {
         interface?: string | undefined;
         supportedApis?: string[] | undefined;
     } & {
         interface?: string | undefined;
         supportedApis?: (string[] & string[] & { [K in Exclude<keyof I["supportedApis"], keyof string[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof apiList>]: never; }>(object: I): apiList;
+    } & { [K_1 in Exclude<keyof I, keyof apiList>]: never; }>(base?: I | undefined): apiList;
+    fromPartial<I_1 extends {
+        interface?: string | undefined;
+        supportedApis?: string[] | undefined;
+    } & {
+        interface?: string | undefined;
+        supportedApis?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["supportedApis"], keyof string[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, keyof apiList>]: never; }>(object: I_1): apiList;
 };
 export declare const QueryShowChainInfoResponse: {
     encode(message: QueryShowChainInfoResponse, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): QueryShowChainInfoResponse;
     fromJSON(object: any): QueryShowChainInfoResponse;
     toJSON(message: QueryShowChainInfoResponse): unknown;
-    fromPartial<I extends {
+    create<I extends {
         chainID?: string | undefined;
         interfaces?: string[] | undefined;
         supportedApisInterfaceList?: {
@@ -1851,7 +4505,31 @@ export declare const QueryShowChainInfoResponse: {
             interface?: string | undefined;
             supportedApis?: string[] | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_4 in Exclude<keyof I, keyof QueryShowChainInfoResponse>]: never; }>(object: I): QueryShowChainInfoResponse;
+    } & { [K_4 in Exclude<keyof I, keyof QueryShowChainInfoResponse>]: never; }>(base?: I | undefined): QueryShowChainInfoResponse;
+    fromPartial<I_1 extends {
+        chainID?: string | undefined;
+        interfaces?: string[] | undefined;
+        supportedApisInterfaceList?: {
+            interface?: string | undefined;
+            supportedApis?: string[] | undefined;
+        }[] | undefined;
+    } & {
+        chainID?: string | undefined;
+        interfaces?: (string[] & string[] & { [K_5 in Exclude<keyof I_1["interfaces"], keyof string[]>]: never; }) | undefined;
+        supportedApisInterfaceList?: ({
+            interface?: string | undefined;
+            supportedApis?: string[] | undefined;
+        }[] & ({
+            interface?: string | undefined;
+            supportedApis?: string[] | undefined;
+        } & {
+            interface?: string | undefined;
+            supportedApis?: (string[] & string[] & { [K_6 in Exclude<keyof I_1["supportedApisInterfaceList"][number]["supportedApis"], keyof string[]>]: never; }) | undefined;
+        } & { [K_7 in Exclude<keyof I_1["supportedApisInterfaceList"][number], keyof apiList>]: never; })[] & { [K_8 in Exclude<keyof I_1["supportedApisInterfaceList"], keyof {
+            interface?: string | undefined;
+            supportedApis?: string[] | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_9 in Exclude<keyof I_1, keyof QueryShowChainInfoResponse>]: never; }>(object: I_1): QueryShowChainInfoResponse;
 };
 /** Query defines the gRPC querier service. */
 export interface Query {

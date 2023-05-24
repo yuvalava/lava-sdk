@@ -34,48 +34,72 @@ export declare const Coin: {
     decode(input: _m0.Reader | Uint8Array, length?: number): Coin;
     fromJSON(object: any): Coin;
     toJSON(message: Coin): unknown;
-    fromPartial<I extends {
+    create<I extends {
         denom?: string | undefined;
         amount?: string | undefined;
     } & {
         denom?: string | undefined;
         amount?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof Coin>]: never; }>(object: I): Coin;
+    } & { [K in Exclude<keyof I, keyof Coin>]: never; }>(base?: I | undefined): Coin;
+    fromPartial<I_1 extends {
+        denom?: string | undefined;
+        amount?: string | undefined;
+    } & {
+        denom?: string | undefined;
+        amount?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof Coin>]: never; }>(object: I_1): Coin;
 };
 export declare const DecCoin: {
     encode(message: DecCoin, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): DecCoin;
     fromJSON(object: any): DecCoin;
     toJSON(message: DecCoin): unknown;
-    fromPartial<I extends {
+    create<I extends {
         denom?: string | undefined;
         amount?: string | undefined;
     } & {
         denom?: string | undefined;
         amount?: string | undefined;
-    } & { [K in Exclude<keyof I, keyof DecCoin>]: never; }>(object: I): DecCoin;
+    } & { [K in Exclude<keyof I, keyof DecCoin>]: never; }>(base?: I | undefined): DecCoin;
+    fromPartial<I_1 extends {
+        denom?: string | undefined;
+        amount?: string | undefined;
+    } & {
+        denom?: string | undefined;
+        amount?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof DecCoin>]: never; }>(object: I_1): DecCoin;
 };
 export declare const IntProto: {
     encode(message: IntProto, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): IntProto;
     fromJSON(object: any): IntProto;
     toJSON(message: IntProto): unknown;
-    fromPartial<I extends {
+    create<I extends {
         int?: string | undefined;
     } & {
         int?: string | undefined;
-    } & { [K in Exclude<keyof I, "int">]: never; }>(object: I): IntProto;
+    } & { [K in Exclude<keyof I, "int">]: never; }>(base?: I | undefined): IntProto;
+    fromPartial<I_1 extends {
+        int?: string | undefined;
+    } & {
+        int?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "int">]: never; }>(object: I_1): IntProto;
 };
 export declare const DecProto: {
     encode(message: DecProto, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): DecProto;
     fromJSON(object: any): DecProto;
     toJSON(message: DecProto): unknown;
-    fromPartial<I extends {
+    create<I extends {
         dec?: string | undefined;
     } & {
         dec?: string | undefined;
-    } & { [K in Exclude<keyof I, "dec">]: never; }>(object: I): DecProto;
+    } & { [K in Exclude<keyof I, "dec">]: never; }>(base?: I | undefined): DecProto;
+    fromPartial<I_1 extends {
+        dec?: string | undefined;
+    } & {
+        dec?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "dec">]: never; }>(object: I_1): DecProto;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

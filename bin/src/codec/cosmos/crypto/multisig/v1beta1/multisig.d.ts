@@ -24,24 +24,36 @@ export declare const MultiSignature: {
     decode(input: _m0.Reader | Uint8Array, length?: number): MultiSignature;
     fromJSON(object: any): MultiSignature;
     toJSON(message: MultiSignature): unknown;
-    fromPartial<I extends {
+    create<I extends {
         signatures?: Uint8Array[] | undefined;
     } & {
         signatures?: (Uint8Array[] & Uint8Array[] & { [K in Exclude<keyof I["signatures"], keyof Uint8Array[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "signatures">]: never; }>(object: I): MultiSignature;
+    } & { [K_1 in Exclude<keyof I, "signatures">]: never; }>(base?: I | undefined): MultiSignature;
+    fromPartial<I_1 extends {
+        signatures?: Uint8Array[] | undefined;
+    } & {
+        signatures?: (Uint8Array[] & Uint8Array[] & { [K_2 in Exclude<keyof I_1["signatures"], keyof Uint8Array[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "signatures">]: never; }>(object: I_1): MultiSignature;
 };
 export declare const CompactBitArray: {
     encode(message: CompactBitArray, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): CompactBitArray;
     fromJSON(object: any): CompactBitArray;
     toJSON(message: CompactBitArray): unknown;
-    fromPartial<I extends {
+    create<I extends {
         extraBitsStored?: number | undefined;
         elems?: Uint8Array | undefined;
     } & {
         extraBitsStored?: number | undefined;
         elems?: Uint8Array | undefined;
-    } & { [K in Exclude<keyof I, keyof CompactBitArray>]: never; }>(object: I): CompactBitArray;
+    } & { [K in Exclude<keyof I, keyof CompactBitArray>]: never; }>(base?: I | undefined): CompactBitArray;
+    fromPartial<I_1 extends {
+        extraBitsStored?: number | undefined;
+        elems?: Uint8Array | undefined;
+    } & {
+        extraBitsStored?: number | undefined;
+        elems?: Uint8Array | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof CompactBitArray>]: never; }>(object: I_1): CompactBitArray;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

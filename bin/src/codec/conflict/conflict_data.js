@@ -23,22 +23,29 @@ exports.ResponseConflict = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseResponseConflict();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.conflictRelayData0 = exports.ConflictRelayData.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.conflictRelayData1 = exports.ConflictRelayData.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -61,6 +68,9 @@ exports.ResponseConflict = {
             ? exports.ConflictRelayData.toJSON(message.conflictRelayData1)
             : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.ResponseConflict.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseResponseConflict();
@@ -87,22 +97,29 @@ exports.ConflictRelayData = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseConflictRelayData();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.request = relay_1.RelayRequest.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.reply = relay_1.RelayReply.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -117,6 +134,9 @@ exports.ConflictRelayData = {
         message.request !== undefined && (obj.request = message.request ? relay_1.RelayRequest.toJSON(message.request) : undefined);
         message.reply !== undefined && (obj.reply = message.reply ? relay_1.RelayReply.toJSON(message.reply) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.ConflictRelayData.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseConflictRelayData();
@@ -143,22 +163,29 @@ exports.FinalizationConflict = {
         return writer;
     },
     decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : new minimal_1.default.Reader(input);
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
         const message = createBaseFinalizationConflict();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    if (tag != 10) {
+                        break;
+                    }
                     message.relayReply0 = relay_1.RelayReply.decode(reader, reader.uint32());
-                    break;
+                    continue;
                 case 2:
+                    if (tag != 18) {
+                        break;
+                    }
                     message.relayReply1 = relay_1.RelayReply.decode(reader, reader.uint32());
-                    break;
-                default:
-                    reader.skipType(tag & 7);
-                    break;
+                    continue;
             }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
         }
         return message;
     },
@@ -175,6 +202,9 @@ exports.FinalizationConflict = {
         message.relayReply1 !== undefined &&
             (obj.relayReply1 = message.relayReply1 ? relay_1.RelayReply.toJSON(message.relayReply1) : undefined);
         return obj;
+    },
+    create(base) {
+        return exports.FinalizationConflict.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         const message = createBaseFinalizationConflict();
