@@ -12,15 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetchBadge = void 0;
 // import { RelayerClient, Relayer } from "../pairing/relay_pb_service.js";
 // import { GenerateBadgeRequest, GenerateBadgeResponse } from "../pairing/relay_pb.js";
 const badge_pb_service_1 = require("./badge_pb_service");
 const badge_pb_1 = require("./badge_pb");
 const grpc_web_1 = require("@improbable-eng/grpc-web");
 const browser_1 = __importDefault(require("../util/browser"));
-const serverAddress = "http://localhost:8080";
+// const serverAddress = "http://localhost:8080";
 // Function to send the gRPC request
-function sendRequest() {
+function fetchBadge(serverAddress, badgeUser, projectKey) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("entered sendRequest!");
         // Create a new instance of the BadgeGeneratorClient
@@ -28,8 +29,8 @@ function sendRequest() {
         console.log("client: ", client);
         // Create a new GenerateBadgeRequest
         const request = new badge_pb_1.GenerateBadgeRequest();
-        request.setUserId("lava@1xxacpczgrnleajam6jkkaptufpfd4dcaaps0r6");
-        request.setProjectKey("aabbcc");
+        request.setUserId(badgeUser);
+        request.setProjectKey(projectKey);
         // request.setChainId("LAV1");
         console.log("request: ", request);
         console.log("request.setUserId: ", request.getUserId());
@@ -54,6 +55,7 @@ function sendRequest() {
         return relayWithTimeout(2000, requestPromise);
     });
 }
+exports.fetchBadge = fetchBadge;
 function relayWithTimeout(timeLimit, task) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("ENTERED HERE!");
@@ -71,15 +73,15 @@ function relayWithTimeout(timeLimit, task) {
         return response;
     });
 }
-// Call the function to send the request
-sendRequest()
-    .then((response) => {
-    processResponse(response);
-})
-    .catch((error) => {
-    console.error("Error custom:", error);
-});
-// Function to process the response
-function processResponse(response) {
-    console.log("Response:", response.toObject());
-}
+// // Call the function to send the request
+// fetchBadge()
+//     .then((response) => {
+//         processResponse(response);
+//     })
+//     .catch((error) => {
+//         console.error("Error custom:", error);
+//     });
+// // Function to process the response
+// function processResponse(response: GenerateBadgeResponse) {
+//     console.log("Response:", response.toObject());
+// }

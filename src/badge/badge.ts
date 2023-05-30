@@ -5,18 +5,18 @@ import { GenerateBadgeRequest, GenerateBadgeResponse } from "./badge_pb";
 import { grpc } from "@improbable-eng/grpc-web";
 import transport from "../util/browser";
 
-const serverAddress = "http://localhost:8080";
+// const serverAddress = "http://localhost:8080";
 
 // Function to send the gRPC request
-async function sendRequest() : Promise<GenerateBadgeResponse> {
+export async function fetchBadge(serverAddress: string, badgeUser: string, projectKey: string) : Promise<GenerateBadgeResponse> {
     console.log("entered sendRequest!")
     // Create a new instance of the BadgeGeneratorClient
     const client = new BadgeGeneratorClient(serverAddress);
     console.log("client: ", client)
     // Create a new GenerateBadgeRequest
     const request = new GenerateBadgeRequest();
-    request.setUserId("lava@1xxacpczgrnleajam6jkkaptufpfd4dcaaps0r6");
-    request.setProjectKey("aabbcc");
+    request.setUserId(badgeUser);
+    request.setProjectKey(projectKey);
     // request.setChainId("LAV1");
     console.log("request: ", request)
     console.log("request.setUserId: ", request.getUserId())
@@ -58,16 +58,16 @@ async function relayWithTimeout(timeLimit: number, task: any) {
     return response;
 }
 
-// Call the function to send the request
-sendRequest()
-    .then((response) => {
-        processResponse(response);
-    })
-    .catch((error) => {
-        console.error("Error custom:", error);
-    });
+// // Call the function to send the request
+// fetchBadge()
+//     .then((response) => {
+//         processResponse(response);
+//     })
+//     .catch((error) => {
+//         console.error("Error custom:", error);
+//     });
 
-// Function to process the response
-function processResponse(response: GenerateBadgeResponse) {
-    console.log("Response:", response.toObject());
-}
+// // Function to process the response
+// function processResponse(response: GenerateBadgeResponse) {
+//     console.log("Response:", response.toObject());
+// }

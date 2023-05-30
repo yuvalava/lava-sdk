@@ -1,7 +1,8 @@
-import { createWallet, createDynamicWallet, getWalletPrivateKey } from "../wallet/wallet";
+import { createWallet, createDynamicWallet, LavaWallet } from "../wallet/wallet";
 import SDKErrors from "./errors";
 import { AccountData } from "@cosmjs/proto-signing";
 import Relayer from "../relayer/relayer";
+import {fetchBadge} from "../badge/badge"
 import { RelayReply } from "../pairing/relay_pb";
 import { SessionManager, ConsumerSessionWithProvider } from "../types/types";
 import {
@@ -97,28 +98,21 @@ export class LavaSDK {
   }
 
   private async init() {
+    let wallet: LavaWallet
     if (this.isBadge) {
-      const wallet = await createDynamicWallet();
-      console.log("wallet: ", await wallet.getAccounts())
-
-      const privateKey = await getWalletPrivateKey("lava@", wallet.mnemonic)
-      console.log("PRIVATE KEY: ", privateKey.privkey)
-
-      const hexString = Array.from(privateKey.privkey)
-        .map(byte => byte.toString(16).padStart(2, '0'))
-        .join('');
-      console.log("PRIVATE KEY HEX: ", hexString)
-
+       wallet = await createDynamicWallet();
     } else {
-
+       wallet = await createWallet(this.privKey);
     }
-
-    // Create wallet
-    const wallet = await createWallet(this.privKey);
 
     // Get account from wallet
     this.account = await wallet.getConsumerAccount();
     console.log("this.account:", this.account.address)
+
+    // test fetching badge:
+    const badgeResponse = await fetchBadge(this.badge.badgeServerAddress, this.account.address, this.badge.projectId)
+    console.log("badgeResponse: ", badgeResponse)
+    
     // Init relayer for lava providers
     const lavaRelayer = new Relayer(
       LAVA_CHAIN_ID,

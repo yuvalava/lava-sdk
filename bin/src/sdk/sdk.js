@@ -16,6 +16,7 @@ exports.LavaSDK = void 0;
 const wallet_1 = require("../wallet/wallet");
 const errors_1 = __importDefault(require("./errors"));
 const relayer_1 = __importDefault(require("../relayer/relayer"));
+const badge_1 = require("../badge/badge");
 const chains_1 = require("../util/chains");
 const providers_1 = require("../lavaOverLava/providers");
 const default_1 = require("../config/default");
@@ -79,23 +80,19 @@ class LavaSDK {
     }
     init() {
         return __awaiter(this, void 0, void 0, function* () {
+            let wallet;
             if (this.isBadge) {
-                const wallet = yield (0, wallet_1.createDynamicWallet)();
-                console.log("wallet: ", yield wallet.getAccounts());
-                const privateKey = yield (0, wallet_1.getWalletPrivateKey)("lava@", wallet.mnemonic);
-                console.log("PRIVATE KEY: ", privateKey.privkey);
-                const hexString = Array.from(privateKey.privkey)
-                    .map(byte => byte.toString(16).padStart(2, '0'))
-                    .join('');
-                console.log("PRIVATE KEY HEX: ", hexString);
+                wallet = yield (0, wallet_1.createDynamicWallet)();
             }
             else {
+                wallet = yield (0, wallet_1.createWallet)(this.privKey);
             }
-            // Create wallet
-            const wallet = yield (0, wallet_1.createWallet)(this.privKey);
             // Get account from wallet
             this.account = yield wallet.getConsumerAccount();
             console.log("this.account:", this.account.address);
+            // test fetching badge:
+            const badgeResponse = yield (0, badge_1.fetchBadge)(this.badge.badgeServerAddress, this.account.address, this.badge.projectId);
+            console.log("badgeResponse: ", badgeResponse);
             // Init relayer for lava providers
             const lavaRelayer = new relayer_1.default(default_1.LAVA_CHAIN_ID, this.privKey, this.lavaChainId);
             // Create new instance of lava providers

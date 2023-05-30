@@ -24,7 +24,7 @@ import { toBech32 } from "@cosmjs/encoding";
 // prefix for lava accounts
 const lavaPrefix = "lava@";
 
-class LavaWallet {
+export class LavaWallet {
   private wallet: Secp256k1Wallet | Error;
   private privKey: string;
 
@@ -92,16 +92,21 @@ interface AccountDataWithPrivkey extends AccountData {
 }
 
 
-export async function createDynamicWallet(): Promise<Secp256k1HdWallet> {
-  const wallet = await Secp256k1HdWallet.generate(undefined, { prefix: 'lava@' });
-  console.log("Wallet created with Mnemonic:", wallet.mnemonic);
+export async function createDynamicWallet(): Promise<LavaWallet> {
+  const walletWithRandomSeed = await Secp256k1HdWallet.generate(undefined, { prefix: lavaPrefix });
+  console.log("Wallet created with Mnemonic:", walletWithRandomSeed.mnemonic);
 
-  return wallet
+  const walletPrivKey = await getWalletPrivateKey(walletWithRandomSeed.mnemonic)
+  const privKey = Array.from(walletPrivKey.privkey)
+        .map(byte => byte.toString(16).padStart(2, '0'))
+        .join('');
+
+  return await createWallet(privKey)
 }
 
-export async function getWalletPrivateKey(prefix: string, walletMnemonic: string): Promise<AccountDataWithPrivkey> {
+async function getWalletPrivateKey(walletMnemonic: string): Promise<AccountDataWithPrivkey> {
   const { privkey, pubkey } = await getKeyPair([Slip10RawIndex.normal(0)], walletMnemonic);
-  const address = toBech32(prefix, rawSecp256k1PubkeyToRawAddress(pubkey));
+  const address = toBech32(lavaPrefix, rawSecp256k1PubkeyToRawAddress(pubkey));
   return {
     algo: "secp256k1",
     privkey: privkey,
@@ -121,30 +126,9 @@ async function getKeyPair(hdPath: HdPath, walletMnemonic: string): Promise<Secp2
   };
 }
 
-export function rawSecp256k1PubkeyToRawAddress(pubkeyData: Uint8Array): Uint8Array {
+function rawSecp256k1PubkeyToRawAddress(pubkeyData: Uint8Array): Uint8Array {
   if (pubkeyData.length !== 33) {
     throw new Error(`Invalid Secp256k1 pubkey length (compressed): ${pubkeyData.length}`);
   }
   return ripemd160(sha256(pubkeyData));
 }
-
-export function byteArrayToString(byteArray: Uint8Array): string {
-  let output = "";
-  for (let i = 0; i < byteArray.length; i++) {
-    const byte = byteArray[i];
-    if (byte === 0x09) {
-      output += "\\t";
-    } else if (byte === 0x0a) {
-      output += "\\n";
-    } else if (byte === 0x0d) {
-      output += "\\r";
-    } else if (byte === 0x5c) {
-      output += "\\\\";
-    } else if (byte >= 0x20 && byte <= 0x7e) {
-      output += String.fromCharCode(byte);
-    } else {
-      output += "\\" + byte.toString(8).padStart(3, "0");
-    }
-  }
-  return output;
-};

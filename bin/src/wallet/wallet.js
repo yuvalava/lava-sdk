@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.byteArrayToString = exports.rawSecp256k1PubkeyToRawAddress = exports.getWalletPrivateKey = exports.createDynamicWallet = exports.createWallet = void 0;
+exports.createDynamicWallet = exports.createWallet = exports.LavaWallet = void 0;
 const amino_1 = require("@cosmjs/amino");
 const launchpad_1 = require("@cosmjs/launchpad");
 const errors_1 = __importDefault(require("./errors"));
@@ -68,6 +68,7 @@ class LavaWallet {
         logger_1.default.emptyLine();
     }
 }
+exports.LavaWallet = LavaWallet;
 function createWallet(privKey) {
     return __awaiter(this, void 0, void 0, function* () {
         // Create lavaSDK
@@ -80,16 +81,20 @@ function createWallet(privKey) {
 exports.createWallet = createWallet;
 function createDynamicWallet() {
     return __awaiter(this, void 0, void 0, function* () {
-        const wallet = yield launchpad_1.Secp256k1HdWallet.generate(undefined, { prefix: 'lava@' });
-        console.log("Wallet created with Mnemonic:", wallet.mnemonic);
-        return wallet;
+        const walletWithRandomSeed = yield launchpad_1.Secp256k1HdWallet.generate(undefined, { prefix: lavaPrefix });
+        console.log("Wallet created with Mnemonic:", walletWithRandomSeed.mnemonic);
+        const walletPrivKey = yield getWalletPrivateKey(walletWithRandomSeed.mnemonic);
+        const privKey = Array.from(walletPrivKey.privkey)
+            .map(byte => byte.toString(16).padStart(2, '0'))
+            .join('');
+        return yield createWallet(privKey);
     });
 }
 exports.createDynamicWallet = createDynamicWallet;
-function getWalletPrivateKey(prefix, walletMnemonic) {
+function getWalletPrivateKey(walletMnemonic) {
     return __awaiter(this, void 0, void 0, function* () {
         const { privkey, pubkey } = yield getKeyPair([crypto_1.Slip10RawIndex.normal(0)], walletMnemonic);
-        const address = (0, encoding_2.toBech32)(prefix, rawSecp256k1PubkeyToRawAddress(pubkey));
+        const address = (0, encoding_2.toBech32)(lavaPrefix, rawSecp256k1PubkeyToRawAddress(pubkey));
         return {
             algo: "secp256k1",
             privkey: privkey,
@@ -98,7 +103,6 @@ function getWalletPrivateKey(prefix, walletMnemonic) {
         };
     });
 }
-exports.getWalletPrivateKey = getWalletPrivateKey;
 function getKeyPair(hdPath, walletMnemonic) {
     return __awaiter(this, void 0, void 0, function* () {
         const mnemonicChecked = new crypto_1.EnglishMnemonic(walletMnemonic);
@@ -117,31 +121,3 @@ function rawSecp256k1PubkeyToRawAddress(pubkeyData) {
     }
     return (0, crypto_1.ripemd160)((0, crypto_1.sha256)(pubkeyData));
 }
-exports.rawSecp256k1PubkeyToRawAddress = rawSecp256k1PubkeyToRawAddress;
-function byteArrayToString(byteArray) {
-    let output = "";
-    for (let i = 0; i < byteArray.length; i++) {
-        const byte = byteArray[i];
-        if (byte === 0x09) {
-            output += "\\t";
-        }
-        else if (byte === 0x0a) {
-            output += "\\n";
-        }
-        else if (byte === 0x0d) {
-            output += "\\r";
-        }
-        else if (byte === 0x5c) {
-            output += "\\\\";
-        }
-        else if (byte >= 0x20 && byte <= 0x7e) {
-            output += String.fromCharCode(byte);
-        }
-        else {
-            output += "\\" + byte.toString(8).padStart(3, "0");
-        }
-    }
-    return output;
-}
-exports.byteArrayToString = byteArrayToString;
-;
