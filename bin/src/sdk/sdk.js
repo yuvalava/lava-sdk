@@ -37,7 +37,7 @@ class LavaSDK {
             return new Uint8Array(buffer);
         };
         // Extract attributes from options
-        const { privateKey, chainID, rpcInterface } = options;
+        const { privateKey, badge, chainID, rpcInterface } = options;
         let { pairingListConfig, network, geolocation, lavaChainId } = options;
         // If network is not defined use default network
         network = network || default_1.DEFAULT_LAVA_PAIRING_NETWORK;
@@ -51,10 +51,17 @@ class LavaSDK {
         geolocation = geolocation || default_1.DEFAULT_GEOLOCATION;
         // If lava pairing config not defined set as empty
         pairingListConfig = pairingListConfig || "";
+        if (!badge && !privateKey) {
+            throw errors_1.default.errPrivKeyAndBadgeNotInitialized;
+        }
+        else if (badge && privateKey) {
+            throw errors_1.default.errPrivKeyAndBadgeBothInitialized;
+        }
         // Initialize local attributes
         this.chainID = chainID;
         this.rpcInterface = rpcInterface ? rpcInterface : "";
-        this.privKey = privateKey;
+        this.privKey = privateKey ? privateKey : "";
+        this.badge = badge ? badge : { badgeServerAddress: "", projectId: "" };
         this.network = network;
         this.geolocation = geolocation;
         this.lavaChainId = lavaChainId;
@@ -63,6 +70,7 @@ class LavaSDK {
         this.relayer = errors_1.default.errRelayerServiceNotInitialized;
         this.lavaProviders = errors_1.default.errLavaProvidersNotInitialized;
         this.activeSessionManager = errors_1.default.errSessionNotInitialized;
+        this.isBadge = Boolean(badge);
         // Init sdk
         return (() => __awaiter(this, void 0, void 0, function* () {
             yield this.init();
@@ -71,10 +79,23 @@ class LavaSDK {
     }
     init() {
         return __awaiter(this, void 0, void 0, function* () {
+            if (this.isBadge) {
+                const wallet = yield (0, wallet_1.createDynamicWallet)();
+                console.log("wallet: ", yield wallet.getAccounts());
+                const privateKey = yield (0, wallet_1.getWalletPrivateKey)("lava@", wallet.mnemonic);
+                console.log("PRIVATE KEY: ", privateKey.privkey);
+                const hexString = Array.from(privateKey.privkey)
+                    .map(byte => byte.toString(16).padStart(2, '0'))
+                    .join('');
+                console.log("PRIVATE KEY HEX: ", hexString);
+            }
+            else {
+            }
             // Create wallet
             const wallet = yield (0, wallet_1.createWallet)(this.privKey);
             // Get account from wallet
             this.account = yield wallet.getConsumerAccount();
+            console.log("this.account:", this.account.address);
             // Init relayer for lava providers
             const lavaRelayer = new relayer_1.default(default_1.LAVA_CHAIN_ID, this.privKey, this.lavaChainId);
             // Create new instance of lava providers

@@ -1,5 +1,7 @@
 export declare class LavaSDK {
     private privKey;
+    private badge;
+    private isBadge;
     private chainID;
     private rpcInterface;
     private network;
@@ -62,7 +64,11 @@ export interface SendRestRelayOptions {
  * Options for initializing the LavaSDK.
  */
 export interface LavaSDKOptions {
-    privateKey: string;
+    privateKey?: string;
+    badge?: {
+        badgeServerAddress: string;
+        projectId: string;
+    };
     chainID: string;
     rpcInterface?: string;
     pairingListConfig?: string;

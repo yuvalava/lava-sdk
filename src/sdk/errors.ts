@@ -21,6 +21,12 @@ class SDKErrors {
   static errRPCRelayMethodNotSupported: Error = new Error(
     "SendRelay not supported if the SDK is initialized with rest rpcInterface, use sendRestRelay method"
   );
+  static errPrivKeyAndBadgeNotInitialized: Error = new Error(
+    "Consumer private key or badge was not initialized"
+  );
+  static errPrivKeyAndBadgeBothInitialized: Error = new Error(
+    "Consumer private key and badge was both initialized"
+  );
   static errRestRelayMethodNotSupported: Error = new Error(
     "SendRestRelay not supported if the SDK is initialized with RPC rpcInterface (tendermintRPC/jsonRPC), use sendRelay method"
   );
