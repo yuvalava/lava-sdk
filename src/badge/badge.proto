@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option go_package = "badgegenerator/pb";
+
+message GenerateBadgeRequest {
+  string user_id = 1;
+  string project_key = 2;
+}
+
+message GenerateBadgeResponse {
+  int64   allowed_cu = 1;
+  uint64   epoch = 2;
+  string  public_key = 3;
+  string  user_id = 4;
+  string  session_id = 5;
+  bytes  signature = 6;
+  repeated PolicyRestrictions policy_restrictions = 7;
+  repeated PairingList pairing_list = 8;
+}
+
+message PolicyRestrictions{}
+message PairingList{}
+
+service BadgeGenerator {
+  rpc GenerateBadge(GenerateBadgeRequest) returns (GenerateBadgeResponse) {}
+}
