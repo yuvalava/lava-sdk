@@ -12,8 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const relay_pb_service_1 = require("../pairing/relay_pb_service");
-const relay_pb_1 = require("../pairing/relay_pb");
+// import { RelayerClient, Relayer } from "../pairing/relay_pb_service.js";
+// import { GenerateBadgeRequest, GenerateBadgeResponse } from "../pairing/relay_pb.js";
+const badge_pb_service_1 = require("./badge_pb_service");
+const badge_pb_1 = require("./badge_pb");
 const grpc_web_1 = require("@improbable-eng/grpc-web");
 const browser_1 = __importDefault(require("../util/browser"));
 const serverAddress = "http://localhost:8080";
@@ -22,17 +24,18 @@ function sendRequest() {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("entered sendRequest!");
         // Create a new instance of the BadgeGeneratorClient
-        const client = new relay_pb_service_1.RelayerClient(serverAddress);
+        const client = new badge_pb_service_1.BadgeGeneratorClient(serverAddress);
         console.log("client: ", client);
         // Create a new GenerateBadgeRequest
-        const request = new relay_pb_1.GenerateBadgeRequest();
-        request.setBadgeAddress("lava@1xxacpczgrnleajam6jkkaptufpfd4dcaaps0r6");
-        request.setProjectId("aabbcc");
+        const request = new badge_pb_1.GenerateBadgeRequest();
+        request.setUserId("lava@1xxacpczgrnleajam6jkkaptufpfd4dcaaps0r6");
+        request.setProjectKey("aabbcc");
+        // request.setChainId("LAV1");
         console.log("request: ", request);
-        console.log("request.setUserId: ", request.getBadgeAddress());
-        console.log("request.setProjectKey: ", request.getProjectId());
+        console.log("request.setUserId: ", request.getUserId());
+        console.log("request.setProjectKey: ", request.getProjectKey());
         const requestPromise = new Promise((resolve, reject) => {
-            grpc_web_1.grpc.invoke(relay_pb_service_1.Relayer.GenerateBadge, {
+            grpc_web_1.grpc.invoke(badge_pb_service_1.BadgeGenerator.GenerateBadge, {
                 request: request,
                 host: serverAddress,
                 transport: browser_1.default,

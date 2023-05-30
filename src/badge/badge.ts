@@ -1,5 +1,7 @@
-import { RelayerClient, Relayer } from "../pairing/relay_pb_service";
-import { GenerateBadgeRequest, GenerateBadgeResponse } from "../pairing/relay_pb";
+// import { RelayerClient, Relayer } from "../pairing/relay_pb_service.js";
+// import { GenerateBadgeRequest, GenerateBadgeResponse } from "../pairing/relay_pb.js";
+import { BadgeGeneratorClient, BadgeGenerator } from "./badge_pb_service";
+import { GenerateBadgeRequest, GenerateBadgeResponse } from "./badge_pb";
 import { grpc } from "@improbable-eng/grpc-web";
 import transport from "../util/browser";
 
@@ -9,18 +11,19 @@ const serverAddress = "http://localhost:8080";
 async function sendRequest() : Promise<GenerateBadgeResponse> {
     console.log("entered sendRequest!")
     // Create a new instance of the BadgeGeneratorClient
-    const client = new RelayerClient(serverAddress);
+    const client = new BadgeGeneratorClient(serverAddress);
     console.log("client: ", client)
     // Create a new GenerateBadgeRequest
     const request = new GenerateBadgeRequest();
-    request.setBadgeAddress("lava@1xxacpczgrnleajam6jkkaptufpfd4dcaaps0r6");
-    request.setProjectId("aabbcc");
+    request.setUserId("lava@1xxacpczgrnleajam6jkkaptufpfd4dcaaps0r6");
+    request.setProjectKey("aabbcc");
+    // request.setChainId("LAV1");
     console.log("request: ", request)
-    console.log("request.setUserId: ", request.getBadgeAddress())
-    console.log("request.setProjectKey: ", request.getProjectId())
+    console.log("request.setUserId: ", request.getUserId())
+    console.log("request.setProjectKey: ", request.getProjectKey())
 
     const requestPromise = new Promise<GenerateBadgeResponse>((resolve, reject) => {
-        grpc.invoke(Relayer.GenerateBadge, {
+        grpc.invoke(BadgeGenerator.GenerateBadge, {
             request: request,
             host: serverAddress,
             transport: transport,
