@@ -2,7 +2,7 @@ import { createWallet, createDynamicWallet, LavaWallet } from "../wallet/wallet"
 import SDKErrors from "./errors";
 import { AccountData } from "@cosmjs/proto-signing";
 import Relayer from "../relayer/relayer";
-import {fetchBadge} from "../badge/badge"
+import {fetchBadge} from "../badge/fetchBadge"
 import { RelayReply } from "../pairing/relay_pb";
 import { SessionManager, ConsumerSessionWithProvider } from "../types/types";
 import {
@@ -88,7 +88,7 @@ export class LavaSDK {
     this.lavaProviders = SDKErrors.errLavaProvidersNotInitialized;
     this.activeSessionManager = SDKErrors.errSessionNotInitialized;
     this.isBadge = Boolean(badge);
-
+    
     // Init sdk
     return (async (): Promise<LavaSDK> => {
       await this.init();

@@ -16,7 +16,7 @@ exports.LavaSDK = void 0;
 const wallet_1 = require("../wallet/wallet");
 const errors_1 = __importDefault(require("./errors"));
 const relayer_1 = __importDefault(require("../relayer/relayer"));
-const badge_1 = require("../badge/badge");
+const fetchBadge_1 = require("../badge/fetchBadge");
 const chains_1 = require("../util/chains");
 const providers_1 = require("../lavaOverLava/providers");
 const default_1 = require("../config/default");
@@ -72,6 +72,7 @@ class LavaSDK {
         this.lavaProviders = errors_1.default.errLavaProvidersNotInitialized;
         this.activeSessionManager = errors_1.default.errSessionNotInitialized;
         this.isBadge = Boolean(badge);
+        console.log("this.isBadge: ", this.isBadge);
         // Init sdk
         return (() => __awaiter(this, void 0, void 0, function* () {
             yield this.init();
@@ -91,7 +92,7 @@ class LavaSDK {
             this.account = yield wallet.getConsumerAccount();
             console.log("this.account:", this.account.address);
             // test fetching badge:
-            const badgeResponse = yield (0, badge_1.fetchBadge)(this.badge.badgeServerAddress, this.account.address, this.badge.projectId);
+            const badgeResponse = yield (0, fetchBadge_1.fetchBadge)(this.badge.badgeServerAddress, this.account.address, this.badge.projectId);
             console.log("badgeResponse: ", badgeResponse);
             // Init relayer for lava providers
             const lavaRelayer = new relayer_1.default(default_1.LAVA_CHAIN_ID, this.privKey, this.lavaChainId);

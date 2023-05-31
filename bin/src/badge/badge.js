@@ -1,87 +1,283 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchBadge = void 0;
-// import { RelayerClient, Relayer } from "../pairing/relay_pb_service.js";
-// import { GenerateBadgeRequest, GenerateBadgeResponse } from "../pairing/relay_pb.js";
-const badge_pb_service_1 = require("./badge_pb_service");
-const badge_pb_1 = require("./badge_pb");
-const grpc_web_1 = require("@improbable-eng/grpc-web");
-const browser_1 = __importDefault(require("../util/browser"));
-// const serverAddress = "http://localhost:8080";
-// Function to send the gRPC request
-function fetchBadge(serverAddress, badgeUser, projectKey) {
-    return __awaiter(this, void 0, void 0, function* () {
-        console.log("entered sendRequest!");
-        // Create a new instance of the BadgeGeneratorClient
-        const client = new badge_pb_service_1.BadgeGeneratorClient(serverAddress);
-        console.log("client: ", client);
-        // Create a new GenerateBadgeRequest
-        const request = new badge_pb_1.GenerateBadgeRequest();
-        request.setUserId(badgeUser);
-        request.setProjectKey(projectKey);
-        // request.setChainId("LAV1");
-        console.log("request: ", request);
-        console.log("request.setUserId: ", request.getUserId());
-        console.log("request.setProjectKey: ", request.getProjectKey());
-        const requestPromise = new Promise((resolve, reject) => {
-            grpc_web_1.grpc.invoke(badge_pb_service_1.BadgeGenerator.GenerateBadge, {
-                request: request,
-                host: serverAddress,
-                transport: browser_1.default,
-                onMessage: (message) => {
-                    resolve(message);
-                },
-                onEnd: (code, msg) => {
-                    if (code == grpc_web_1.grpc.Code.OK || msg == undefined) {
-                        return;
-                    }
-                    reject(new Error(msg));
-                },
-            });
-        });
-        console.log("reqProm: ", requestPromise);
-        return relayWithTimeout(2000, requestPromise);
-    });
+exports.BadgeGeneratorClientImpl = exports.GenerateBadgeResponse = exports.GenerateBadgeRequest = exports.Badge = exports.protobufPackage = void 0;
+/* eslint-disable */
+const long_1 = __importDefault(require("long"));
+const minimal_1 = __importDefault(require("protobufjs/minimal"));
+exports.protobufPackage = "";
+function createBaseBadge() {
+    return { cuAllocation: long_1.default.UZERO, epoch: long_1.default.UZERO, address: "", lavaChainId: "", projectSig: new Uint8Array() };
 }
-exports.fetchBadge = fetchBadge;
-function relayWithTimeout(timeLimit, task) {
-    return __awaiter(this, void 0, void 0, function* () {
-        console.log("ENTERED HERE!");
-        let timeout;
-        const timeoutPromise = new Promise((resolve, reject) => {
-            timeout = setTimeout(() => {
-                reject(new Error("Timeout exceeded"));
-            }, timeLimit);
-        });
-        const response = yield Promise.race([task, timeoutPromise]);
-        if (timeout) {
-            //the code works without this but let's be safe and clean up the timeout
-            clearTimeout(timeout);
+exports.Badge = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.cuAllocation.isZero()) {
+            writer.uint32(8).uint64(message.cuAllocation);
         }
-        return response;
-    });
+        if (!message.epoch.isZero()) {
+            writer.uint32(16).uint64(message.epoch);
+        }
+        if (message.address !== "") {
+            writer.uint32(26).string(message.address);
+        }
+        if (message.lavaChainId !== "") {
+            writer.uint32(34).string(message.lavaChainId);
+        }
+        if (message.projectSig.length !== 0) {
+            writer.uint32(42).bytes(message.projectSig);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseBadge();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 8) {
+                        break;
+                    }
+                    message.cuAllocation = reader.uint64();
+                    continue;
+                case 2:
+                    if (tag !== 16) {
+                        break;
+                    }
+                    message.epoch = reader.uint64();
+                    continue;
+                case 3:
+                    if (tag !== 26) {
+                        break;
+                    }
+                    message.address = reader.string();
+                    continue;
+                case 4:
+                    if (tag !== 34) {
+                        break;
+                    }
+                    message.lavaChainId = reader.string();
+                    continue;
+                case 5:
+                    if (tag !== 42) {
+                        break;
+                    }
+                    message.projectSig = reader.bytes();
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            cuAllocation: isSet(object.cuAllocation) ? long_1.default.fromValue(object.cuAllocation) : long_1.default.UZERO,
+            epoch: isSet(object.epoch) ? long_1.default.fromValue(object.epoch) : long_1.default.UZERO,
+            address: isSet(object.address) ? String(object.address) : "",
+            lavaChainId: isSet(object.lavaChainId) ? String(object.lavaChainId) : "",
+            projectSig: isSet(object.projectSig) ? bytesFromBase64(object.projectSig) : new Uint8Array(),
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.cuAllocation !== undefined && (obj.cuAllocation = (message.cuAllocation || long_1.default.UZERO).toString());
+        message.epoch !== undefined && (obj.epoch = (message.epoch || long_1.default.UZERO).toString());
+        message.address !== undefined && (obj.address = message.address);
+        message.lavaChainId !== undefined && (obj.lavaChainId = message.lavaChainId);
+        message.projectSig !== undefined &&
+            (obj.projectSig = base64FromBytes(message.projectSig !== undefined ? message.projectSig : new Uint8Array()));
+        return obj;
+    },
+    create(base) {
+        return exports.Badge.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a, _b, _c;
+        const message = createBaseBadge();
+        message.cuAllocation = (object.cuAllocation !== undefined && object.cuAllocation !== null)
+            ? long_1.default.fromValue(object.cuAllocation)
+            : long_1.default.UZERO;
+        message.epoch = (object.epoch !== undefined && object.epoch !== null) ? long_1.default.fromValue(object.epoch) : long_1.default.UZERO;
+        message.address = (_a = object.address) !== null && _a !== void 0 ? _a : "";
+        message.lavaChainId = (_b = object.lavaChainId) !== null && _b !== void 0 ? _b : "";
+        message.projectSig = (_c = object.projectSig) !== null && _c !== void 0 ? _c : new Uint8Array();
+        return message;
+    },
+};
+function createBaseGenerateBadgeRequest() {
+    return { badgeAddress: "", projectId: "" };
 }
-// // Call the function to send the request
-// fetchBadge()
-//     .then((response) => {
-//         processResponse(response);
-//     })
-//     .catch((error) => {
-//         console.error("Error custom:", error);
-//     });
-// // Function to process the response
-// function processResponse(response: GenerateBadgeResponse) {
-//     console.log("Response:", response.toObject());
-// }
+exports.GenerateBadgeRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.badgeAddress !== "") {
+            writer.uint32(10).string(message.badgeAddress);
+        }
+        if (message.projectId !== "") {
+            writer.uint32(18).string(message.projectId);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseGenerateBadgeRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.badgeAddress = reader.string();
+                    continue;
+                case 2:
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.projectId = reader.string();
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            badgeAddress: isSet(object.badgeAddress) ? String(object.badgeAddress) : "",
+            projectId: isSet(object.projectId) ? String(object.projectId) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.badgeAddress !== undefined && (obj.badgeAddress = message.badgeAddress);
+        message.projectId !== undefined && (obj.projectId = message.projectId);
+        return obj;
+    },
+    create(base) {
+        return exports.GenerateBadgeRequest.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseGenerateBadgeRequest();
+        message.badgeAddress = (_a = object.badgeAddress) !== null && _a !== void 0 ? _a : "";
+        message.projectId = (_b = object.projectId) !== null && _b !== void 0 ? _b : "";
+        return message;
+    },
+};
+function createBaseGenerateBadgeResponse() {
+    return { badge: undefined };
+}
+exports.GenerateBadgeResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.badge !== undefined) {
+            exports.Badge.encode(message.badge, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseGenerateBadgeResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.badge = exports.Badge.decode(reader, reader.uint32());
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return { badge: isSet(object.badge) ? exports.Badge.fromJSON(object.badge) : undefined };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.badge !== undefined && (obj.badge = message.badge ? exports.Badge.toJSON(message.badge) : undefined);
+        return obj;
+    },
+    create(base) {
+        return exports.GenerateBadgeResponse.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        const message = createBaseGenerateBadgeResponse();
+        message.badge = (object.badge !== undefined && object.badge !== null) ? exports.Badge.fromPartial(object.badge) : undefined;
+        return message;
+    },
+};
+class BadgeGeneratorClientImpl {
+    constructor(rpc, opts) {
+        this.service = (opts === null || opts === void 0 ? void 0 : opts.service) || "BadgeGenerator";
+        this.rpc = rpc;
+        this.GenerateBadge = this.GenerateBadge.bind(this);
+    }
+    GenerateBadge(request) {
+        const data = exports.GenerateBadgeRequest.encode(request).finish();
+        const promise = this.rpc.request(this.service, "GenerateBadge", data);
+        return promise.then((data) => exports.GenerateBadgeResponse.decode(minimal_1.default.Reader.create(data)));
+    }
+}
+exports.BadgeGeneratorClientImpl = BadgeGeneratorClientImpl;
+var tsProtoGlobalThis = (() => {
+    if (typeof globalThis !== "undefined") {
+        return globalThis;
+    }
+    if (typeof self !== "undefined") {
+        return self;
+    }
+    if (typeof window !== "undefined") {
+        return window;
+    }
+    if (typeof global !== "undefined") {
+        return global;
+    }
+    throw "Unable to locate global object";
+})();
+function bytesFromBase64(b64) {
+    if (tsProtoGlobalThis.Buffer) {
+        return Uint8Array.from(tsProtoGlobalThis.Buffer.from(b64, "base64"));
+    }
+    else {
+        const bin = tsProtoGlobalThis.atob(b64);
+        const arr = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; ++i) {
+            arr[i] = bin.charCodeAt(i);
+        }
+        return arr;
+    }
+}
+function base64FromBytes(arr) {
+    if (tsProtoGlobalThis.Buffer) {
+        return tsProtoGlobalThis.Buffer.from(arr).toString("base64");
+    }
+    else {
+        const bin = [];
+        arr.forEach((byte) => {
+            bin.push(String.fromCharCode(byte));
+        });
+        return tsProtoGlobalThis.btoa(bin.join(""));
+    }
+}
+if (minimal_1.default.util.Long !== long_1.default) {
+    minimal_1.default.util.Long = long_1.default;
+    minimal_1.default.configure();
+}
+function isSet(value) {
+    return value !== null && value !== undefined;
+}
