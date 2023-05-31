@@ -19,7 +19,8 @@ const relay_pb_1 = require("../pairing/relay_pb");
 const relay_pb_service_1 = require("../pairing/relay_pb_service");
 const browser_1 = __importDefault(require("../util/browser"));
 class Relayer {
-    constructor(chainID, privKey, lavaChainId) {
+    constructor(chainID, privKey, lavaChainId, secure) {
+        this.prefix = "http";
         this.byteArrayToString = (byteArray) => {
             let output = "";
             for (let i = 0; i < byteArray.length; i++) {
@@ -48,6 +49,9 @@ class Relayer {
         this.chainID = chainID;
         this.privKey = privKey;
         this.lavaChainId = lavaChainId;
+        if (secure) {
+            this.prefix = "https";
+        }
     }
     sendRelay(options, consumerProviderSession, cuSum, apiInterface) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -89,7 +93,7 @@ class Relayer {
             const requestPromise = new Promise((resolve, reject) => {
                 grpc_web_1.grpc.invoke(relay_pb_service_1.Relayer.Relay, {
                     request: request,
-                    host: "http://" + consumerSession.Endpoint.Addr,
+                    host: this.prefix + "://" + consumerSession.Endpoint.Addr,
                     transport: browser_1.default,
                     onMessage: (message) => {
                         resolve(message);

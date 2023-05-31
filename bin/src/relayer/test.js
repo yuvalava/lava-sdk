@@ -45,7 +45,7 @@ describe("Test relay request", () => {
                 ]),
             },
         ];
-        const relayer = new relayer_1.default("", "", "");
+        const relayer = new relayer_1.default("", "", "", false);
         for (const testCase of testTable) {
             // Test case logic goes here
             const hash = relayer.calculateContentHashForRelayData(testCase.input);

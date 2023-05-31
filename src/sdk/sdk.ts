@@ -30,6 +30,7 @@ export class LavaSDK {
   private lavaProviders: LavaProviders | Error;
   private account: AccountData | Error;
   private relayer: Relayer | Error;
+  private secure: boolean;
 
   private activeSessionManager: SessionManager | Error;
 
@@ -66,6 +67,7 @@ export class LavaSDK {
     pairingListConfig = pairingListConfig || "";
 
     // Initialize local attributes
+    this.secure = options.secure ? options.secure : false;
     this.chainID = chainID;
     this.rpcInterface = rpcInterface ? rpcInterface : "";
     this.privKey = privateKey;
@@ -97,7 +99,8 @@ export class LavaSDK {
     const lavaRelayer = new Relayer(
       LAVA_CHAIN_ID,
       this.privKey,
-      this.lavaChainId
+      this.lavaChainId,
+      this.secure
     );
 
     // Create new instance of lava providers
@@ -155,7 +158,12 @@ export class LavaSDK {
     );
 
     // Create relayer for querying network
-    this.relayer = new Relayer(this.chainID, this.privKey, this.lavaChainId);
+    this.relayer = new Relayer(
+      this.chainID,
+      this.privKey,
+      this.lavaChainId,
+      this.secure
+    );
   }
 
   private async handleRpcRelay(options: SendRelayOptions): Promise<string> {
@@ -429,4 +437,5 @@ export interface LavaSDKOptions {
   network?: string; // Optional: The network from pairingListConfig to be used ["mainnet", "testnet"]
   geolocation?: string; // Optional: The geolocation to be used ["1" for North America, "2" for Europe ]
   lavaChainId?: string; // Optional: The Lava chain ID (default value for Lava Testnet)
+  secure?: boolean; // Optional: communicates through https, this is a temporary flag that will be disabled once the chain will use https by default
 }

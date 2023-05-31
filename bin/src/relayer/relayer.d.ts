@@ -4,7 +4,8 @@ declare class Relayer {
     private chainID;
     private privKey;
     private lavaChainId;
-    constructor(chainID: string, privKey: string, lavaChainId: string);
+    private prefix;
+    constructor(chainID: string, privKey: string, lavaChainId: string, secure: boolean);
     sendRelay(options: SendRelayOptions, consumerProviderSession: ConsumerSessionWithProvider, cuSum: number, apiInterface: string): Promise<RelayReply>;
     relayWithTimeout(timeLimit: number, task: any): Promise<any>;
     byteArrayToString: (byteArray: Uint8Array) => string;

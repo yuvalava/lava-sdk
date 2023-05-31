@@ -15,11 +15,20 @@ class Relayer {
   private chainID: string;
   private privKey: string;
   private lavaChainId: string;
+  private prefix = "http";
 
-  constructor(chainID: string, privKey: string, lavaChainId: string) {
+  constructor(
+    chainID: string,
+    privKey: string,
+    lavaChainId: string,
+    secure: boolean
+  ) {
     this.chainID = chainID;
     this.privKey = privKey;
     this.lavaChainId = lavaChainId;
+    if (secure) {
+      this.prefix = "https";
+    }
   }
 
   async sendRelay(
@@ -77,7 +86,7 @@ class Relayer {
     const requestPromise = new Promise<RelayReply>((resolve, reject) => {
       grpc.invoke(RelayerService.Relay, {
         request: request,
-        host: "http://" + consumerSession.Endpoint.Addr,
+        host: this.prefix + "://" + consumerSession.Endpoint.Addr,
         transport: transport,
         onMessage: (message: RelayReply) => {
           resolve(message);
