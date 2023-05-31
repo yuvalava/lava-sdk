@@ -1,6 +1,6 @@
 // import { RelayerClient, Relayer } from "../pairing/relay_pb_service.js";
 // import { GenerateBadgeRequest, GenerateBadgeResponse } from "../pairing/relay_pb.js";
-import { BadgeGeneratorClient, BadgeGenerator } from "./badge_pb_service";
+import {  BadgeGenerator } from "./badge_pb_service";
 import { GenerateBadgeRequest, GenerateBadgeResponse } from "./badge_pb";
 import { grpc } from "@improbable-eng/grpc-web";
 import transport from "../util/browser";
@@ -9,12 +9,6 @@ import transport from "../util/browser";
 
 // Function to send the gRPC request
 export async function fetchBadge(serverAddress: string, badgeUser: string, projectKey: string) : Promise<GenerateBadgeResponse> {
-    console.log("entered sendRequest!")
-    console.log("badgeUser: ", badgeUser)
-    console.log("projectKey: ", projectKey)
-    // Create a new instance of the BadgeGeneratorClient
-    const client = new BadgeGeneratorClient(serverAddress);
-    console.log("client: ", client)
     // Create a new GenerateBadgeRequest
     const request = new GenerateBadgeRequest();
     request.setBadgeAddress(badgeUser);

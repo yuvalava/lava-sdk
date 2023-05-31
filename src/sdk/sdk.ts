@@ -2,7 +2,7 @@ import { createWallet, createDynamicWallet, LavaWallet } from "../wallet/wallet"
 import SDKErrors from "./errors";
 import { AccountData } from "@cosmjs/proto-signing";
 import Relayer from "../relayer/relayer";
-import {fetchBadge} from "../badge/fetchBadge"
+import { fetchBadge } from "../badge/fetchBadge"
 import { RelayReply } from "../pairing/relay_pb";
 import { SessionManager, ConsumerSessionWithProvider } from "../types/types";
 import {
@@ -88,7 +88,7 @@ export class LavaSDK {
     this.lavaProviders = SDKErrors.errLavaProvidersNotInitialized;
     this.activeSessionManager = SDKErrors.errSessionNotInitialized;
     this.isBadge = Boolean(badge);
-    
+
     // Init sdk
     return (async (): Promise<LavaSDK> => {
       await this.init();
@@ -100,19 +100,22 @@ export class LavaSDK {
   private async init() {
     let wallet: LavaWallet
     if (this.isBadge) {
-       wallet = await createDynamicWallet();
+      wallet = await createDynamicWallet();
+      const walletAddress = (await wallet.getConsumerAccount()).address
+      console.log("walletAddress:", walletAddress)
+      const badgeResponse = await fetchBadge(this.badge.badgeServerAddress, walletAddress, this.badge.projectId)
+      console.log("badgeResponse: ", badgeResponse)
 
-       const badgeResponse = await fetchBadge(this.badge.badgeServerAddress, (await wallet.getConsumerAccount()).address, this.badge.projectId)
-       console.log("badgeResponse: ", badgeResponse)
-       
     } else {
-       wallet = await createWallet(this.privKey);
-    }
-
-    // Get account from wallet
+      wallet = await createWallet(this.privKey);
+       // Get account from wallet
     this.account = await wallet.getConsumerAccount();
     console.log("this.account:", this.account.address)
 
+    //
+    // TODO: CARRY THIS OUTSIDE OF THE ELSE BLOCK
+    //
+    
     // Init relayer for lava providers
     const lavaRelayer = new Relayer(
       LAVA_CHAIN_ID,
@@ -176,6 +179,8 @@ export class LavaSDK {
 
     // Create relayer for querying network
     this.relayer = new Relayer(this.chainID, this.privKey, this.lavaChainId);
+    }
+   
   }
 
   private async handleRpcRelay(options: SendRelayOptions): Promise<string> {

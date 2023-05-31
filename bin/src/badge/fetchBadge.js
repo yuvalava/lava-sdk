@@ -23,12 +23,6 @@ const browser_1 = __importDefault(require("../util/browser"));
 // Function to send the gRPC request
 function fetchBadge(serverAddress, badgeUser, projectKey) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("entered sendRequest!");
-        console.log("badgeUser: ", badgeUser);
-        console.log("projectKey: ", projectKey);
-        // Create a new instance of the BadgeGeneratorClient
-        const client = new badge_pb_service_1.BadgeGeneratorClient(serverAddress);
-        console.log("client: ", client);
         // Create a new GenerateBadgeRequest
         const request = new badge_pb_1.GenerateBadgeRequest();
         request.setBadgeAddress(badgeUser);
