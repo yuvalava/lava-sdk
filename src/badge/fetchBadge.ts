@@ -20,10 +20,6 @@ export async function fetchBadge(serverAddress: string, badgeUser: string, proje
     request.setBadgeAddress(badgeUser);
     request.setProjectId(projectKey);
     // request.setChainId("LAV1");
-    console.log("request: ", request)
-    console.log("request.getBadgeAddress: ", request.getBadgeAddress())
-    console.log("request.getProjectId: ", request.getProjectId())
-    console.log("serverAddress: ", serverAddress)
     const requestPromise = new Promise<GenerateBadgeResponse>((resolve, reject) => {
         grpc.invoke(BadgeGenerator.GenerateBadge, {
             request: request,
@@ -40,12 +36,10 @@ export async function fetchBadge(serverAddress: string, badgeUser: string, proje
             },
         });
     });
-    console.log("reqProm: ", requestPromise)
     return relayWithTimeout(10000, requestPromise);
 }
 
 async function relayWithTimeout(timeLimit: number, task: any) {
-    console.log("ENTERED HERE!")
     let timeout;
     const timeoutPromise = new Promise((resolve, reject) => {
         timeout = setTimeout(() => {
@@ -53,7 +47,6 @@ async function relayWithTimeout(timeLimit: number, task: any) {
         }, timeLimit);
     });
     const response = await Promise.race([task, timeoutPromise]);
-    console.log("response: ", response)
     if (timeout) {
         //the code works without this but let's be safe and clean up the timeout
         clearTimeout(timeout);
@@ -63,16 +56,16 @@ async function relayWithTimeout(timeLimit: number, task: any) {
 
 
   
-// Call the function to send the request
-fetchBadge("http://localhost:8080", "user1", "projectId" )
-    .then((response) => {
-        processResponse(response);
-    })
-    .catch((error) => {
-        console.error("Error custom:", error);
-    });
+// // Call the function to send the request
+// fetchBadge("http://localhost:8080", "user1", "projectId" )
+//     .then((response) => {
+//         processResponse(response);
+//     })
+//     .catch((error) => {
+//         console.error("Error custom:", error);
+//     });
 
-// Function to process the response
-function processResponse(response: GenerateBadgeResponse) {
-    console.log("Response:", response.toObject());
-}
+// // Function to process the response
+// function processResponse(response: GenerateBadgeResponse) {
+//     console.log("Response:", response.toObject());
+// }

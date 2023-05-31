@@ -72,7 +72,6 @@ class LavaSDK {
         this.lavaProviders = errors_1.default.errLavaProvidersNotInitialized;
         this.activeSessionManager = errors_1.default.errSessionNotInitialized;
         this.isBadge = Boolean(badge);
-        console.log("this.isBadge: ", this.isBadge);
         // Init sdk
         return (() => __awaiter(this, void 0, void 0, function* () {
             yield this.init();
@@ -84,6 +83,8 @@ class LavaSDK {
             let wallet;
             if (this.isBadge) {
                 wallet = yield (0, wallet_1.createDynamicWallet)();
+                const badgeResponse = yield (0, fetchBadge_1.fetchBadge)(this.badge.badgeServerAddress, (yield wallet.getConsumerAccount()).address, this.badge.projectId);
+                console.log("badgeResponse: ", badgeResponse);
             }
             else {
                 wallet = yield (0, wallet_1.createWallet)(this.privKey);
@@ -91,9 +92,6 @@ class LavaSDK {
             // Get account from wallet
             this.account = yield wallet.getConsumerAccount();
             console.log("this.account:", this.account.address);
-            // test fetching badge:
-            const badgeResponse = yield (0, fetchBadge_1.fetchBadge)(this.badge.badgeServerAddress, this.account.address, this.badge.projectId);
-            console.log("badgeResponse: ", badgeResponse);
             // Init relayer for lava providers
             const lavaRelayer = new relayer_1.default(default_1.LAVA_CHAIN_ID, this.privKey, this.lavaChainId);
             // Create new instance of lava providers

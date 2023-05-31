@@ -101,6 +101,10 @@ export class LavaSDK {
     let wallet: LavaWallet
     if (this.isBadge) {
        wallet = await createDynamicWallet();
+
+       const badgeResponse = await fetchBadge(this.badge.badgeServerAddress, (await wallet.getConsumerAccount()).address, this.badge.projectId)
+       console.log("badgeResponse: ", badgeResponse)
+       
     } else {
        wallet = await createWallet(this.privKey);
     }
@@ -109,10 +113,6 @@ export class LavaSDK {
     this.account = await wallet.getConsumerAccount();
     console.log("this.account:", this.account.address)
 
-    // test fetching badge:
-    const badgeResponse = await fetchBadge(this.badge.badgeServerAddress, this.account.address, this.badge.projectId)
-    console.log("badgeResponse: ", badgeResponse)
-    
     // Init relayer for lava providers
     const lavaRelayer = new Relayer(
       LAVA_CHAIN_ID,

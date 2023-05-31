@@ -34,10 +34,6 @@ function fetchBadge(serverAddress, badgeUser, projectKey) {
         request.setBadgeAddress(badgeUser);
         request.setProjectId(projectKey);
         // request.setChainId("LAV1");
-        console.log("request: ", request);
-        console.log("request.getBadgeAddress: ", request.getBadgeAddress());
-        console.log("request.getProjectId: ", request.getProjectId());
-        console.log("serverAddress: ", serverAddress);
         const requestPromise = new Promise((resolve, reject) => {
             grpc_web_1.grpc.invoke(badge_pb_service_1.BadgeGenerator.GenerateBadge, {
                 request: request,
@@ -54,14 +50,12 @@ function fetchBadge(serverAddress, badgeUser, projectKey) {
                 },
             });
         });
-        console.log("reqProm: ", requestPromise);
         return relayWithTimeout(10000, requestPromise);
     });
 }
 exports.fetchBadge = fetchBadge;
 function relayWithTimeout(timeLimit, task) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("ENTERED HERE!");
         let timeout;
         const timeoutPromise = new Promise((resolve, reject) => {
             timeout = setTimeout(() => {
@@ -69,7 +63,6 @@ function relayWithTimeout(timeLimit, task) {
             }, timeLimit);
         });
         const response = yield Promise.race([task, timeoutPromise]);
-        console.log("response: ", response);
         if (timeout) {
             //the code works without this but let's be safe and clean up the timeout
             clearTimeout(timeout);
@@ -77,15 +70,15 @@ function relayWithTimeout(timeLimit, task) {
         return response;
     });
 }
-// Call the function to send the request
-fetchBadge("http://localhost:8080", "user1", "projectId")
-    .then((response) => {
-    processResponse(response);
-})
-    .catch((error) => {
-    console.error("Error custom:", error);
-});
-// Function to process the response
-function processResponse(response) {
-    console.log("Response:", response.toObject());
-}
+// // Call the function to send the request
+// fetchBadge("http://localhost:8080", "user1", "projectId" )
+//     .then((response) => {
+//         processResponse(response);
+//     })
+//     .catch((error) => {
+//         console.error("Error custom:", error);
+//     });
+// // Function to process the response
+// function processResponse(response: GenerateBadgeResponse) {
+//     console.log("Response:", response.toObject());
+// }
