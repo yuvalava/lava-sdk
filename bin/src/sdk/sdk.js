@@ -82,11 +82,21 @@ class LavaSDK {
         return __awaiter(this, void 0, void 0, function* () {
             let wallet;
             if (this.isBadge) {
-                wallet = yield (0, wallet_1.createDynamicWallet)();
+                const { wallet, privKey } = yield (0, wallet_1.createDynamicWallet)();
                 const walletAddress = (yield wallet.getConsumerAccount()).address;
                 console.log("walletAddress:", walletAddress);
                 const badgeResponse = yield (0, fetchBadge_1.fetchBadge)(this.badge.badgeServerAddress, walletAddress, this.badge.projectId);
                 console.log("badgeResponse: ", badgeResponse);
+                // parsing badgeResponse
+                const badge = badgeResponse.getBadge();
+                const badgeSigner = badgeResponse.getBadgeSignerAddress();
+                const badgeUser = badge === null || badge === void 0 ? void 0 : badge.getAddress();
+                console.log("badgeExtracted: ", badge);
+                console.log("badgeSigner: ", badgeSigner);
+                console.log("badgeSignerAddress: ", badgeUser);
+                // create relayer with badge user's private key
+                const lavaRelayer = new relayer_1.default(default_1.LAVA_CHAIN_ID, privKey, this.lavaChainId);
+                console.log('lavaRelayer with BADGE: ', lavaRelayer);
             }
             else {
                 wallet = yield (0, wallet_1.createWallet)(this.privKey);
@@ -98,6 +108,7 @@ class LavaSDK {
                 //
                 // Init relayer for lava providers
                 const lavaRelayer = new relayer_1.default(default_1.LAVA_CHAIN_ID, this.privKey, this.lavaChainId);
+                console.log('lavaRelayer: ', lavaRelayer);
                 // Create new instance of lava providers
                 const lavaProviders = yield new providers_1.LavaProviders(this.account.address, this.network, lavaRelayer, this.geolocation);
                 // Init lava providers

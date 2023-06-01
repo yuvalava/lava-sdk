@@ -100,12 +100,28 @@ export class LavaSDK {
   private async init() {
     let wallet: LavaWallet
     if (this.isBadge) {
-      wallet = await createDynamicWallet();
+      const { wallet, privKey } = await createDynamicWallet();
       const walletAddress = (await wallet.getConsumerAccount()).address
       console.log("walletAddress:", walletAddress)
       const badgeResponse = await fetchBadge(this.badge.badgeServerAddress, walletAddress, this.badge.projectId)
       console.log("badgeResponse: ", badgeResponse)
 
+      // parsing badgeResponse
+      const badge = badgeResponse.getBadge()
+      const badgeSigner = badgeResponse.getBadgeSignerAddress()
+      const badgeUser = badge?.getAddress()
+      console.log("badgeExtracted: ", badge)
+      console.log("badgeSigner: ", badgeSigner)
+      console.log("badgeSignerAddress: ", badgeUser)
+
+      // create relayer with badge user's private key
+      const lavaRelayer = new Relayer(
+        LAVA_CHAIN_ID,
+        privKey,
+        this.lavaChainId
+      );
+      console.log('lavaRelayer with BADGE: ', lavaRelayer)
+      
     } else {
       wallet = await createWallet(this.privKey);
        // Get account from wallet
@@ -122,7 +138,7 @@ export class LavaSDK {
       this.privKey,
       this.lavaChainId
     );
-
+    console.log('lavaRelayer: ', lavaRelayer)
     // Create new instance of lava providers
     const lavaProviders = await new LavaProviders(
       this.account.address,

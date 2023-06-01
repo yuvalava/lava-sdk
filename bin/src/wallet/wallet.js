@@ -87,7 +87,8 @@ function createDynamicWallet() {
         const privKey = Array.from(walletPrivKey.privkey)
             .map(byte => byte.toString(16).padStart(2, '0'))
             .join('');
-        return yield createWallet(privKey);
+        const wallet = yield createWallet(privKey);
+        return { wallet, privKey };
     });
 }
 exports.createDynamicWallet = createDynamicWallet;

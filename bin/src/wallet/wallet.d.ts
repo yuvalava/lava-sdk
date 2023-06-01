@@ -8,4 +8,9 @@ export declare class LavaWallet {
     printAccount(AccountData: AccountData): void;
 }
 export declare function createWallet(privKey: string): Promise<LavaWallet>;
-export declare function createDynamicWallet(): Promise<LavaWallet>;
+interface WalletCreationResult {
+    wallet: LavaWallet;
+    privKey: string;
+}
+export declare function createDynamicWallet(): Promise<WalletCreationResult>;
+export {};

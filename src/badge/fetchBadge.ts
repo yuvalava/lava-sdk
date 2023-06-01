@@ -30,7 +30,7 @@ export async function fetchBadge(serverAddress: string, badgeUser: string, proje
             },
         });
     });
-    return relayWithTimeout(10000, requestPromise);
+    return relayWithTimeout(2000, requestPromise);
 }
 
 async function relayWithTimeout(timeLimit: number, task: any) {
@@ -47,8 +47,6 @@ async function relayWithTimeout(timeLimit: number, task: any) {
     }
     return response;
 }
-
-
   
 // // Call the function to send the request
 // fetchBadge("http://localhost:8080", "user1", "projectId" )

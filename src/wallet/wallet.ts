@@ -91,8 +91,12 @@ interface AccountDataWithPrivkey extends AccountData {
   readonly privkey: Uint8Array;
 }
 
+interface WalletCreationResult {
+  wallet: LavaWallet;
+  privKey: string;
+}
 
-export async function createDynamicWallet(): Promise<LavaWallet> {
+export async function createDynamicWallet(): Promise<WalletCreationResult> {
   const walletWithRandomSeed = await Secp256k1HdWallet.generate(undefined, { prefix: lavaPrefix });
   console.log("Wallet created with Mnemonic:", walletWithRandomSeed.mnemonic);
 
@@ -101,7 +105,9 @@ export async function createDynamicWallet(): Promise<LavaWallet> {
         .map(byte => byte.toString(16).padStart(2, '0'))
         .join('');
 
-  return await createWallet(privKey)
+  const wallet = await createWallet(privKey);
+
+  return {wallet, privKey};
 }
 
 async function getWalletPrivateKey(walletMnemonic: string): Promise<AccountDataWithPrivkey> {
