@@ -19,6 +19,20 @@ export interface ModuleAccount {
     name: string;
     permissions: string[];
 }
+/**
+ * ModuleCredential represents a unclaimable pubkey for base accounts controlled by modules.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface ModuleCredential {
+    /** module_name is the name of the module used for address derivation (passed into address.Module). */
+    moduleName: string;
+    /**
+     * derivation_keys is for deriving a module account address (passed into address.Module)
+     * adding more keys creates sub-account addresses (passed into address.Derive)
+     */
+    derivationKeys: Uint8Array[];
+}
 /** Params defines the parameters for the auth module. */
 export interface Params {
     maxMemoCharacters: Long;
@@ -718,6 +732,26 @@ export declare const ModuleAccount: {
         name?: string | undefined;
         permissions?: (string[] & string[] & { [K_10 in Exclude<keyof I_1["permissions"], keyof string[]>]: never; }) | undefined;
     } & { [K_11 in Exclude<keyof I_1, keyof ModuleAccount>]: never; }>(object: I_1): ModuleAccount;
+};
+export declare const ModuleCredential: {
+    encode(message: ModuleCredential, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ModuleCredential;
+    fromJSON(object: any): ModuleCredential;
+    toJSON(message: ModuleCredential): unknown;
+    create<I extends {
+        moduleName?: string | undefined;
+        derivationKeys?: Uint8Array[] | undefined;
+    } & {
+        moduleName?: string | undefined;
+        derivationKeys?: (Uint8Array[] & Uint8Array[] & { [K in Exclude<keyof I["derivationKeys"], keyof Uint8Array[]>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, keyof ModuleCredential>]: never; }>(base?: I | undefined): ModuleCredential;
+    fromPartial<I_1 extends {
+        moduleName?: string | undefined;
+        derivationKeys?: Uint8Array[] | undefined;
+    } & {
+        moduleName?: string | undefined;
+        derivationKeys?: (Uint8Array[] & Uint8Array[] & { [K_2 in Exclude<keyof I_1["derivationKeys"], keyof Uint8Array[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, keyof ModuleCredential>]: never; }>(object: I_1): ModuleCredential;
 };
 export declare const Params: {
     encode(message: Params, writer?: _m0.Writer): _m0.Writer;

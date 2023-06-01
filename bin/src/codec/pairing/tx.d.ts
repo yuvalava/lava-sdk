@@ -1230,7 +1230,7 @@ export declare const MsgRelayPayment: {
                 address?: string | undefined;
                 lavaChainId?: string | undefined;
                 projectSig?: Uint8Array | undefined;
-            } & { [K_7 in Exclude<keyof I["relays"][number]["badge"], keyof import("./relay").Badge>]: never; }) | undefined;
+            } & { [K_7 in Exclude<keyof I["relays"][number]["badge"], keyof import("./badges").Badge>]: never; }) | undefined;
         } & { [K_8 in Exclude<keyof I["relays"][number], keyof RelaySession>]: never; })[] & { [K_9 in Exclude<keyof I["relays"], keyof {
             specId?: string | undefined;
             contentHash?: Uint8Array | undefined;
@@ -1790,7 +1790,7 @@ export declare const MsgRelayPayment: {
                 address?: string | undefined;
                 lavaChainId?: string | undefined;
                 projectSig?: Uint8Array | undefined;
-            } & { [K_18 in Exclude<keyof I_1["relays"][number]["badge"], keyof import("./relay").Badge>]: never; }) | undefined;
+            } & { [K_18 in Exclude<keyof I_1["relays"][number]["badge"], keyof import("./badges").Badge>]: never; }) | undefined;
         } & { [K_19 in Exclude<keyof I_1["relays"][number], keyof RelaySession>]: never; })[] & { [K_20 in Exclude<keyof I_1["relays"], keyof {
             specId?: string | undefined;
             contentHash?: Uint8Array | undefined;

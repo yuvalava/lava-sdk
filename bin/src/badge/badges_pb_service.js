@@ -1,12 +1,12 @@
-// package: 
-// file: badge.proto
+// package: lavanet.lava.pairing
+// file: pairing/badges.proto
 
-var badge_pb = require("./badge_pb");
+var pairing_badges_pb = require("../pairing/badges_pb");
 var grpc = require("@improbable-eng/grpc-web").grpc;
 
 var BadgeGenerator = (function () {
   function BadgeGenerator() {}
-  BadgeGenerator.serviceName = "BadgeGenerator";
+  BadgeGenerator.serviceName = "lavanet.lava.pairing.BadgeGenerator";
   return BadgeGenerator;
 }());
 
@@ -15,8 +15,8 @@ BadgeGenerator.GenerateBadge = {
   service: BadgeGenerator,
   requestStream: false,
   responseStream: false,
-  requestType: badge_pb.GenerateBadgeRequest,
-  responseType: badge_pb.GenerateBadgeResponse
+  requestType: pairing_badges_pb.GenerateBadgeRequest,
+  responseType: pairing_badges_pb.GenerateBadgeResponse
 };
 
 exports.BadgeGenerator = BadgeGenerator;

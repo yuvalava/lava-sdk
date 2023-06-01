@@ -1,7 +1,7 @@
 // import { RelayerClient, Relayer } from "../pairing/relay_pb_service.js";
 // import { GenerateBadgeRequest, GenerateBadgeResponse } from "../pairing/relay_pb.js";
-import {  BadgeGenerator } from "./badge_pb_service";
-import { GenerateBadgeRequest, GenerateBadgeResponse } from "./badge_pb";
+import {  BadgeGenerator } from "./badges_pb_service";
+import { GenerateBadgeRequest, GenerateBadgeResponse } from "./badges_pb";
 import { grpc } from "@improbable-eng/grpc-web";
 import transport from "../util/browser";
 

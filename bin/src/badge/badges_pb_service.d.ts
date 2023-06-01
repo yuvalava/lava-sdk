@@ -1,7 +1,7 @@
-// package: 
-// file: badge.proto
+// package: lavanet.lava.pairing
+// file: pairing/badges.proto
 
-import * as badge_pb from "./badge_pb";
+import * as pairing_badges_pb from "../pairing/badges_pb";
 import {grpc} from "@improbable-eng/grpc-web";
 
 type BadgeGeneratorGenerateBadge = {
@@ -9,8 +9,8 @@ type BadgeGeneratorGenerateBadge = {
   readonly service: typeof BadgeGenerator;
   readonly requestStream: false;
   readonly responseStream: false;
-  readonly requestType: typeof badge_pb.GenerateBadgeRequest;
-  readonly responseType: typeof badge_pb.GenerateBadgeResponse;
+  readonly requestType: typeof pairing_badges_pb.GenerateBadgeRequest;
+  readonly responseType: typeof pairing_badges_pb.GenerateBadgeResponse;
 };
 
 export class BadgeGenerator {
@@ -51,13 +51,13 @@ export class BadgeGeneratorClient {
 
   constructor(serviceHost: string, options?: grpc.RpcOptions);
   generateBadge(
-    requestMessage: badge_pb.GenerateBadgeRequest,
+    requestMessage: pairing_badges_pb.GenerateBadgeRequest,
     metadata: grpc.Metadata,
-    callback: (error: ServiceError|null, responseMessage: badge_pb.GenerateBadgeResponse|null) => void
+    callback: (error: ServiceError|null, responseMessage: pairing_badges_pb.GenerateBadgeResponse|null) => void
   ): UnaryResponse;
   generateBadge(
-    requestMessage: badge_pb.GenerateBadgeRequest,
-    callback: (error: ServiceError|null, responseMessage: badge_pb.GenerateBadgeResponse|null) => void
+    requestMessage: pairing_badges_pb.GenerateBadgeRequest,
+    callback: (error: ServiceError|null, responseMessage: pairing_badges_pb.GenerateBadgeResponse|null) => void
   ): UnaryResponse;
 }
 

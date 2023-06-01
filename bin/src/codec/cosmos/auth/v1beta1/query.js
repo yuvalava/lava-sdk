@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryAccountInfoResponse = exports.QueryAccountInfoRequest = exports.QueryAccountAddressByIDResponse = exports.QueryAccountAddressByIDRequest = exports.AddressStringToBytesResponse = exports.AddressStringToBytesRequest = exports.AddressBytesToStringResponse = exports.AddressBytesToStringRequest = exports.Bech32PrefixResponse = exports.Bech32PrefixRequest = exports.QueryModuleAccountsResponse = exports.QueryParamsRequest = exports.QueryAccountResponse = exports.QueryParamsResponse = exports.QueryModuleAccountsRequest = exports.QueryAccountRequest = exports.QueryAccountsResponse = exports.QueryAccountsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryAccountInfoResponse = exports.QueryAccountInfoRequest = exports.QueryAccountAddressByIDResponse = exports.QueryAccountAddressByIDRequest = exports.AddressStringToBytesResponse = exports.AddressStringToBytesRequest = exports.AddressBytesToStringResponse = exports.AddressBytesToStringRequest = exports.Bech32PrefixResponse = exports.Bech32PrefixRequest = exports.QueryModuleAccountByNameResponse = exports.QueryModuleAccountByNameRequest = exports.QueryModuleAccountsResponse = exports.QueryModuleAccountsRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.QueryAccountResponse = exports.QueryAccountRequest = exports.QueryAccountsResponse = exports.QueryAccountsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
@@ -29,13 +29,13 @@ exports.QueryAccountsRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -83,19 +83,19 @@ exports.QueryAccountsResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.accounts.push(any_1.Any.decode(reader, reader.uint32()));
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -151,13 +151,13 @@ exports.QueryAccountRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.address = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -182,93 +182,6 @@ exports.QueryAccountRequest = {
         return message;
     },
 };
-function createBaseQueryModuleAccountsRequest() {
-    return {};
-}
-exports.QueryModuleAccountsRequest = {
-    encode(_, writer = minimal_1.default.Writer.create()) {
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryModuleAccountsRequest();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-            }
-            if ((tag & 7) == 4 || tag == 0) {
-                break;
-            }
-            reader.skipType(tag & 7);
-        }
-        return message;
-    },
-    fromJSON(_) {
-        return {};
-    },
-    toJSON(_) {
-        const obj = {};
-        return obj;
-    },
-    create(base) {
-        return exports.QueryModuleAccountsRequest.fromPartial(base !== null && base !== void 0 ? base : {});
-    },
-    fromPartial(_) {
-        const message = createBaseQueryModuleAccountsRequest();
-        return message;
-    },
-};
-function createBaseQueryParamsResponse() {
-    return { params: undefined };
-}
-exports.QueryParamsResponse = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.params !== undefined) {
-            auth_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseQueryParamsResponse();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    if (tag != 10) {
-                        break;
-                    }
-                    message.params = auth_1.Params.decode(reader, reader.uint32());
-                    continue;
-            }
-            if ((tag & 7) == 4 || tag == 0) {
-                break;
-            }
-            reader.skipType(tag & 7);
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return { params: isSet(object.params) ? auth_1.Params.fromJSON(object.params) : undefined };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.params !== undefined && (obj.params = message.params ? auth_1.Params.toJSON(message.params) : undefined);
-        return obj;
-    },
-    create(base) {
-        return exports.QueryParamsResponse.fromPartial(base !== null && base !== void 0 ? base : {});
-    },
-    fromPartial(object) {
-        const message = createBaseQueryParamsResponse();
-        message.params = (object.params !== undefined && object.params !== null)
-            ? auth_1.Params.fromPartial(object.params)
-            : undefined;
-        return message;
-    },
-};
 function createBaseQueryAccountResponse() {
     return { account: undefined };
 }
@@ -287,13 +200,13 @@ exports.QueryAccountResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.account = any_1.Any.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -334,7 +247,7 @@ exports.QueryParamsRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -356,6 +269,93 @@ exports.QueryParamsRequest = {
         return message;
     },
 };
+function createBaseQueryParamsResponse() {
+    return { params: undefined };
+}
+exports.QueryParamsResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.params !== undefined) {
+            auth_1.Params.encode(message.params, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryParamsResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.params = auth_1.Params.decode(reader, reader.uint32());
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return { params: isSet(object.params) ? auth_1.Params.fromJSON(object.params) : undefined };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.params !== undefined && (obj.params = message.params ? auth_1.Params.toJSON(message.params) : undefined);
+        return obj;
+    },
+    create(base) {
+        return exports.QueryParamsResponse.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        const message = createBaseQueryParamsResponse();
+        message.params = (object.params !== undefined && object.params !== null)
+            ? auth_1.Params.fromPartial(object.params)
+            : undefined;
+        return message;
+    },
+};
+function createBaseQueryModuleAccountsRequest() {
+    return {};
+}
+exports.QueryModuleAccountsRequest = {
+    encode(_, writer = minimal_1.default.Writer.create()) {
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryModuleAccountsRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(_) {
+        return {};
+    },
+    toJSON(_) {
+        const obj = {};
+        return obj;
+    },
+    create(base) {
+        return exports.QueryModuleAccountsRequest.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(_) {
+        const message = createBaseQueryModuleAccountsRequest();
+        return message;
+    },
+};
 function createBaseQueryModuleAccountsResponse() {
     return { accounts: [] };
 }
@@ -374,13 +374,13 @@ exports.QueryModuleAccountsResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.accounts.push(any_1.Any.decode(reader, reader.uint32()));
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -410,6 +410,105 @@ exports.QueryModuleAccountsResponse = {
         return message;
     },
 };
+function createBaseQueryModuleAccountByNameRequest() {
+    return { name: "" };
+}
+exports.QueryModuleAccountByNameRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.name !== "") {
+            writer.uint32(10).string(message.name);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryModuleAccountByNameRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.name = reader.string();
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return { name: isSet(object.name) ? String(object.name) : "" };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.name !== undefined && (obj.name = message.name);
+        return obj;
+    },
+    create(base) {
+        return exports.QueryModuleAccountByNameRequest.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseQueryModuleAccountByNameRequest();
+        message.name = (_a = object.name) !== null && _a !== void 0 ? _a : "";
+        return message;
+    },
+};
+function createBaseQueryModuleAccountByNameResponse() {
+    return { account: undefined };
+}
+exports.QueryModuleAccountByNameResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.account !== undefined) {
+            any_1.Any.encode(message.account, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryModuleAccountByNameResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.account = any_1.Any.decode(reader, reader.uint32());
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return { account: isSet(object.account) ? any_1.Any.fromJSON(object.account) : undefined };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.account !== undefined && (obj.account = message.account ? any_1.Any.toJSON(message.account) : undefined);
+        return obj;
+    },
+    create(base) {
+        return exports.QueryModuleAccountByNameResponse.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        const message = createBaseQueryModuleAccountByNameResponse();
+        message.account = (object.account !== undefined && object.account !== null)
+            ? any_1.Any.fromPartial(object.account)
+            : undefined;
+        return message;
+    },
+};
 function createBaseBech32PrefixRequest() {
     return {};
 }
@@ -425,7 +524,7 @@ exports.Bech32PrefixRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -465,13 +564,13 @@ exports.Bech32PrefixResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.bech32Prefix = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -514,13 +613,13 @@ exports.AddressBytesToStringRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.addressBytes = reader.bytes();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -564,13 +663,13 @@ exports.AddressBytesToStringResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.addressString = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -613,13 +712,13 @@ exports.AddressStringToBytesRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.addressString = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -662,13 +761,13 @@ exports.AddressStringToBytesResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.addressBytes = reader.bytes();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -695,12 +794,15 @@ exports.AddressStringToBytesResponse = {
     },
 };
 function createBaseQueryAccountAddressByIDRequest() {
-    return { id: long_1.default.ZERO };
+    return { id: long_1.default.ZERO, accountId: long_1.default.UZERO };
 }
 exports.QueryAccountAddressByIDRequest = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (!message.id.isZero()) {
             writer.uint32(8).int64(message.id);
+        }
+        if (!message.accountId.isZero()) {
+            writer.uint32(16).uint64(message.accountId);
         }
         return writer;
     },
@@ -712,13 +814,19 @@ exports.QueryAccountAddressByIDRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 8) {
+                    if (tag !== 8) {
                         break;
                     }
                     message.id = reader.int64();
                     continue;
+                case 2:
+                    if (tag !== 16) {
+                        break;
+                    }
+                    message.accountId = reader.uint64();
+                    continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -726,11 +834,15 @@ exports.QueryAccountAddressByIDRequest = {
         return message;
     },
     fromJSON(object) {
-        return { id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.ZERO };
+        return {
+            id: isSet(object.id) ? long_1.default.fromValue(object.id) : long_1.default.ZERO,
+            accountId: isSet(object.accountId) ? long_1.default.fromValue(object.accountId) : long_1.default.UZERO,
+        };
     },
     toJSON(message) {
         const obj = {};
         message.id !== undefined && (obj.id = (message.id || long_1.default.ZERO).toString());
+        message.accountId !== undefined && (obj.accountId = (message.accountId || long_1.default.UZERO).toString());
         return obj;
     },
     create(base) {
@@ -739,6 +851,9 @@ exports.QueryAccountAddressByIDRequest = {
     fromPartial(object) {
         const message = createBaseQueryAccountAddressByIDRequest();
         message.id = (object.id !== undefined && object.id !== null) ? long_1.default.fromValue(object.id) : long_1.default.ZERO;
+        message.accountId = (object.accountId !== undefined && object.accountId !== null)
+            ? long_1.default.fromValue(object.accountId)
+            : long_1.default.UZERO;
         return message;
     },
 };
@@ -760,13 +875,13 @@ exports.QueryAccountAddressByIDResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.accountAddress = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -809,13 +924,13 @@ exports.QueryAccountInfoRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.address = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -858,13 +973,13 @@ exports.QueryAccountInfoResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.info = auth_1.BaseAccount.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -899,6 +1014,7 @@ class QueryClientImpl {
         this.AccountAddressByID = this.AccountAddressByID.bind(this);
         this.Params = this.Params.bind(this);
         this.ModuleAccounts = this.ModuleAccounts.bind(this);
+        this.ModuleAccountByName = this.ModuleAccountByName.bind(this);
         this.Bech32Prefix = this.Bech32Prefix.bind(this);
         this.AddressBytesToString = this.AddressBytesToString.bind(this);
         this.AddressStringToBytes = this.AddressStringToBytes.bind(this);
@@ -928,6 +1044,11 @@ class QueryClientImpl {
         const data = exports.QueryModuleAccountsRequest.encode(request).finish();
         const promise = this.rpc.request(this.service, "ModuleAccounts", data);
         return promise.then((data) => exports.QueryModuleAccountsResponse.decode(minimal_1.default.Reader.create(data)));
+    }
+    ModuleAccountByName(request) {
+        const data = exports.QueryModuleAccountByNameRequest.encode(request).finish();
+        const promise = this.rpc.request(this.service, "ModuleAccountByName", data);
+        return promise.then((data) => exports.QueryModuleAccountByNameResponse.decode(minimal_1.default.Reader.create(data)));
     }
     Bech32Prefix(request) {
         const data = exports.Bech32PrefixRequest.encode(request).finish();

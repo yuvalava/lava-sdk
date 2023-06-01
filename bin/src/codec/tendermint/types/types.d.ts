@@ -2,18 +2,8 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Proof } from "../crypto/proof";
 import { Consensus } from "../version/types";
-import { ValidatorSet } from "./validator";
+import { BlockIDFlag, ValidatorSet } from "./validator";
 export declare const protobufPackage = "tendermint.types";
-/** BlockIdFlag indicates which BlcokID the signature is for */
-export declare enum BlockIDFlag {
-    BLOCK_ID_FLAG_UNKNOWN = 0,
-    BLOCK_ID_FLAG_ABSENT = 1,
-    BLOCK_ID_FLAG_COMMIT = 2,
-    BLOCK_ID_FLAG_NIL = 3,
-    UNRECOGNIZED = -1
-}
-export declare function blockIDFlagFromJSON(object: any): BlockIDFlag;
-export declare function blockIDFlagToJSON(object: BlockIDFlag): string;
 /** SignedMsgType is a type of signed message in the consensus. */
 export declare enum SignedMsgType {
     SIGNED_MSG_TYPE_UNKNOWN = 0,
@@ -41,7 +31,7 @@ export interface BlockID {
     hash: Uint8Array;
     partSetHeader?: PartSetHeader;
 }
-/** Header defines the structure of a Tendermint block header. */
+/** Header defines the structure of a block header. */
 export interface Header {
     /** basic block info */
     version?: Consensus;
@@ -79,7 +69,7 @@ export interface Data {
     txs: Uint8Array[];
 }
 /**
- * Vote represents a prevote, precommit, or commit vote from validators for
+ * Vote represents a prevote or precommit vote from validators for
  * consensus.
  */
 export interface Vote {
@@ -91,7 +81,22 @@ export interface Vote {
     timestamp?: Date;
     validatorAddress: Uint8Array;
     validatorIndex: number;
+    /**
+     * Vote signature by the validator if they participated in consensus for the
+     * associated block.
+     */
     signature: Uint8Array;
+    /**
+     * Vote extension provided by the application. Only valid for precommit
+     * messages.
+     */
+    extension: Uint8Array;
+    /**
+     * Vote extension signature by the validator if they participated in
+     * consensus for the associated block.
+     * Only valid for precommit messages.
+     */
+    extensionSignature: Uint8Array;
 }
 /** Commit contains the evidence that a block was committed by a set of validators. */
 export interface Commit {
@@ -106,6 +111,27 @@ export interface CommitSig {
     validatorAddress: Uint8Array;
     timestamp?: Date;
     signature: Uint8Array;
+}
+export interface ExtendedCommit {
+    height: Long;
+    round: number;
+    blockId?: BlockID;
+    extendedSignatures: ExtendedCommitSig[];
+}
+/**
+ * ExtendedCommitSig retains all the same fields as CommitSig but adds vote
+ * extension-related fields. We use two signatures to ensure backwards compatibility.
+ * That is the digest of the original signature is still the same in prior versions
+ */
+export interface ExtendedCommitSig {
+    blockIdFlag: BlockIDFlag;
+    validatorAddress: Uint8Array;
+    timestamp?: Date;
+    signature: Uint8Array;
+    /** Vote extension data */
+    extension: Uint8Array;
+    /** Vote extension signature */
+    extensionSignature: Uint8Array;
 }
 export interface Proposal {
     type: SignedMsgType;
@@ -1122,6 +1148,8 @@ export declare const Vote: {
         validatorAddress?: Uint8Array | undefined;
         validatorIndex?: number | undefined;
         signature?: Uint8Array | undefined;
+        extension?: Uint8Array | undefined;
+        extensionSignature?: Uint8Array | undefined;
     } & {
         type?: SignedMsgType | undefined;
         height?: string | number | (Long & {
@@ -1217,6 +1245,8 @@ export declare const Vote: {
         validatorAddress?: Uint8Array | undefined;
         validatorIndex?: number | undefined;
         signature?: Uint8Array | undefined;
+        extension?: Uint8Array | undefined;
+        extensionSignature?: Uint8Array | undefined;
     } & { [K_3 in Exclude<keyof I, keyof Vote>]: never; }>(base?: I | undefined): Vote;
     fromPartial<I_1 extends {
         type?: SignedMsgType | undefined;
@@ -1233,6 +1263,8 @@ export declare const Vote: {
         validatorAddress?: Uint8Array | undefined;
         validatorIndex?: number | undefined;
         signature?: Uint8Array | undefined;
+        extension?: Uint8Array | undefined;
+        extensionSignature?: Uint8Array | undefined;
     } & {
         type?: SignedMsgType | undefined;
         height?: string | number | (Long & {
@@ -1328,6 +1360,8 @@ export declare const Vote: {
         validatorAddress?: Uint8Array | undefined;
         validatorIndex?: number | undefined;
         signature?: Uint8Array | undefined;
+        extension?: Uint8Array | undefined;
+        extensionSignature?: Uint8Array | undefined;
     } & { [K_7 in Exclude<keyof I_1, keyof Vote>]: never; }>(object: I_1): Vote;
 };
 export declare const Commit: {
@@ -1619,6 +1653,324 @@ export declare const CommitSig: {
         timestamp?: Date | undefined;
         signature?: Uint8Array | undefined;
     } & { [K_1 in Exclude<keyof I_1, keyof CommitSig>]: never; }>(object: I_1): CommitSig;
+};
+export declare const ExtendedCommit: {
+    encode(message: ExtendedCommit, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ExtendedCommit;
+    fromJSON(object: any): ExtendedCommit;
+    toJSON(message: ExtendedCommit): unknown;
+    create<I extends {
+        height?: string | number | Long | undefined;
+        round?: number | undefined;
+        blockId?: {
+            hash?: Uint8Array | undefined;
+            partSetHeader?: {
+                total?: number | undefined;
+                hash?: Uint8Array | undefined;
+            } | undefined;
+        } | undefined;
+        extendedSignatures?: {
+            blockIdFlag?: BlockIDFlag | undefined;
+            validatorAddress?: Uint8Array | undefined;
+            timestamp?: Date | undefined;
+            signature?: Uint8Array | undefined;
+            extension?: Uint8Array | undefined;
+            extensionSignature?: Uint8Array | undefined;
+        }[] | undefined;
+    } & {
+        height?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K in Exclude<keyof I["height"], keyof Long>]: never; }) | undefined;
+        round?: number | undefined;
+        blockId?: ({
+            hash?: Uint8Array | undefined;
+            partSetHeader?: {
+                total?: number | undefined;
+                hash?: Uint8Array | undefined;
+            } | undefined;
+        } & {
+            hash?: Uint8Array | undefined;
+            partSetHeader?: ({
+                total?: number | undefined;
+                hash?: Uint8Array | undefined;
+            } & {
+                total?: number | undefined;
+                hash?: Uint8Array | undefined;
+            } & { [K_1 in Exclude<keyof I["blockId"]["partSetHeader"], keyof PartSetHeader>]: never; }) | undefined;
+        } & { [K_2 in Exclude<keyof I["blockId"], keyof BlockID>]: never; }) | undefined;
+        extendedSignatures?: ({
+            blockIdFlag?: BlockIDFlag | undefined;
+            validatorAddress?: Uint8Array | undefined;
+            timestamp?: Date | undefined;
+            signature?: Uint8Array | undefined;
+            extension?: Uint8Array | undefined;
+            extensionSignature?: Uint8Array | undefined;
+        }[] & ({
+            blockIdFlag?: BlockIDFlag | undefined;
+            validatorAddress?: Uint8Array | undefined;
+            timestamp?: Date | undefined;
+            signature?: Uint8Array | undefined;
+            extension?: Uint8Array | undefined;
+            extensionSignature?: Uint8Array | undefined;
+        } & {
+            blockIdFlag?: BlockIDFlag | undefined;
+            validatorAddress?: Uint8Array | undefined;
+            timestamp?: Date | undefined;
+            signature?: Uint8Array | undefined;
+            extension?: Uint8Array | undefined;
+            extensionSignature?: Uint8Array | undefined;
+        } & { [K_3 in Exclude<keyof I["extendedSignatures"][number], keyof ExtendedCommitSig>]: never; })[] & { [K_4 in Exclude<keyof I["extendedSignatures"], keyof {
+            blockIdFlag?: BlockIDFlag | undefined;
+            validatorAddress?: Uint8Array | undefined;
+            timestamp?: Date | undefined;
+            signature?: Uint8Array | undefined;
+            extension?: Uint8Array | undefined;
+            extensionSignature?: Uint8Array | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I, keyof ExtendedCommit>]: never; }>(base?: I | undefined): ExtendedCommit;
+    fromPartial<I_1 extends {
+        height?: string | number | Long | undefined;
+        round?: number | undefined;
+        blockId?: {
+            hash?: Uint8Array | undefined;
+            partSetHeader?: {
+                total?: number | undefined;
+                hash?: Uint8Array | undefined;
+            } | undefined;
+        } | undefined;
+        extendedSignatures?: {
+            blockIdFlag?: BlockIDFlag | undefined;
+            validatorAddress?: Uint8Array | undefined;
+            timestamp?: Date | undefined;
+            signature?: Uint8Array | undefined;
+            extension?: Uint8Array | undefined;
+            extensionSignature?: Uint8Array | undefined;
+        }[] | undefined;
+    } & {
+        height?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_6 in Exclude<keyof I_1["height"], keyof Long>]: never; }) | undefined;
+        round?: number | undefined;
+        blockId?: ({
+            hash?: Uint8Array | undefined;
+            partSetHeader?: {
+                total?: number | undefined;
+                hash?: Uint8Array | undefined;
+            } | undefined;
+        } & {
+            hash?: Uint8Array | undefined;
+            partSetHeader?: ({
+                total?: number | undefined;
+                hash?: Uint8Array | undefined;
+            } & {
+                total?: number | undefined;
+                hash?: Uint8Array | undefined;
+            } & { [K_7 in Exclude<keyof I_1["blockId"]["partSetHeader"], keyof PartSetHeader>]: never; }) | undefined;
+        } & { [K_8 in Exclude<keyof I_1["blockId"], keyof BlockID>]: never; }) | undefined;
+        extendedSignatures?: ({
+            blockIdFlag?: BlockIDFlag | undefined;
+            validatorAddress?: Uint8Array | undefined;
+            timestamp?: Date | undefined;
+            signature?: Uint8Array | undefined;
+            extension?: Uint8Array | undefined;
+            extensionSignature?: Uint8Array | undefined;
+        }[] & ({
+            blockIdFlag?: BlockIDFlag | undefined;
+            validatorAddress?: Uint8Array | undefined;
+            timestamp?: Date | undefined;
+            signature?: Uint8Array | undefined;
+            extension?: Uint8Array | undefined;
+            extensionSignature?: Uint8Array | undefined;
+        } & {
+            blockIdFlag?: BlockIDFlag | undefined;
+            validatorAddress?: Uint8Array | undefined;
+            timestamp?: Date | undefined;
+            signature?: Uint8Array | undefined;
+            extension?: Uint8Array | undefined;
+            extensionSignature?: Uint8Array | undefined;
+        } & { [K_9 in Exclude<keyof I_1["extendedSignatures"][number], keyof ExtendedCommitSig>]: never; })[] & { [K_10 in Exclude<keyof I_1["extendedSignatures"], keyof {
+            blockIdFlag?: BlockIDFlag | undefined;
+            validatorAddress?: Uint8Array | undefined;
+            timestamp?: Date | undefined;
+            signature?: Uint8Array | undefined;
+            extension?: Uint8Array | undefined;
+            extensionSignature?: Uint8Array | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_11 in Exclude<keyof I_1, keyof ExtendedCommit>]: never; }>(object: I_1): ExtendedCommit;
+};
+export declare const ExtendedCommitSig: {
+    encode(message: ExtendedCommitSig, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ExtendedCommitSig;
+    fromJSON(object: any): ExtendedCommitSig;
+    toJSON(message: ExtendedCommitSig): unknown;
+    create<I extends {
+        blockIdFlag?: BlockIDFlag | undefined;
+        validatorAddress?: Uint8Array | undefined;
+        timestamp?: Date | undefined;
+        signature?: Uint8Array | undefined;
+        extension?: Uint8Array | undefined;
+        extensionSignature?: Uint8Array | undefined;
+    } & {
+        blockIdFlag?: BlockIDFlag | undefined;
+        validatorAddress?: Uint8Array | undefined;
+        timestamp?: Date | undefined;
+        signature?: Uint8Array | undefined;
+        extension?: Uint8Array | undefined;
+        extensionSignature?: Uint8Array | undefined;
+    } & { [K in Exclude<keyof I, keyof ExtendedCommitSig>]: never; }>(base?: I | undefined): ExtendedCommitSig;
+    fromPartial<I_1 extends {
+        blockIdFlag?: BlockIDFlag | undefined;
+        validatorAddress?: Uint8Array | undefined;
+        timestamp?: Date | undefined;
+        signature?: Uint8Array | undefined;
+        extension?: Uint8Array | undefined;
+        extensionSignature?: Uint8Array | undefined;
+    } & {
+        blockIdFlag?: BlockIDFlag | undefined;
+        validatorAddress?: Uint8Array | undefined;
+        timestamp?: Date | undefined;
+        signature?: Uint8Array | undefined;
+        extension?: Uint8Array | undefined;
+        extensionSignature?: Uint8Array | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof ExtendedCommitSig>]: never; }>(object: I_1): ExtendedCommitSig;
 };
 export declare const Proposal: {
     encode(message: Proposal, writer?: _m0.Writer): _m0.Writer;

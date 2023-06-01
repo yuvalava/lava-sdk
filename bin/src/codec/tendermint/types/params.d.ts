@@ -11,6 +11,7 @@ export interface ConsensusParams {
     evidence?: EvidenceParams;
     validator?: ValidatorParams;
     version?: VersionParams;
+    abci?: ABCIParams;
 }
 /** BlockParams contains limits on the block size. */
 export interface BlockParams {
@@ -69,6 +70,21 @@ export interface HashedParams {
     blockMaxBytes: Long;
     blockMaxGas: Long;
 }
+/** ABCIParams configure functionality specific to the Application Blockchain Interface. */
+export interface ABCIParams {
+    /**
+     * vote_extensions_enable_height configures the first height during which
+     * vote extensions will be enabled. During this specified height, and for all
+     * subsequent heights, precommit messages that do not contain valid extension data
+     * will be considered invalid. Prior to this height, vote extensions will not
+     * be used or accepted by validators on the network.
+     *
+     * Once enabled, vote extensions will be created by the application in ExtendVote,
+     * passed to the application for validation in VerifyVoteExtension and given
+     * to the application to use when proposing a block during PrepareProposal.
+     */
+    voteExtensionsEnableHeight: Long;
+}
 export declare const ConsensusParams: {
     encode(message: ConsensusParams, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): ConsensusParams;
@@ -92,6 +108,9 @@ export declare const ConsensusParams: {
         } | undefined;
         version?: {
             app?: string | number | Long | undefined;
+        } | undefined;
+        abci?: {
+            voteExtensionsEnableHeight?: string | number | Long | undefined;
         } | undefined;
     } & {
         block?: ({
@@ -555,7 +574,83 @@ export declare const ConsensusParams: {
                 xor: (other: string | number | Long) => Long;
             } & { [K_10 in Exclude<keyof I["version"]["app"], keyof Long>]: never; }) | undefined;
         } & { [K_11 in Exclude<keyof I["version"], "app">]: never; }) | undefined;
-    } & { [K_12 in Exclude<keyof I, keyof ConsensusParams>]: never; }>(base?: I | undefined): ConsensusParams;
+        abci?: ({
+            voteExtensionsEnableHeight?: string | number | Long | undefined;
+        } & {
+            voteExtensionsEnableHeight?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_12 in Exclude<keyof I["abci"]["voteExtensionsEnableHeight"], keyof Long>]: never; }) | undefined;
+        } & { [K_13 in Exclude<keyof I["abci"], "voteExtensionsEnableHeight">]: never; }) | undefined;
+    } & { [K_14 in Exclude<keyof I, keyof ConsensusParams>]: never; }>(base?: I | undefined): ConsensusParams;
     fromPartial<I_1 extends {
         block?: {
             maxBytes?: string | number | Long | undefined;
@@ -574,6 +669,9 @@ export declare const ConsensusParams: {
         } | undefined;
         version?: {
             app?: string | number | Long | undefined;
+        } | undefined;
+        abci?: {
+            voteExtensionsEnableHeight?: string | number | Long | undefined;
         } | undefined;
     } & {
         block?: ({
@@ -651,7 +749,7 @@ export declare const ConsensusParams: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_13 in Exclude<keyof I_1["block"]["maxBytes"], keyof Long>]: never; }) | undefined;
+            } & { [K_15 in Exclude<keyof I_1["block"]["maxBytes"], keyof Long>]: never; }) | undefined;
             maxGas?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -723,8 +821,8 @@ export declare const ConsensusParams: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_14 in Exclude<keyof I_1["block"]["maxGas"], keyof Long>]: never; }) | undefined;
-        } & { [K_15 in Exclude<keyof I_1["block"], keyof BlockParams>]: never; }) | undefined;
+            } & { [K_16 in Exclude<keyof I_1["block"]["maxGas"], keyof Long>]: never; }) | undefined;
+        } & { [K_17 in Exclude<keyof I_1["block"], keyof BlockParams>]: never; }) | undefined;
         evidence?: ({
             maxAgeNumBlocks?: string | number | Long | undefined;
             maxAgeDuration?: {
@@ -804,7 +902,7 @@ export declare const ConsensusParams: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_16 in Exclude<keyof I_1["evidence"]["maxAgeNumBlocks"], keyof Long>]: never; }) | undefined;
+            } & { [K_18 in Exclude<keyof I_1["evidence"]["maxAgeNumBlocks"], keyof Long>]: never; }) | undefined;
             maxAgeDuration?: ({
                 seconds?: string | number | Long | undefined;
                 nanos?: number | undefined;
@@ -880,9 +978,9 @@ export declare const ConsensusParams: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_17 in Exclude<keyof I_1["evidence"]["maxAgeDuration"]["seconds"], keyof Long>]: never; }) | undefined;
+                } & { [K_19 in Exclude<keyof I_1["evidence"]["maxAgeDuration"]["seconds"], keyof Long>]: never; }) | undefined;
                 nanos?: number | undefined;
-            } & { [K_18 in Exclude<keyof I_1["evidence"]["maxAgeDuration"], keyof Duration>]: never; }) | undefined;
+            } & { [K_20 in Exclude<keyof I_1["evidence"]["maxAgeDuration"], keyof Duration>]: never; }) | undefined;
             maxBytes?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -954,13 +1052,13 @@ export declare const ConsensusParams: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_19 in Exclude<keyof I_1["evidence"]["maxBytes"], keyof Long>]: never; }) | undefined;
-        } & { [K_20 in Exclude<keyof I_1["evidence"], keyof EvidenceParams>]: never; }) | undefined;
+            } & { [K_21 in Exclude<keyof I_1["evidence"]["maxBytes"], keyof Long>]: never; }) | undefined;
+        } & { [K_22 in Exclude<keyof I_1["evidence"], keyof EvidenceParams>]: never; }) | undefined;
         validator?: ({
             pubKeyTypes?: string[] | undefined;
         } & {
-            pubKeyTypes?: (string[] & string[] & { [K_21 in Exclude<keyof I_1["validator"]["pubKeyTypes"], keyof string[]>]: never; }) | undefined;
-        } & { [K_22 in Exclude<keyof I_1["validator"], "pubKeyTypes">]: never; }) | undefined;
+            pubKeyTypes?: (string[] & string[] & { [K_23 in Exclude<keyof I_1["validator"]["pubKeyTypes"], keyof string[]>]: never; }) | undefined;
+        } & { [K_24 in Exclude<keyof I_1["validator"], "pubKeyTypes">]: never; }) | undefined;
         version?: ({
             app?: string | number | Long | undefined;
         } & {
@@ -1035,9 +1133,85 @@ export declare const ConsensusParams: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_23 in Exclude<keyof I_1["version"]["app"], keyof Long>]: never; }) | undefined;
-        } & { [K_24 in Exclude<keyof I_1["version"], "app">]: never; }) | undefined;
-    } & { [K_25 in Exclude<keyof I_1, keyof ConsensusParams>]: never; }>(object: I_1): ConsensusParams;
+            } & { [K_25 in Exclude<keyof I_1["version"]["app"], keyof Long>]: never; }) | undefined;
+        } & { [K_26 in Exclude<keyof I_1["version"], "app">]: never; }) | undefined;
+        abci?: ({
+            voteExtensionsEnableHeight?: string | number | Long | undefined;
+        } & {
+            voteExtensionsEnableHeight?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_27 in Exclude<keyof I_1["abci"]["voteExtensionsEnableHeight"], keyof Long>]: never; }) | undefined;
+        } & { [K_28 in Exclude<keyof I_1["abci"], "voteExtensionsEnableHeight">]: never; }) | undefined;
+    } & { [K_29 in Exclude<keyof I_1, keyof ConsensusParams>]: never; }>(object: I_1): ConsensusParams;
 };
 export declare const BlockParams: {
     encode(message: BlockParams, writer?: _m0.Writer): _m0.Writer;
@@ -2288,6 +2462,164 @@ export declare const HashedParams: {
             xor: (other: string | number | Long) => Long;
         } & { [K_4 in Exclude<keyof I_1["blockMaxGas"], keyof Long>]: never; }) | undefined;
     } & { [K_5 in Exclude<keyof I_1, keyof HashedParams>]: never; }>(object: I_1): HashedParams;
+};
+export declare const ABCIParams: {
+    encode(message: ABCIParams, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ABCIParams;
+    fromJSON(object: any): ABCIParams;
+    toJSON(message: ABCIParams): unknown;
+    create<I extends {
+        voteExtensionsEnableHeight?: string | number | Long | undefined;
+    } & {
+        voteExtensionsEnableHeight?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K in Exclude<keyof I["voteExtensionsEnableHeight"], keyof Long>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "voteExtensionsEnableHeight">]: never; }>(base?: I | undefined): ABCIParams;
+    fromPartial<I_1 extends {
+        voteExtensionsEnableHeight?: string | number | Long | undefined;
+    } & {
+        voteExtensionsEnableHeight?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_2 in Exclude<keyof I_1["voteExtensionsEnableHeight"], keyof Long>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "voteExtensionsEnableHeight">]: never; }>(object: I_1): ABCIParams;
 };
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {

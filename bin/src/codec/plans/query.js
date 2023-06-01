@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryInfoResponse = exports.QueryInfoRequest = exports.listInfoStruct = exports.QueryListResponse = exports.QueryListRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryInfoResponse = exports.QueryInfoRequest = exports.ListInfoStruct = exports.QueryListResponse = exports.QueryListRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
@@ -26,7 +26,7 @@ exports.QueryParamsRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -66,13 +66,13 @@ exports.QueryParamsResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.params = params_1.Params.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -113,7 +113,7 @@ exports.QueryListRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -141,7 +141,7 @@ function createBaseQueryListResponse() {
 exports.QueryListResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         for (const v of message.plansInfo) {
-            exports.listInfoStruct.encode(v, writer.uint32(10).fork()).ldelim();
+            exports.ListInfoStruct.encode(v, writer.uint32(10).fork()).ldelim();
         }
         return writer;
     },
@@ -153,13 +153,13 @@ exports.QueryListResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
-                    message.plansInfo.push(exports.listInfoStruct.decode(reader, reader.uint32()));
+                    message.plansInfo.push(exports.ListInfoStruct.decode(reader, reader.uint32()));
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -168,13 +168,13 @@ exports.QueryListResponse = {
     },
     fromJSON(object) {
         return {
-            plansInfo: Array.isArray(object === null || object === void 0 ? void 0 : object.plansInfo) ? object.plansInfo.map((e) => exports.listInfoStruct.fromJSON(e)) : [],
+            plansInfo: Array.isArray(object === null || object === void 0 ? void 0 : object.plansInfo) ? object.plansInfo.map((e) => exports.ListInfoStruct.fromJSON(e)) : [],
         };
     },
     toJSON(message) {
         const obj = {};
         if (message.plansInfo) {
-            obj.plansInfo = message.plansInfo.map((e) => e ? exports.listInfoStruct.toJSON(e) : undefined);
+            obj.plansInfo = message.plansInfo.map((e) => e ? exports.ListInfoStruct.toJSON(e) : undefined);
         }
         else {
             obj.plansInfo = [];
@@ -187,14 +187,14 @@ exports.QueryListResponse = {
     fromPartial(object) {
         var _a;
         const message = createBaseQueryListResponse();
-        message.plansInfo = ((_a = object.plansInfo) === null || _a === void 0 ? void 0 : _a.map((e) => exports.listInfoStruct.fromPartial(e))) || [];
+        message.plansInfo = ((_a = object.plansInfo) === null || _a === void 0 ? void 0 : _a.map((e) => exports.ListInfoStruct.fromPartial(e))) || [];
         return message;
     },
 };
-function createBaselistInfoStruct() {
+function createBaseListInfoStruct() {
     return { index: "", description: "", price: undefined };
 }
-exports.listInfoStruct = {
+exports.ListInfoStruct = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.index !== "") {
             writer.uint32(10).string(message.index);
@@ -210,30 +210,30 @@ exports.listInfoStruct = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaselistInfoStruct();
+        const message = createBaseListInfoStruct();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.index = reader.string();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.description = reader.string();
                     continue;
                 case 3:
-                    if (tag != 26) {
+                    if (tag !== 26) {
                         break;
                     }
                     message.price = coin_1.Coin.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -255,11 +255,11 @@ exports.listInfoStruct = {
         return obj;
     },
     create(base) {
-        return exports.listInfoStruct.fromPartial(base !== null && base !== void 0 ? base : {});
+        return exports.ListInfoStruct.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b;
-        const message = createBaselistInfoStruct();
+        const message = createBaseListInfoStruct();
         message.index = (_a = object.index) !== null && _a !== void 0 ? _a : "";
         message.description = (_b = object.description) !== null && _b !== void 0 ? _b : "";
         message.price = (object.price !== undefined && object.price !== null) ? coin_1.Coin.fromPartial(object.price) : undefined;
@@ -284,13 +284,13 @@ exports.QueryInfoRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.planIndex = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -333,13 +333,13 @@ exports.QueryInfoResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.planInfo = plan_1.Plan.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);

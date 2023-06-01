@@ -1,14 +1,9 @@
 /* eslint-disable */
 import Long from "long";
 import _m0 from "protobufjs/minimal";
+import { StakeEntry } from "../epochstorage/stake_entry";
 
-export const protobufPackage = "";
-
-/**
- * import "gogoproto/gogo.proto";
- * import "google/protobuf/wrappers.proto";
- * import "lavanet/lava/proto/epochstorage/stake_entry.proto";
- */
+export const protobufPackage = "lavanet.lava.pairing";
 
 export interface Badge {
   cuAllocation: Long;
@@ -20,13 +15,14 @@ export interface Badge {
 
 export interface GenerateBadgeRequest {
   badgeAddress: string;
-  /** string spec_id = 3 [(gogoproto.nullable)   = true]; */
   projectId: string;
+  specId: string;
 }
 
 export interface GenerateBadgeResponse {
-  /** repeated lavanet.lava.epochstorage.StakeEntry pairing_list = 2 [(gogoproto.nullable) = true]; */
   badge?: Badge;
+  pairingList: StakeEntry[];
+  badgeSignerAddress: string;
 }
 
 function createBaseBadge(): Badge {
@@ -143,7 +139,7 @@ export const Badge = {
 };
 
 function createBaseGenerateBadgeRequest(): GenerateBadgeRequest {
-  return { badgeAddress: "", projectId: "" };
+  return { badgeAddress: "", projectId: "", specId: "" };
 }
 
 export const GenerateBadgeRequest = {
@@ -153,6 +149,9 @@ export const GenerateBadgeRequest = {
     }
     if (message.projectId !== "") {
       writer.uint32(18).string(message.projectId);
+    }
+    if (message.specId !== "") {
+      writer.uint32(26).string(message.specId);
     }
     return writer;
   },
@@ -178,6 +177,13 @@ export const GenerateBadgeRequest = {
 
           message.projectId = reader.string();
           continue;
+        case 3:
+          if (tag !== 26) {
+            break;
+          }
+
+          message.specId = reader.string();
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -191,6 +197,7 @@ export const GenerateBadgeRequest = {
     return {
       badgeAddress: isSet(object.badgeAddress) ? String(object.badgeAddress) : "",
       projectId: isSet(object.projectId) ? String(object.projectId) : "",
+      specId: isSet(object.specId) ? String(object.specId) : "",
     };
   },
 
@@ -198,6 +205,7 @@ export const GenerateBadgeRequest = {
     const obj: any = {};
     message.badgeAddress !== undefined && (obj.badgeAddress = message.badgeAddress);
     message.projectId !== undefined && (obj.projectId = message.projectId);
+    message.specId !== undefined && (obj.specId = message.specId);
     return obj;
   },
 
@@ -209,18 +217,25 @@ export const GenerateBadgeRequest = {
     const message = createBaseGenerateBadgeRequest();
     message.badgeAddress = object.badgeAddress ?? "";
     message.projectId = object.projectId ?? "";
+    message.specId = object.specId ?? "";
     return message;
   },
 };
 
 function createBaseGenerateBadgeResponse(): GenerateBadgeResponse {
-  return { badge: undefined };
+  return { badge: undefined, pairingList: [], badgeSignerAddress: "" };
 }
 
 export const GenerateBadgeResponse = {
   encode(message: GenerateBadgeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.badge !== undefined) {
       Badge.encode(message.badge, writer.uint32(10).fork()).ldelim();
+    }
+    for (const v of message.pairingList) {
+      StakeEntry.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.badgeSignerAddress !== "") {
+      writer.uint32(26).string(message.badgeSignerAddress);
     }
     return writer;
   },
@@ -239,6 +254,20 @@ export const GenerateBadgeResponse = {
 
           message.badge = Badge.decode(reader, reader.uint32());
           continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.pairingList.push(StakeEntry.decode(reader, reader.uint32()));
+          continue;
+        case 3:
+          if (tag !== 26) {
+            break;
+          }
+
+          message.badgeSignerAddress = reader.string();
+          continue;
       }
       if ((tag & 7) === 4 || tag === 0) {
         break;
@@ -249,12 +278,22 @@ export const GenerateBadgeResponse = {
   },
 
   fromJSON(object: any): GenerateBadgeResponse {
-    return { badge: isSet(object.badge) ? Badge.fromJSON(object.badge) : undefined };
+    return {
+      badge: isSet(object.badge) ? Badge.fromJSON(object.badge) : undefined,
+      pairingList: Array.isArray(object?.pairingList) ? object.pairingList.map((e: any) => StakeEntry.fromJSON(e)) : [],
+      badgeSignerAddress: isSet(object.badgeSignerAddress) ? String(object.badgeSignerAddress) : "",
+    };
   },
 
   toJSON(message: GenerateBadgeResponse): unknown {
     const obj: any = {};
     message.badge !== undefined && (obj.badge = message.badge ? Badge.toJSON(message.badge) : undefined);
+    if (message.pairingList) {
+      obj.pairingList = message.pairingList.map((e) => e ? StakeEntry.toJSON(e) : undefined);
+    } else {
+      obj.pairingList = [];
+    }
+    message.badgeSignerAddress !== undefined && (obj.badgeSignerAddress = message.badgeSignerAddress);
     return obj;
   },
 
@@ -265,6 +304,8 @@ export const GenerateBadgeResponse = {
   fromPartial<I extends Exact<DeepPartial<GenerateBadgeResponse>, I>>(object: I): GenerateBadgeResponse {
     const message = createBaseGenerateBadgeResponse();
     message.badge = (object.badge !== undefined && object.badge !== null) ? Badge.fromPartial(object.badge) : undefined;
+    message.pairingList = object.pairingList?.map((e) => StakeEntry.fromPartial(e)) || [];
+    message.badgeSignerAddress = object.badgeSignerAddress ?? "";
     return message;
   },
 };
@@ -277,7 +318,7 @@ export class BadgeGeneratorClientImpl implements BadgeGenerator {
   private readonly rpc: Rpc;
   private readonly service: string;
   constructor(rpc: Rpc, opts?: { service?: string }) {
-    this.service = opts?.service || "BadgeGenerator";
+    this.service = opts?.service || "lavanet.lava.pairing.BadgeGenerator";
     this.rpc = rpc;
     this.GenerateBadge = this.GenerateBadge.bind(this);
   }

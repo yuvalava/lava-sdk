@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.fetchBadge = void 0;
 // import { RelayerClient, Relayer } from "../pairing/relay_pb_service.js";
 // import { GenerateBadgeRequest, GenerateBadgeResponse } from "../pairing/relay_pb.js";
-const badge_pb_service_1 = require("./badge_pb_service");
-const badge_pb_1 = require("./badge_pb");
+const badges_pb_service_1 = require("./badges_pb_service");
+const badges_pb_1 = require("./badges_pb");
 const grpc_web_1 = require("@improbable-eng/grpc-web");
 const browser_1 = __importDefault(require("../util/browser"));
 // const serverAddress = "http://localhost:8080";
@@ -24,12 +24,12 @@ const browser_1 = __importDefault(require("../util/browser"));
 function fetchBadge(serverAddress, badgeUser, projectKey) {
     return __awaiter(this, void 0, void 0, function* () {
         // Create a new GenerateBadgeRequest
-        const request = new badge_pb_1.GenerateBadgeRequest();
+        const request = new badges_pb_1.GenerateBadgeRequest();
         request.setBadgeAddress(badgeUser);
         request.setProjectId(projectKey);
         // request.setChainId("LAV1");
         const requestPromise = new Promise((resolve, reject) => {
-            grpc_web_1.grpc.invoke(badge_pb_service_1.BadgeGenerator.GenerateBadge, {
+            grpc_web_1.grpc.invoke(badges_pb_service_1.BadgeGenerator.GenerateBadge, {
                 request: request,
                 host: serverAddress,
                 transport: browser_1.default,

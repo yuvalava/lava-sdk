@@ -1,7 +1,10 @@
-// package: 
-// file: badge.proto
+// package: lavanet.lava.pairing
+// file: pairing/badges.proto
 
 import * as jspb from "google-protobuf";
+import * as gogoproto_gogo_pb from "../gogoproto/gogo_pb";
+import * as google_protobuf_wrappers_pb from "google-protobuf/google/protobuf/wrappers_pb";
+import * as epochstorage_stake_entry_pb from "../epochstorage/stake_entry_pb";
 
 export class Badge extends jspb.Message {
   getCuAllocation(): number;
@@ -48,6 +51,9 @@ export class GenerateBadgeRequest extends jspb.Message {
   getProjectId(): string;
   setProjectId(value: string): void;
 
+  getSpecId(): string;
+  setSpecId(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GenerateBadgeRequest.AsObject;
   static toObject(includeInstance: boolean, msg: GenerateBadgeRequest): GenerateBadgeRequest.AsObject;
@@ -62,6 +68,7 @@ export namespace GenerateBadgeRequest {
   export type AsObject = {
     badgeAddress: string,
     projectId: string,
+    specId: string,
   }
 }
 
@@ -70,6 +77,14 @@ export class GenerateBadgeResponse extends jspb.Message {
   clearBadge(): void;
   getBadge(): Badge | undefined;
   setBadge(value?: Badge): void;
+
+  clearPairingListList(): void;
+  getPairingListList(): Array<epochstorage_stake_entry_pb.StakeEntry>;
+  setPairingListList(value: Array<epochstorage_stake_entry_pb.StakeEntry>): void;
+  addPairingList(value?: epochstorage_stake_entry_pb.StakeEntry, index?: number): epochstorage_stake_entry_pb.StakeEntry;
+
+  getBadgeSignerAddress(): string;
+  setBadgeSignerAddress(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): GenerateBadgeResponse.AsObject;
@@ -84,6 +99,8 @@ export class GenerateBadgeResponse extends jspb.Message {
 export namespace GenerateBadgeResponse {
   export type AsObject = {
     badge?: Badge.AsObject,
+    pairingListList: Array<epochstorage_stake_entry_pb.StakeEntry.AsObject>,
+    badgeSignerAddress: string,
   }
 }
 

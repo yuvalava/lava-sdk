@@ -3,6 +3,7 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Any } from "../../../../google/protobuf/any";
 import { Event } from "../../../../tendermint/abci/types";
+import { Block } from "../../../../tendermint/types/block";
 
 export const protobufPackage = "cosmos.base.abci.v1beta1";
 
@@ -171,6 +172,22 @@ export interface SearchTxsResult {
   txs: TxResponse[];
 }
 
+/** SearchBlocksResult defines a structure for querying blocks pageable */
+export interface SearchBlocksResult {
+  /** Count of all blocks */
+  totalCount: Long;
+  /** Count of blocks in current page */
+  count: Long;
+  /** Index of current page, start from 1 */
+  pageNumber: Long;
+  /** Count of total pages */
+  pageTotal: Long;
+  /** Max count blocks per page */
+  limit: Long;
+  /** List of blocks in current page */
+  blocks: Block[];
+}
+
 function createBaseTxResponse(): TxResponse {
   return {
     height: Long.ZERO,
@@ -241,98 +258,98 @@ export const TxResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.height = reader.int64() as Long;
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.txhash = reader.string();
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.codespace = reader.string();
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.code = reader.uint32();
           continue;
         case 5:
-          if (tag != 42) {
+          if (tag !== 42) {
             break;
           }
 
           message.data = reader.string();
           continue;
         case 6:
-          if (tag != 50) {
+          if (tag !== 50) {
             break;
           }
 
           message.rawLog = reader.string();
           continue;
         case 7:
-          if (tag != 58) {
+          if (tag !== 58) {
             break;
           }
 
           message.logs.push(ABCIMessageLog.decode(reader, reader.uint32()));
           continue;
         case 8:
-          if (tag != 66) {
+          if (tag !== 66) {
             break;
           }
 
           message.info = reader.string();
           continue;
         case 9:
-          if (tag != 72) {
+          if (tag !== 72) {
             break;
           }
 
           message.gasWanted = reader.int64() as Long;
           continue;
         case 10:
-          if (tag != 80) {
+          if (tag !== 80) {
             break;
           }
 
           message.gasUsed = reader.int64() as Long;
           continue;
         case 11:
-          if (tag != 90) {
+          if (tag !== 90) {
             break;
           }
 
           message.tx = Any.decode(reader, reader.uint32());
           continue;
         case 12:
-          if (tag != 98) {
+          if (tag !== 98) {
             break;
           }
 
           message.timestamp = reader.string();
           continue;
         case 13:
-          if (tag != 106) {
+          if (tag !== 106) {
             break;
           }
 
           message.events.push(Event.decode(reader, reader.uint32()));
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -439,28 +456,28 @@ export const ABCIMessageLog = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.msgIndex = reader.uint32();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.log = reader.string();
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.events.push(StringEvent.decode(reader, reader.uint32()));
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -524,21 +541,21 @@ export const StringEvent = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.type = reader.string();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.attributes.push(Attribute.decode(reader, reader.uint32()));
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -599,21 +616,21 @@ export const Attribute = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.key = reader.string();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.value = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -667,21 +684,21 @@ export const GasInfo = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.gasWanted = reader.uint64() as Long;
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.gasUsed = reader.uint64() as Long;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -748,35 +765,35 @@ export const Result = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.data = reader.bytes();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.log = reader.string();
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.events.push(Event.decode(reader, reader.uint32()));
           continue;
         case 4:
-          if (tag != 34) {
+          if (tag !== 34) {
             break;
           }
 
           message.msgResponses.push(Any.decode(reader, reader.uint32()));
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -848,21 +865,21 @@ export const SimulationResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.gasInfo = GasInfo.decode(reader, reader.uint32());
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.result = Result.decode(reader, reader.uint32());
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -923,21 +940,21 @@ export const MsgData = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.msgType = reader.string();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.data = reader.bytes();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -995,21 +1012,21 @@ export const TxMsgData = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.data.push(MsgData.decode(reader, reader.uint32()));
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.msgResponses.push(Any.decode(reader, reader.uint32()));
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1093,49 +1110,49 @@ export const SearchTxsResult = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.totalCount = reader.uint64() as Long;
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.count = reader.uint64() as Long;
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.pageNumber = reader.uint64() as Long;
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.pageTotal = reader.uint64() as Long;
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.limit = reader.uint64() as Long;
           continue;
         case 6:
-          if (tag != 50) {
+          if (tag !== 50) {
             break;
           }
 
           message.txs.push(TxResponse.decode(reader, reader.uint32()));
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1187,6 +1204,146 @@ export const SearchTxsResult = {
       : Long.UZERO;
     message.limit = (object.limit !== undefined && object.limit !== null) ? Long.fromValue(object.limit) : Long.UZERO;
     message.txs = object.txs?.map((e) => TxResponse.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseSearchBlocksResult(): SearchBlocksResult {
+  return {
+    totalCount: Long.ZERO,
+    count: Long.ZERO,
+    pageNumber: Long.ZERO,
+    pageTotal: Long.ZERO,
+    limit: Long.ZERO,
+    blocks: [],
+  };
+}
+
+export const SearchBlocksResult = {
+  encode(message: SearchBlocksResult, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (!message.totalCount.isZero()) {
+      writer.uint32(8).int64(message.totalCount);
+    }
+    if (!message.count.isZero()) {
+      writer.uint32(16).int64(message.count);
+    }
+    if (!message.pageNumber.isZero()) {
+      writer.uint32(24).int64(message.pageNumber);
+    }
+    if (!message.pageTotal.isZero()) {
+      writer.uint32(32).int64(message.pageTotal);
+    }
+    if (!message.limit.isZero()) {
+      writer.uint32(40).int64(message.limit);
+    }
+    for (const v of message.blocks) {
+      Block.encode(v!, writer.uint32(50).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): SearchBlocksResult {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseSearchBlocksResult();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 8) {
+            break;
+          }
+
+          message.totalCount = reader.int64() as Long;
+          continue;
+        case 2:
+          if (tag !== 16) {
+            break;
+          }
+
+          message.count = reader.int64() as Long;
+          continue;
+        case 3:
+          if (tag !== 24) {
+            break;
+          }
+
+          message.pageNumber = reader.int64() as Long;
+          continue;
+        case 4:
+          if (tag !== 32) {
+            break;
+          }
+
+          message.pageTotal = reader.int64() as Long;
+          continue;
+        case 5:
+          if (tag !== 40) {
+            break;
+          }
+
+          message.limit = reader.int64() as Long;
+          continue;
+        case 6:
+          if (tag !== 50) {
+            break;
+          }
+
+          message.blocks.push(Block.decode(reader, reader.uint32()));
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): SearchBlocksResult {
+    return {
+      totalCount: isSet(object.totalCount) ? Long.fromValue(object.totalCount) : Long.ZERO,
+      count: isSet(object.count) ? Long.fromValue(object.count) : Long.ZERO,
+      pageNumber: isSet(object.pageNumber) ? Long.fromValue(object.pageNumber) : Long.ZERO,
+      pageTotal: isSet(object.pageTotal) ? Long.fromValue(object.pageTotal) : Long.ZERO,
+      limit: isSet(object.limit) ? Long.fromValue(object.limit) : Long.ZERO,
+      blocks: Array.isArray(object?.blocks) ? object.blocks.map((e: any) => Block.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: SearchBlocksResult): unknown {
+    const obj: any = {};
+    message.totalCount !== undefined && (obj.totalCount = (message.totalCount || Long.ZERO).toString());
+    message.count !== undefined && (obj.count = (message.count || Long.ZERO).toString());
+    message.pageNumber !== undefined && (obj.pageNumber = (message.pageNumber || Long.ZERO).toString());
+    message.pageTotal !== undefined && (obj.pageTotal = (message.pageTotal || Long.ZERO).toString());
+    message.limit !== undefined && (obj.limit = (message.limit || Long.ZERO).toString());
+    if (message.blocks) {
+      obj.blocks = message.blocks.map((e) => e ? Block.toJSON(e) : undefined);
+    } else {
+      obj.blocks = [];
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<SearchBlocksResult>, I>>(base?: I): SearchBlocksResult {
+    return SearchBlocksResult.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<SearchBlocksResult>, I>>(object: I): SearchBlocksResult {
+    const message = createBaseSearchBlocksResult();
+    message.totalCount = (object.totalCount !== undefined && object.totalCount !== null)
+      ? Long.fromValue(object.totalCount)
+      : Long.ZERO;
+    message.count = (object.count !== undefined && object.count !== null) ? Long.fromValue(object.count) : Long.ZERO;
+    message.pageNumber = (object.pageNumber !== undefined && object.pageNumber !== null)
+      ? Long.fromValue(object.pageNumber)
+      : Long.ZERO;
+    message.pageTotal = (object.pageTotal !== undefined && object.pageTotal !== null)
+      ? Long.fromValue(object.pageTotal)
+      : Long.ZERO;
+    message.limit = (object.limit !== undefined && object.limit !== null) ? Long.fromValue(object.limit) : Long.ZERO;
+    message.blocks = object.blocks?.map((e) => Block.fromPartial(e)) || [];
     return message;
   },
 };

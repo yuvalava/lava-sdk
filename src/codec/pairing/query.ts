@@ -3,6 +3,8 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { PageRequest, PageResponse } from "../cosmos/base/query/v1beta1/pagination";
 import { StakeEntry } from "../epochstorage/stake_entry";
+import { Project } from "../projects/project";
+import { Subscription } from "../subscription/subscription";
 import { EpochPayments } from "./epoch_payments";
 import { Params } from "./params";
 import { ProviderPaymentStorage } from "./provider_payment_storage";
@@ -135,6 +137,15 @@ export interface QueryStaticProvidersListResponse {
   providers: StakeEntry[];
 }
 
+export interface QueryAccountInfoResponse {
+  provider: StakeEntry[];
+  frozen: StakeEntry[];
+  consumer: StakeEntry[];
+  unstaked: StakeEntry[];
+  subscription?: Subscription;
+  project?: Project;
+}
+
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -152,7 +163,7 @@ export const QueryParamsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -199,14 +210,14 @@ export const QueryParamsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.params = Params.decode(reader, reader.uint32());
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -260,21 +271,21 @@ export const QueryProvidersRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.chainID = reader.string();
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.showFrozen = reader.bool();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -331,21 +342,21 @@ export const QueryProvidersResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.stakeEntry.push(StakeEntry.decode(reader, reader.uint32()));
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.output = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -403,14 +414,14 @@ export const QueryClientsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.chainID = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -462,21 +473,21 @@ export const QueryClientsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.stakeEntry.push(StakeEntry.decode(reader, reader.uint32()));
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.output = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -537,21 +548,21 @@ export const QueryGetPairingRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.chainID = reader.string();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.client = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -623,42 +634,42 @@ export const QueryGetPairingResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.providers.push(StakeEntry.decode(reader, reader.uint32()));
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.currentEpoch = reader.uint64() as Long;
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.timeLeftToNextPairing = reader.uint64() as Long;
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.specLastUpdatedBlock = reader.uint64() as Long;
           continue;
         case 5:
-          if (tag != 40) {
+          if (tag !== 40) {
             break;
           }
 
           message.blockOfNextPairing = reader.uint64() as Long;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -750,35 +761,35 @@ export const QueryVerifyPairingRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.chainID = reader.string();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.client = reader.string();
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.provider = reader.string();
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.block = reader.uint64() as Long;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -844,28 +855,28 @@ export const QueryVerifyPairingResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 8) {
+          if (tag !== 8) {
             break;
           }
 
           message.valid = reader.bool();
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.pairedProviders = reader.uint64() as Long;
           continue;
         case 4:
-          if (tag != 32) {
+          if (tag !== 32) {
             break;
           }
 
           message.cuPerEpoch = reader.uint64() as Long;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -929,14 +940,14 @@ export const QueryGetUniquePaymentStorageClientProviderRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.index = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -993,7 +1004,7 @@ export const QueryGetUniquePaymentStorageClientProviderResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
@@ -1003,7 +1014,7 @@ export const QueryGetUniquePaymentStorageClientProviderResponse = {
           );
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1069,14 +1080,14 @@ export const QueryAllUniquePaymentStorageClientProviderRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.pagination = PageRequest.decode(reader, reader.uint32());
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1138,7 +1149,7 @@ export const QueryAllUniquePaymentStorageClientProviderResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
@@ -1147,14 +1158,14 @@ export const QueryAllUniquePaymentStorageClientProviderResponse = {
           );
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.pagination = PageResponse.decode(reader, reader.uint32());
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1224,14 +1235,14 @@ export const QueryGetProviderPaymentStorageRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.index = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1284,14 +1295,14 @@ export const QueryGetProviderPaymentStorageResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.providerPaymentStorage = ProviderPaymentStorage.decode(reader, reader.uint32());
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1353,14 +1364,14 @@ export const QueryAllProviderPaymentStorageRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.pagination = PageRequest.decode(reader, reader.uint32());
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1419,21 +1430,21 @@ export const QueryAllProviderPaymentStorageResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.providerPaymentStorage.push(ProviderPaymentStorage.decode(reader, reader.uint32()));
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.pagination = PageResponse.decode(reader, reader.uint32());
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1503,14 +1514,14 @@ export const QueryGetEpochPaymentsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.index = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1559,14 +1570,14 @@ export const QueryGetEpochPaymentsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.epochPayments = EpochPayments.decode(reader, reader.uint32());
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1620,14 +1631,14 @@ export const QueryAllEpochPaymentsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.pagination = PageRequest.decode(reader, reader.uint32());
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1682,21 +1693,21 @@ export const QueryAllEpochPaymentsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.epochPayments.push(EpochPayments.decode(reader, reader.uint32()));
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.pagination = PageResponse.decode(reader, reader.uint32());
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1767,28 +1778,28 @@ export const QueryUserEntryRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.address = reader.string();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.chainID = reader.string();
           continue;
         case 3:
-          if (tag != 24) {
+          if (tag !== 24) {
             break;
           }
 
           message.block = reader.uint64() as Long;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1848,21 +1859,21 @@ export const QueryUserEntryResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.consumer = StakeEntry.decode(reader, reader.uint32());
           continue;
         case 2:
-          if (tag != 16) {
+          if (tag !== 16) {
             break;
           }
 
           message.maxCU = reader.uint64() as Long;
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1919,14 +1930,14 @@ export const QueryStaticProvidersListRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.chainID = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -1977,14 +1988,14 @@ export const QueryStaticProvidersListResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.providers.push(StakeEntry.decode(reader, reader.uint32()));
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -2019,6 +2030,150 @@ export const QueryStaticProvidersListResponse = {
   ): QueryStaticProvidersListResponse {
     const message = createBaseQueryStaticProvidersListResponse();
     message.providers = object.providers?.map((e) => StakeEntry.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseQueryAccountInfoResponse(): QueryAccountInfoResponse {
+  return { provider: [], frozen: [], consumer: [], unstaked: [], subscription: undefined, project: undefined };
+}
+
+export const QueryAccountInfoResponse = {
+  encode(message: QueryAccountInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.provider) {
+      StakeEntry.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    for (const v of message.frozen) {
+      StakeEntry.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    for (const v of message.consumer) {
+      StakeEntry.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    for (const v of message.unstaked) {
+      StakeEntry.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.subscription !== undefined) {
+      Subscription.encode(message.subscription, writer.uint32(42).fork()).ldelim();
+    }
+    if (message.project !== undefined) {
+      Project.encode(message.project, writer.uint32(50).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryAccountInfoResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryAccountInfoResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag !== 10) {
+            break;
+          }
+
+          message.provider.push(StakeEntry.decode(reader, reader.uint32()));
+          continue;
+        case 2:
+          if (tag !== 18) {
+            break;
+          }
+
+          message.frozen.push(StakeEntry.decode(reader, reader.uint32()));
+          continue;
+        case 3:
+          if (tag !== 26) {
+            break;
+          }
+
+          message.consumer.push(StakeEntry.decode(reader, reader.uint32()));
+          continue;
+        case 4:
+          if (tag !== 34) {
+            break;
+          }
+
+          message.unstaked.push(StakeEntry.decode(reader, reader.uint32()));
+          continue;
+        case 5:
+          if (tag !== 42) {
+            break;
+          }
+
+          message.subscription = Subscription.decode(reader, reader.uint32());
+          continue;
+        case 6:
+          if (tag !== 50) {
+            break;
+          }
+
+          message.project = Project.decode(reader, reader.uint32());
+          continue;
+      }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAccountInfoResponse {
+    return {
+      provider: Array.isArray(object?.provider) ? object.provider.map((e: any) => StakeEntry.fromJSON(e)) : [],
+      frozen: Array.isArray(object?.frozen) ? object.frozen.map((e: any) => StakeEntry.fromJSON(e)) : [],
+      consumer: Array.isArray(object?.consumer) ? object.consumer.map((e: any) => StakeEntry.fromJSON(e)) : [],
+      unstaked: Array.isArray(object?.unstaked) ? object.unstaked.map((e: any) => StakeEntry.fromJSON(e)) : [],
+      subscription: isSet(object.subscription) ? Subscription.fromJSON(object.subscription) : undefined,
+      project: isSet(object.project) ? Project.fromJSON(object.project) : undefined,
+    };
+  },
+
+  toJSON(message: QueryAccountInfoResponse): unknown {
+    const obj: any = {};
+    if (message.provider) {
+      obj.provider = message.provider.map((e) => e ? StakeEntry.toJSON(e) : undefined);
+    } else {
+      obj.provider = [];
+    }
+    if (message.frozen) {
+      obj.frozen = message.frozen.map((e) => e ? StakeEntry.toJSON(e) : undefined);
+    } else {
+      obj.frozen = [];
+    }
+    if (message.consumer) {
+      obj.consumer = message.consumer.map((e) => e ? StakeEntry.toJSON(e) : undefined);
+    } else {
+      obj.consumer = [];
+    }
+    if (message.unstaked) {
+      obj.unstaked = message.unstaked.map((e) => e ? StakeEntry.toJSON(e) : undefined);
+    } else {
+      obj.unstaked = [];
+    }
+    message.subscription !== undefined &&
+      (obj.subscription = message.subscription ? Subscription.toJSON(message.subscription) : undefined);
+    message.project !== undefined && (obj.project = message.project ? Project.toJSON(message.project) : undefined);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryAccountInfoResponse>, I>>(base?: I): QueryAccountInfoResponse {
+    return QueryAccountInfoResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryAccountInfoResponse>, I>>(object: I): QueryAccountInfoResponse {
+    const message = createBaseQueryAccountInfoResponse();
+    message.provider = object.provider?.map((e) => StakeEntry.fromPartial(e)) || [];
+    message.frozen = object.frozen?.map((e) => StakeEntry.fromPartial(e)) || [];
+    message.consumer = object.consumer?.map((e) => StakeEntry.fromPartial(e)) || [];
+    message.unstaked = object.unstaked?.map((e) => StakeEntry.fromPartial(e)) || [];
+    message.subscription = (object.subscription !== undefined && object.subscription !== null)
+      ? Subscription.fromPartial(object.subscription)
+      : undefined;
+    message.project = (object.project !== undefined && object.project !== null)
+      ? Project.fromPartial(object.project)
+      : undefined;
     return message;
   },
 };

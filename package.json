@@ -15,7 +15,7 @@
     "run_tendermint_example": "yarn tsc && webpack --config webpack.config.js && node ./bin/examples/tendermintRPC.js",
     "run_rest_example": "yarn tsc && webpack --config webpack.config.js && node ./bin/examples/restAPI.js",
     "run_jsonrpc_example": "yarn tsc && webpack --config webpack.config.js && node ./bin/examples/jsonRPC.js",
-    "run_badge": "yarn tsc && node ./bin/src/badge/badge.js",
+    "run_fetchBadge": "yarn tsc && node ./bin/src/badge/fetchBadge.js",
     "jsonRPC": "node ./bin/examples/jsonRPC.js",
     "restAPI": "node ./bin/examples/restAPI.js",
     "prettier": "prettier --check .",

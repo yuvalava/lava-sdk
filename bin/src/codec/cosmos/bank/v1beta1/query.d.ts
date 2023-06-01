@@ -22,6 +22,12 @@ export interface QueryAllBalancesRequest {
     address: string;
     /** pagination defines an optional pagination for the request. */
     pagination?: PageRequest;
+    /**
+     * resolve_denom is the flag to resolve the denom into a human-readable form from the metadata.
+     *
+     * Since: cosmos-sdk 0.50
+     */
+    resolveDenom: boolean;
 }
 /**
  * QueryAllBalancesResponse is the response type for the Query/AllBalances RPC
@@ -56,6 +62,28 @@ export interface QuerySpendableBalancesResponse {
     balances: Coin[];
     /** pagination defines the pagination in the response. */
     pagination?: PageResponse;
+}
+/**
+ * QuerySpendableBalanceByDenomRequest defines the gRPC request structure for
+ * querying an account's spendable balance for a specific denom.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QuerySpendableBalanceByDenomRequest {
+    /** address is the address to query balances for. */
+    address: string;
+    /** denom is the coin denom to query balances for. */
+    denom: string;
+}
+/**
+ * QuerySpendableBalanceByDenomResponse defines the gRPC response structure for
+ * querying an account's spendable balance for a specific denom.
+ *
+ * Since: cosmos-sdk 0.47
+ */
+export interface QuerySpendableBalanceByDenomResponse {
+    /** balance is the balance of the coin. */
+    balance?: Coin;
 }
 /**
  * QueryTotalSupplyRequest is the request type for the Query/TotalSupply RPC
@@ -257,6 +285,7 @@ export declare const QueryAllBalancesRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } | undefined;
+        resolveDenom?: boolean | undefined;
     } & {
         address?: string | undefined;
         pagination?: ({
@@ -414,6 +443,7 @@ export declare const QueryAllBalancesRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & { [K_2 in Exclude<keyof I["pagination"], keyof PageRequest>]: never; }) | undefined;
+        resolveDenom?: boolean | undefined;
     } & { [K_3 in Exclude<keyof I, keyof QueryAllBalancesRequest>]: never; }>(base?: I | undefined): QueryAllBalancesRequest;
     fromPartial<I_1 extends {
         address?: string | undefined;
@@ -424,6 +454,7 @@ export declare const QueryAllBalancesRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } | undefined;
+        resolveDenom?: boolean | undefined;
     } & {
         address?: string | undefined;
         pagination?: ({
@@ -581,6 +612,7 @@ export declare const QueryAllBalancesRequest: {
             countTotal?: boolean | undefined;
             reverse?: boolean | undefined;
         } & { [K_6 in Exclude<keyof I_1["pagination"], keyof PageRequest>]: never; }) | undefined;
+        resolveDenom?: boolean | undefined;
     } & { [K_7 in Exclude<keyof I_1, keyof QueryAllBalancesRequest>]: never; }>(object: I_1): QueryAllBalancesRequest;
 };
 export declare const QueryAllBalancesResponse: {
@@ -1342,6 +1374,60 @@ export declare const QuerySpendableBalancesResponse: {
             } & { [K_7 in Exclude<keyof I_1["pagination"]["total"], keyof Long>]: never; }) | undefined;
         } & { [K_8 in Exclude<keyof I_1["pagination"], keyof PageResponse>]: never; }) | undefined;
     } & { [K_9 in Exclude<keyof I_1, keyof QuerySpendableBalancesResponse>]: never; }>(object: I_1): QuerySpendableBalancesResponse;
+};
+export declare const QuerySpendableBalanceByDenomRequest: {
+    encode(message: QuerySpendableBalanceByDenomRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QuerySpendableBalanceByDenomRequest;
+    fromJSON(object: any): QuerySpendableBalanceByDenomRequest;
+    toJSON(message: QuerySpendableBalanceByDenomRequest): unknown;
+    create<I extends {
+        address?: string | undefined;
+        denom?: string | undefined;
+    } & {
+        address?: string | undefined;
+        denom?: string | undefined;
+    } & { [K in Exclude<keyof I, keyof QuerySpendableBalanceByDenomRequest>]: never; }>(base?: I | undefined): QuerySpendableBalanceByDenomRequest;
+    fromPartial<I_1 extends {
+        address?: string | undefined;
+        denom?: string | undefined;
+    } & {
+        address?: string | undefined;
+        denom?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof QuerySpendableBalanceByDenomRequest>]: never; }>(object: I_1): QuerySpendableBalanceByDenomRequest;
+};
+export declare const QuerySpendableBalanceByDenomResponse: {
+    encode(message: QuerySpendableBalanceByDenomResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QuerySpendableBalanceByDenomResponse;
+    fromJSON(object: any): QuerySpendableBalanceByDenomResponse;
+    toJSON(message: QuerySpendableBalanceByDenomResponse): unknown;
+    create<I extends {
+        balance?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+    } & {
+        balance?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K in Exclude<keyof I["balance"], keyof Coin>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "balance">]: never; }>(base?: I | undefined): QuerySpendableBalanceByDenomResponse;
+    fromPartial<I_1 extends {
+        balance?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } | undefined;
+    } & {
+        balance?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_2 in Exclude<keyof I_1["balance"], keyof Coin>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "balance">]: never; }>(object: I_1): QuerySpendableBalanceByDenomResponse;
 };
 export declare const QueryTotalSupplyRequest: {
     encode(message: QueryTotalSupplyRequest, writer?: _m0.Writer): _m0.Writer;
@@ -4007,7 +4093,7 @@ export interface Query {
      */
     AllBalances(request: QueryAllBalancesRequest): Promise<QueryAllBalancesResponse>;
     /**
-     * SpendableBalances queries the spenable balance of all coins for a single
+     * SpendableBalances queries the spendable balance of all coins for a single
      * account.
      *
      * When called from another module, this query might consume a high amount of
@@ -4016,6 +4102,16 @@ export interface Query {
      * Since: cosmos-sdk 0.46
      */
     SpendableBalances(request: QuerySpendableBalancesRequest): Promise<QuerySpendableBalancesResponse>;
+    /**
+     * SpendableBalanceByDenom queries the spendable balance of a single denom for
+     * a single account.
+     *
+     * When called from another module, this query might consume a high amount of
+     * gas if the pagination field is incorrectly set.
+     *
+     * Since: cosmos-sdk 0.47
+     */
+    SpendableBalanceByDenom(request: QuerySpendableBalanceByDenomRequest): Promise<QuerySpendableBalanceByDenomResponse>;
     /**
      * TotalSupply queries the total supply of all coins.
      *
@@ -4069,6 +4165,7 @@ export declare class QueryClientImpl implements Query {
     Balance(request: QueryBalanceRequest): Promise<QueryBalanceResponse>;
     AllBalances(request: QueryAllBalancesRequest): Promise<QueryAllBalancesResponse>;
     SpendableBalances(request: QuerySpendableBalancesRequest): Promise<QuerySpendableBalancesResponse>;
+    SpendableBalanceByDenom(request: QuerySpendableBalanceByDenomRequest): Promise<QuerySpendableBalanceByDenomResponse>;
     TotalSupply(request: QueryTotalSupplyRequest): Promise<QueryTotalSupplyResponse>;
     SupplyOf(request: QuerySupplyOfRequest): Promise<QuerySupplyOfResponse>;
     Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;

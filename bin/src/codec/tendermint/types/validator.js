@@ -3,12 +3,62 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SimpleValidator = exports.Validator = exports.ValidatorSet = exports.protobufPackage = void 0;
+exports.SimpleValidator = exports.Validator = exports.ValidatorSet = exports.blockIDFlagToJSON = exports.blockIDFlagFromJSON = exports.BlockIDFlag = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const keys_1 = require("../crypto/keys");
 exports.protobufPackage = "tendermint.types";
+/** BlockIdFlag indicates which BlockID the signature is for */
+var BlockIDFlag;
+(function (BlockIDFlag) {
+    /** BLOCK_ID_FLAG_UNKNOWN - indicates an error condition */
+    BlockIDFlag[BlockIDFlag["BLOCK_ID_FLAG_UNKNOWN"] = 0] = "BLOCK_ID_FLAG_UNKNOWN";
+    /** BLOCK_ID_FLAG_ABSENT - the vote was not received */
+    BlockIDFlag[BlockIDFlag["BLOCK_ID_FLAG_ABSENT"] = 1] = "BLOCK_ID_FLAG_ABSENT";
+    /** BLOCK_ID_FLAG_COMMIT - voted for the block that received the majority */
+    BlockIDFlag[BlockIDFlag["BLOCK_ID_FLAG_COMMIT"] = 2] = "BLOCK_ID_FLAG_COMMIT";
+    /** BLOCK_ID_FLAG_NIL - voted for nil */
+    BlockIDFlag[BlockIDFlag["BLOCK_ID_FLAG_NIL"] = 3] = "BLOCK_ID_FLAG_NIL";
+    BlockIDFlag[BlockIDFlag["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
+})(BlockIDFlag = exports.BlockIDFlag || (exports.BlockIDFlag = {}));
+function blockIDFlagFromJSON(object) {
+    switch (object) {
+        case 0:
+        case "BLOCK_ID_FLAG_UNKNOWN":
+            return BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN;
+        case 1:
+        case "BLOCK_ID_FLAG_ABSENT":
+            return BlockIDFlag.BLOCK_ID_FLAG_ABSENT;
+        case 2:
+        case "BLOCK_ID_FLAG_COMMIT":
+            return BlockIDFlag.BLOCK_ID_FLAG_COMMIT;
+        case 3:
+        case "BLOCK_ID_FLAG_NIL":
+            return BlockIDFlag.BLOCK_ID_FLAG_NIL;
+        case -1:
+        case "UNRECOGNIZED":
+        default:
+            return BlockIDFlag.UNRECOGNIZED;
+    }
+}
+exports.blockIDFlagFromJSON = blockIDFlagFromJSON;
+function blockIDFlagToJSON(object) {
+    switch (object) {
+        case BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN:
+            return "BLOCK_ID_FLAG_UNKNOWN";
+        case BlockIDFlag.BLOCK_ID_FLAG_ABSENT:
+            return "BLOCK_ID_FLAG_ABSENT";
+        case BlockIDFlag.BLOCK_ID_FLAG_COMMIT:
+            return "BLOCK_ID_FLAG_COMMIT";
+        case BlockIDFlag.BLOCK_ID_FLAG_NIL:
+            return "BLOCK_ID_FLAG_NIL";
+        case BlockIDFlag.UNRECOGNIZED:
+        default:
+            return "UNRECOGNIZED";
+    }
+}
+exports.blockIDFlagToJSON = blockIDFlagToJSON;
 function createBaseValidatorSet() {
     return { validators: [], proposer: undefined, totalVotingPower: long_1.default.ZERO };
 }
@@ -33,25 +83,25 @@ exports.ValidatorSet = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.validators.push(exports.Validator.decode(reader, reader.uint32()));
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.proposer = exports.Validator.decode(reader, reader.uint32());
                     continue;
                 case 3:
-                    if (tag != 24) {
+                    if (tag !== 24) {
                         break;
                     }
                     message.totalVotingPower = reader.int64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -122,31 +172,31 @@ exports.Validator = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.address = reader.bytes();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.pubKey = keys_1.PublicKey.decode(reader, reader.uint32());
                     continue;
                 case 3:
-                    if (tag != 24) {
+                    if (tag !== 24) {
                         break;
                     }
                     message.votingPower = reader.int64();
                     continue;
                 case 4:
-                    if (tag != 32) {
+                    if (tag !== 32) {
                         break;
                     }
                     message.proposerPriority = reader.int64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -211,19 +261,19 @@ exports.SimpleValidator = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.pubKey = keys_1.PublicKey.decode(reader, reader.uint32());
                     continue;
                 case 2:
-                    if (tag != 16) {
+                    if (tag !== 16) {
                         break;
                     }
                     message.votingPower = reader.int64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);

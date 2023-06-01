@@ -3,12 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueryClientImpl = exports.QueryStaticProvidersListResponse = exports.QueryStaticProvidersListRequest = exports.QueryUserEntryResponse = exports.QueryUserEntryRequest = exports.QueryAllEpochPaymentsResponse = exports.QueryAllEpochPaymentsRequest = exports.QueryGetEpochPaymentsResponse = exports.QueryGetEpochPaymentsRequest = exports.QueryAllProviderPaymentStorageResponse = exports.QueryAllProviderPaymentStorageRequest = exports.QueryGetProviderPaymentStorageResponse = exports.QueryGetProviderPaymentStorageRequest = exports.QueryAllUniquePaymentStorageClientProviderResponse = exports.QueryAllUniquePaymentStorageClientProviderRequest = exports.QueryGetUniquePaymentStorageClientProviderResponse = exports.QueryGetUniquePaymentStorageClientProviderRequest = exports.QueryVerifyPairingResponse = exports.QueryVerifyPairingRequest = exports.QueryGetPairingResponse = exports.QueryGetPairingRequest = exports.QueryClientsResponse = exports.QueryClientsRequest = exports.QueryProvidersResponse = exports.QueryProvidersRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
+exports.QueryClientImpl = exports.QueryAccountInfoResponse = exports.QueryStaticProvidersListResponse = exports.QueryStaticProvidersListRequest = exports.QueryUserEntryResponse = exports.QueryUserEntryRequest = exports.QueryAllEpochPaymentsResponse = exports.QueryAllEpochPaymentsRequest = exports.QueryGetEpochPaymentsResponse = exports.QueryGetEpochPaymentsRequest = exports.QueryAllProviderPaymentStorageResponse = exports.QueryAllProviderPaymentStorageRequest = exports.QueryGetProviderPaymentStorageResponse = exports.QueryGetProviderPaymentStorageRequest = exports.QueryAllUniquePaymentStorageClientProviderResponse = exports.QueryAllUniquePaymentStorageClientProviderRequest = exports.QueryGetUniquePaymentStorageClientProviderResponse = exports.QueryGetUniquePaymentStorageClientProviderRequest = exports.QueryVerifyPairingResponse = exports.QueryVerifyPairingRequest = exports.QueryGetPairingResponse = exports.QueryGetPairingRequest = exports.QueryClientsResponse = exports.QueryClientsRequest = exports.QueryProvidersResponse = exports.QueryProvidersRequest = exports.QueryParamsResponse = exports.QueryParamsRequest = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const pagination_1 = require("../cosmos/base/query/v1beta1/pagination");
 const stake_entry_1 = require("../epochstorage/stake_entry");
+const project_1 = require("../projects/project");
+const subscription_1 = require("../subscription/subscription");
 const epoch_payments_1 = require("./epoch_payments");
 const params_1 = require("./params");
 const provider_payment_storage_1 = require("./provider_payment_storage");
@@ -29,7 +31,7 @@ exports.QueryParamsRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -69,13 +71,13 @@ exports.QueryParamsResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.params = params_1.Params.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -122,19 +124,19 @@ exports.QueryProvidersRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.chainID = reader.string();
                     continue;
                 case 2:
-                    if (tag != 16) {
+                    if (tag !== 16) {
                         break;
                     }
                     message.showFrozen = reader.bool();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -185,19 +187,19 @@ exports.QueryProvidersResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.stakeEntry.push(stake_entry_1.StakeEntry.decode(reader, reader.uint32()));
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.output = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -250,13 +252,13 @@ exports.QueryClientsRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.chainID = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -302,19 +304,19 @@ exports.QueryClientsResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.stakeEntry.push(stake_entry_1.StakeEntry.decode(reader, reader.uint32()));
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.output = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -370,19 +372,19 @@ exports.QueryGetPairingRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.chainID = reader.string();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.client = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -448,37 +450,37 @@ exports.QueryGetPairingResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.providers.push(stake_entry_1.StakeEntry.decode(reader, reader.uint32()));
                     continue;
                 case 2:
-                    if (tag != 16) {
+                    if (tag !== 16) {
                         break;
                     }
                     message.currentEpoch = reader.uint64();
                     continue;
                 case 3:
-                    if (tag != 24) {
+                    if (tag !== 24) {
                         break;
                     }
                     message.timeLeftToNextPairing = reader.uint64();
                     continue;
                 case 4:
-                    if (tag != 32) {
+                    if (tag !== 32) {
                         break;
                     }
                     message.specLastUpdatedBlock = reader.uint64();
                     continue;
                 case 5:
-                    if (tag != 40) {
+                    if (tag !== 40) {
                         break;
                     }
                     message.blockOfNextPairing = reader.uint64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -565,31 +567,31 @@ exports.QueryVerifyPairingRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.chainID = reader.string();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.client = reader.string();
                     continue;
                 case 3:
-                    if (tag != 26) {
+                    if (tag !== 26) {
                         break;
                     }
                     message.provider = reader.string();
                     continue;
                 case 4:
-                    if (tag != 32) {
+                    if (tag !== 32) {
                         break;
                     }
                     message.block = reader.uint64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -649,25 +651,25 @@ exports.QueryVerifyPairingResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 8) {
+                    if (tag !== 8) {
                         break;
                     }
                     message.valid = reader.bool();
                     continue;
                 case 3:
-                    if (tag != 24) {
+                    if (tag !== 24) {
                         break;
                     }
                     message.pairedProviders = reader.uint64();
                     continue;
                 case 4:
-                    if (tag != 32) {
+                    if (tag !== 32) {
                         break;
                     }
                     message.cuPerEpoch = reader.uint64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -722,13 +724,13 @@ exports.QueryGetUniquePaymentStorageClientProviderRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.index = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -772,13 +774,13 @@ exports.QueryGetUniquePaymentStorageClientProviderResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.uniquePaymentStorageClientProvider = unique_payment_storage_client_provider_1.UniquePaymentStorageClientProvider.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -830,13 +832,13 @@ exports.QueryAllUniquePaymentStorageClientProviderRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -884,19 +886,19 @@ exports.QueryAllUniquePaymentStorageClientProviderResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.uniquePaymentStorageClientProvider.push(unique_payment_storage_client_provider_1.UniquePaymentStorageClientProvider.decode(reader, reader.uint32()));
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -955,13 +957,13 @@ exports.QueryGetProviderPaymentStorageRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.index = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1004,13 +1006,13 @@ exports.QueryGetProviderPaymentStorageResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.providerPaymentStorage = provider_payment_storage_1.ProviderPaymentStorage.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1061,13 +1063,13 @@ exports.QueryAllProviderPaymentStorageRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1115,19 +1117,19 @@ exports.QueryAllProviderPaymentStorageResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.providerPaymentStorage.push(provider_payment_storage_1.ProviderPaymentStorage.decode(reader, reader.uint32()));
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1186,13 +1188,13 @@ exports.QueryGetEpochPaymentsRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.index = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1235,13 +1237,13 @@ exports.QueryGetEpochPaymentsResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.epochPayments = epoch_payments_1.EpochPayments.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1286,13 +1288,13 @@ exports.QueryAllEpochPaymentsRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.pagination = pagination_1.PageRequest.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1340,19 +1342,19 @@ exports.QueryAllEpochPaymentsResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.epochPayments.push(epoch_payments_1.EpochPayments.decode(reader, reader.uint32()));
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.pagination = pagination_1.PageResponse.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1416,25 +1418,25 @@ exports.QueryUserEntryRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.address = reader.string();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.chainID = reader.string();
                     continue;
                 case 3:
-                    if (tag != 24) {
+                    if (tag !== 24) {
                         break;
                     }
                     message.block = reader.uint64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1488,19 +1490,19 @@ exports.QueryUserEntryResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.consumer = stake_entry_1.StakeEntry.decode(reader, reader.uint32());
                     continue;
                 case 2:
-                    if (tag != 16) {
+                    if (tag !== 16) {
                         break;
                     }
                     message.maxCU = reader.uint64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1550,13 +1552,13 @@ exports.QueryStaticProvidersListRequest = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.chainID = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1599,13 +1601,13 @@ exports.QueryStaticProvidersListResponse = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.providers.push(stake_entry_1.StakeEntry.decode(reader, reader.uint32()));
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1634,6 +1636,142 @@ exports.QueryStaticProvidersListResponse = {
         var _a;
         const message = createBaseQueryStaticProvidersListResponse();
         message.providers = ((_a = object.providers) === null || _a === void 0 ? void 0 : _a.map((e) => stake_entry_1.StakeEntry.fromPartial(e))) || [];
+        return message;
+    },
+};
+function createBaseQueryAccountInfoResponse() {
+    return { provider: [], frozen: [], consumer: [], unstaked: [], subscription: undefined, project: undefined };
+}
+exports.QueryAccountInfoResponse = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        for (const v of message.provider) {
+            stake_entry_1.StakeEntry.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        for (const v of message.frozen) {
+            stake_entry_1.StakeEntry.encode(v, writer.uint32(18).fork()).ldelim();
+        }
+        for (const v of message.consumer) {
+            stake_entry_1.StakeEntry.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        for (const v of message.unstaked) {
+            stake_entry_1.StakeEntry.encode(v, writer.uint32(34).fork()).ldelim();
+        }
+        if (message.subscription !== undefined) {
+            subscription_1.Subscription.encode(message.subscription, writer.uint32(42).fork()).ldelim();
+        }
+        if (message.project !== undefined) {
+            project_1.Project.encode(message.project, writer.uint32(50).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseQueryAccountInfoResponse();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.provider.push(stake_entry_1.StakeEntry.decode(reader, reader.uint32()));
+                    continue;
+                case 2:
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.frozen.push(stake_entry_1.StakeEntry.decode(reader, reader.uint32()));
+                    continue;
+                case 3:
+                    if (tag !== 26) {
+                        break;
+                    }
+                    message.consumer.push(stake_entry_1.StakeEntry.decode(reader, reader.uint32()));
+                    continue;
+                case 4:
+                    if (tag !== 34) {
+                        break;
+                    }
+                    message.unstaked.push(stake_entry_1.StakeEntry.decode(reader, reader.uint32()));
+                    continue;
+                case 5:
+                    if (tag !== 42) {
+                        break;
+                    }
+                    message.subscription = subscription_1.Subscription.decode(reader, reader.uint32());
+                    continue;
+                case 6:
+                    if (tag !== 50) {
+                        break;
+                    }
+                    message.project = project_1.Project.decode(reader, reader.uint32());
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            provider: Array.isArray(object === null || object === void 0 ? void 0 : object.provider) ? object.provider.map((e) => stake_entry_1.StakeEntry.fromJSON(e)) : [],
+            frozen: Array.isArray(object === null || object === void 0 ? void 0 : object.frozen) ? object.frozen.map((e) => stake_entry_1.StakeEntry.fromJSON(e)) : [],
+            consumer: Array.isArray(object === null || object === void 0 ? void 0 : object.consumer) ? object.consumer.map((e) => stake_entry_1.StakeEntry.fromJSON(e)) : [],
+            unstaked: Array.isArray(object === null || object === void 0 ? void 0 : object.unstaked) ? object.unstaked.map((e) => stake_entry_1.StakeEntry.fromJSON(e)) : [],
+            subscription: isSet(object.subscription) ? subscription_1.Subscription.fromJSON(object.subscription) : undefined,
+            project: isSet(object.project) ? project_1.Project.fromJSON(object.project) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.provider) {
+            obj.provider = message.provider.map((e) => e ? stake_entry_1.StakeEntry.toJSON(e) : undefined);
+        }
+        else {
+            obj.provider = [];
+        }
+        if (message.frozen) {
+            obj.frozen = message.frozen.map((e) => e ? stake_entry_1.StakeEntry.toJSON(e) : undefined);
+        }
+        else {
+            obj.frozen = [];
+        }
+        if (message.consumer) {
+            obj.consumer = message.consumer.map((e) => e ? stake_entry_1.StakeEntry.toJSON(e) : undefined);
+        }
+        else {
+            obj.consumer = [];
+        }
+        if (message.unstaked) {
+            obj.unstaked = message.unstaked.map((e) => e ? stake_entry_1.StakeEntry.toJSON(e) : undefined);
+        }
+        else {
+            obj.unstaked = [];
+        }
+        message.subscription !== undefined &&
+            (obj.subscription = message.subscription ? subscription_1.Subscription.toJSON(message.subscription) : undefined);
+        message.project !== undefined && (obj.project = message.project ? project_1.Project.toJSON(message.project) : undefined);
+        return obj;
+    },
+    create(base) {
+        return exports.QueryAccountInfoResponse.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d;
+        const message = createBaseQueryAccountInfoResponse();
+        message.provider = ((_a = object.provider) === null || _a === void 0 ? void 0 : _a.map((e) => stake_entry_1.StakeEntry.fromPartial(e))) || [];
+        message.frozen = ((_b = object.frozen) === null || _b === void 0 ? void 0 : _b.map((e) => stake_entry_1.StakeEntry.fromPartial(e))) || [];
+        message.consumer = ((_c = object.consumer) === null || _c === void 0 ? void 0 : _c.map((e) => stake_entry_1.StakeEntry.fromPartial(e))) || [];
+        message.unstaked = ((_d = object.unstaked) === null || _d === void 0 ? void 0 : _d.map((e) => stake_entry_1.StakeEntry.fromPartial(e))) || [];
+        message.subscription = (object.subscription !== undefined && object.subscription !== null)
+            ? subscription_1.Subscription.fromPartial(object.subscription)
+            : undefined;
+        message.project = (object.project !== undefined && object.project !== null)
+            ? project_1.Project.fromPartial(object.project)
+            : undefined;
         return message;
     },
 };

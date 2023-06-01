@@ -21,10 +21,10 @@ export interface QueryListRequest {
 }
 
 export interface QueryListResponse {
-  plansInfo: listInfoStruct[];
+  plansInfo: ListInfoStruct[];
 }
 
-export interface listInfoStruct {
+export interface ListInfoStruct {
   index: string;
   description: string;
   price?: Coin;
@@ -55,7 +55,7 @@ export const QueryParamsRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -102,14 +102,14 @@ export const QueryParamsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.params = Params.decode(reader, reader.uint32());
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -157,7 +157,7 @@ export const QueryListRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -191,7 +191,7 @@ function createBaseQueryListResponse(): QueryListResponse {
 export const QueryListResponse = {
   encode(message: QueryListResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.plansInfo) {
-      listInfoStruct.encode(v!, writer.uint32(10).fork()).ldelim();
+      ListInfoStruct.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -204,14 +204,14 @@ export const QueryListResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
-          message.plansInfo.push(listInfoStruct.decode(reader, reader.uint32()));
+          message.plansInfo.push(ListInfoStruct.decode(reader, reader.uint32()));
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -221,14 +221,14 @@ export const QueryListResponse = {
 
   fromJSON(object: any): QueryListResponse {
     return {
-      plansInfo: Array.isArray(object?.plansInfo) ? object.plansInfo.map((e: any) => listInfoStruct.fromJSON(e)) : [],
+      plansInfo: Array.isArray(object?.plansInfo) ? object.plansInfo.map((e: any) => ListInfoStruct.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: QueryListResponse): unknown {
     const obj: any = {};
     if (message.plansInfo) {
-      obj.plansInfo = message.plansInfo.map((e) => e ? listInfoStruct.toJSON(e) : undefined);
+      obj.plansInfo = message.plansInfo.map((e) => e ? ListInfoStruct.toJSON(e) : undefined);
     } else {
       obj.plansInfo = [];
     }
@@ -241,17 +241,17 @@ export const QueryListResponse = {
 
   fromPartial<I extends Exact<DeepPartial<QueryListResponse>, I>>(object: I): QueryListResponse {
     const message = createBaseQueryListResponse();
-    message.plansInfo = object.plansInfo?.map((e) => listInfoStruct.fromPartial(e)) || [];
+    message.plansInfo = object.plansInfo?.map((e) => ListInfoStruct.fromPartial(e)) || [];
     return message;
   },
 };
 
-function createBaselistInfoStruct(): listInfoStruct {
+function createBaseListInfoStruct(): ListInfoStruct {
   return { index: "", description: "", price: undefined };
 }
 
-export const listInfoStruct = {
-  encode(message: listInfoStruct, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const ListInfoStruct = {
+  encode(message: ListInfoStruct, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.index !== "") {
       writer.uint32(10).string(message.index);
     }
@@ -264,36 +264,36 @@ export const listInfoStruct = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): listInfoStruct {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListInfoStruct {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaselistInfoStruct();
+    const message = createBaseListInfoStruct();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.index = reader.string();
           continue;
         case 2:
-          if (tag != 18) {
+          if (tag !== 18) {
             break;
           }
 
           message.description = reader.string();
           continue;
         case 3:
-          if (tag != 26) {
+          if (tag !== 26) {
             break;
           }
 
           message.price = Coin.decode(reader, reader.uint32());
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -301,7 +301,7 @@ export const listInfoStruct = {
     return message;
   },
 
-  fromJSON(object: any): listInfoStruct {
+  fromJSON(object: any): ListInfoStruct {
     return {
       index: isSet(object.index) ? String(object.index) : "",
       description: isSet(object.description) ? String(object.description) : "",
@@ -309,7 +309,7 @@ export const listInfoStruct = {
     };
   },
 
-  toJSON(message: listInfoStruct): unknown {
+  toJSON(message: ListInfoStruct): unknown {
     const obj: any = {};
     message.index !== undefined && (obj.index = message.index);
     message.description !== undefined && (obj.description = message.description);
@@ -317,12 +317,12 @@ export const listInfoStruct = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<listInfoStruct>, I>>(base?: I): listInfoStruct {
-    return listInfoStruct.fromPartial(base ?? {});
+  create<I extends Exact<DeepPartial<ListInfoStruct>, I>>(base?: I): ListInfoStruct {
+    return ListInfoStruct.fromPartial(base ?? {});
   },
 
-  fromPartial<I extends Exact<DeepPartial<listInfoStruct>, I>>(object: I): listInfoStruct {
-    const message = createBaselistInfoStruct();
+  fromPartial<I extends Exact<DeepPartial<ListInfoStruct>, I>>(object: I): ListInfoStruct {
+    const message = createBaseListInfoStruct();
     message.index = object.index ?? "";
     message.description = object.description ?? "";
     message.price = (object.price !== undefined && object.price !== null) ? Coin.fromPartial(object.price) : undefined;
@@ -350,14 +350,14 @@ export const QueryInfoRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.planIndex = reader.string();
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);
@@ -406,14 +406,14 @@ export const QueryInfoResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          if (tag != 10) {
+          if (tag !== 10) {
             break;
           }
 
           message.planInfo = Plan.decode(reader, reader.uint32());
           continue;
       }
-      if ((tag & 7) == 4 || tag == 0) {
+      if ((tag & 7) === 4 || tag === 0) {
         break;
       }
       reader.skipType(tag & 7);

@@ -33,49 +33,49 @@ export declare const MsgAddKeys: {
         project?: string | undefined;
         projectKeys?: {
             key?: string | undefined;
-            types?: import("./project").ProjectKey_keyType[] | undefined;
+            kinds?: number | undefined;
         }[] | undefined;
     } & {
         creator?: string | undefined;
         project?: string | undefined;
         projectKeys?: ({
             key?: string | undefined;
-            types?: import("./project").ProjectKey_keyType[] | undefined;
+            kinds?: number | undefined;
         }[] & ({
             key?: string | undefined;
-            types?: import("./project").ProjectKey_keyType[] | undefined;
+            kinds?: number | undefined;
         } & {
             key?: string | undefined;
-            types?: (import("./project").ProjectKey_keyType[] & import("./project").ProjectKey_keyType[] & { [K in Exclude<keyof I["projectKeys"][number]["types"], keyof import("./project").ProjectKey_keyType[]>]: never; }) | undefined;
-        } & { [K_1 in Exclude<keyof I["projectKeys"][number], keyof ProjectKey>]: never; })[] & { [K_2 in Exclude<keyof I["projectKeys"], keyof {
+            kinds?: number | undefined;
+        } & { [K in Exclude<keyof I["projectKeys"][number], keyof ProjectKey>]: never; })[] & { [K_1 in Exclude<keyof I["projectKeys"], keyof {
             key?: string | undefined;
-            types?: import("./project").ProjectKey_keyType[] | undefined;
+            kinds?: number | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, keyof MsgAddKeys>]: never; }>(base?: I | undefined): MsgAddKeys;
+    } & { [K_2 in Exclude<keyof I, keyof MsgAddKeys>]: never; }>(base?: I | undefined): MsgAddKeys;
     fromPartial<I_1 extends {
         creator?: string | undefined;
         project?: string | undefined;
         projectKeys?: {
             key?: string | undefined;
-            types?: import("./project").ProjectKey_keyType[] | undefined;
+            kinds?: number | undefined;
         }[] | undefined;
     } & {
         creator?: string | undefined;
         project?: string | undefined;
         projectKeys?: ({
             key?: string | undefined;
-            types?: import("./project").ProjectKey_keyType[] | undefined;
+            kinds?: number | undefined;
         }[] & ({
             key?: string | undefined;
-            types?: import("./project").ProjectKey_keyType[] | undefined;
+            kinds?: number | undefined;
         } & {
             key?: string | undefined;
-            types?: (import("./project").ProjectKey_keyType[] & import("./project").ProjectKey_keyType[] & { [K_4 in Exclude<keyof I_1["projectKeys"][number]["types"], keyof import("./project").ProjectKey_keyType[]>]: never; }) | undefined;
-        } & { [K_5 in Exclude<keyof I_1["projectKeys"][number], keyof ProjectKey>]: never; })[] & { [K_6 in Exclude<keyof I_1["projectKeys"], keyof {
+            kinds?: number | undefined;
+        } & { [K_3 in Exclude<keyof I_1["projectKeys"][number], keyof ProjectKey>]: never; })[] & { [K_4 in Exclude<keyof I_1["projectKeys"], keyof {
             key?: string | undefined;
-            types?: import("./project").ProjectKey_keyType[] | undefined;
+            kinds?: number | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I_1, keyof MsgAddKeys>]: never; }>(object: I_1): MsgAddKeys;
+    } & { [K_5 in Exclude<keyof I_1, keyof MsgAddKeys>]: never; }>(object: I_1): MsgAddKeys;
 };
 export declare const MsgAddKeysResponse: {
     encode(_: MsgAddKeysResponse, writer?: _m0.Writer): _m0.Writer;

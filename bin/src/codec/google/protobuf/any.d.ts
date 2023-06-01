@@ -27,7 +27,7 @@ export declare const protobufPackage = "google.protobuf";
  *       foo = any.unpack(Foo.class);
  *     }
  *
- *  Example 3: Pack and unpack a message in Python.
+ * Example 3: Pack and unpack a message in Python.
  *
  *     foo = Foo(...)
  *     any = Any()
@@ -37,13 +37,16 @@ export declare const protobufPackage = "google.protobuf";
  *       any.Unpack(foo)
  *       ...
  *
- *  Example 4: Pack and unpack a message in Go
+ * Example 4: Pack and unpack a message in Go
  *
  *      foo := &pb.Foo{...}
- *      any, err := ptypes.MarshalAny(foo)
+ *      any, err := anypb.New(foo)
+ *      if err != nil {
+ *        ...
+ *      }
  *      ...
  *      foo := &pb.Foo{}
- *      if err := ptypes.UnmarshalAny(any, foo); err != nil {
+ *      if err := any.UnmarshalTo(foo); err != nil {
  *        ...
  *      }
  *
@@ -54,7 +57,7 @@ export declare const protobufPackage = "google.protobuf";
  * name "y.z".
  *
  * JSON
- * ====
+ *
  * The JSON representation of an `Any` value uses the regular
  * representation of the deserialized, embedded message, with an
  * additional field `@type` which contains the type URL. Example:
@@ -84,7 +87,8 @@ export declare const protobufPackage = "google.protobuf";
 export interface Any {
     /**
      * A URL/resource name that uniquely identifies the type of the serialized
-     * protocol buffer message. The last segment of the URL's path must represent
+     * protocol buffer message. This string must contain at least
+     * one "/" character. The last segment of the URL's path must represent
      * the fully qualified name of the type (as in
      * `path/google.protobuf.Duration`). The name should be in a canonical form
      * (e.g., leading "." is not accepted).

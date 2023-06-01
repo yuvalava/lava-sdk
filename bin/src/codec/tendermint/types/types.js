@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TxProof = exports.BlockMeta = exports.LightBlock = exports.SignedHeader = exports.Proposal = exports.CommitSig = exports.Commit = exports.Vote = exports.Data = exports.Header = exports.BlockID = exports.Part = exports.PartSetHeader = exports.signedMsgTypeToJSON = exports.signedMsgTypeFromJSON = exports.SignedMsgType = exports.blockIDFlagToJSON = exports.blockIDFlagFromJSON = exports.BlockIDFlag = exports.protobufPackage = void 0;
+exports.TxProof = exports.BlockMeta = exports.LightBlock = exports.SignedHeader = exports.Proposal = exports.ExtendedCommitSig = exports.ExtendedCommit = exports.CommitSig = exports.Commit = exports.Vote = exports.Data = exports.Header = exports.BlockID = exports.Part = exports.PartSetHeader = exports.signedMsgTypeToJSON = exports.signedMsgTypeFromJSON = exports.SignedMsgType = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
@@ -12,52 +12,6 @@ const proof_1 = require("../crypto/proof");
 const types_1 = require("../version/types");
 const validator_1 = require("./validator");
 exports.protobufPackage = "tendermint.types";
-/** BlockIdFlag indicates which BlcokID the signature is for */
-var BlockIDFlag;
-(function (BlockIDFlag) {
-    BlockIDFlag[BlockIDFlag["BLOCK_ID_FLAG_UNKNOWN"] = 0] = "BLOCK_ID_FLAG_UNKNOWN";
-    BlockIDFlag[BlockIDFlag["BLOCK_ID_FLAG_ABSENT"] = 1] = "BLOCK_ID_FLAG_ABSENT";
-    BlockIDFlag[BlockIDFlag["BLOCK_ID_FLAG_COMMIT"] = 2] = "BLOCK_ID_FLAG_COMMIT";
-    BlockIDFlag[BlockIDFlag["BLOCK_ID_FLAG_NIL"] = 3] = "BLOCK_ID_FLAG_NIL";
-    BlockIDFlag[BlockIDFlag["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(BlockIDFlag = exports.BlockIDFlag || (exports.BlockIDFlag = {}));
-function blockIDFlagFromJSON(object) {
-    switch (object) {
-        case 0:
-        case "BLOCK_ID_FLAG_UNKNOWN":
-            return BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN;
-        case 1:
-        case "BLOCK_ID_FLAG_ABSENT":
-            return BlockIDFlag.BLOCK_ID_FLAG_ABSENT;
-        case 2:
-        case "BLOCK_ID_FLAG_COMMIT":
-            return BlockIDFlag.BLOCK_ID_FLAG_COMMIT;
-        case 3:
-        case "BLOCK_ID_FLAG_NIL":
-            return BlockIDFlag.BLOCK_ID_FLAG_NIL;
-        case -1:
-        case "UNRECOGNIZED":
-        default:
-            return BlockIDFlag.UNRECOGNIZED;
-    }
-}
-exports.blockIDFlagFromJSON = blockIDFlagFromJSON;
-function blockIDFlagToJSON(object) {
-    switch (object) {
-        case BlockIDFlag.BLOCK_ID_FLAG_UNKNOWN:
-            return "BLOCK_ID_FLAG_UNKNOWN";
-        case BlockIDFlag.BLOCK_ID_FLAG_ABSENT:
-            return "BLOCK_ID_FLAG_ABSENT";
-        case BlockIDFlag.BLOCK_ID_FLAG_COMMIT:
-            return "BLOCK_ID_FLAG_COMMIT";
-        case BlockIDFlag.BLOCK_ID_FLAG_NIL:
-            return "BLOCK_ID_FLAG_NIL";
-        case BlockIDFlag.UNRECOGNIZED:
-        default:
-            return "UNRECOGNIZED";
-    }
-}
-exports.blockIDFlagToJSON = blockIDFlagToJSON;
 /** SignedMsgType is a type of signed message in the consensus. */
 var SignedMsgType;
 (function (SignedMsgType) {
@@ -127,19 +81,19 @@ exports.PartSetHeader = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 8) {
+                    if (tag !== 8) {
                         break;
                     }
                     message.total = reader.uint32();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.hash = reader.bytes();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -194,25 +148,25 @@ exports.Part = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 8) {
+                    if (tag !== 8) {
                         break;
                     }
                     message.index = reader.uint32();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.bytes = reader.bytes();
                     continue;
                 case 3:
-                    if (tag != 26) {
+                    if (tag !== 26) {
                         break;
                     }
                     message.proof = proof_1.Proof.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -267,19 +221,19 @@ exports.BlockID = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.hash = reader.bytes();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.partSetHeader = exports.PartSetHeader.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -385,91 +339,91 @@ exports.Header = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.version = types_1.Consensus.decode(reader, reader.uint32());
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.chainId = reader.string();
                     continue;
                 case 3:
-                    if (tag != 24) {
+                    if (tag !== 24) {
                         break;
                     }
                     message.height = reader.int64();
                     continue;
                 case 4:
-                    if (tag != 34) {
+                    if (tag !== 34) {
                         break;
                     }
                     message.time = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
                     continue;
                 case 5:
-                    if (tag != 42) {
+                    if (tag !== 42) {
                         break;
                     }
                     message.lastBlockId = exports.BlockID.decode(reader, reader.uint32());
                     continue;
                 case 6:
-                    if (tag != 50) {
+                    if (tag !== 50) {
                         break;
                     }
                     message.lastCommitHash = reader.bytes();
                     continue;
                 case 7:
-                    if (tag != 58) {
+                    if (tag !== 58) {
                         break;
                     }
                     message.dataHash = reader.bytes();
                     continue;
                 case 8:
-                    if (tag != 66) {
+                    if (tag !== 66) {
                         break;
                     }
                     message.validatorsHash = reader.bytes();
                     continue;
                 case 9:
-                    if (tag != 74) {
+                    if (tag !== 74) {
                         break;
                     }
                     message.nextValidatorsHash = reader.bytes();
                     continue;
                 case 10:
-                    if (tag != 82) {
+                    if (tag !== 82) {
                         break;
                     }
                     message.consensusHash = reader.bytes();
                     continue;
                 case 11:
-                    if (tag != 90) {
+                    if (tag !== 90) {
                         break;
                     }
                     message.appHash = reader.bytes();
                     continue;
                 case 12:
-                    if (tag != 98) {
+                    if (tag !== 98) {
                         break;
                     }
                     message.lastResultsHash = reader.bytes();
                     continue;
                 case 13:
-                    if (tag != 106) {
+                    if (tag !== 106) {
                         break;
                     }
                     message.evidenceHash = reader.bytes();
                     continue;
                 case 14:
-                    if (tag != 114) {
+                    if (tag !== 114) {
                         break;
                     }
                     message.proposerAddress = reader.bytes();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -571,13 +525,13 @@ exports.Data = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.txs.push(reader.bytes());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -617,6 +571,8 @@ function createBaseVote() {
         validatorAddress: new Uint8Array(),
         validatorIndex: 0,
         signature: new Uint8Array(),
+        extension: new Uint8Array(),
+        extensionSignature: new Uint8Array(),
     };
 }
 exports.Vote = {
@@ -645,6 +601,12 @@ exports.Vote = {
         if (message.signature.length !== 0) {
             writer.uint32(66).bytes(message.signature);
         }
+        if (message.extension.length !== 0) {
+            writer.uint32(74).bytes(message.extension);
+        }
+        if (message.extensionSignature.length !== 0) {
+            writer.uint32(82).bytes(message.extensionSignature);
+        }
         return writer;
     },
     decode(input, length) {
@@ -655,55 +617,67 @@ exports.Vote = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 8) {
+                    if (tag !== 8) {
                         break;
                     }
                     message.type = reader.int32();
                     continue;
                 case 2:
-                    if (tag != 16) {
+                    if (tag !== 16) {
                         break;
                     }
                     message.height = reader.int64();
                     continue;
                 case 3:
-                    if (tag != 24) {
+                    if (tag !== 24) {
                         break;
                     }
                     message.round = reader.int32();
                     continue;
                 case 4:
-                    if (tag != 34) {
+                    if (tag !== 34) {
                         break;
                     }
                     message.blockId = exports.BlockID.decode(reader, reader.uint32());
                     continue;
                 case 5:
-                    if (tag != 42) {
+                    if (tag !== 42) {
                         break;
                     }
                     message.timestamp = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
                     continue;
                 case 6:
-                    if (tag != 50) {
+                    if (tag !== 50) {
                         break;
                     }
                     message.validatorAddress = reader.bytes();
                     continue;
                 case 7:
-                    if (tag != 56) {
+                    if (tag !== 56) {
                         break;
                     }
                     message.validatorIndex = reader.int32();
                     continue;
                 case 8:
-                    if (tag != 66) {
+                    if (tag !== 66) {
                         break;
                     }
                     message.signature = reader.bytes();
                     continue;
+                case 9:
+                    if (tag !== 74) {
+                        break;
+                    }
+                    message.extension = reader.bytes();
+                    continue;
+                case 10:
+                    if (tag !== 82) {
+                        break;
+                    }
+                    message.extensionSignature = reader.bytes();
+                    continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -720,6 +694,10 @@ exports.Vote = {
             validatorAddress: isSet(object.validatorAddress) ? bytesFromBase64(object.validatorAddress) : new Uint8Array(),
             validatorIndex: isSet(object.validatorIndex) ? Number(object.validatorIndex) : 0,
             signature: isSet(object.signature) ? bytesFromBase64(object.signature) : new Uint8Array(),
+            extension: isSet(object.extension) ? bytesFromBase64(object.extension) : new Uint8Array(),
+            extensionSignature: isSet(object.extensionSignature)
+                ? bytesFromBase64(object.extensionSignature)
+                : new Uint8Array(),
         };
     },
     toJSON(message) {
@@ -734,13 +712,17 @@ exports.Vote = {
         message.validatorIndex !== undefined && (obj.validatorIndex = Math.round(message.validatorIndex));
         message.signature !== undefined &&
             (obj.signature = base64FromBytes(message.signature !== undefined ? message.signature : new Uint8Array()));
+        message.extension !== undefined &&
+            (obj.extension = base64FromBytes(message.extension !== undefined ? message.extension : new Uint8Array()));
+        message.extensionSignature !== undefined &&
+            (obj.extensionSignature = base64FromBytes(message.extensionSignature !== undefined ? message.extensionSignature : new Uint8Array()));
         return obj;
     },
     create(base) {
         return exports.Vote.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         const message = createBaseVote();
         message.type = (_a = object.type) !== null && _a !== void 0 ? _a : 0;
         message.height = (object.height !== undefined && object.height !== null)
@@ -754,6 +736,8 @@ exports.Vote = {
         message.validatorAddress = (_d = object.validatorAddress) !== null && _d !== void 0 ? _d : new Uint8Array();
         message.validatorIndex = (_e = object.validatorIndex) !== null && _e !== void 0 ? _e : 0;
         message.signature = (_f = object.signature) !== null && _f !== void 0 ? _f : new Uint8Array();
+        message.extension = (_g = object.extension) !== null && _g !== void 0 ? _g : new Uint8Array();
+        message.extensionSignature = (_h = object.extensionSignature) !== null && _h !== void 0 ? _h : new Uint8Array();
         return message;
     },
 };
@@ -784,31 +768,31 @@ exports.Commit = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 8) {
+                    if (tag !== 8) {
                         break;
                     }
                     message.height = reader.int64();
                     continue;
                 case 2:
-                    if (tag != 16) {
+                    if (tag !== 16) {
                         break;
                     }
                     message.round = reader.int32();
                     continue;
                 case 3:
-                    if (tag != 26) {
+                    if (tag !== 26) {
                         break;
                     }
                     message.blockId = exports.BlockID.decode(reader, reader.uint32());
                     continue;
                 case 4:
-                    if (tag != 34) {
+                    if (tag !== 34) {
                         break;
                     }
                     message.signatures.push(exports.CommitSig.decode(reader, reader.uint32()));
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -880,31 +864,31 @@ exports.CommitSig = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 8) {
+                    if (tag !== 8) {
                         break;
                     }
                     message.blockIdFlag = reader.int32();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.validatorAddress = reader.bytes();
                     continue;
                 case 3:
-                    if (tag != 26) {
+                    if (tag !== 26) {
                         break;
                     }
                     message.timestamp = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
                     continue;
                 case 4:
-                    if (tag != 34) {
+                    if (tag !== 34) {
                         break;
                     }
                     message.signature = reader.bytes();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -913,7 +897,7 @@ exports.CommitSig = {
     },
     fromJSON(object) {
         return {
-            blockIdFlag: isSet(object.blockIdFlag) ? blockIDFlagFromJSON(object.blockIdFlag) : 0,
+            blockIdFlag: isSet(object.blockIdFlag) ? (0, validator_1.blockIDFlagFromJSON)(object.blockIdFlag) : 0,
             validatorAddress: isSet(object.validatorAddress) ? bytesFromBase64(object.validatorAddress) : new Uint8Array(),
             timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined,
             signature: isSet(object.signature) ? bytesFromBase64(object.signature) : new Uint8Array(),
@@ -921,7 +905,7 @@ exports.CommitSig = {
     },
     toJSON(message) {
         const obj = {};
-        message.blockIdFlag !== undefined && (obj.blockIdFlag = blockIDFlagToJSON(message.blockIdFlag));
+        message.blockIdFlag !== undefined && (obj.blockIdFlag = (0, validator_1.blockIDFlagToJSON)(message.blockIdFlag));
         message.validatorAddress !== undefined &&
             (obj.validatorAddress = base64FromBytes(message.validatorAddress !== undefined ? message.validatorAddress : new Uint8Array()));
         message.timestamp !== undefined && (obj.timestamp = message.timestamp.toISOString());
@@ -939,6 +923,228 @@ exports.CommitSig = {
         message.validatorAddress = (_b = object.validatorAddress) !== null && _b !== void 0 ? _b : new Uint8Array();
         message.timestamp = (_c = object.timestamp) !== null && _c !== void 0 ? _c : undefined;
         message.signature = (_d = object.signature) !== null && _d !== void 0 ? _d : new Uint8Array();
+        return message;
+    },
+};
+function createBaseExtendedCommit() {
+    return { height: long_1.default.ZERO, round: 0, blockId: undefined, extendedSignatures: [] };
+}
+exports.ExtendedCommit = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.height.isZero()) {
+            writer.uint32(8).int64(message.height);
+        }
+        if (message.round !== 0) {
+            writer.uint32(16).int32(message.round);
+        }
+        if (message.blockId !== undefined) {
+            exports.BlockID.encode(message.blockId, writer.uint32(26).fork()).ldelim();
+        }
+        for (const v of message.extendedSignatures) {
+            exports.ExtendedCommitSig.encode(v, writer.uint32(34).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseExtendedCommit();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 8) {
+                        break;
+                    }
+                    message.height = reader.int64();
+                    continue;
+                case 2:
+                    if (tag !== 16) {
+                        break;
+                    }
+                    message.round = reader.int32();
+                    continue;
+                case 3:
+                    if (tag !== 26) {
+                        break;
+                    }
+                    message.blockId = exports.BlockID.decode(reader, reader.uint32());
+                    continue;
+                case 4:
+                    if (tag !== 34) {
+                        break;
+                    }
+                    message.extendedSignatures.push(exports.ExtendedCommitSig.decode(reader, reader.uint32()));
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            height: isSet(object.height) ? long_1.default.fromValue(object.height) : long_1.default.ZERO,
+            round: isSet(object.round) ? Number(object.round) : 0,
+            blockId: isSet(object.blockId) ? exports.BlockID.fromJSON(object.blockId) : undefined,
+            extendedSignatures: Array.isArray(object === null || object === void 0 ? void 0 : object.extendedSignatures)
+                ? object.extendedSignatures.map((e) => exports.ExtendedCommitSig.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.height !== undefined && (obj.height = (message.height || long_1.default.ZERO).toString());
+        message.round !== undefined && (obj.round = Math.round(message.round));
+        message.blockId !== undefined && (obj.blockId = message.blockId ? exports.BlockID.toJSON(message.blockId) : undefined);
+        if (message.extendedSignatures) {
+            obj.extendedSignatures = message.extendedSignatures.map((e) => e ? exports.ExtendedCommitSig.toJSON(e) : undefined);
+        }
+        else {
+            obj.extendedSignatures = [];
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.ExtendedCommit.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseExtendedCommit();
+        message.height = (object.height !== undefined && object.height !== null)
+            ? long_1.default.fromValue(object.height)
+            : long_1.default.ZERO;
+        message.round = (_a = object.round) !== null && _a !== void 0 ? _a : 0;
+        message.blockId = (object.blockId !== undefined && object.blockId !== null)
+            ? exports.BlockID.fromPartial(object.blockId)
+            : undefined;
+        message.extendedSignatures = ((_b = object.extendedSignatures) === null || _b === void 0 ? void 0 : _b.map((e) => exports.ExtendedCommitSig.fromPartial(e))) || [];
+        return message;
+    },
+};
+function createBaseExtendedCommitSig() {
+    return {
+        blockIdFlag: 0,
+        validatorAddress: new Uint8Array(),
+        timestamp: undefined,
+        signature: new Uint8Array(),
+        extension: new Uint8Array(),
+        extensionSignature: new Uint8Array(),
+    };
+}
+exports.ExtendedCommitSig = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.blockIdFlag !== 0) {
+            writer.uint32(8).int32(message.blockIdFlag);
+        }
+        if (message.validatorAddress.length !== 0) {
+            writer.uint32(18).bytes(message.validatorAddress);
+        }
+        if (message.timestamp !== undefined) {
+            timestamp_1.Timestamp.encode(toTimestamp(message.timestamp), writer.uint32(26).fork()).ldelim();
+        }
+        if (message.signature.length !== 0) {
+            writer.uint32(34).bytes(message.signature);
+        }
+        if (message.extension.length !== 0) {
+            writer.uint32(42).bytes(message.extension);
+        }
+        if (message.extensionSignature.length !== 0) {
+            writer.uint32(50).bytes(message.extensionSignature);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseExtendedCommitSig();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 8) {
+                        break;
+                    }
+                    message.blockIdFlag = reader.int32();
+                    continue;
+                case 2:
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.validatorAddress = reader.bytes();
+                    continue;
+                case 3:
+                    if (tag !== 26) {
+                        break;
+                    }
+                    message.timestamp = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
+                    continue;
+                case 4:
+                    if (tag !== 34) {
+                        break;
+                    }
+                    message.signature = reader.bytes();
+                    continue;
+                case 5:
+                    if (tag !== 42) {
+                        break;
+                    }
+                    message.extension = reader.bytes();
+                    continue;
+                case 6:
+                    if (tag !== 50) {
+                        break;
+                    }
+                    message.extensionSignature = reader.bytes();
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            blockIdFlag: isSet(object.blockIdFlag) ? (0, validator_1.blockIDFlagFromJSON)(object.blockIdFlag) : 0,
+            validatorAddress: isSet(object.validatorAddress) ? bytesFromBase64(object.validatorAddress) : new Uint8Array(),
+            timestamp: isSet(object.timestamp) ? fromJsonTimestamp(object.timestamp) : undefined,
+            signature: isSet(object.signature) ? bytesFromBase64(object.signature) : new Uint8Array(),
+            extension: isSet(object.extension) ? bytesFromBase64(object.extension) : new Uint8Array(),
+            extensionSignature: isSet(object.extensionSignature)
+                ? bytesFromBase64(object.extensionSignature)
+                : new Uint8Array(),
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.blockIdFlag !== undefined && (obj.blockIdFlag = (0, validator_1.blockIDFlagToJSON)(message.blockIdFlag));
+        message.validatorAddress !== undefined &&
+            (obj.validatorAddress = base64FromBytes(message.validatorAddress !== undefined ? message.validatorAddress : new Uint8Array()));
+        message.timestamp !== undefined && (obj.timestamp = message.timestamp.toISOString());
+        message.signature !== undefined &&
+            (obj.signature = base64FromBytes(message.signature !== undefined ? message.signature : new Uint8Array()));
+        message.extension !== undefined &&
+            (obj.extension = base64FromBytes(message.extension !== undefined ? message.extension : new Uint8Array()));
+        message.extensionSignature !== undefined &&
+            (obj.extensionSignature = base64FromBytes(message.extensionSignature !== undefined ? message.extensionSignature : new Uint8Array()));
+        return obj;
+    },
+    create(base) {
+        return exports.ExtendedCommitSig.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d, _e, _f;
+        const message = createBaseExtendedCommitSig();
+        message.blockIdFlag = (_a = object.blockIdFlag) !== null && _a !== void 0 ? _a : 0;
+        message.validatorAddress = (_b = object.validatorAddress) !== null && _b !== void 0 ? _b : new Uint8Array();
+        message.timestamp = (_c = object.timestamp) !== null && _c !== void 0 ? _c : undefined;
+        message.signature = (_d = object.signature) !== null && _d !== void 0 ? _d : new Uint8Array();
+        message.extension = (_e = object.extension) !== null && _e !== void 0 ? _e : new Uint8Array();
+        message.extensionSignature = (_f = object.extensionSignature) !== null && _f !== void 0 ? _f : new Uint8Array();
         return message;
     },
 };
@@ -986,49 +1192,49 @@ exports.Proposal = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 8) {
+                    if (tag !== 8) {
                         break;
                     }
                     message.type = reader.int32();
                     continue;
                 case 2:
-                    if (tag != 16) {
+                    if (tag !== 16) {
                         break;
                     }
                     message.height = reader.int64();
                     continue;
                 case 3:
-                    if (tag != 24) {
+                    if (tag !== 24) {
                         break;
                     }
                     message.round = reader.int32();
                     continue;
                 case 4:
-                    if (tag != 32) {
+                    if (tag !== 32) {
                         break;
                     }
                     message.polRound = reader.int32();
                     continue;
                 case 5:
-                    if (tag != 42) {
+                    if (tag !== 42) {
                         break;
                     }
                     message.blockId = exports.BlockID.decode(reader, reader.uint32());
                     continue;
                 case 6:
-                    if (tag != 50) {
+                    if (tag !== 50) {
                         break;
                     }
                     message.timestamp = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
                     continue;
                 case 7:
-                    if (tag != 58) {
+                    if (tag !== 58) {
                         break;
                     }
                     message.signature = reader.bytes();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1099,19 +1305,19 @@ exports.SignedHeader = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.header = exports.Header.decode(reader, reader.uint32());
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.commit = exports.Commit.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1165,19 +1371,19 @@ exports.LightBlock = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.signedHeader = exports.SignedHeader.decode(reader, reader.uint32());
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.validatorSet = validator_1.ValidatorSet.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1239,31 +1445,31 @@ exports.BlockMeta = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.blockId = exports.BlockID.decode(reader, reader.uint32());
                     continue;
                 case 2:
-                    if (tag != 16) {
+                    if (tag !== 16) {
                         break;
                     }
                     message.blockSize = reader.int64();
                     continue;
                 case 3:
-                    if (tag != 26) {
+                    if (tag !== 26) {
                         break;
                     }
                     message.header = exports.Header.decode(reader, reader.uint32());
                     continue;
                 case 4:
-                    if (tag != 32) {
+                    if (tag !== 32) {
                         break;
                     }
                     message.numTxs = reader.int64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1330,25 +1536,25 @@ exports.TxProof = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.rootHash = reader.bytes();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.data = reader.bytes();
                     continue;
                 case 3:
-                    if (tag != 26) {
+                    if (tag !== 26) {
                         break;
                     }
                     message.proof = proof_1.Proof.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -1429,8 +1635,8 @@ function toTimestamp(date) {
     return { seconds, nanos };
 }
 function fromTimestamp(t) {
-    let millis = t.seconds.toNumber() * 1000;
-    millis += t.nanos / 1000000;
+    let millis = (t.seconds.toNumber() || 0) * 1000;
+    millis += (t.nanos || 0) / 1000000;
     return new Date(millis);
 }
 function fromJsonTimestamp(o) {

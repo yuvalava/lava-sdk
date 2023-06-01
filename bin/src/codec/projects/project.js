@@ -3,51 +3,50 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProjectData = exports.ProtoDeveloperData = exports.ChainPolicy = exports.Policy = exports.ProjectKey = exports.Project = exports.projectKey_keyTypeToJSON = exports.projectKey_keyTypeFromJSON = exports.ProjectKey_keyType = exports.protobufPackage = void 0;
+exports.ProjectData = exports.ProtoDeveloperData = exports.ChainPolicy = exports.Policy = exports.ProjectKey = exports.Project = exports.projectKey_TypeToJSON = exports.projectKey_TypeFromJSON = exports.ProjectKey_Type = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 exports.protobufPackage = "lavanet.lava.projects";
-/** bitmap, must only be power of 2 */
-var ProjectKey_keyType;
-(function (ProjectKey_keyType) {
-    ProjectKey_keyType[ProjectKey_keyType["NONE"] = 0] = "NONE";
-    ProjectKey_keyType[ProjectKey_keyType["ADMIN"] = 1] = "ADMIN";
-    ProjectKey_keyType[ProjectKey_keyType["DEVELOPER"] = 2] = "DEVELOPER";
-    ProjectKey_keyType[ProjectKey_keyType["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(ProjectKey_keyType = exports.ProjectKey_keyType || (exports.ProjectKey_keyType = {}));
-function projectKey_keyTypeFromJSON(object) {
+var ProjectKey_Type;
+(function (ProjectKey_Type) {
+    ProjectKey_Type[ProjectKey_Type["NONE"] = 0] = "NONE";
+    ProjectKey_Type[ProjectKey_Type["ADMIN"] = 1] = "ADMIN";
+    ProjectKey_Type[ProjectKey_Type["DEVELOPER"] = 2] = "DEVELOPER";
+    ProjectKey_Type[ProjectKey_Type["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
+})(ProjectKey_Type = exports.ProjectKey_Type || (exports.ProjectKey_Type = {}));
+function projectKey_TypeFromJSON(object) {
     switch (object) {
         case 0:
         case "NONE":
-            return ProjectKey_keyType.NONE;
+            return ProjectKey_Type.NONE;
         case 1:
         case "ADMIN":
-            return ProjectKey_keyType.ADMIN;
+            return ProjectKey_Type.ADMIN;
         case 2:
         case "DEVELOPER":
-            return ProjectKey_keyType.DEVELOPER;
+            return ProjectKey_Type.DEVELOPER;
         case -1:
         case "UNRECOGNIZED":
         default:
-            return ProjectKey_keyType.UNRECOGNIZED;
+            return ProjectKey_Type.UNRECOGNIZED;
     }
 }
-exports.projectKey_keyTypeFromJSON = projectKey_keyTypeFromJSON;
-function projectKey_keyTypeToJSON(object) {
+exports.projectKey_TypeFromJSON = projectKey_TypeFromJSON;
+function projectKey_TypeToJSON(object) {
     switch (object) {
-        case ProjectKey_keyType.NONE:
+        case ProjectKey_Type.NONE:
             return "NONE";
-        case ProjectKey_keyType.ADMIN:
+        case ProjectKey_Type.ADMIN:
             return "ADMIN";
-        case ProjectKey_keyType.DEVELOPER:
+        case ProjectKey_Type.DEVELOPER:
             return "DEVELOPER";
-        case ProjectKey_keyType.UNRECOGNIZED:
+        case ProjectKey_Type.UNRECOGNIZED:
         default:
             return "UNRECOGNIZED";
     }
 }
-exports.projectKey_keyTypeToJSON = projectKey_keyTypeToJSON;
+exports.projectKey_TypeToJSON = projectKey_TypeToJSON;
 function createBaseProject() {
     return {
         index: "",
@@ -100,61 +99,61 @@ exports.Project = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.index = reader.string();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.subscription = reader.string();
                     continue;
                 case 3:
-                    if (tag != 26) {
+                    if (tag !== 26) {
                         break;
                     }
                     message.description = reader.string();
                     continue;
                 case 4:
-                    if (tag != 32) {
+                    if (tag !== 32) {
                         break;
                     }
                     message.enabled = reader.bool();
                     continue;
                 case 5:
-                    if (tag != 42) {
+                    if (tag !== 42) {
                         break;
                     }
                     message.projectKeys.push(exports.ProjectKey.decode(reader, reader.uint32()));
                     continue;
                 case 6:
-                    if (tag != 50) {
+                    if (tag !== 50) {
                         break;
                     }
                     message.adminPolicy = exports.Policy.decode(reader, reader.uint32());
                     continue;
                 case 7:
-                    if (tag != 56) {
+                    if (tag !== 56) {
                         break;
                     }
                     message.usedCu = reader.uint64();
                     continue;
                 case 8:
-                    if (tag != 66) {
+                    if (tag !== 66) {
                         break;
                     }
                     message.subscriptionPolicy = exports.Policy.decode(reader, reader.uint32());
                     continue;
                 case 9:
-                    if (tag != 72) {
+                    if (tag !== 72) {
                         break;
                     }
                     message.snapshot = reader.uint64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -221,18 +220,16 @@ exports.Project = {
     },
 };
 function createBaseProjectKey() {
-    return { key: "", types: [] };
+    return { key: "", kinds: 0 };
 }
 exports.ProjectKey = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.key !== "") {
             writer.uint32(10).string(message.key);
         }
-        writer.uint32(18).fork();
-        for (const v of message.types) {
-            writer.int32(v);
+        if (message.kinds !== 0) {
+            writer.uint32(32).uint32(message.kinds);
         }
-        writer.ldelim();
         return writer;
     },
     decode(input, length) {
@@ -243,26 +240,19 @@ exports.ProjectKey = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.key = reader.string();
                     continue;
-                case 2:
-                    if (tag == 16) {
-                        message.types.push(reader.int32());
-                        continue;
+                case 4:
+                    if (tag !== 32) {
+                        break;
                     }
-                    if (tag == 18) {
-                        const end2 = reader.uint32() + reader.pos;
-                        while (reader.pos < end2) {
-                            message.types.push(reader.int32());
-                        }
-                        continue;
-                    }
-                    break;
+                    message.kinds = reader.uint32();
+                    continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -270,20 +260,12 @@ exports.ProjectKey = {
         return message;
     },
     fromJSON(object) {
-        return {
-            key: isSet(object.key) ? String(object.key) : "",
-            types: Array.isArray(object === null || object === void 0 ? void 0 : object.types) ? object.types.map((e) => projectKey_keyTypeFromJSON(e)) : [],
-        };
+        return { key: isSet(object.key) ? String(object.key) : "", kinds: isSet(object.kinds) ? Number(object.kinds) : 0 };
     },
     toJSON(message) {
         const obj = {};
         message.key !== undefined && (obj.key = message.key);
-        if (message.types) {
-            obj.types = message.types.map((e) => projectKey_keyTypeToJSON(e));
-        }
-        else {
-            obj.types = [];
-        }
+        message.kinds !== undefined && (obj.kinds = Math.round(message.kinds));
         return obj;
     },
     create(base) {
@@ -293,7 +275,7 @@ exports.ProjectKey = {
         var _a, _b;
         const message = createBaseProjectKey();
         message.key = (_a = object.key) !== null && _a !== void 0 ? _a : "";
-        message.types = ((_b = object.types) === null || _b === void 0 ? void 0 : _b.map((e) => e)) || [];
+        message.kinds = (_b = object.kinds) !== null && _b !== void 0 ? _b : 0;
         return message;
     },
 };
@@ -333,37 +315,37 @@ exports.Policy = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.chainPolicies.push(exports.ChainPolicy.decode(reader, reader.uint32()));
                     continue;
                 case 2:
-                    if (tag != 16) {
+                    if (tag !== 16) {
                         break;
                     }
                     message.geolocationProfile = reader.uint64();
                     continue;
                 case 3:
-                    if (tag != 24) {
+                    if (tag !== 24) {
                         break;
                     }
                     message.totalCuLimit = reader.uint64();
                     continue;
                 case 4:
-                    if (tag != 32) {
+                    if (tag !== 32) {
                         break;
                     }
                     message.epochCuLimit = reader.uint64();
                     continue;
                 case 5:
-                    if (tag != 40) {
+                    if (tag !== 40) {
                         break;
                     }
                     message.maxProvidersToPair = reader.uint64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -440,19 +422,19 @@ exports.ChainPolicy = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.chainId = reader.string();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.apis.push(reader.string());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -505,13 +487,13 @@ exports.ProtoDeveloperData = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.projectID = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -566,37 +548,37 @@ exports.ProjectData = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.name = reader.string();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.description = reader.string();
                     continue;
                 case 3:
-                    if (tag != 24) {
+                    if (tag !== 24) {
                         break;
                     }
                     message.enabled = reader.bool();
                     continue;
                 case 4:
-                    if (tag != 34) {
+                    if (tag !== 34) {
                         break;
                     }
                     message.projectKeys.push(exports.ProjectKey.decode(reader, reader.uint32()));
                     continue;
                 case 5:
-                    if (tag != 42) {
+                    if (tag !== 42) {
                         break;
                     }
                     message.policy = exports.Policy.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);

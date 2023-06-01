@@ -28,9 +28,9 @@ export interface QueryAllSpecResponse {
 export interface QueryShowAllChainsRequest {
 }
 export interface QueryShowAllChainsResponse {
-    chainInfoList: showAllChainsInfoStruct[];
+    chainInfoList: ShowAllChainsInfoStruct[];
 }
-export interface showAllChainsInfoStruct {
+export interface ShowAllChainsInfoStruct {
     chainName: string;
     chainID: string;
     enabledApiInterfaces: string[];
@@ -38,14 +38,14 @@ export interface showAllChainsInfoStruct {
 export interface QueryShowChainInfoRequest {
     chainName: string;
 }
-export interface apiList {
+export interface ApiList {
     interface: string;
     supportedApis: string[];
 }
 export interface QueryShowChainInfoResponse {
     chainID: string;
     interfaces: string[];
-    supportedApisInterfaceList: apiList[];
+    supportedApisInterfaceList: ApiList[];
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
@@ -4385,7 +4385,7 @@ export declare const QueryShowAllChainsResponse: {
             chainName?: string | undefined;
             chainID?: string | undefined;
             enabledApiInterfaces?: (string[] & string[] & { [K in Exclude<keyof I["chainInfoList"][number]["enabledApiInterfaces"], keyof string[]>]: never; }) | undefined;
-        } & { [K_1 in Exclude<keyof I["chainInfoList"][number], keyof showAllChainsInfoStruct>]: never; })[] & { [K_2 in Exclude<keyof I["chainInfoList"], keyof {
+        } & { [K_1 in Exclude<keyof I["chainInfoList"][number], keyof ShowAllChainsInfoStruct>]: never; })[] & { [K_2 in Exclude<keyof I["chainInfoList"], keyof {
             chainName?: string | undefined;
             chainID?: string | undefined;
             enabledApiInterfaces?: string[] | undefined;
@@ -4410,18 +4410,18 @@ export declare const QueryShowAllChainsResponse: {
             chainName?: string | undefined;
             chainID?: string | undefined;
             enabledApiInterfaces?: (string[] & string[] & { [K_4 in Exclude<keyof I_1["chainInfoList"][number]["enabledApiInterfaces"], keyof string[]>]: never; }) | undefined;
-        } & { [K_5 in Exclude<keyof I_1["chainInfoList"][number], keyof showAllChainsInfoStruct>]: never; })[] & { [K_6 in Exclude<keyof I_1["chainInfoList"], keyof {
+        } & { [K_5 in Exclude<keyof I_1["chainInfoList"][number], keyof ShowAllChainsInfoStruct>]: never; })[] & { [K_6 in Exclude<keyof I_1["chainInfoList"], keyof {
             chainName?: string | undefined;
             chainID?: string | undefined;
             enabledApiInterfaces?: string[] | undefined;
         }[]>]: never; }) | undefined;
     } & { [K_7 in Exclude<keyof I_1, "chainInfoList">]: never; }>(object: I_1): QueryShowAllChainsResponse;
 };
-export declare const showAllChainsInfoStruct: {
-    encode(message: showAllChainsInfoStruct, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): showAllChainsInfoStruct;
-    fromJSON(object: any): showAllChainsInfoStruct;
-    toJSON(message: showAllChainsInfoStruct): unknown;
+export declare const ShowAllChainsInfoStruct: {
+    encode(message: ShowAllChainsInfoStruct, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ShowAllChainsInfoStruct;
+    fromJSON(object: any): ShowAllChainsInfoStruct;
+    toJSON(message: ShowAllChainsInfoStruct): unknown;
     create<I extends {
         chainName?: string | undefined;
         chainID?: string | undefined;
@@ -4430,7 +4430,7 @@ export declare const showAllChainsInfoStruct: {
         chainName?: string | undefined;
         chainID?: string | undefined;
         enabledApiInterfaces?: (string[] & string[] & { [K in Exclude<keyof I["enabledApiInterfaces"], keyof string[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof showAllChainsInfoStruct>]: never; }>(base?: I | undefined): showAllChainsInfoStruct;
+    } & { [K_1 in Exclude<keyof I, keyof ShowAllChainsInfoStruct>]: never; }>(base?: I | undefined): ShowAllChainsInfoStruct;
     fromPartial<I_1 extends {
         chainName?: string | undefined;
         chainID?: string | undefined;
@@ -4439,7 +4439,7 @@ export declare const showAllChainsInfoStruct: {
         chainName?: string | undefined;
         chainID?: string | undefined;
         enabledApiInterfaces?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["enabledApiInterfaces"], keyof string[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof showAllChainsInfoStruct>]: never; }>(object: I_1): showAllChainsInfoStruct;
+    } & { [K_3 in Exclude<keyof I_1, keyof ShowAllChainsInfoStruct>]: never; }>(object: I_1): ShowAllChainsInfoStruct;
 };
 export declare const QueryShowChainInfoRequest: {
     encode(message: QueryShowChainInfoRequest, writer?: _m0.Writer): _m0.Writer;
@@ -4457,25 +4457,25 @@ export declare const QueryShowChainInfoRequest: {
         chainName?: string | undefined;
     } & { [K_1 in Exclude<keyof I_1, "chainName">]: never; }>(object: I_1): QueryShowChainInfoRequest;
 };
-export declare const apiList: {
-    encode(message: apiList, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): apiList;
-    fromJSON(object: any): apiList;
-    toJSON(message: apiList): unknown;
+export declare const ApiList: {
+    encode(message: ApiList, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ApiList;
+    fromJSON(object: any): ApiList;
+    toJSON(message: ApiList): unknown;
     create<I extends {
         interface?: string | undefined;
         supportedApis?: string[] | undefined;
     } & {
         interface?: string | undefined;
         supportedApis?: (string[] & string[] & { [K in Exclude<keyof I["supportedApis"], keyof string[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof apiList>]: never; }>(base?: I | undefined): apiList;
+    } & { [K_1 in Exclude<keyof I, keyof ApiList>]: never; }>(base?: I | undefined): ApiList;
     fromPartial<I_1 extends {
         interface?: string | undefined;
         supportedApis?: string[] | undefined;
     } & {
         interface?: string | undefined;
         supportedApis?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["supportedApis"], keyof string[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof apiList>]: never; }>(object: I_1): apiList;
+    } & { [K_3 in Exclude<keyof I_1, keyof ApiList>]: never; }>(object: I_1): ApiList;
 };
 export declare const QueryShowChainInfoResponse: {
     encode(message: QueryShowChainInfoResponse, writer?: _m0.Writer): _m0.Writer;
@@ -4501,7 +4501,7 @@ export declare const QueryShowChainInfoResponse: {
         } & {
             interface?: string | undefined;
             supportedApis?: (string[] & string[] & { [K_1 in Exclude<keyof I["supportedApisInterfaceList"][number]["supportedApis"], keyof string[]>]: never; }) | undefined;
-        } & { [K_2 in Exclude<keyof I["supportedApisInterfaceList"][number], keyof apiList>]: never; })[] & { [K_3 in Exclude<keyof I["supportedApisInterfaceList"], keyof {
+        } & { [K_2 in Exclude<keyof I["supportedApisInterfaceList"][number], keyof ApiList>]: never; })[] & { [K_3 in Exclude<keyof I["supportedApisInterfaceList"], keyof {
             interface?: string | undefined;
             supportedApis?: string[] | undefined;
         }[]>]: never; }) | undefined;
@@ -4525,7 +4525,7 @@ export declare const QueryShowChainInfoResponse: {
         } & {
             interface?: string | undefined;
             supportedApis?: (string[] & string[] & { [K_6 in Exclude<keyof I_1["supportedApisInterfaceList"][number]["supportedApis"], keyof string[]>]: never; }) | undefined;
-        } & { [K_7 in Exclude<keyof I_1["supportedApisInterfaceList"][number], keyof apiList>]: never; })[] & { [K_8 in Exclude<keyof I_1["supportedApisInterfaceList"], keyof {
+        } & { [K_7 in Exclude<keyof I_1["supportedApisInterfaceList"][number], keyof ApiList>]: never; })[] & { [K_8 in Exclude<keyof I_1["supportedApisInterfaceList"], keyof {
             interface?: string | undefined;
             supportedApis?: string[] | undefined;
         }[]>]: never; }) | undefined;

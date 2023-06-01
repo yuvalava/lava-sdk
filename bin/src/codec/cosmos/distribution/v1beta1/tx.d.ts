@@ -65,7 +65,7 @@ export interface MsgFundCommunityPoolResponse {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParams {
-    /** authority is the address of the governance account. */
+    /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
     authority: string;
     /**
      * params defines the x/distribution parameters to update.
@@ -90,7 +90,7 @@ export interface MsgUpdateParamsResponse {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgCommunityPoolSpend {
-    /** authority is the address of the governance account. */
+    /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
     authority: string;
     recipient: string;
     amount: Coin[];
@@ -102,6 +102,25 @@ export interface MsgCommunityPoolSpend {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgCommunityPoolSpendResponse {
+}
+/**
+ * DepositValidatorRewardsPool defines the request structure to provide
+ * additional rewards to delegators from a specific validator.
+ *
+ * Since: cosmos-sdk 0.50
+ */
+export interface MsgDepositValidatorRewardsPool {
+    depositor: string;
+    validatorAddress: string;
+    amount: Coin[];
+}
+/**
+ * MsgDepositValidatorRewardsPoolResponse defines the response to executing a
+ * MsgDepositValidatorRewardsPool message.
+ *
+ * Since: cosmos-sdk 0.50
+ */
+export interface MsgDepositValidatorRewardsPoolResponse {
 }
 export declare const MsgSetWithdrawAddress: {
     encode(message: MsgSetWithdrawAddress, writer?: _m0.Writer): _m0.Writer;
@@ -437,6 +456,68 @@ export declare const MsgCommunityPoolSpendResponse: {
     create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgCommunityPoolSpendResponse;
     fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): MsgCommunityPoolSpendResponse;
 };
+export declare const MsgDepositValidatorRewardsPool: {
+    encode(message: MsgDepositValidatorRewardsPool, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositValidatorRewardsPool;
+    fromJSON(object: any): MsgDepositValidatorRewardsPool;
+    toJSON(message: MsgDepositValidatorRewardsPool): unknown;
+    create<I extends {
+        depositor?: string | undefined;
+        validatorAddress?: string | undefined;
+        amount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+    } & {
+        depositor?: string | undefined;
+        validatorAddress?: string | undefined;
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K in Exclude<keyof I["amount"][number], keyof Coin>]: never; })[] & { [K_1 in Exclude<keyof I["amount"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_2 in Exclude<keyof I, keyof MsgDepositValidatorRewardsPool>]: never; }>(base?: I | undefined): MsgDepositValidatorRewardsPool;
+    fromPartial<I_1 extends {
+        depositor?: string | undefined;
+        validatorAddress?: string | undefined;
+        amount?: {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] | undefined;
+    } & {
+        depositor?: string | undefined;
+        validatorAddress?: string | undefined;
+        amount?: ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[] & ({
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        } & { [K_3 in Exclude<keyof I_1["amount"][number], keyof Coin>]: never; })[] & { [K_4 in Exclude<keyof I_1["amount"], keyof {
+            denom?: string | undefined;
+            amount?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, keyof MsgDepositValidatorRewardsPool>]: never; }>(object: I_1): MsgDepositValidatorRewardsPool;
+};
+export declare const MsgDepositValidatorRewardsPoolResponse: {
+    encode(_: MsgDepositValidatorRewardsPoolResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): MsgDepositValidatorRewardsPoolResponse;
+    fromJSON(_: any): MsgDepositValidatorRewardsPoolResponse;
+    toJSON(_: MsgDepositValidatorRewardsPoolResponse): unknown;
+    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgDepositValidatorRewardsPoolResponse;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): MsgDepositValidatorRewardsPoolResponse;
+};
 /** Msg defines the distribution Msg service. */
 export interface Msg {
     /**
@@ -475,6 +556,13 @@ export interface Msg {
      * Since: cosmos-sdk 0.47
      */
     CommunityPoolSpend(request: MsgCommunityPoolSpend): Promise<MsgCommunityPoolSpendResponse>;
+    /**
+     * DepositValidatorRewardsPool defines a method to provide additional rewards
+     * to delegators to a specific validator.
+     *
+     * Since: cosmos-sdk 0.50
+     */
+    DepositValidatorRewardsPool(request: MsgDepositValidatorRewardsPool): Promise<MsgDepositValidatorRewardsPoolResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -488,6 +576,7 @@ export declare class MsgClientImpl implements Msg {
     FundCommunityPool(request: MsgFundCommunityPool): Promise<MsgFundCommunityPoolResponse>;
     UpdateParams(request: MsgUpdateParams): Promise<MsgUpdateParamsResponse>;
     CommunityPoolSpend(request: MsgCommunityPoolSpend): Promise<MsgCommunityPoolSpendResponse>;
+    DepositValidatorRewardsPool(request: MsgDepositValidatorRewardsPool): Promise<MsgDepositValidatorRewardsPoolResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

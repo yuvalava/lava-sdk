@@ -3,14 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.HashedParams = exports.VersionParams = exports.ValidatorParams = exports.EvidenceParams = exports.BlockParams = exports.ConsensusParams = exports.protobufPackage = void 0;
+exports.ABCIParams = exports.HashedParams = exports.VersionParams = exports.ValidatorParams = exports.EvidenceParams = exports.BlockParams = exports.ConsensusParams = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const duration_1 = require("../../google/protobuf/duration");
 exports.protobufPackage = "tendermint.types";
 function createBaseConsensusParams() {
-    return { block: undefined, evidence: undefined, validator: undefined, version: undefined };
+    return { block: undefined, evidence: undefined, validator: undefined, version: undefined, abci: undefined };
 }
 exports.ConsensusParams = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -26,6 +26,9 @@ exports.ConsensusParams = {
         if (message.version !== undefined) {
             exports.VersionParams.encode(message.version, writer.uint32(34).fork()).ldelim();
         }
+        if (message.abci !== undefined) {
+            exports.ABCIParams.encode(message.abci, writer.uint32(42).fork()).ldelim();
+        }
         return writer;
     },
     decode(input, length) {
@@ -36,31 +39,37 @@ exports.ConsensusParams = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.block = exports.BlockParams.decode(reader, reader.uint32());
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.evidence = exports.EvidenceParams.decode(reader, reader.uint32());
                     continue;
                 case 3:
-                    if (tag != 26) {
+                    if (tag !== 26) {
                         break;
                     }
                     message.validator = exports.ValidatorParams.decode(reader, reader.uint32());
                     continue;
                 case 4:
-                    if (tag != 34) {
+                    if (tag !== 34) {
                         break;
                     }
                     message.version = exports.VersionParams.decode(reader, reader.uint32());
                     continue;
+                case 5:
+                    if (tag !== 42) {
+                        break;
+                    }
+                    message.abci = exports.ABCIParams.decode(reader, reader.uint32());
+                    continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -73,6 +82,7 @@ exports.ConsensusParams = {
             evidence: isSet(object.evidence) ? exports.EvidenceParams.fromJSON(object.evidence) : undefined,
             validator: isSet(object.validator) ? exports.ValidatorParams.fromJSON(object.validator) : undefined,
             version: isSet(object.version) ? exports.VersionParams.fromJSON(object.version) : undefined,
+            abci: isSet(object.abci) ? exports.ABCIParams.fromJSON(object.abci) : undefined,
         };
     },
     toJSON(message) {
@@ -84,6 +94,7 @@ exports.ConsensusParams = {
             (obj.validator = message.validator ? exports.ValidatorParams.toJSON(message.validator) : undefined);
         message.version !== undefined &&
             (obj.version = message.version ? exports.VersionParams.toJSON(message.version) : undefined);
+        message.abci !== undefined && (obj.abci = message.abci ? exports.ABCIParams.toJSON(message.abci) : undefined);
         return obj;
     },
     create(base) {
@@ -102,6 +113,9 @@ exports.ConsensusParams = {
             : undefined;
         message.version = (object.version !== undefined && object.version !== null)
             ? exports.VersionParams.fromPartial(object.version)
+            : undefined;
+        message.abci = (object.abci !== undefined && object.abci !== null)
+            ? exports.ABCIParams.fromPartial(object.abci)
             : undefined;
         return message;
     },
@@ -127,19 +141,19 @@ exports.BlockParams = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 8) {
+                    if (tag !== 8) {
                         break;
                     }
                     message.maxBytes = reader.int64();
                     continue;
                 case 2:
-                    if (tag != 16) {
+                    if (tag !== 16) {
                         break;
                     }
                     message.maxGas = reader.int64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -196,25 +210,25 @@ exports.EvidenceParams = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 8) {
+                    if (tag !== 8) {
                         break;
                     }
                     message.maxAgeNumBlocks = reader.int64();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.maxAgeDuration = duration_1.Duration.decode(reader, reader.uint32());
                     continue;
                 case 3:
-                    if (tag != 24) {
+                    if (tag !== 24) {
                         break;
                     }
                     message.maxBytes = reader.int64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -271,13 +285,13 @@ exports.ValidatorParams = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.pubKeyTypes.push(reader.string());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -325,13 +339,13 @@ exports.VersionParams = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 8) {
+                    if (tag !== 8) {
                         break;
                     }
                     message.app = reader.uint64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -376,19 +390,19 @@ exports.HashedParams = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 8) {
+                    if (tag !== 8) {
                         break;
                     }
                     message.blockMaxBytes = reader.int64();
                     continue;
                 case 2:
-                    if (tag != 16) {
+                    if (tag !== 16) {
                         break;
                     }
                     message.blockMaxGas = reader.int64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -418,6 +432,62 @@ exports.HashedParams = {
         message.blockMaxGas = (object.blockMaxGas !== undefined && object.blockMaxGas !== null)
             ? long_1.default.fromValue(object.blockMaxGas)
             : long_1.default.ZERO;
+        return message;
+    },
+};
+function createBaseABCIParams() {
+    return { voteExtensionsEnableHeight: long_1.default.ZERO };
+}
+exports.ABCIParams = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.voteExtensionsEnableHeight.isZero()) {
+            writer.uint32(8).int64(message.voteExtensionsEnableHeight);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseABCIParams();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 8) {
+                        break;
+                    }
+                    message.voteExtensionsEnableHeight = reader.int64();
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            voteExtensionsEnableHeight: isSet(object.voteExtensionsEnableHeight)
+                ? long_1.default.fromValue(object.voteExtensionsEnableHeight)
+                : long_1.default.ZERO,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.voteExtensionsEnableHeight !== undefined &&
+            (obj.voteExtensionsEnableHeight = (message.voteExtensionsEnableHeight || long_1.default.ZERO).toString());
+        return obj;
+    },
+    create(base) {
+        return exports.ABCIParams.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        const message = createBaseABCIParams();
+        message.voteExtensionsEnableHeight =
+            (object.voteExtensionsEnableHeight !== undefined && object.voteExtensionsEnableHeight !== null)
+                ? long_1.default.fromValue(object.voteExtensionsEnableHeight)
+                : long_1.default.ZERO;
         return message;
     },
 };
