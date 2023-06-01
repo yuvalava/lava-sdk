@@ -2,6 +2,8 @@
 // file: pairing/relay.proto
 
 import * as jspb from "google-protobuf";
+import * as gogoproto_gogo_pb from "../gogoproto/gogo_pb";
+import * as google_protobuf_wrappers_pb from "google-protobuf/google/protobuf/wrappers_pb";
 
 export class RelaySession extends jspb.Message {
   getSpecId(): string;
@@ -23,6 +25,11 @@ export class RelaySession extends jspb.Message {
 
   getRelayNum(): number;
   setRelayNum(value: number): void;
+
+  hasQosReport(): boolean;
+  clearQosReport(): void;
+  getQosReport(): QualityOfServiceReport | undefined;
+  setQosReport(value?: QualityOfServiceReport): void;
 
   getEpoch(): number;
   setEpoch(value: number): void;
@@ -63,11 +70,50 @@ export namespace RelaySession {
     cuSum: number,
     provider: string,
     relayNum: number,
+    qosReport?: QualityOfServiceReport.AsObject,
     epoch: number,
     unresponsiveProviders: Uint8Array | string,
     lavaChainId: string,
     sig: Uint8Array | string,
     badge?: Badge.AsObject,
+  }
+}
+
+export class Badge extends jspb.Message {
+  getCuAllocation(): number;
+  setCuAllocation(value: number): void;
+
+  getEpoch(): number;
+  setEpoch(value: number): void;
+
+  getAddress(): string;
+  setAddress(value: string): void;
+
+  getLavaChainId(): string;
+  setLavaChainId(value: string): void;
+
+  getProjectSig(): Uint8Array | string;
+  getProjectSig_asU8(): Uint8Array;
+  getProjectSig_asB64(): string;
+  setProjectSig(value: Uint8Array | string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Badge.AsObject;
+  static toObject(includeInstance: boolean, msg: Badge): Badge.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: Badge, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Badge;
+  static deserializeBinaryFromReader(message: Badge, reader: jspb.BinaryReader): Badge;
+}
+
+export namespace Badge {
+  export type AsObject = {
+    cuAllocation: number,
+    epoch: number,
+    address: string,
+    lavaChainId: string,
+    projectSig: Uint8Array | string,
   }
 }
 
@@ -94,6 +140,11 @@ export class RelayPrivateData extends jspb.Message {
   getSalt_asB64(): string;
   setSalt(value: Uint8Array | string): void;
 
+  clearMetadataList(): void;
+  getMetadataList(): Array<Metadata>;
+  setMetadataList(value: Array<Metadata>): void;
+  addMetadata(value?: Metadata, index?: number): Metadata;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RelayPrivateData.AsObject;
   static toObject(includeInstance: boolean, msg: RelayPrivateData): RelayPrivateData.AsObject;
@@ -112,6 +163,31 @@ export namespace RelayPrivateData {
     requestBlock: number,
     apiInterface: string,
     salt: Uint8Array | string,
+    metadataList: Array<Metadata.AsObject>,
+  }
+}
+
+export class Metadata extends jspb.Message {
+  getName(): string;
+  setName(value: string): void;
+
+  getValue(): string;
+  setValue(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Metadata.AsObject;
+  static toObject(includeInstance: boolean, msg: Metadata): Metadata.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: Metadata, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Metadata;
+  static deserializeBinaryFromReader(message: Metadata, reader: jspb.BinaryReader): Metadata;
+}
+
+export namespace Metadata {
+  export type AsObject = {
+    name: string,
+    value: string,
   }
 }
 
@@ -125,11 +201,6 @@ export class RelayRequest extends jspb.Message {
   clearRelayData(): void;
   getRelayData(): RelayPrivateData | undefined;
   setRelayData(value?: RelayPrivateData): void;
-
-  hasDataReliability(): boolean;
-  clearDataReliability(): void;
-  getDataReliability(): VRFData | undefined;
-  setDataReliability(value?: VRFData): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RelayRequest.AsObject;
@@ -145,47 +216,6 @@ export namespace RelayRequest {
   export type AsObject = {
     relaySession?: RelaySession.AsObject,
     relayData?: RelayPrivateData.AsObject,
-    dataReliability?: VRFData.AsObject,
-  }
-}
-
-export class Badge extends jspb.Message {
-  getCuAllocation(): number;
-  setCuAllocation(value: number): void;
-
-  getEpoch(): number;
-  setEpoch(value: number): void;
-
-  getBadgePk(): Uint8Array | string;
-  getBadgePk_asU8(): Uint8Array;
-  getBadgePk_asB64(): string;
-  setBadgePk(value: Uint8Array | string): void;
-
-  getSpecId(): string;
-  setSpecId(value: string): void;
-
-  getProjectSig(): Uint8Array | string;
-  getProjectSig_asU8(): Uint8Array;
-  getProjectSig_asB64(): string;
-  setProjectSig(value: Uint8Array | string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Badge.AsObject;
-  static toObject(includeInstance: boolean, msg: Badge): Badge.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: Badge, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Badge;
-  static deserializeBinaryFromReader(message: Badge, reader: jspb.BinaryReader): Badge;
-}
-
-export namespace Badge {
-  export type AsObject = {
-    cuAllocation: number,
-    epoch: number,
-    badgePk: Uint8Array | string,
-    specId: string,
-    projectSig: Uint8Array | string,
   }
 }
 
@@ -216,6 +246,11 @@ export class RelayReply extends jspb.Message {
   getSigBlocks_asB64(): string;
   setSigBlocks(value: Uint8Array | string): void;
 
+  clearMetadataList(): void;
+  getMetadataList(): Array<Metadata>;
+  setMetadataList(value: Array<Metadata>): void;
+  addMetadata(value?: Metadata, index?: number): Metadata;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RelayReply.AsObject;
   static toObject(includeInstance: boolean, msg: RelayReply): RelayReply.AsObject;
@@ -234,70 +269,35 @@ export namespace RelayReply {
     latestBlock: number,
     finalizedBlocksHashes: Uint8Array | string,
     sigBlocks: Uint8Array | string,
+    metadataList: Array<Metadata.AsObject>,
   }
 }
 
-export class VRFData extends jspb.Message {
-  getChainId(): string;
-  setChainId(value: string): void;
+export class QualityOfServiceReport extends jspb.Message {
+  getLatency(): string;
+  setLatency(value: string): void;
 
-  getEpoch(): number;
-  setEpoch(value: number): void;
+  getAvailability(): string;
+  setAvailability(value: string): void;
 
-  getDifferentiator(): boolean;
-  setDifferentiator(value: boolean): void;
-
-  getVrfValue(): Uint8Array | string;
-  getVrfValue_asU8(): Uint8Array;
-  getVrfValue_asB64(): string;
-  setVrfValue(value: Uint8Array | string): void;
-
-  getVrfProof(): Uint8Array | string;
-  getVrfProof_asU8(): Uint8Array;
-  getVrfProof_asB64(): string;
-  setVrfProof(value: Uint8Array | string): void;
-
-  getProviderSig(): Uint8Array | string;
-  getProviderSig_asU8(): Uint8Array;
-  getProviderSig_asB64(): string;
-  setProviderSig(value: Uint8Array | string): void;
-
-  getAllDataHash(): Uint8Array | string;
-  getAllDataHash_asU8(): Uint8Array;
-  getAllDataHash_asB64(): string;
-  setAllDataHash(value: Uint8Array | string): void;
-
-  getQueryHash(): Uint8Array | string;
-  getQueryHash_asU8(): Uint8Array;
-  getQueryHash_asB64(): string;
-  setQueryHash(value: Uint8Array | string): void;
-
-  getSig(): Uint8Array | string;
-  getSig_asU8(): Uint8Array;
-  getSig_asB64(): string;
-  setSig(value: Uint8Array | string): void;
+  getSync(): string;
+  setSync(value: string): void;
 
   serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): VRFData.AsObject;
-  static toObject(includeInstance: boolean, msg: VRFData): VRFData.AsObject;
+  toObject(includeInstance?: boolean): QualityOfServiceReport.AsObject;
+  static toObject(includeInstance: boolean, msg: QualityOfServiceReport): QualityOfServiceReport.AsObject;
   static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
   static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: VRFData, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): VRFData;
-  static deserializeBinaryFromReader(message: VRFData, reader: jspb.BinaryReader): VRFData;
+  static serializeBinaryToWriter(message: QualityOfServiceReport, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): QualityOfServiceReport;
+  static deserializeBinaryFromReader(message: QualityOfServiceReport, reader: jspb.BinaryReader): QualityOfServiceReport;
 }
 
-export namespace VRFData {
+export namespace QualityOfServiceReport {
   export type AsObject = {
-    chainId: string,
-    epoch: number,
-    differentiator: boolean,
-    vrfValue: Uint8Array | string,
-    vrfProof: Uint8Array | string,
-    providerSig: Uint8Array | string,
-    allDataHash: Uint8Array | string,
-    queryHash: Uint8Array | string,
-    sig: Uint8Array | string,
+    latency: string,
+    availability: string,
+    sync: string,
   }
 }
 

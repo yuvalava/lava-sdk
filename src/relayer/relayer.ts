@@ -7,8 +7,8 @@ import {
   RelayReply,
   RelaySession,
   RelayPrivateData,
-} from "../pairing/relay_pb";
-import { Relayer as RelayerService } from "../pairing/relay_pb_service";
+} from "../grpc_web_services/pairing/relay_pb";
+import { Relayer as RelayerService } from "../grpc_web_services/pairing/relay_pb_service";
 import transport from "../util/browser";
 
 class Relayer {

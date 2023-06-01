@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const crypto_1 = require("@cosmjs/crypto");
 const encoding_1 = require("@cosmjs/encoding");
 const grpc_web_1 = require("@improbable-eng/grpc-web");
-const relay_pb_1 = require("../pairing/relay_pb");
-const relay_pb_service_1 = require("../pairing/relay_pb_service");
+const relay_pb_1 = require("../grpc_web_services/pairing/relay_pb");
+const relay_pb_service_1 = require("../grpc_web_services/pairing/relay_pb_service");
 const browser_1 = __importDefault(require("../util/browser"));
 class Relayer {
     constructor(chainID, privKey, lavaChainId, secure) {
