@@ -9,17 +9,20 @@ import {
   RelayPrivateData,
 } from "../pairing/relay_pb";
 import { Relayer as RelayerService } from "../pairing/relay_pb_service";
+import { Badge} from "../badge/badges_pb"
 import transport from "../util/browser";
 
 class Relayer {
   private chainID: string;
   private privKey: string;
   private lavaChainId: string;
+  private badge?: Badge;
 
-  constructor(chainID: string, privKey: string, lavaChainId: string) {
+  constructor(chainID: string, privKey: string, lavaChainId: string, badge?: Badge) {
     this.chainID = chainID;
     this.privKey = privKey;
     this.lavaChainId = lavaChainId;
+    this.badge = badge;
   }
 
   async sendRelay(

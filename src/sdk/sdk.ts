@@ -118,7 +118,8 @@ export class LavaSDK {
       const lavaRelayer = new Relayer(
         LAVA_CHAIN_ID,
         privKey,
-        this.lavaChainId
+        this.lavaChainId,
+        badge,
       );
       console.log('lavaRelayer with BADGE: ', lavaRelayer)
       

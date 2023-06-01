@@ -1,10 +1,12 @@
 import { ConsumerSessionWithProvider } from "../types/types";
 import { RelayReply, RelaySession, RelayPrivateData } from "../pairing/relay_pb";
+import { Badge } from "../badge/badges_pb";
 declare class Relayer {
     private chainID;
     private privKey;
     private lavaChainId;
-    constructor(chainID: string, privKey: string, lavaChainId: string);
+    private badge?;
+    constructor(chainID: string, privKey: string, lavaChainId: string, badge?: Badge);
     sendRelay(options: SendRelayOptions, consumerProviderSession: ConsumerSessionWithProvider, cuSum: number, apiInterface: string): Promise<RelayReply>;
     relayWithTimeout(timeLimit: number, task: any): Promise<any>;
     byteArrayToString: (byteArray: Uint8Array) => string;

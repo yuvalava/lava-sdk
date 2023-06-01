@@ -95,7 +95,7 @@ class LavaSDK {
                 console.log("badgeSigner: ", badgeSigner);
                 console.log("badgeSignerAddress: ", badgeUser);
                 // create relayer with badge user's private key
-                const lavaRelayer = new relayer_1.default(default_1.LAVA_CHAIN_ID, privKey, this.lavaChainId);
+                const lavaRelayer = new relayer_1.default(default_1.LAVA_CHAIN_ID, privKey, this.lavaChainId, badge);
                 console.log('lavaRelayer with BADGE: ', lavaRelayer);
             }
             else {

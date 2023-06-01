@@ -19,7 +19,7 @@ const relay_pb_1 = require("../pairing/relay_pb");
 const relay_pb_service_1 = require("../pairing/relay_pb_service");
 const browser_1 = __importDefault(require("../util/browser"));
 class Relayer {
-    constructor(chainID, privKey, lavaChainId) {
+    constructor(chainID, privKey, lavaChainId, badge) {
         this.byteArrayToString = (byteArray) => {
             let output = "";
             for (let i = 0; i < byteArray.length; i++) {
@@ -48,6 +48,7 @@ class Relayer {
         this.chainID = chainID;
         this.privKey = privKey;
         this.lavaChainId = lavaChainId;
+        this.badge = badge;
     }
     sendRelay(options, consumerProviderSession, cuSum, apiInterface) {
         return __awaiter(this, void 0, void 0, function* () {
