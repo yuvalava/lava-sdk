@@ -13,7 +13,8 @@ var global = Function('return this')();
 
 var gogoproto_gogo_pb = require('../gogoproto/gogo_pb.js');
 var google_protobuf_wrappers_pb = require('google-protobuf/google/protobuf/wrappers_pb.js');
-goog.exportSymbol('proto.lavanet.lava.pairing.Badge', null, global);
+var pairing_badges_pb = require('../pairing/badges_pb.js');
+goog.exportSymbol('proto.lavanet.lava.pairing.Metadata', null, global);
 goog.exportSymbol('proto.lavanet.lava.pairing.QualityOfServiceReport', null, global);
 goog.exportSymbol('proto.lavanet.lava.pairing.RelayPrivateData', null, global);
 goog.exportSymbol('proto.lavanet.lava.pairing.RelayReply', null, global);
@@ -77,7 +78,7 @@ proto.lavanet.lava.pairing.RelaySession.toObject = function(includeInstance, msg
     unresponsiveProviders: msg.getUnresponsiveProviders_asB64(),
     lavaChainId: jspb.Message.getFieldWithDefault(msg, 10, ""),
     sig: msg.getSig_asB64(),
-    badge: (f = msg.getBadge()) && proto.lavanet.lava.pairing.Badge.toObject(includeInstance, f)
+    badge: (f = msg.getBadge()) && pairing_badges_pb.Badge.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -160,8 +161,8 @@ proto.lavanet.lava.pairing.RelaySession.deserializeBinaryFromReader = function(m
       msg.setSig(value);
       break;
     case 12:
-      var value = new proto.lavanet.lava.pairing.Badge;
-      reader.readMessage(value,proto.lavanet.lava.pairing.Badge.deserializeBinaryFromReader);
+      var value = new pairing_badges_pb.Badge;
+      reader.readMessage(value,pairing_badges_pb.Badge.deserializeBinaryFromReader);
       msg.setBadge(value);
       break;
     default:
@@ -276,7 +277,7 @@ proto.lavanet.lava.pairing.RelaySession.serializeBinaryToWriter = function(messa
     writer.writeMessage(
       12,
       f,
-      proto.lavanet.lava.pairing.Badge.serializeBinaryToWriter
+      pairing_badges_pb.Badge.serializeBinaryToWriter
     );
   }
 };
@@ -540,7 +541,7 @@ proto.lavanet.lava.pairing.RelaySession.prototype.setSig = function(value) {
  */
 proto.lavanet.lava.pairing.RelaySession.prototype.getBadge = function() {
   return /** @type{?proto.lavanet.lava.pairing.Badge} */ (
-    jspb.Message.getWrapperField(this, proto.lavanet.lava.pairing.Badge, 12));
+    jspb.Message.getWrapperField(this, pairing_badges_pb.Badge, 12));
 };
 
 
@@ -576,12 +577,19 @@ proto.lavanet.lava.pairing.RelaySession.prototype.hasBadge = function() {
  * @constructor
  */
 proto.lavanet.lava.pairing.RelayPrivateData = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.lavanet.lava.pairing.RelayPrivateData.repeatedFields_, null);
 };
 goog.inherits(proto.lavanet.lava.pairing.RelayPrivateData, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   proto.lavanet.lava.pairing.RelayPrivateData.displayName = 'proto.lavanet.lava.pairing.RelayPrivateData';
 }
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.lavanet.lava.pairing.RelayPrivateData.repeatedFields_ = [7];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -616,7 +624,9 @@ proto.lavanet.lava.pairing.RelayPrivateData.toObject = function(includeInstance,
     data: msg.getData_asB64(),
     requestBlock: jspb.Message.getFieldWithDefault(msg, 4, 0),
     apiInterface: jspb.Message.getFieldWithDefault(msg, 5, ""),
-    salt: msg.getSalt_asB64()
+    salt: msg.getSalt_asB64(),
+    metadataList: jspb.Message.toObjectList(msg.getMetadataList(),
+    proto.lavanet.lava.pairing.Metadata.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -676,6 +686,11 @@ proto.lavanet.lava.pairing.RelayPrivateData.deserializeBinaryFromReader = functi
     case 6:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setSalt(value);
+      break;
+    case 7:
+      var value = new proto.lavanet.lava.pairing.Metadata;
+      reader.readMessage(value,proto.lavanet.lava.pairing.Metadata.deserializeBinaryFromReader);
+      msg.addMetadata(value);
       break;
     default:
       reader.skipField();
@@ -746,6 +761,14 @@ proto.lavanet.lava.pairing.RelayPrivateData.serializeBinaryToWriter = function(m
     writer.writeBytes(
       6,
       f
+    );
+  }
+  f = message.getMetadataList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      7,
+      f,
+      proto.lavanet.lava.pairing.Metadata.serializeBinaryToWriter
     );
   }
 };
@@ -886,6 +909,206 @@ proto.lavanet.lava.pairing.RelayPrivateData.prototype.getSalt_asU8 = function() 
 /** @param {!(string|Uint8Array)} value */
 proto.lavanet.lava.pairing.RelayPrivateData.prototype.setSalt = function(value) {
   jspb.Message.setProto3BytesField(this, 6, value);
+};
+
+
+/**
+ * repeated Metadata metadata = 7;
+ * @return {!Array<!proto.lavanet.lava.pairing.Metadata>}
+ */
+proto.lavanet.lava.pairing.RelayPrivateData.prototype.getMetadataList = function() {
+  return /** @type{!Array<!proto.lavanet.lava.pairing.Metadata>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.lavanet.lava.pairing.Metadata, 7));
+};
+
+
+/** @param {!Array<!proto.lavanet.lava.pairing.Metadata>} value */
+proto.lavanet.lava.pairing.RelayPrivateData.prototype.setMetadataList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 7, value);
+};
+
+
+/**
+ * @param {!proto.lavanet.lava.pairing.Metadata=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.lavanet.lava.pairing.Metadata}
+ */
+proto.lavanet.lava.pairing.RelayPrivateData.prototype.addMetadata = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 7, opt_value, proto.lavanet.lava.pairing.Metadata, opt_index);
+};
+
+
+proto.lavanet.lava.pairing.RelayPrivateData.prototype.clearMetadataList = function() {
+  this.setMetadataList([]);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.lavanet.lava.pairing.Metadata = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.lavanet.lava.pairing.Metadata, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.lavanet.lava.pairing.Metadata.displayName = 'proto.lavanet.lava.pairing.Metadata';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.lavanet.lava.pairing.Metadata.prototype.toObject = function(opt_includeInstance) {
+  return proto.lavanet.lava.pairing.Metadata.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.lavanet.lava.pairing.Metadata} msg The msg instance to transform.
+ * @return {!Object}
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.lavanet.lava.pairing.Metadata.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    name: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    value: jspb.Message.getFieldWithDefault(msg, 2, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.lavanet.lava.pairing.Metadata}
+ */
+proto.lavanet.lava.pairing.Metadata.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.lavanet.lava.pairing.Metadata;
+  return proto.lavanet.lava.pairing.Metadata.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.lavanet.lava.pairing.Metadata} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.lavanet.lava.pairing.Metadata}
+ */
+proto.lavanet.lava.pairing.Metadata.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setName(value);
+      break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setValue(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.lavanet.lava.pairing.Metadata.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  proto.lavanet.lava.pairing.Metadata.serializeBinaryToWriter(this, writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the given message to binary data (in protobuf wire
+ * format), writing to the given BinaryWriter.
+ * @param {!proto.lavanet.lava.pairing.Metadata} message
+ * @param {!jspb.BinaryWriter} writer
+ * @suppress {unusedLocalVariables} f is only used for nested messages
+ */
+proto.lavanet.lava.pairing.Metadata.serializeBinaryToWriter = function(message, writer) {
+  var f = undefined;
+  f = message.getName();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+  f = message.getValue();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string name = 1;
+ * @return {string}
+ */
+proto.lavanet.lava.pairing.Metadata.prototype.getName = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.lavanet.lava.pairing.Metadata.prototype.setName = function(value) {
+  jspb.Message.setProto3StringField(this, 1, value);
+};
+
+
+/**
+ * optional string value = 2;
+ * @return {string}
+ */
+proto.lavanet.lava.pairing.Metadata.prototype.getValue = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.lavanet.lava.pairing.Metadata.prototype.setValue = function(value) {
+  jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
@@ -1103,287 +1326,20 @@ proto.lavanet.lava.pairing.RelayRequest.prototype.hasRelayData = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.lavanet.lava.pairing.Badge = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.lavanet.lava.pairing.Badge, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.lavanet.lava.pairing.Badge.displayName = 'proto.lavanet.lava.pairing.Badge';
-}
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.lavanet.lava.pairing.Badge.prototype.toObject = function(opt_includeInstance) {
-  return proto.lavanet.lava.pairing.Badge.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.lavanet.lava.pairing.Badge} msg The msg instance to transform.
- * @return {!Object}
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.lavanet.lava.pairing.Badge.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    cuAllocation: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    epoch: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    address: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    lavaChainId: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    projectSig: msg.getProjectSig_asB64()
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.lavanet.lava.pairing.Badge}
- */
-proto.lavanet.lava.pairing.Badge.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.lavanet.lava.pairing.Badge;
-  return proto.lavanet.lava.pairing.Badge.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.lavanet.lava.pairing.Badge} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.lavanet.lava.pairing.Badge}
- */
-proto.lavanet.lava.pairing.Badge.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = /** @type {number} */ (reader.readUint64());
-      msg.setCuAllocation(value);
-      break;
-    case 2:
-      var value = /** @type {number} */ (reader.readUint64());
-      msg.setEpoch(value);
-      break;
-    case 3:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setAddress(value);
-      break;
-    case 4:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setLavaChainId(value);
-      break;
-    case 5:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
-      msg.setProjectSig(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.lavanet.lava.pairing.Badge.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  proto.lavanet.lava.pairing.Badge.serializeBinaryToWriter(this, writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the given message to binary data (in protobuf wire
- * format), writing to the given BinaryWriter.
- * @param {!proto.lavanet.lava.pairing.Badge} message
- * @param {!jspb.BinaryWriter} writer
- * @suppress {unusedLocalVariables} f is only used for nested messages
- */
-proto.lavanet.lava.pairing.Badge.serializeBinaryToWriter = function(message, writer) {
-  var f = undefined;
-  f = message.getCuAllocation();
-  if (f !== 0) {
-    writer.writeUint64(
-      1,
-      f
-    );
-  }
-  f = message.getEpoch();
-  if (f !== 0) {
-    writer.writeUint64(
-      2,
-      f
-    );
-  }
-  f = message.getAddress();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
-      f
-    );
-  }
-  f = message.getLavaChainId();
-  if (f.length > 0) {
-    writer.writeString(
-      4,
-      f
-    );
-  }
-  f = message.getProjectSig_asU8();
-  if (f.length > 0) {
-    writer.writeBytes(
-      5,
-      f
-    );
-  }
-};
-
-
-/**
- * optional uint64 cu_allocation = 1;
- * @return {number}
- */
-proto.lavanet.lava.pairing.Badge.prototype.getCuAllocation = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
-};
-
-
-/** @param {number} value */
-proto.lavanet.lava.pairing.Badge.prototype.setCuAllocation = function(value) {
-  jspb.Message.setProto3IntField(this, 1, value);
-};
-
-
-/**
- * optional uint64 epoch = 2;
- * @return {number}
- */
-proto.lavanet.lava.pairing.Badge.prototype.getEpoch = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
-};
-
-
-/** @param {number} value */
-proto.lavanet.lava.pairing.Badge.prototype.setEpoch = function(value) {
-  jspb.Message.setProto3IntField(this, 2, value);
-};
-
-
-/**
- * optional string address = 3;
- * @return {string}
- */
-proto.lavanet.lava.pairing.Badge.prototype.getAddress = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
-};
-
-
-/** @param {string} value */
-proto.lavanet.lava.pairing.Badge.prototype.setAddress = function(value) {
-  jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional string lava_chain_id = 4;
- * @return {string}
- */
-proto.lavanet.lava.pairing.Badge.prototype.getLavaChainId = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
-};
-
-
-/** @param {string} value */
-proto.lavanet.lava.pairing.Badge.prototype.setLavaChainId = function(value) {
-  jspb.Message.setProto3StringField(this, 4, value);
-};
-
-
-/**
- * optional bytes project_sig = 5;
- * @return {!(string|Uint8Array)}
- */
-proto.lavanet.lava.pairing.Badge.prototype.getProjectSig = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
-};
-
-
-/**
- * optional bytes project_sig = 5;
- * This is a type-conversion wrapper around `getProjectSig()`
- * @return {string}
- */
-proto.lavanet.lava.pairing.Badge.prototype.getProjectSig_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getProjectSig()));
-};
-
-
-/**
- * optional bytes project_sig = 5;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getProjectSig()`
- * @return {!Uint8Array}
- */
-proto.lavanet.lava.pairing.Badge.prototype.getProjectSig_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getProjectSig()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
-proto.lavanet.lava.pairing.Badge.prototype.setProjectSig = function(value) {
-  jspb.Message.setProto3BytesField(this, 5, value);
-};
-
-
-
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
 proto.lavanet.lava.pairing.RelayReply = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, proto.lavanet.lava.pairing.RelayReply.repeatedFields_, null);
 };
 goog.inherits(proto.lavanet.lava.pairing.RelayReply, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   proto.lavanet.lava.pairing.RelayReply.displayName = 'proto.lavanet.lava.pairing.RelayReply';
 }
+/**
+ * List of repeated fields within this message type.
+ * @private {!Array<number>}
+ * @const
+ */
+proto.lavanet.lava.pairing.RelayReply.repeatedFields_ = [7];
+
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -1418,7 +1374,9 @@ proto.lavanet.lava.pairing.RelayReply.toObject = function(includeInstance, msg) 
     nonce: jspb.Message.getFieldWithDefault(msg, 3, 0),
     latestBlock: jspb.Message.getFieldWithDefault(msg, 4, 0),
     finalizedBlocksHashes: msg.getFinalizedBlocksHashes_asB64(),
-    sigBlocks: msg.getSigBlocks_asB64()
+    sigBlocks: msg.getSigBlocks_asB64(),
+    metadataList: jspb.Message.toObjectList(msg.getMetadataList(),
+    proto.lavanet.lava.pairing.Metadata.toObject, includeInstance)
   };
 
   if (includeInstance) {
@@ -1478,6 +1436,11 @@ proto.lavanet.lava.pairing.RelayReply.deserializeBinaryFromReader = function(msg
     case 6:
       var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setSigBlocks(value);
+      break;
+    case 7:
+      var value = new proto.lavanet.lava.pairing.Metadata;
+      reader.readMessage(value,proto.lavanet.lava.pairing.Metadata.deserializeBinaryFromReader);
+      msg.addMetadata(value);
       break;
     default:
       reader.skipField();
@@ -1548,6 +1511,14 @@ proto.lavanet.lava.pairing.RelayReply.serializeBinaryToWriter = function(message
     writer.writeBytes(
       6,
       f
+    );
+  }
+  f = message.getMetadataList();
+  if (f.length > 0) {
+    writer.writeRepeatedMessage(
+      7,
+      f,
+      proto.lavanet.lava.pairing.Metadata.serializeBinaryToWriter
     );
   }
 };
@@ -1736,6 +1707,37 @@ proto.lavanet.lava.pairing.RelayReply.prototype.getSigBlocks_asU8 = function() {
 /** @param {!(string|Uint8Array)} value */
 proto.lavanet.lava.pairing.RelayReply.prototype.setSigBlocks = function(value) {
   jspb.Message.setProto3BytesField(this, 6, value);
+};
+
+
+/**
+ * repeated Metadata metadata = 7;
+ * @return {!Array<!proto.lavanet.lava.pairing.Metadata>}
+ */
+proto.lavanet.lava.pairing.RelayReply.prototype.getMetadataList = function() {
+  return /** @type{!Array<!proto.lavanet.lava.pairing.Metadata>} */ (
+    jspb.Message.getRepeatedWrapperField(this, proto.lavanet.lava.pairing.Metadata, 7));
+};
+
+
+/** @param {!Array<!proto.lavanet.lava.pairing.Metadata>} value */
+proto.lavanet.lava.pairing.RelayReply.prototype.setMetadataList = function(value) {
+  jspb.Message.setRepeatedWrapperField(this, 7, value);
+};
+
+
+/**
+ * @param {!proto.lavanet.lava.pairing.Metadata=} opt_value
+ * @param {number=} opt_index
+ * @return {!proto.lavanet.lava.pairing.Metadata}
+ */
+proto.lavanet.lava.pairing.RelayReply.prototype.addMetadata = function(opt_value, opt_index) {
+  return jspb.Message.addToRepeatedWrapperField(this, 7, opt_value, proto.lavanet.lava.pairing.Metadata, opt_index);
+};
+
+
+proto.lavanet.lava.pairing.RelayReply.prototype.clearMetadataList = function() {
+  this.setMetadataList([]);
 };
 
 

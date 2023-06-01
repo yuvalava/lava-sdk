@@ -4,6 +4,7 @@
 import * as jspb from "google-protobuf";
 import * as gogoproto_gogo_pb from "../gogoproto/gogo_pb";
 import * as google_protobuf_wrappers_pb from "google-protobuf/google/protobuf/wrappers_pb";
+import * as pairing_badges_pb from "../pairing/badges_pb";
 
 export class RelaySession extends jspb.Message {
   getSpecId(): string;
@@ -49,8 +50,8 @@ export class RelaySession extends jspb.Message {
 
   hasBadge(): boolean;
   clearBadge(): void;
-  getBadge(): Badge | undefined;
-  setBadge(value?: Badge): void;
+  getBadge(): pairing_badges_pb.Badge | undefined;
+  setBadge(value?: pairing_badges_pb.Badge): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RelaySession.AsObject;
@@ -75,7 +76,7 @@ export namespace RelaySession {
     unresponsiveProviders: Uint8Array | string,
     lavaChainId: string,
     sig: Uint8Array | string,
-    badge?: Badge.AsObject,
+    badge?: pairing_badges_pb.Badge.AsObject,
   }
 }
 
@@ -102,6 +103,11 @@ export class RelayPrivateData extends jspb.Message {
   getSalt_asB64(): string;
   setSalt(value: Uint8Array | string): void;
 
+  clearMetadataList(): void;
+  getMetadataList(): Array<Metadata>;
+  setMetadataList(value: Array<Metadata>): void;
+  addMetadata(value?: Metadata, index?: number): Metadata;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RelayPrivateData.AsObject;
   static toObject(includeInstance: boolean, msg: RelayPrivateData): RelayPrivateData.AsObject;
@@ -120,6 +126,31 @@ export namespace RelayPrivateData {
     requestBlock: number,
     apiInterface: string,
     salt: Uint8Array | string,
+    metadataList: Array<Metadata.AsObject>,
+  }
+}
+
+export class Metadata extends jspb.Message {
+  getName(): string;
+  setName(value: string): void;
+
+  getValue(): string;
+  setValue(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Metadata.AsObject;
+  static toObject(includeInstance: boolean, msg: Metadata): Metadata.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: Metadata, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Metadata;
+  static deserializeBinaryFromReader(message: Metadata, reader: jspb.BinaryReader): Metadata;
+}
+
+export namespace Metadata {
+  export type AsObject = {
+    name: string,
+    value: string,
   }
 }
 
@@ -151,44 +182,6 @@ export namespace RelayRequest {
   }
 }
 
-export class Badge extends jspb.Message {
-  getCuAllocation(): number;
-  setCuAllocation(value: number): void;
-
-  getEpoch(): number;
-  setEpoch(value: number): void;
-
-  getAddress(): string;
-  setAddress(value: string): void;
-
-  getLavaChainId(): string;
-  setLavaChainId(value: string): void;
-
-  getProjectSig(): Uint8Array | string;
-  getProjectSig_asU8(): Uint8Array;
-  getProjectSig_asB64(): string;
-  setProjectSig(value: Uint8Array | string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): Badge.AsObject;
-  static toObject(includeInstance: boolean, msg: Badge): Badge.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: Badge, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): Badge;
-  static deserializeBinaryFromReader(message: Badge, reader: jspb.BinaryReader): Badge;
-}
-
-export namespace Badge {
-  export type AsObject = {
-    cuAllocation: number,
-    epoch: number,
-    address: string,
-    lavaChainId: string,
-    projectSig: Uint8Array | string,
-  }
-}
-
 export class RelayReply extends jspb.Message {
   getData(): Uint8Array | string;
   getData_asU8(): Uint8Array;
@@ -216,6 +209,11 @@ export class RelayReply extends jspb.Message {
   getSigBlocks_asB64(): string;
   setSigBlocks(value: Uint8Array | string): void;
 
+  clearMetadataList(): void;
+  getMetadataList(): Array<Metadata>;
+  setMetadataList(value: Array<Metadata>): void;
+  addMetadata(value?: Metadata, index?: number): Metadata;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RelayReply.AsObject;
   static toObject(includeInstance: boolean, msg: RelayReply): RelayReply.AsObject;
@@ -234,6 +232,7 @@ export namespace RelayReply {
     latestBlock: number,
     finalizedBlocksHashes: Uint8Array | string,
     sigBlocks: Uint8Array | string,
+    metadataList: Array<Metadata.AsObject>,
   }
 }
 

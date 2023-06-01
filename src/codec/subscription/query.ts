@@ -24,6 +24,14 @@ export interface QueryCurrentResponse {
   sub?: Subscription;
 }
 
+export interface QueryListProjectsRequest {
+  subscription: string;
+}
+
+export interface QueryListProjectsResponse {
+  projects: string[];
+}
+
 function createBaseQueryParamsRequest(): QueryParamsRequest {
   return {};
 }
@@ -238,12 +246,130 @@ export const QueryCurrentResponse = {
   },
 };
 
+function createBaseQueryListProjectsRequest(): QueryListProjectsRequest {
+  return { subscription: "" };
+}
+
+export const QueryListProjectsRequest = {
+  encode(message: QueryListProjectsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.subscription !== "") {
+      writer.uint32(10).string(message.subscription);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryListProjectsRequest {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryListProjectsRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag != 10) {
+            break;
+          }
+
+          message.subscription = reader.string();
+          continue;
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryListProjectsRequest {
+    return { subscription: isSet(object.subscription) ? String(object.subscription) : "" };
+  },
+
+  toJSON(message: QueryListProjectsRequest): unknown {
+    const obj: any = {};
+    message.subscription !== undefined && (obj.subscription = message.subscription);
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryListProjectsRequest>, I>>(base?: I): QueryListProjectsRequest {
+    return QueryListProjectsRequest.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryListProjectsRequest>, I>>(object: I): QueryListProjectsRequest {
+    const message = createBaseQueryListProjectsRequest();
+    message.subscription = object.subscription ?? "";
+    return message;
+  },
+};
+
+function createBaseQueryListProjectsResponse(): QueryListProjectsResponse {
+  return { projects: [] };
+}
+
+export const QueryListProjectsResponse = {
+  encode(message: QueryListProjectsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.projects) {
+      writer.uint32(10).string(v!);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryListProjectsResponse {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseQueryListProjectsResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          if (tag != 10) {
+            break;
+          }
+
+          message.projects.push(reader.string());
+          continue;
+      }
+      if ((tag & 7) == 4 || tag == 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryListProjectsResponse {
+    return { projects: Array.isArray(object?.projects) ? object.projects.map((e: any) => String(e)) : [] };
+  },
+
+  toJSON(message: QueryListProjectsResponse): unknown {
+    const obj: any = {};
+    if (message.projects) {
+      obj.projects = message.projects.map((e) => e);
+    } else {
+      obj.projects = [];
+    }
+    return obj;
+  },
+
+  create<I extends Exact<DeepPartial<QueryListProjectsResponse>, I>>(base?: I): QueryListProjectsResponse {
+    return QueryListProjectsResponse.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<QueryListProjectsResponse>, I>>(object: I): QueryListProjectsResponse {
+    const message = createBaseQueryListProjectsResponse();
+    message.projects = object.projects?.map((e) => e) || [];
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
   /** Queries a list of Current items. */
   Current(request: QueryCurrentRequest): Promise<QueryCurrentResponse>;
+  /** Queries a list of ListProjects items. */
+  ListProjects(request: QueryListProjectsRequest): Promise<QueryListProjectsResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -254,6 +380,7 @@ export class QueryClientImpl implements Query {
     this.rpc = rpc;
     this.Params = this.Params.bind(this);
     this.Current = this.Current.bind(this);
+    this.ListProjects = this.ListProjects.bind(this);
   }
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse> {
     const data = QueryParamsRequest.encode(request).finish();
@@ -265,6 +392,12 @@ export class QueryClientImpl implements Query {
     const data = QueryCurrentRequest.encode(request).finish();
     const promise = this.rpc.request(this.service, "Current", data);
     return promise.then((data) => QueryCurrentResponse.decode(_m0.Reader.create(data)));
+  }
+
+  ListProjects(request: QueryListProjectsRequest): Promise<QueryListProjectsResponse> {
+    const data = QueryListProjectsRequest.encode(request).finish();
+    const promise = this.rpc.request(this.service, "ListProjects", data);
+    return promise.then((data) => QueryListProjectsResponse.decode(_m0.Reader.create(data)));
   }
 }
 
