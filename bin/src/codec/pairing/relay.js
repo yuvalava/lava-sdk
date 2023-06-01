@@ -3,13 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RelayerClientImpl = exports.QualityOfServiceReport = exports.RelayReply = exports.RelayRequest = exports.Metadata = exports.RelayPrivateData = exports.RelaySession = exports.protobufPackage = void 0;
+exports.RelayerClientImpl = exports.QualityOfServiceReport = exports.RelayReply = exports.RelayRequest = exports.Metadata = exports.RelayPrivateData = exports.Badge = exports.RelaySession = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const operators_1 = require("rxjs/operators");
 const wrappers_1 = require("../google/protobuf/wrappers");
-const badges_1 = require("./badges");
 exports.protobufPackage = "lavanet.lava.pairing";
 function createBaseRelaySession() {
     return {
@@ -63,7 +62,7 @@ exports.RelaySession = {
             writer.uint32(90).bytes(message.sig);
         }
         if (message.badge !== undefined) {
-            badges_1.Badge.encode(message.badge, writer.uint32(98).fork()).ldelim();
+            exports.Badge.encode(message.badge, writer.uint32(98).fork()).ldelim();
         }
         return writer;
     },
@@ -144,7 +143,7 @@ exports.RelaySession = {
                     if (tag != 98) {
                         break;
                     }
-                    message.badge = badges_1.Badge.decode(reader, reader.uint32());
+                    message.badge = exports.Badge.decode(reader, reader.uint32());
                     continue;
             }
             if ((tag & 7) == 4 || tag == 0) {
@@ -169,7 +168,7 @@ exports.RelaySession = {
                 : new Uint8Array(),
             lavaChainId: isSet(object.lavaChainId) ? String(object.lavaChainId) : "",
             sig: isSet(object.sig) ? bytesFromBase64(object.sig) : new Uint8Array(),
-            badge: isSet(object.badge) ? badges_1.Badge.fromJSON(object.badge) : undefined,
+            badge: isSet(object.badge) ? exports.Badge.fromJSON(object.badge) : undefined,
         };
     },
     toJSON(message) {
@@ -189,7 +188,7 @@ exports.RelaySession = {
         message.lavaChainId !== undefined && (obj.lavaChainId = message.lavaChainId);
         message.sig !== undefined &&
             (obj.sig = base64FromBytes(message.sig !== undefined ? message.sig : new Uint8Array()));
-        message.badge !== undefined && (obj.badge = message.badge ? badges_1.Badge.toJSON(message.badge) : undefined);
+        message.badge !== undefined && (obj.badge = message.badge ? exports.Badge.toJSON(message.badge) : undefined);
         return obj;
     },
     create(base) {
@@ -215,7 +214,109 @@ exports.RelaySession = {
         message.unresponsiveProviders = (_d = object.unresponsiveProviders) !== null && _d !== void 0 ? _d : new Uint8Array();
         message.lavaChainId = (_e = object.lavaChainId) !== null && _e !== void 0 ? _e : "";
         message.sig = (_f = object.sig) !== null && _f !== void 0 ? _f : new Uint8Array();
-        message.badge = (object.badge !== undefined && object.badge !== null) ? badges_1.Badge.fromPartial(object.badge) : undefined;
+        message.badge = (object.badge !== undefined && object.badge !== null) ? exports.Badge.fromPartial(object.badge) : undefined;
+        return message;
+    },
+};
+function createBaseBadge() {
+    return { cuAllocation: long_1.default.UZERO, epoch: long_1.default.UZERO, address: "", lavaChainId: "", projectSig: new Uint8Array() };
+}
+exports.Badge = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.cuAllocation.isZero()) {
+            writer.uint32(8).uint64(message.cuAllocation);
+        }
+        if (!message.epoch.isZero()) {
+            writer.uint32(16).uint64(message.epoch);
+        }
+        if (message.address !== "") {
+            writer.uint32(26).string(message.address);
+        }
+        if (message.lavaChainId !== "") {
+            writer.uint32(34).string(message.lavaChainId);
+        }
+        if (message.projectSig.length !== 0) {
+            writer.uint32(42).bytes(message.projectSig);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseBadge();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag != 8) {
+                        break;
+                    }
+                    message.cuAllocation = reader.uint64();
+                    continue;
+                case 2:
+                    if (tag != 16) {
+                        break;
+                    }
+                    message.epoch = reader.uint64();
+                    continue;
+                case 3:
+                    if (tag != 26) {
+                        break;
+                    }
+                    message.address = reader.string();
+                    continue;
+                case 4:
+                    if (tag != 34) {
+                        break;
+                    }
+                    message.lavaChainId = reader.string();
+                    continue;
+                case 5:
+                    if (tag != 42) {
+                        break;
+                    }
+                    message.projectSig = reader.bytes();
+                    continue;
+            }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            cuAllocation: isSet(object.cuAllocation) ? long_1.default.fromValue(object.cuAllocation) : long_1.default.UZERO,
+            epoch: isSet(object.epoch) ? long_1.default.fromValue(object.epoch) : long_1.default.UZERO,
+            address: isSet(object.address) ? String(object.address) : "",
+            lavaChainId: isSet(object.lavaChainId) ? String(object.lavaChainId) : "",
+            projectSig: isSet(object.projectSig) ? bytesFromBase64(object.projectSig) : new Uint8Array(),
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.cuAllocation !== undefined && (obj.cuAllocation = (message.cuAllocation || long_1.default.UZERO).toString());
+        message.epoch !== undefined && (obj.epoch = (message.epoch || long_1.default.UZERO).toString());
+        message.address !== undefined && (obj.address = message.address);
+        message.lavaChainId !== undefined && (obj.lavaChainId = message.lavaChainId);
+        message.projectSig !== undefined &&
+            (obj.projectSig = base64FromBytes(message.projectSig !== undefined ? message.projectSig : new Uint8Array()));
+        return obj;
+    },
+    create(base) {
+        return exports.Badge.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a, _b, _c;
+        const message = createBaseBadge();
+        message.cuAllocation = (object.cuAllocation !== undefined && object.cuAllocation !== null)
+            ? long_1.default.fromValue(object.cuAllocation)
+            : long_1.default.UZERO;
+        message.epoch = (object.epoch !== undefined && object.epoch !== null) ? long_1.default.fromValue(object.epoch) : long_1.default.UZERO;
+        message.address = (_a = object.address) !== null && _a !== void 0 ? _a : "";
+        message.lavaChainId = (_b = object.lavaChainId) !== null && _b !== void 0 ? _b : "";
+        message.projectSig = (_c = object.projectSig) !== null && _c !== void 0 ? _c : new Uint8Array();
         return message;
     },
 };

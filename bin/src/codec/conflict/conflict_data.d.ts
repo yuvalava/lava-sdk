@@ -696,7 +696,7 @@ export declare const ResponseConflict: {
                         address?: string | undefined;
                         lavaChainId?: string | undefined;
                         projectSig?: Uint8Array | undefined;
-                    } & { [K_7 in Exclude<keyof I["conflictRelayData0"]["request"]["relaySession"]["badge"], keyof import("../pairing/badges").Badge>]: never; }) | undefined;
+                    } & { [K_7 in Exclude<keyof I["conflictRelayData0"]["request"]["relaySession"]["badge"], keyof import("../pairing/relay").Badge>]: never; }) | undefined;
                 } & { [K_8 in Exclude<keyof I["conflictRelayData0"]["request"]["relaySession"], keyof import("../pairing/relay").RelaySession>]: never; }) | undefined;
                 relayData?: ({
                     connectionType?: string | undefined;
@@ -1477,7 +1477,7 @@ export declare const ResponseConflict: {
                         address?: string | undefined;
                         lavaChainId?: string | undefined;
                         projectSig?: Uint8Array | undefined;
-                    } & { [K_26 in Exclude<keyof I["conflictRelayData1"]["request"]["relaySession"]["badge"], keyof import("../pairing/badges").Badge>]: never; }) | undefined;
+                    } & { [K_26 in Exclude<keyof I["conflictRelayData1"]["request"]["relaySession"]["badge"], keyof import("../pairing/relay").Badge>]: never; }) | undefined;
                 } & { [K_27 in Exclude<keyof I["conflictRelayData1"]["request"]["relaySession"], keyof import("../pairing/relay").RelaySession>]: never; }) | undefined;
                 relayData?: ({
                     connectionType?: string | undefined;
@@ -2365,7 +2365,7 @@ export declare const ResponseConflict: {
                         address?: string | undefined;
                         lavaChainId?: string | undefined;
                         projectSig?: Uint8Array | undefined;
-                    } & { [K_46 in Exclude<keyof I_1["conflictRelayData0"]["request"]["relaySession"]["badge"], keyof import("../pairing/badges").Badge>]: never; }) | undefined;
+                    } & { [K_46 in Exclude<keyof I_1["conflictRelayData0"]["request"]["relaySession"]["badge"], keyof import("../pairing/relay").Badge>]: never; }) | undefined;
                 } & { [K_47 in Exclude<keyof I_1["conflictRelayData0"]["request"]["relaySession"], keyof import("../pairing/relay").RelaySession>]: never; }) | undefined;
                 relayData?: ({
                     connectionType?: string | undefined;
@@ -3146,7 +3146,7 @@ export declare const ResponseConflict: {
                         address?: string | undefined;
                         lavaChainId?: string | undefined;
                         projectSig?: Uint8Array | undefined;
-                    } & { [K_65 in Exclude<keyof I_1["conflictRelayData1"]["request"]["relaySession"]["badge"], keyof import("../pairing/badges").Badge>]: never; }) | undefined;
+                    } & { [K_65 in Exclude<keyof I_1["conflictRelayData1"]["request"]["relaySession"]["badge"], keyof import("../pairing/relay").Badge>]: never; }) | undefined;
                 } & { [K_66 in Exclude<keyof I_1["conflictRelayData1"]["request"]["relaySession"], keyof import("../pairing/relay").RelaySession>]: never; }) | undefined;
                 relayData?: ({
                     connectionType?: string | undefined;
@@ -3934,7 +3934,7 @@ export declare const ConflictRelayData: {
                     address?: string | undefined;
                     lavaChainId?: string | undefined;
                     projectSig?: Uint8Array | undefined;
-                } & { [K_7 in Exclude<keyof I["request"]["relaySession"]["badge"], keyof import("../pairing/badges").Badge>]: never; }) | undefined;
+                } & { [K_7 in Exclude<keyof I["request"]["relaySession"]["badge"], keyof import("../pairing/relay").Badge>]: never; }) | undefined;
             } & { [K_8 in Exclude<keyof I["request"]["relaySession"], keyof import("../pairing/relay").RelaySession>]: never; }) | undefined;
             relayData?: ({
                 connectionType?: string | undefined;
@@ -4715,7 +4715,7 @@ export declare const ConflictRelayData: {
                     address?: string | undefined;
                     lavaChainId?: string | undefined;
                     projectSig?: Uint8Array | undefined;
-                } & { [K_26 in Exclude<keyof I_1["request"]["relaySession"]["badge"], keyof import("../pairing/badges").Badge>]: never; }) | undefined;
+                } & { [K_26 in Exclude<keyof I_1["request"]["relaySession"]["badge"], keyof import("../pairing/relay").Badge>]: never; }) | undefined;
             } & { [K_27 in Exclude<keyof I_1["request"]["relaySession"], keyof import("../pairing/relay").RelaySession>]: never; }) | undefined;
             relayData?: ({
                 connectionType?: string | undefined;
