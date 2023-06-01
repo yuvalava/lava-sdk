@@ -11,7 +11,7 @@ protoc --plugin="protoc-gen-ts=./node_modules/.bin/protoc-gen-ts" \
     --ts_out="service=grpc-web:./src" \
     --proto_path="$COSMOS_PROTO_DIR" \
     --proto_path="$THIRD_PARTY_PROTO_DIR" \
-    ./proto/cosmos/cosmos-sdk/third_party/proto/pairing/relay.proto
+    ./proto/cosmos/cosmos-sdk/third_party/proto/pairing/relay.proto \
 
 # mv ./src/proto/test ./src/pairing/.
 # rm -rf ./src/proto

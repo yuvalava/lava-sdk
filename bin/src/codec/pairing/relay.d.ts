@@ -2,6 +2,7 @@ import Long from "long";
 import _m0 from "protobufjs/minimal";
 import { Observable } from "rxjs";
 import { UInt64Value } from "../google/protobuf/wrappers";
+import { Badge } from "./badges";
 export declare const protobufPackage = "lavanet.lava.pairing";
 export interface RelaySession {
     specId: string;
@@ -26,17 +27,15 @@ export interface RelayPrivateData {
     requestBlock: Long;
     apiInterface: string;
     salt: Uint8Array;
+    metadata: Metadata[];
+}
+export interface Metadata {
+    name: string;
+    value: string;
 }
 export interface RelayRequest {
     relaySession?: RelaySession;
     relayData?: RelayPrivateData;
-}
-export interface Badge {
-    cuAllocation: Long;
-    epoch: Long;
-    address: string;
-    lavaChainId: string;
-    projectSig: Uint8Array;
 }
 export interface RelayReply {
     data: Uint8Array;
@@ -47,6 +46,7 @@ export interface RelayReply {
     finalizedBlocksHashes: Uint8Array;
     /** sign latest_block+finalized_blocks_hashes+session_id+block_height+relay_num */
     sigBlocks: Uint8Array;
+    metadata: Metadata[];
 }
 export interface QualityOfServiceReport {
     latency: string;
@@ -1037,6 +1037,10 @@ export declare const RelayPrivateData: {
         requestBlock?: string | number | Long | undefined;
         apiInterface?: string | undefined;
         salt?: Uint8Array | undefined;
+        metadata?: {
+            name?: string | undefined;
+            value?: string | undefined;
+        }[] | undefined;
     } & {
         connectionType?: string | undefined;
         apiUrl?: string | undefined;
@@ -1115,7 +1119,20 @@ export declare const RelayPrivateData: {
         } & { [K in Exclude<keyof I["requestBlock"], keyof Long>]: never; }) | undefined;
         apiInterface?: string | undefined;
         salt?: Uint8Array | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof RelayPrivateData>]: never; }>(base?: I | undefined): RelayPrivateData;
+        metadata?: ({
+            name?: string | undefined;
+            value?: string | undefined;
+        }[] & ({
+            name?: string | undefined;
+            value?: string | undefined;
+        } & {
+            name?: string | undefined;
+            value?: string | undefined;
+        } & { [K_1 in Exclude<keyof I["metadata"][number], keyof Metadata>]: never; })[] & { [K_2 in Exclude<keyof I["metadata"], keyof {
+            name?: string | undefined;
+            value?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I, keyof RelayPrivateData>]: never; }>(base?: I | undefined): RelayPrivateData;
     fromPartial<I_1 extends {
         connectionType?: string | undefined;
         apiUrl?: string | undefined;
@@ -1123,6 +1140,10 @@ export declare const RelayPrivateData: {
         requestBlock?: string | number | Long | undefined;
         apiInterface?: string | undefined;
         salt?: Uint8Array | undefined;
+        metadata?: {
+            name?: string | undefined;
+            value?: string | undefined;
+        }[] | undefined;
     } & {
         connectionType?: string | undefined;
         apiUrl?: string | undefined;
@@ -1198,10 +1219,43 @@ export declare const RelayPrivateData: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long;
             xor: (other: string | number | Long) => Long;
-        } & { [K_2 in Exclude<keyof I_1["requestBlock"], keyof Long>]: never; }) | undefined;
+        } & { [K_4 in Exclude<keyof I_1["requestBlock"], keyof Long>]: never; }) | undefined;
         apiInterface?: string | undefined;
         salt?: Uint8Array | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof RelayPrivateData>]: never; }>(object: I_1): RelayPrivateData;
+        metadata?: ({
+            name?: string | undefined;
+            value?: string | undefined;
+        }[] & ({
+            name?: string | undefined;
+            value?: string | undefined;
+        } & {
+            name?: string | undefined;
+            value?: string | undefined;
+        } & { [K_5 in Exclude<keyof I_1["metadata"][number], keyof Metadata>]: never; })[] & { [K_6 in Exclude<keyof I_1["metadata"], keyof {
+            name?: string | undefined;
+            value?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I_1, keyof RelayPrivateData>]: never; }>(object: I_1): RelayPrivateData;
+};
+export declare const Metadata: {
+    encode(message: Metadata, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): Metadata;
+    fromJSON(object: any): Metadata;
+    toJSON(message: Metadata): unknown;
+    create<I extends {
+        name?: string | undefined;
+        value?: string | undefined;
+    } & {
+        name?: string | undefined;
+        value?: string | undefined;
+    } & { [K in Exclude<keyof I, keyof Metadata>]: never; }>(base?: I | undefined): Metadata;
+    fromPartial<I_1 extends {
+        name?: string | undefined;
+        value?: string | undefined;
+    } & {
+        name?: string | undefined;
+        value?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, keyof Metadata>]: never; }>(object: I_1): Metadata;
 };
 export declare const RelayRequest: {
     encode(message: RelayRequest, writer?: _m0.Writer): _m0.Writer;
@@ -1240,6 +1294,10 @@ export declare const RelayRequest: {
             requestBlock?: string | number | Long | undefined;
             apiInterface?: string | undefined;
             salt?: Uint8Array | undefined;
+            metadata?: {
+                name?: string | undefined;
+                value?: string | undefined;
+            }[] | undefined;
         } | undefined;
     } & {
         relaySession?: ({
@@ -1732,6 +1790,10 @@ export declare const RelayRequest: {
             requestBlock?: string | number | Long | undefined;
             apiInterface?: string | undefined;
             salt?: Uint8Array | undefined;
+            metadata?: {
+                name?: string | undefined;
+                value?: string | undefined;
+            }[] | undefined;
         } & {
             connectionType?: string | undefined;
             apiUrl?: string | undefined;
@@ -1810,8 +1872,21 @@ export declare const RelayRequest: {
             } & { [K_9 in Exclude<keyof I["relayData"]["requestBlock"], keyof Long>]: never; }) | undefined;
             apiInterface?: string | undefined;
             salt?: Uint8Array | undefined;
-        } & { [K_10 in Exclude<keyof I["relayData"], keyof RelayPrivateData>]: never; }) | undefined;
-    } & { [K_11 in Exclude<keyof I, keyof RelayRequest>]: never; }>(base?: I | undefined): RelayRequest;
+            metadata?: ({
+                name?: string | undefined;
+                value?: string | undefined;
+            }[] & ({
+                name?: string | undefined;
+                value?: string | undefined;
+            } & {
+                name?: string | undefined;
+                value?: string | undefined;
+            } & { [K_10 in Exclude<keyof I["relayData"]["metadata"][number], keyof Metadata>]: never; })[] & { [K_11 in Exclude<keyof I["relayData"]["metadata"], keyof {
+                name?: string | undefined;
+                value?: string | undefined;
+            }[]>]: never; }) | undefined;
+        } & { [K_12 in Exclude<keyof I["relayData"], keyof RelayPrivateData>]: never; }) | undefined;
+    } & { [K_13 in Exclude<keyof I, keyof RelayRequest>]: never; }>(base?: I | undefined): RelayRequest;
     fromPartial<I_1 extends {
         relaySession?: {
             specId?: string | undefined;
@@ -1844,6 +1919,10 @@ export declare const RelayRequest: {
             requestBlock?: string | number | Long | undefined;
             apiInterface?: string | undefined;
             salt?: Uint8Array | undefined;
+            metadata?: {
+                name?: string | undefined;
+                value?: string | undefined;
+            }[] | undefined;
         } | undefined;
     } & {
         relaySession?: ({
@@ -1943,7 +2022,7 @@ export declare const RelayRequest: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_12 in Exclude<keyof I_1["relaySession"]["sessionId"], keyof Long>]: never; }) | undefined;
+            } & { [K_14 in Exclude<keyof I_1["relaySession"]["sessionId"], keyof Long>]: never; }) | undefined;
             cuSum?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -2015,7 +2094,7 @@ export declare const RelayRequest: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_13 in Exclude<keyof I_1["relaySession"]["cuSum"], keyof Long>]: never; }) | undefined;
+            } & { [K_15 in Exclude<keyof I_1["relaySession"]["cuSum"], keyof Long>]: never; }) | undefined;
             provider?: string | undefined;
             relayNum?: string | number | (Long & {
                 high: number;
@@ -2088,7 +2167,7 @@ export declare const RelayRequest: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_14 in Exclude<keyof I_1["relaySession"]["relayNum"], keyof Long>]: never; }) | undefined;
+            } & { [K_16 in Exclude<keyof I_1["relaySession"]["relayNum"], keyof Long>]: never; }) | undefined;
             qosReport?: ({
                 latency?: string | undefined;
                 availability?: string | undefined;
@@ -2097,7 +2176,7 @@ export declare const RelayRequest: {
                 latency?: string | undefined;
                 availability?: string | undefined;
                 sync?: string | undefined;
-            } & { [K_15 in Exclude<keyof I_1["relaySession"]["qosReport"], keyof QualityOfServiceReport>]: never; }) | undefined;
+            } & { [K_17 in Exclude<keyof I_1["relaySession"]["qosReport"], keyof QualityOfServiceReport>]: never; }) | undefined;
             epoch?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -2169,7 +2248,7 @@ export declare const RelayRequest: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_16 in Exclude<keyof I_1["relaySession"]["epoch"], keyof Long>]: never; }) | undefined;
+            } & { [K_18 in Exclude<keyof I_1["relaySession"]["epoch"], keyof Long>]: never; }) | undefined;
             unresponsiveProviders?: Uint8Array | undefined;
             lavaChainId?: string | undefined;
             sig?: Uint8Array | undefined;
@@ -2251,7 +2330,7 @@ export declare const RelayRequest: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_17 in Exclude<keyof I_1["relaySession"]["badge"]["cuAllocation"], keyof Long>]: never; }) | undefined;
+                } & { [K_19 in Exclude<keyof I_1["relaySession"]["badge"]["cuAllocation"], keyof Long>]: never; }) | undefined;
                 epoch?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -2323,12 +2402,12 @@ export declare const RelayRequest: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_18 in Exclude<keyof I_1["relaySession"]["badge"]["epoch"], keyof Long>]: never; }) | undefined;
+                } & { [K_20 in Exclude<keyof I_1["relaySession"]["badge"]["epoch"], keyof Long>]: never; }) | undefined;
                 address?: string | undefined;
                 lavaChainId?: string | undefined;
                 projectSig?: Uint8Array | undefined;
-            } & { [K_19 in Exclude<keyof I_1["relaySession"]["badge"], keyof Badge>]: never; }) | undefined;
-        } & { [K_20 in Exclude<keyof I_1["relaySession"], keyof RelaySession>]: never; }) | undefined;
+            } & { [K_21 in Exclude<keyof I_1["relaySession"]["badge"], keyof Badge>]: never; }) | undefined;
+        } & { [K_22 in Exclude<keyof I_1["relaySession"], keyof RelaySession>]: never; }) | undefined;
         relayData?: ({
             connectionType?: string | undefined;
             apiUrl?: string | undefined;
@@ -2336,6 +2415,10 @@ export declare const RelayRequest: {
             requestBlock?: string | number | Long | undefined;
             apiInterface?: string | undefined;
             salt?: Uint8Array | undefined;
+            metadata?: {
+                name?: string | undefined;
+                value?: string | undefined;
+            }[] | undefined;
         } & {
             connectionType?: string | undefined;
             apiUrl?: string | undefined;
@@ -2411,327 +2494,24 @@ export declare const RelayRequest: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_21 in Exclude<keyof I_1["relayData"]["requestBlock"], keyof Long>]: never; }) | undefined;
+            } & { [K_23 in Exclude<keyof I_1["relayData"]["requestBlock"], keyof Long>]: never; }) | undefined;
             apiInterface?: string | undefined;
             salt?: Uint8Array | undefined;
-        } & { [K_22 in Exclude<keyof I_1["relayData"], keyof RelayPrivateData>]: never; }) | undefined;
-    } & { [K_23 in Exclude<keyof I_1, keyof RelayRequest>]: never; }>(object: I_1): RelayRequest;
-};
-export declare const Badge: {
-    encode(message: Badge, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): Badge;
-    fromJSON(object: any): Badge;
-    toJSON(message: Badge): unknown;
-    create<I extends {
-        cuAllocation?: string | number | Long | undefined;
-        epoch?: string | number | Long | undefined;
-        address?: string | undefined;
-        lavaChainId?: string | undefined;
-        projectSig?: Uint8Array | undefined;
-    } & {
-        cuAllocation?: string | number | (Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long) => Long;
-            and: (other: string | number | Long) => Long;
-            compare: (other: string | number | Long) => number;
-            comp: (other: string | number | Long) => number;
-            divide: (divisor: string | number | Long) => Long;
-            div: (divisor: string | number | Long) => Long;
-            equals: (other: string | number | Long) => boolean;
-            eq: (other: string | number | Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long) => boolean;
-            gt: (other: string | number | Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long) => boolean;
-            gte: (other: string | number | Long) => boolean;
-            ge: (other: string | number | Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            eqz: () => boolean;
-            lessThan: (other: string | number | Long) => boolean;
-            lt: (other: string | number | Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long) => boolean;
-            lte: (other: string | number | Long) => boolean;
-            le: (other: string | number | Long) => boolean;
-            modulo: (other: string | number | Long) => Long;
-            mod: (other: string | number | Long) => Long;
-            rem: (other: string | number | Long) => Long;
-            multiply: (multiplier: string | number | Long) => Long;
-            mul: (multiplier: string | number | Long) => Long;
-            negate: () => Long;
-            neg: () => Long;
-            not: () => Long;
-            countLeadingZeros: () => number;
-            clz: () => number;
-            countTrailingZeros: () => number;
-            ctz: () => number;
-            notEquals: (other: string | number | Long) => boolean;
-            neq: (other: string | number | Long) => boolean;
-            ne: (other: string | number | Long) => boolean;
-            or: (other: string | number | Long) => Long;
-            shiftLeft: (numBits: number | Long) => Long;
-            shl: (numBits: number | Long) => Long;
-            shiftRight: (numBits: number | Long) => Long;
-            shr: (numBits: number | Long) => Long;
-            shiftRightUnsigned: (numBits: number | Long) => Long;
-            shru: (numBits: number | Long) => Long;
-            shr_u: (numBits: number | Long) => Long;
-            rotateLeft: (numBits: number | Long) => Long;
-            rotl: (numBits: number | Long) => Long;
-            rotateRight: (numBits: number | Long) => Long;
-            rotr: (numBits: number | Long) => Long;
-            subtract: (subtrahend: string | number | Long) => Long;
-            sub: (subtrahend: string | number | Long) => Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long;
-            xor: (other: string | number | Long) => Long;
-        } & { [K in Exclude<keyof I["cuAllocation"], keyof Long>]: never; }) | undefined;
-        epoch?: string | number | (Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long) => Long;
-            and: (other: string | number | Long) => Long;
-            compare: (other: string | number | Long) => number;
-            comp: (other: string | number | Long) => number;
-            divide: (divisor: string | number | Long) => Long;
-            div: (divisor: string | number | Long) => Long;
-            equals: (other: string | number | Long) => boolean;
-            eq: (other: string | number | Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long) => boolean;
-            gt: (other: string | number | Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long) => boolean;
-            gte: (other: string | number | Long) => boolean;
-            ge: (other: string | number | Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            eqz: () => boolean;
-            lessThan: (other: string | number | Long) => boolean;
-            lt: (other: string | number | Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long) => boolean;
-            lte: (other: string | number | Long) => boolean;
-            le: (other: string | number | Long) => boolean;
-            modulo: (other: string | number | Long) => Long;
-            mod: (other: string | number | Long) => Long;
-            rem: (other: string | number | Long) => Long;
-            multiply: (multiplier: string | number | Long) => Long;
-            mul: (multiplier: string | number | Long) => Long;
-            negate: () => Long;
-            neg: () => Long;
-            not: () => Long;
-            countLeadingZeros: () => number;
-            clz: () => number;
-            countTrailingZeros: () => number;
-            ctz: () => number;
-            notEquals: (other: string | number | Long) => boolean;
-            neq: (other: string | number | Long) => boolean;
-            ne: (other: string | number | Long) => boolean;
-            or: (other: string | number | Long) => Long;
-            shiftLeft: (numBits: number | Long) => Long;
-            shl: (numBits: number | Long) => Long;
-            shiftRight: (numBits: number | Long) => Long;
-            shr: (numBits: number | Long) => Long;
-            shiftRightUnsigned: (numBits: number | Long) => Long;
-            shru: (numBits: number | Long) => Long;
-            shr_u: (numBits: number | Long) => Long;
-            rotateLeft: (numBits: number | Long) => Long;
-            rotl: (numBits: number | Long) => Long;
-            rotateRight: (numBits: number | Long) => Long;
-            rotr: (numBits: number | Long) => Long;
-            subtract: (subtrahend: string | number | Long) => Long;
-            sub: (subtrahend: string | number | Long) => Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long;
-            xor: (other: string | number | Long) => Long;
-        } & { [K_1 in Exclude<keyof I["epoch"], keyof Long>]: never; }) | undefined;
-        address?: string | undefined;
-        lavaChainId?: string | undefined;
-        projectSig?: Uint8Array | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof Badge>]: never; }>(base?: I | undefined): Badge;
-    fromPartial<I_1 extends {
-        cuAllocation?: string | number | Long | undefined;
-        epoch?: string | number | Long | undefined;
-        address?: string | undefined;
-        lavaChainId?: string | undefined;
-        projectSig?: Uint8Array | undefined;
-    } & {
-        cuAllocation?: string | number | (Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long) => Long;
-            and: (other: string | number | Long) => Long;
-            compare: (other: string | number | Long) => number;
-            comp: (other: string | number | Long) => number;
-            divide: (divisor: string | number | Long) => Long;
-            div: (divisor: string | number | Long) => Long;
-            equals: (other: string | number | Long) => boolean;
-            eq: (other: string | number | Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long) => boolean;
-            gt: (other: string | number | Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long) => boolean;
-            gte: (other: string | number | Long) => boolean;
-            ge: (other: string | number | Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            eqz: () => boolean;
-            lessThan: (other: string | number | Long) => boolean;
-            lt: (other: string | number | Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long) => boolean;
-            lte: (other: string | number | Long) => boolean;
-            le: (other: string | number | Long) => boolean;
-            modulo: (other: string | number | Long) => Long;
-            mod: (other: string | number | Long) => Long;
-            rem: (other: string | number | Long) => Long;
-            multiply: (multiplier: string | number | Long) => Long;
-            mul: (multiplier: string | number | Long) => Long;
-            negate: () => Long;
-            neg: () => Long;
-            not: () => Long;
-            countLeadingZeros: () => number;
-            clz: () => number;
-            countTrailingZeros: () => number;
-            ctz: () => number;
-            notEquals: (other: string | number | Long) => boolean;
-            neq: (other: string | number | Long) => boolean;
-            ne: (other: string | number | Long) => boolean;
-            or: (other: string | number | Long) => Long;
-            shiftLeft: (numBits: number | Long) => Long;
-            shl: (numBits: number | Long) => Long;
-            shiftRight: (numBits: number | Long) => Long;
-            shr: (numBits: number | Long) => Long;
-            shiftRightUnsigned: (numBits: number | Long) => Long;
-            shru: (numBits: number | Long) => Long;
-            shr_u: (numBits: number | Long) => Long;
-            rotateLeft: (numBits: number | Long) => Long;
-            rotl: (numBits: number | Long) => Long;
-            rotateRight: (numBits: number | Long) => Long;
-            rotr: (numBits: number | Long) => Long;
-            subtract: (subtrahend: string | number | Long) => Long;
-            sub: (subtrahend: string | number | Long) => Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long;
-            xor: (other: string | number | Long) => Long;
-        } & { [K_3 in Exclude<keyof I_1["cuAllocation"], keyof Long>]: never; }) | undefined;
-        epoch?: string | number | (Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long) => Long;
-            and: (other: string | number | Long) => Long;
-            compare: (other: string | number | Long) => number;
-            comp: (other: string | number | Long) => number;
-            divide: (divisor: string | number | Long) => Long;
-            div: (divisor: string | number | Long) => Long;
-            equals: (other: string | number | Long) => boolean;
-            eq: (other: string | number | Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long) => boolean;
-            gt: (other: string | number | Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long) => boolean;
-            gte: (other: string | number | Long) => boolean;
-            ge: (other: string | number | Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            eqz: () => boolean;
-            lessThan: (other: string | number | Long) => boolean;
-            lt: (other: string | number | Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long) => boolean;
-            lte: (other: string | number | Long) => boolean;
-            le: (other: string | number | Long) => boolean;
-            modulo: (other: string | number | Long) => Long;
-            mod: (other: string | number | Long) => Long;
-            rem: (other: string | number | Long) => Long;
-            multiply: (multiplier: string | number | Long) => Long;
-            mul: (multiplier: string | number | Long) => Long;
-            negate: () => Long;
-            neg: () => Long;
-            not: () => Long;
-            countLeadingZeros: () => number;
-            clz: () => number;
-            countTrailingZeros: () => number;
-            ctz: () => number;
-            notEquals: (other: string | number | Long) => boolean;
-            neq: (other: string | number | Long) => boolean;
-            ne: (other: string | number | Long) => boolean;
-            or: (other: string | number | Long) => Long;
-            shiftLeft: (numBits: number | Long) => Long;
-            shl: (numBits: number | Long) => Long;
-            shiftRight: (numBits: number | Long) => Long;
-            shr: (numBits: number | Long) => Long;
-            shiftRightUnsigned: (numBits: number | Long) => Long;
-            shru: (numBits: number | Long) => Long;
-            shr_u: (numBits: number | Long) => Long;
-            rotateLeft: (numBits: number | Long) => Long;
-            rotl: (numBits: number | Long) => Long;
-            rotateRight: (numBits: number | Long) => Long;
-            rotr: (numBits: number | Long) => Long;
-            subtract: (subtrahend: string | number | Long) => Long;
-            sub: (subtrahend: string | number | Long) => Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long;
-            xor: (other: string | number | Long) => Long;
-        } & { [K_4 in Exclude<keyof I_1["epoch"], keyof Long>]: never; }) | undefined;
-        address?: string | undefined;
-        lavaChainId?: string | undefined;
-        projectSig?: Uint8Array | undefined;
-    } & { [K_5 in Exclude<keyof I_1, keyof Badge>]: never; }>(object: I_1): Badge;
+            metadata?: ({
+                name?: string | undefined;
+                value?: string | undefined;
+            }[] & ({
+                name?: string | undefined;
+                value?: string | undefined;
+            } & {
+                name?: string | undefined;
+                value?: string | undefined;
+            } & { [K_24 in Exclude<keyof I_1["relayData"]["metadata"][number], keyof Metadata>]: never; })[] & { [K_25 in Exclude<keyof I_1["relayData"]["metadata"], keyof {
+                name?: string | undefined;
+                value?: string | undefined;
+            }[]>]: never; }) | undefined;
+        } & { [K_26 in Exclude<keyof I_1["relayData"], keyof RelayPrivateData>]: never; }) | undefined;
+    } & { [K_27 in Exclude<keyof I_1, keyof RelayRequest>]: never; }>(object: I_1): RelayRequest;
 };
 export declare const RelayReply: {
     encode(message: RelayReply, writer?: _m0.Writer): _m0.Writer;
@@ -2745,6 +2525,10 @@ export declare const RelayReply: {
         latestBlock?: string | number | Long | undefined;
         finalizedBlocksHashes?: Uint8Array | undefined;
         sigBlocks?: Uint8Array | undefined;
+        metadata?: {
+            name?: string | undefined;
+            value?: string | undefined;
+        }[] | undefined;
     } & {
         data?: Uint8Array | undefined;
         sig?: Uint8Array | undefined;
@@ -2823,7 +2607,20 @@ export declare const RelayReply: {
         } & { [K in Exclude<keyof I["latestBlock"], keyof Long>]: never; }) | undefined;
         finalizedBlocksHashes?: Uint8Array | undefined;
         sigBlocks?: Uint8Array | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof RelayReply>]: never; }>(base?: I | undefined): RelayReply;
+        metadata?: ({
+            name?: string | undefined;
+            value?: string | undefined;
+        }[] & ({
+            name?: string | undefined;
+            value?: string | undefined;
+        } & {
+            name?: string | undefined;
+            value?: string | undefined;
+        } & { [K_1 in Exclude<keyof I["metadata"][number], keyof Metadata>]: never; })[] & { [K_2 in Exclude<keyof I["metadata"], keyof {
+            name?: string | undefined;
+            value?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I, keyof RelayReply>]: never; }>(base?: I | undefined): RelayReply;
     fromPartial<I_1 extends {
         data?: Uint8Array | undefined;
         sig?: Uint8Array | undefined;
@@ -2831,6 +2628,10 @@ export declare const RelayReply: {
         latestBlock?: string | number | Long | undefined;
         finalizedBlocksHashes?: Uint8Array | undefined;
         sigBlocks?: Uint8Array | undefined;
+        metadata?: {
+            name?: string | undefined;
+            value?: string | undefined;
+        }[] | undefined;
     } & {
         data?: Uint8Array | undefined;
         sig?: Uint8Array | undefined;
@@ -2906,10 +2707,23 @@ export declare const RelayReply: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long;
             xor: (other: string | number | Long) => Long;
-        } & { [K_2 in Exclude<keyof I_1["latestBlock"], keyof Long>]: never; }) | undefined;
+        } & { [K_4 in Exclude<keyof I_1["latestBlock"], keyof Long>]: never; }) | undefined;
         finalizedBlocksHashes?: Uint8Array | undefined;
         sigBlocks?: Uint8Array | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof RelayReply>]: never; }>(object: I_1): RelayReply;
+        metadata?: ({
+            name?: string | undefined;
+            value?: string | undefined;
+        }[] & ({
+            name?: string | undefined;
+            value?: string | undefined;
+        } & {
+            name?: string | undefined;
+            value?: string | undefined;
+        } & { [K_5 in Exclude<keyof I_1["metadata"][number], keyof Metadata>]: never; })[] & { [K_6 in Exclude<keyof I_1["metadata"], keyof {
+            name?: string | undefined;
+            value?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_7 in Exclude<keyof I_1, keyof RelayReply>]: never; }>(object: I_1): RelayReply;
 };
 export declare const QualityOfServiceReport: {
     encode(message: QualityOfServiceReport, writer?: _m0.Writer): _m0.Writer;

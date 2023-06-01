@@ -22,6 +22,7 @@ export interface GenerateBadgeRequest {
 export interface GenerateBadgeResponse {
   badge?: Badge;
   pairingList: StakeEntry[];
+  badgeSignerAddress: string;
 }
 
 function createBaseBadge(): Badge {
@@ -222,7 +223,7 @@ export const GenerateBadgeRequest = {
 };
 
 function createBaseGenerateBadgeResponse(): GenerateBadgeResponse {
-  return { badge: undefined, pairingList: [] };
+  return { badge: undefined, pairingList: [], badgeSignerAddress: "" };
 }
 
 export const GenerateBadgeResponse = {
@@ -232,6 +233,9 @@ export const GenerateBadgeResponse = {
     }
     for (const v of message.pairingList) {
       StakeEntry.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.badgeSignerAddress !== "") {
+      writer.uint32(26).string(message.badgeSignerAddress);
     }
     return writer;
   },
@@ -257,6 +261,13 @@ export const GenerateBadgeResponse = {
 
           message.pairingList.push(StakeEntry.decode(reader, reader.uint32()));
           continue;
+        case 3:
+          if (tag != 26) {
+            break;
+          }
+
+          message.badgeSignerAddress = reader.string();
+          continue;
       }
       if ((tag & 7) == 4 || tag == 0) {
         break;
@@ -270,6 +281,7 @@ export const GenerateBadgeResponse = {
     return {
       badge: isSet(object.badge) ? Badge.fromJSON(object.badge) : undefined,
       pairingList: Array.isArray(object?.pairingList) ? object.pairingList.map((e: any) => StakeEntry.fromJSON(e)) : [],
+      badgeSignerAddress: isSet(object.badgeSignerAddress) ? String(object.badgeSignerAddress) : "",
     };
   },
 
@@ -281,6 +293,7 @@ export const GenerateBadgeResponse = {
     } else {
       obj.pairingList = [];
     }
+    message.badgeSignerAddress !== undefined && (obj.badgeSignerAddress = message.badgeSignerAddress);
     return obj;
   },
 
@@ -292,6 +305,7 @@ export const GenerateBadgeResponse = {
     const message = createBaseGenerateBadgeResponse();
     message.badge = (object.badge !== undefined && object.badge !== null) ? Badge.fromPartial(object.badge) : undefined;
     message.pairingList = object.pairingList?.map((e) => StakeEntry.fromPartial(e)) || [];
+    message.badgeSignerAddress = object.badgeSignerAddress ?? "";
     return message;
   },
 };

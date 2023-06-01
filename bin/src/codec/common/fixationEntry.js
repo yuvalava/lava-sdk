@@ -9,7 +9,14 @@ const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 exports.protobufPackage = "lavanet.lava.common";
 function createBaseEntry() {
-    return { index: "", block: long_1.default.UZERO, staleAt: long_1.default.UZERO, refcount: long_1.default.UZERO, data: new Uint8Array() };
+    return {
+        index: "",
+        block: long_1.default.UZERO,
+        staleAt: long_1.default.UZERO,
+        refcount: long_1.default.UZERO,
+        data: new Uint8Array(),
+        deleteAt: long_1.default.UZERO,
+    };
 }
 exports.Entry = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -27,6 +34,9 @@ exports.Entry = {
         }
         if (message.data.length !== 0) {
             writer.uint32(42).bytes(message.data);
+        }
+        if (!message.deleteAt.isZero()) {
+            writer.uint32(48).uint64(message.deleteAt);
         }
         return writer;
     },
@@ -67,6 +77,12 @@ exports.Entry = {
                     }
                     message.data = reader.bytes();
                     continue;
+                case 6:
+                    if (tag != 48) {
+                        break;
+                    }
+                    message.deleteAt = reader.uint64();
+                    continue;
             }
             if ((tag & 7) == 4 || tag == 0) {
                 break;
@@ -82,6 +98,7 @@ exports.Entry = {
             staleAt: isSet(object.staleAt) ? long_1.default.fromValue(object.staleAt) : long_1.default.UZERO,
             refcount: isSet(object.refcount) ? long_1.default.fromValue(object.refcount) : long_1.default.UZERO,
             data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+            deleteAt: isSet(object.deleteAt) ? long_1.default.fromValue(object.deleteAt) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -92,6 +109,7 @@ exports.Entry = {
         message.refcount !== undefined && (obj.refcount = (message.refcount || long_1.default.UZERO).toString());
         message.data !== undefined &&
             (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
+        message.deleteAt !== undefined && (obj.deleteAt = (message.deleteAt || long_1.default.UZERO).toString());
         return obj;
     },
     create(base) {
@@ -109,6 +127,9 @@ exports.Entry = {
             ? long_1.default.fromValue(object.refcount)
             : long_1.default.UZERO;
         message.data = (_b = object.data) !== null && _b !== void 0 ? _b : new Uint8Array();
+        message.deleteAt = (object.deleteAt !== undefined && object.deleteAt !== null)
+            ? long_1.default.fromValue(object.deleteAt)
+            : long_1.default.UZERO;
         return message;
     },
 };

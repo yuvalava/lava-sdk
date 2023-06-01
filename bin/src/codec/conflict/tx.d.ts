@@ -41,6 +41,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
             relayReply1?: {
                 data?: Uint8Array | undefined;
@@ -49,6 +53,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
         } | undefined;
         responseConflict?: {
@@ -85,6 +93,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } | undefined;
                 reply?: {
@@ -94,6 +106,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } | undefined;
             } | undefined;
             conflictRelayData1?: {
@@ -129,6 +145,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } | undefined;
                 reply?: {
@@ -138,6 +158,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } | undefined;
             } | undefined;
         } | undefined;
@@ -149,6 +173,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
             relayReply1?: {
                 data?: Uint8Array | undefined;
@@ -157,6 +185,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
         } | undefined;
     } & {
@@ -169,6 +201,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
             relayReply1?: {
                 data?: Uint8Array | undefined;
@@ -177,6 +213,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
         } & {
             relayReply0?: ({
@@ -186,6 +226,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } & {
                 data?: Uint8Array | undefined;
                 sig?: Uint8Array | undefined;
@@ -264,7 +308,20 @@ export declare const MsgDetection: {
                 } & { [K in Exclude<keyof I["finalizationConflict"]["relayReply0"]["latestBlock"], keyof Long>]: never; }) | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
-            } & { [K_1 in Exclude<keyof I["finalizationConflict"]["relayReply0"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
+                metadata?: ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] & ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & { [K_1 in Exclude<keyof I["finalizationConflict"]["relayReply0"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_2 in Exclude<keyof I["finalizationConflict"]["relayReply0"]["metadata"], keyof {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[]>]: never; }) | undefined;
+            } & { [K_3 in Exclude<keyof I["finalizationConflict"]["relayReply0"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
             relayReply1?: ({
                 data?: Uint8Array | undefined;
                 sig?: Uint8Array | undefined;
@@ -272,6 +329,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } & {
                 data?: Uint8Array | undefined;
                 sig?: Uint8Array | undefined;
@@ -347,11 +408,24 @@ export declare const MsgDetection: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_2 in Exclude<keyof I["finalizationConflict"]["relayReply1"]["latestBlock"], keyof Long>]: never; }) | undefined;
+                } & { [K_4 in Exclude<keyof I["finalizationConflict"]["relayReply1"]["latestBlock"], keyof Long>]: never; }) | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
-            } & { [K_3 in Exclude<keyof I["finalizationConflict"]["relayReply1"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
-        } & { [K_4 in Exclude<keyof I["finalizationConflict"], keyof FinalizationConflict>]: never; }) | undefined;
+                metadata?: ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] & ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & { [K_5 in Exclude<keyof I["finalizationConflict"]["relayReply1"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_6 in Exclude<keyof I["finalizationConflict"]["relayReply1"]["metadata"], keyof {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[]>]: never; }) | undefined;
+            } & { [K_7 in Exclude<keyof I["finalizationConflict"]["relayReply1"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
+        } & { [K_8 in Exclude<keyof I["finalizationConflict"], keyof FinalizationConflict>]: never; }) | undefined;
         responseConflict?: ({
             conflictRelayData0?: {
                 request?: {
@@ -386,6 +460,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } | undefined;
                 reply?: {
@@ -395,6 +473,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } | undefined;
             } | undefined;
             conflictRelayData1?: {
@@ -430,6 +512,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } | undefined;
                 reply?: {
@@ -439,6 +525,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } | undefined;
             } | undefined;
         } & {
@@ -475,6 +565,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } | undefined;
                 reply?: {
@@ -484,6 +578,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } | undefined;
             } & {
                 request?: ({
@@ -518,6 +616,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } & {
                     relaySession?: ({
@@ -617,7 +719,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_5 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["sessionId"], keyof Long>]: never; }) | undefined;
+                        } & { [K_9 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["sessionId"], keyof Long>]: never; }) | undefined;
                         cuSum?: string | number | (Long & {
                             high: number;
                             low: number;
@@ -689,7 +791,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_6 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["cuSum"], keyof Long>]: never; }) | undefined;
+                        } & { [K_10 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["cuSum"], keyof Long>]: never; }) | undefined;
                         provider?: string | undefined;
                         relayNum?: string | number | (Long & {
                             high: number;
@@ -762,7 +864,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_7 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["relayNum"], keyof Long>]: never; }) | undefined;
+                        } & { [K_11 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["relayNum"], keyof Long>]: never; }) | undefined;
                         qosReport?: ({
                             latency?: string | undefined;
                             availability?: string | undefined;
@@ -771,7 +873,7 @@ export declare const MsgDetection: {
                             latency?: string | undefined;
                             availability?: string | undefined;
                             sync?: string | undefined;
-                        } & { [K_8 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["qosReport"], keyof import("../pairing/relay").QualityOfServiceReport>]: never; }) | undefined;
+                        } & { [K_12 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["qosReport"], keyof import("../pairing/relay").QualityOfServiceReport>]: never; }) | undefined;
                         epoch?: string | number | (Long & {
                             high: number;
                             low: number;
@@ -843,7 +945,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_9 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["epoch"], keyof Long>]: never; }) | undefined;
+                        } & { [K_13 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["epoch"], keyof Long>]: never; }) | undefined;
                         unresponsiveProviders?: Uint8Array | undefined;
                         lavaChainId?: string | undefined;
                         sig?: Uint8Array | undefined;
@@ -925,7 +1027,7 @@ export declare const MsgDetection: {
                                 toString: (radix?: number | undefined) => string;
                                 toUnsigned: () => Long;
                                 xor: (other: string | number | Long) => Long;
-                            } & { [K_10 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["badge"]["cuAllocation"], keyof Long>]: never; }) | undefined;
+                            } & { [K_14 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["badge"]["cuAllocation"], keyof Long>]: never; }) | undefined;
                             epoch?: string | number | (Long & {
                                 high: number;
                                 low: number;
@@ -997,12 +1099,12 @@ export declare const MsgDetection: {
                                 toString: (radix?: number | undefined) => string;
                                 toUnsigned: () => Long;
                                 xor: (other: string | number | Long) => Long;
-                            } & { [K_11 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["badge"]["epoch"], keyof Long>]: never; }) | undefined;
+                            } & { [K_15 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["badge"]["epoch"], keyof Long>]: never; }) | undefined;
                             address?: string | undefined;
                             lavaChainId?: string | undefined;
                             projectSig?: Uint8Array | undefined;
-                        } & { [K_12 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["badge"], keyof import("../pairing/relay").Badge>]: never; }) | undefined;
-                    } & { [K_13 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"], keyof import("../pairing/relay").RelaySession>]: never; }) | undefined;
+                        } & { [K_16 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["badge"], keyof import("../pairing/badges").Badge>]: never; }) | undefined;
+                    } & { [K_17 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relaySession"], keyof import("../pairing/relay").RelaySession>]: never; }) | undefined;
                     relayData?: ({
                         connectionType?: string | undefined;
                         apiUrl?: string | undefined;
@@ -1010,6 +1112,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } & {
                         connectionType?: string | undefined;
                         apiUrl?: string | undefined;
@@ -1085,11 +1191,24 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_14 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relayData"]["requestBlock"], keyof Long>]: never; }) | undefined;
+                        } & { [K_18 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relayData"]["requestBlock"], keyof Long>]: never; }) | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
-                    } & { [K_15 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relayData"], keyof import("../pairing/relay").RelayPrivateData>]: never; }) | undefined;
-                } & { [K_16 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"], keyof import("../pairing/relay").RelayRequest>]: never; }) | undefined;
+                        metadata?: ({
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] & ({
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        } & {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        } & { [K_19 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relayData"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_20 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relayData"]["metadata"], keyof {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[]>]: never; }) | undefined;
+                    } & { [K_21 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"]["relayData"], keyof import("../pairing/relay").RelayPrivateData>]: never; }) | undefined;
+                } & { [K_22 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["request"], keyof import("../pairing/relay").RelayRequest>]: never; }) | undefined;
                 reply?: ({
                     data?: Uint8Array | undefined;
                     sig?: Uint8Array | undefined;
@@ -1097,6 +1216,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } & {
                     data?: Uint8Array | undefined;
                     sig?: Uint8Array | undefined;
@@ -1172,11 +1295,24 @@ export declare const MsgDetection: {
                         toString: (radix?: number | undefined) => string;
                         toUnsigned: () => Long;
                         xor: (other: string | number | Long) => Long;
-                    } & { [K_17 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["reply"]["latestBlock"], keyof Long>]: never; }) | undefined;
+                    } & { [K_23 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["reply"]["latestBlock"], keyof Long>]: never; }) | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
-                } & { [K_18 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["reply"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
-            } & { [K_19 in Exclude<keyof I["responseConflict"]["conflictRelayData0"], keyof import("./conflict_data").ConflictRelayData>]: never; }) | undefined;
+                    metadata?: ({
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] & ({
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    } & {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    } & { [K_24 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["reply"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_25 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["reply"]["metadata"], keyof {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[]>]: never; }) | undefined;
+                } & { [K_26 in Exclude<keyof I["responseConflict"]["conflictRelayData0"]["reply"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
+            } & { [K_27 in Exclude<keyof I["responseConflict"]["conflictRelayData0"], keyof import("./conflict_data").ConflictRelayData>]: never; }) | undefined;
             conflictRelayData1?: ({
                 request?: {
                     relaySession?: {
@@ -1210,6 +1346,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } | undefined;
                 reply?: {
@@ -1219,6 +1359,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } | undefined;
             } & {
                 request?: ({
@@ -1253,6 +1397,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } & {
                     relaySession?: ({
@@ -1352,7 +1500,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_20 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["sessionId"], keyof Long>]: never; }) | undefined;
+                        } & { [K_28 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["sessionId"], keyof Long>]: never; }) | undefined;
                         cuSum?: string | number | (Long & {
                             high: number;
                             low: number;
@@ -1424,7 +1572,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_21 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["cuSum"], keyof Long>]: never; }) | undefined;
+                        } & { [K_29 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["cuSum"], keyof Long>]: never; }) | undefined;
                         provider?: string | undefined;
                         relayNum?: string | number | (Long & {
                             high: number;
@@ -1497,7 +1645,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_22 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["relayNum"], keyof Long>]: never; }) | undefined;
+                        } & { [K_30 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["relayNum"], keyof Long>]: never; }) | undefined;
                         qosReport?: ({
                             latency?: string | undefined;
                             availability?: string | undefined;
@@ -1506,7 +1654,7 @@ export declare const MsgDetection: {
                             latency?: string | undefined;
                             availability?: string | undefined;
                             sync?: string | undefined;
-                        } & { [K_23 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["qosReport"], keyof import("../pairing/relay").QualityOfServiceReport>]: never; }) | undefined;
+                        } & { [K_31 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["qosReport"], keyof import("../pairing/relay").QualityOfServiceReport>]: never; }) | undefined;
                         epoch?: string | number | (Long & {
                             high: number;
                             low: number;
@@ -1578,7 +1726,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_24 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["epoch"], keyof Long>]: never; }) | undefined;
+                        } & { [K_32 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["epoch"], keyof Long>]: never; }) | undefined;
                         unresponsiveProviders?: Uint8Array | undefined;
                         lavaChainId?: string | undefined;
                         sig?: Uint8Array | undefined;
@@ -1660,7 +1808,7 @@ export declare const MsgDetection: {
                                 toString: (radix?: number | undefined) => string;
                                 toUnsigned: () => Long;
                                 xor: (other: string | number | Long) => Long;
-                            } & { [K_25 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["badge"]["cuAllocation"], keyof Long>]: never; }) | undefined;
+                            } & { [K_33 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["badge"]["cuAllocation"], keyof Long>]: never; }) | undefined;
                             epoch?: string | number | (Long & {
                                 high: number;
                                 low: number;
@@ -1732,12 +1880,12 @@ export declare const MsgDetection: {
                                 toString: (radix?: number | undefined) => string;
                                 toUnsigned: () => Long;
                                 xor: (other: string | number | Long) => Long;
-                            } & { [K_26 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["badge"]["epoch"], keyof Long>]: never; }) | undefined;
+                            } & { [K_34 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["badge"]["epoch"], keyof Long>]: never; }) | undefined;
                             address?: string | undefined;
                             lavaChainId?: string | undefined;
                             projectSig?: Uint8Array | undefined;
-                        } & { [K_27 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["badge"], keyof import("../pairing/relay").Badge>]: never; }) | undefined;
-                    } & { [K_28 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"], keyof import("../pairing/relay").RelaySession>]: never; }) | undefined;
+                        } & { [K_35 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["badge"], keyof import("../pairing/badges").Badge>]: never; }) | undefined;
+                    } & { [K_36 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relaySession"], keyof import("../pairing/relay").RelaySession>]: never; }) | undefined;
                     relayData?: ({
                         connectionType?: string | undefined;
                         apiUrl?: string | undefined;
@@ -1745,6 +1893,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } & {
                         connectionType?: string | undefined;
                         apiUrl?: string | undefined;
@@ -1820,11 +1972,24 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_29 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relayData"]["requestBlock"], keyof Long>]: never; }) | undefined;
+                        } & { [K_37 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relayData"]["requestBlock"], keyof Long>]: never; }) | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
-                    } & { [K_30 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relayData"], keyof import("../pairing/relay").RelayPrivateData>]: never; }) | undefined;
-                } & { [K_31 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"], keyof import("../pairing/relay").RelayRequest>]: never; }) | undefined;
+                        metadata?: ({
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] & ({
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        } & {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        } & { [K_38 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relayData"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_39 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relayData"]["metadata"], keyof {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[]>]: never; }) | undefined;
+                    } & { [K_40 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"]["relayData"], keyof import("../pairing/relay").RelayPrivateData>]: never; }) | undefined;
+                } & { [K_41 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["request"], keyof import("../pairing/relay").RelayRequest>]: never; }) | undefined;
                 reply?: ({
                     data?: Uint8Array | undefined;
                     sig?: Uint8Array | undefined;
@@ -1832,6 +1997,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } & {
                     data?: Uint8Array | undefined;
                     sig?: Uint8Array | undefined;
@@ -1907,12 +2076,25 @@ export declare const MsgDetection: {
                         toString: (radix?: number | undefined) => string;
                         toUnsigned: () => Long;
                         xor: (other: string | number | Long) => Long;
-                    } & { [K_32 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["reply"]["latestBlock"], keyof Long>]: never; }) | undefined;
+                    } & { [K_42 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["reply"]["latestBlock"], keyof Long>]: never; }) | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
-                } & { [K_33 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["reply"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
-            } & { [K_34 in Exclude<keyof I["responseConflict"]["conflictRelayData1"], keyof import("./conflict_data").ConflictRelayData>]: never; }) | undefined;
-        } & { [K_35 in Exclude<keyof I["responseConflict"], keyof ResponseConflict>]: never; }) | undefined;
+                    metadata?: ({
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] & ({
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    } & {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    } & { [K_43 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["reply"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_44 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["reply"]["metadata"], keyof {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[]>]: never; }) | undefined;
+                } & { [K_45 in Exclude<keyof I["responseConflict"]["conflictRelayData1"]["reply"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
+            } & { [K_46 in Exclude<keyof I["responseConflict"]["conflictRelayData1"], keyof import("./conflict_data").ConflictRelayData>]: never; }) | undefined;
+        } & { [K_47 in Exclude<keyof I["responseConflict"], keyof ResponseConflict>]: never; }) | undefined;
         sameProviderConflict?: ({
             relayReply0?: {
                 data?: Uint8Array | undefined;
@@ -1921,6 +2103,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
             relayReply1?: {
                 data?: Uint8Array | undefined;
@@ -1929,6 +2115,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
         } & {
             relayReply0?: ({
@@ -1938,6 +2128,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } & {
                 data?: Uint8Array | undefined;
                 sig?: Uint8Array | undefined;
@@ -2013,10 +2207,23 @@ export declare const MsgDetection: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_36 in Exclude<keyof I["sameProviderConflict"]["relayReply0"]["latestBlock"], keyof Long>]: never; }) | undefined;
+                } & { [K_48 in Exclude<keyof I["sameProviderConflict"]["relayReply0"]["latestBlock"], keyof Long>]: never; }) | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
-            } & { [K_37 in Exclude<keyof I["sameProviderConflict"]["relayReply0"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
+                metadata?: ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] & ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & { [K_49 in Exclude<keyof I["sameProviderConflict"]["relayReply0"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_50 in Exclude<keyof I["sameProviderConflict"]["relayReply0"]["metadata"], keyof {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[]>]: never; }) | undefined;
+            } & { [K_51 in Exclude<keyof I["sameProviderConflict"]["relayReply0"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
             relayReply1?: ({
                 data?: Uint8Array | undefined;
                 sig?: Uint8Array | undefined;
@@ -2024,6 +2231,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } & {
                 data?: Uint8Array | undefined;
                 sig?: Uint8Array | undefined;
@@ -2099,12 +2310,25 @@ export declare const MsgDetection: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_38 in Exclude<keyof I["sameProviderConflict"]["relayReply1"]["latestBlock"], keyof Long>]: never; }) | undefined;
+                } & { [K_52 in Exclude<keyof I["sameProviderConflict"]["relayReply1"]["latestBlock"], keyof Long>]: never; }) | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
-            } & { [K_39 in Exclude<keyof I["sameProviderConflict"]["relayReply1"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
-        } & { [K_40 in Exclude<keyof I["sameProviderConflict"], keyof FinalizationConflict>]: never; }) | undefined;
-    } & { [K_41 in Exclude<keyof I, keyof MsgDetection>]: never; }>(base?: I | undefined): MsgDetection;
+                metadata?: ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] & ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & { [K_53 in Exclude<keyof I["sameProviderConflict"]["relayReply1"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_54 in Exclude<keyof I["sameProviderConflict"]["relayReply1"]["metadata"], keyof {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[]>]: never; }) | undefined;
+            } & { [K_55 in Exclude<keyof I["sameProviderConflict"]["relayReply1"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
+        } & { [K_56 in Exclude<keyof I["sameProviderConflict"], keyof FinalizationConflict>]: never; }) | undefined;
+    } & { [K_57 in Exclude<keyof I, keyof MsgDetection>]: never; }>(base?: I | undefined): MsgDetection;
     fromPartial<I_1 extends {
         creator?: string | undefined;
         finalizationConflict?: {
@@ -2115,6 +2339,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
             relayReply1?: {
                 data?: Uint8Array | undefined;
@@ -2123,6 +2351,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
         } | undefined;
         responseConflict?: {
@@ -2159,6 +2391,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } | undefined;
                 reply?: {
@@ -2168,6 +2404,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } | undefined;
             } | undefined;
             conflictRelayData1?: {
@@ -2203,6 +2443,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } | undefined;
                 reply?: {
@@ -2212,6 +2456,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } | undefined;
             } | undefined;
         } | undefined;
@@ -2223,6 +2471,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
             relayReply1?: {
                 data?: Uint8Array | undefined;
@@ -2231,6 +2483,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
         } | undefined;
     } & {
@@ -2243,6 +2499,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
             relayReply1?: {
                 data?: Uint8Array | undefined;
@@ -2251,6 +2511,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
         } & {
             relayReply0?: ({
@@ -2260,6 +2524,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } & {
                 data?: Uint8Array | undefined;
                 sig?: Uint8Array | undefined;
@@ -2335,10 +2603,23 @@ export declare const MsgDetection: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_42 in Exclude<keyof I_1["finalizationConflict"]["relayReply0"]["latestBlock"], keyof Long>]: never; }) | undefined;
+                } & { [K_58 in Exclude<keyof I_1["finalizationConflict"]["relayReply0"]["latestBlock"], keyof Long>]: never; }) | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
-            } & { [K_43 in Exclude<keyof I_1["finalizationConflict"]["relayReply0"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
+                metadata?: ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] & ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & { [K_59 in Exclude<keyof I_1["finalizationConflict"]["relayReply0"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_60 in Exclude<keyof I_1["finalizationConflict"]["relayReply0"]["metadata"], keyof {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[]>]: never; }) | undefined;
+            } & { [K_61 in Exclude<keyof I_1["finalizationConflict"]["relayReply0"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
             relayReply1?: ({
                 data?: Uint8Array | undefined;
                 sig?: Uint8Array | undefined;
@@ -2346,6 +2627,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } & {
                 data?: Uint8Array | undefined;
                 sig?: Uint8Array | undefined;
@@ -2421,11 +2706,24 @@ export declare const MsgDetection: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_44 in Exclude<keyof I_1["finalizationConflict"]["relayReply1"]["latestBlock"], keyof Long>]: never; }) | undefined;
+                } & { [K_62 in Exclude<keyof I_1["finalizationConflict"]["relayReply1"]["latestBlock"], keyof Long>]: never; }) | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
-            } & { [K_45 in Exclude<keyof I_1["finalizationConflict"]["relayReply1"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
-        } & { [K_46 in Exclude<keyof I_1["finalizationConflict"], keyof FinalizationConflict>]: never; }) | undefined;
+                metadata?: ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] & ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & { [K_63 in Exclude<keyof I_1["finalizationConflict"]["relayReply1"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_64 in Exclude<keyof I_1["finalizationConflict"]["relayReply1"]["metadata"], keyof {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[]>]: never; }) | undefined;
+            } & { [K_65 in Exclude<keyof I_1["finalizationConflict"]["relayReply1"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
+        } & { [K_66 in Exclude<keyof I_1["finalizationConflict"], keyof FinalizationConflict>]: never; }) | undefined;
         responseConflict?: ({
             conflictRelayData0?: {
                 request?: {
@@ -2460,6 +2758,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } | undefined;
                 reply?: {
@@ -2469,6 +2771,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } | undefined;
             } | undefined;
             conflictRelayData1?: {
@@ -2504,6 +2810,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } | undefined;
                 reply?: {
@@ -2513,6 +2823,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } | undefined;
             } | undefined;
         } & {
@@ -2549,6 +2863,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } | undefined;
                 reply?: {
@@ -2558,6 +2876,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } | undefined;
             } & {
                 request?: ({
@@ -2592,6 +2914,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } & {
                     relaySession?: ({
@@ -2691,7 +3017,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_47 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["sessionId"], keyof Long>]: never; }) | undefined;
+                        } & { [K_67 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["sessionId"], keyof Long>]: never; }) | undefined;
                         cuSum?: string | number | (Long & {
                             high: number;
                             low: number;
@@ -2763,7 +3089,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_48 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["cuSum"], keyof Long>]: never; }) | undefined;
+                        } & { [K_68 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["cuSum"], keyof Long>]: never; }) | undefined;
                         provider?: string | undefined;
                         relayNum?: string | number | (Long & {
                             high: number;
@@ -2836,7 +3162,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_49 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["relayNum"], keyof Long>]: never; }) | undefined;
+                        } & { [K_69 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["relayNum"], keyof Long>]: never; }) | undefined;
                         qosReport?: ({
                             latency?: string | undefined;
                             availability?: string | undefined;
@@ -2845,7 +3171,7 @@ export declare const MsgDetection: {
                             latency?: string | undefined;
                             availability?: string | undefined;
                             sync?: string | undefined;
-                        } & { [K_50 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["qosReport"], keyof import("../pairing/relay").QualityOfServiceReport>]: never; }) | undefined;
+                        } & { [K_70 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["qosReport"], keyof import("../pairing/relay").QualityOfServiceReport>]: never; }) | undefined;
                         epoch?: string | number | (Long & {
                             high: number;
                             low: number;
@@ -2917,7 +3243,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_51 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["epoch"], keyof Long>]: never; }) | undefined;
+                        } & { [K_71 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["epoch"], keyof Long>]: never; }) | undefined;
                         unresponsiveProviders?: Uint8Array | undefined;
                         lavaChainId?: string | undefined;
                         sig?: Uint8Array | undefined;
@@ -2999,7 +3325,7 @@ export declare const MsgDetection: {
                                 toString: (radix?: number | undefined) => string;
                                 toUnsigned: () => Long;
                                 xor: (other: string | number | Long) => Long;
-                            } & { [K_52 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["badge"]["cuAllocation"], keyof Long>]: never; }) | undefined;
+                            } & { [K_72 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["badge"]["cuAllocation"], keyof Long>]: never; }) | undefined;
                             epoch?: string | number | (Long & {
                                 high: number;
                                 low: number;
@@ -3071,12 +3397,12 @@ export declare const MsgDetection: {
                                 toString: (radix?: number | undefined) => string;
                                 toUnsigned: () => Long;
                                 xor: (other: string | number | Long) => Long;
-                            } & { [K_53 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["badge"]["epoch"], keyof Long>]: never; }) | undefined;
+                            } & { [K_73 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["badge"]["epoch"], keyof Long>]: never; }) | undefined;
                             address?: string | undefined;
                             lavaChainId?: string | undefined;
                             projectSig?: Uint8Array | undefined;
-                        } & { [K_54 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["badge"], keyof import("../pairing/relay").Badge>]: never; }) | undefined;
-                    } & { [K_55 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"], keyof import("../pairing/relay").RelaySession>]: never; }) | undefined;
+                        } & { [K_74 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"]["badge"], keyof import("../pairing/badges").Badge>]: never; }) | undefined;
+                    } & { [K_75 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relaySession"], keyof import("../pairing/relay").RelaySession>]: never; }) | undefined;
                     relayData?: ({
                         connectionType?: string | undefined;
                         apiUrl?: string | undefined;
@@ -3084,6 +3410,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } & {
                         connectionType?: string | undefined;
                         apiUrl?: string | undefined;
@@ -3159,11 +3489,24 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_56 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relayData"]["requestBlock"], keyof Long>]: never; }) | undefined;
+                        } & { [K_76 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relayData"]["requestBlock"], keyof Long>]: never; }) | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
-                    } & { [K_57 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relayData"], keyof import("../pairing/relay").RelayPrivateData>]: never; }) | undefined;
-                } & { [K_58 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"], keyof import("../pairing/relay").RelayRequest>]: never; }) | undefined;
+                        metadata?: ({
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] & ({
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        } & {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        } & { [K_77 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relayData"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_78 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relayData"]["metadata"], keyof {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[]>]: never; }) | undefined;
+                    } & { [K_79 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"]["relayData"], keyof import("../pairing/relay").RelayPrivateData>]: never; }) | undefined;
+                } & { [K_80 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["request"], keyof import("../pairing/relay").RelayRequest>]: never; }) | undefined;
                 reply?: ({
                     data?: Uint8Array | undefined;
                     sig?: Uint8Array | undefined;
@@ -3171,6 +3514,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } & {
                     data?: Uint8Array | undefined;
                     sig?: Uint8Array | undefined;
@@ -3246,11 +3593,24 @@ export declare const MsgDetection: {
                         toString: (radix?: number | undefined) => string;
                         toUnsigned: () => Long;
                         xor: (other: string | number | Long) => Long;
-                    } & { [K_59 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["reply"]["latestBlock"], keyof Long>]: never; }) | undefined;
+                    } & { [K_81 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["reply"]["latestBlock"], keyof Long>]: never; }) | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
-                } & { [K_60 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["reply"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
-            } & { [K_61 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"], keyof import("./conflict_data").ConflictRelayData>]: never; }) | undefined;
+                    metadata?: ({
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] & ({
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    } & {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    } & { [K_82 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["reply"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_83 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["reply"]["metadata"], keyof {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[]>]: never; }) | undefined;
+                } & { [K_84 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"]["reply"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
+            } & { [K_85 in Exclude<keyof I_1["responseConflict"]["conflictRelayData0"], keyof import("./conflict_data").ConflictRelayData>]: never; }) | undefined;
             conflictRelayData1?: ({
                 request?: {
                     relaySession?: {
@@ -3284,6 +3644,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } | undefined;
                 reply?: {
@@ -3293,6 +3657,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } | undefined;
             } & {
                 request?: ({
@@ -3327,6 +3695,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } | undefined;
                 } & {
                     relaySession?: ({
@@ -3426,7 +3798,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_62 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["sessionId"], keyof Long>]: never; }) | undefined;
+                        } & { [K_86 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["sessionId"], keyof Long>]: never; }) | undefined;
                         cuSum?: string | number | (Long & {
                             high: number;
                             low: number;
@@ -3498,7 +3870,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_63 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["cuSum"], keyof Long>]: never; }) | undefined;
+                        } & { [K_87 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["cuSum"], keyof Long>]: never; }) | undefined;
                         provider?: string | undefined;
                         relayNum?: string | number | (Long & {
                             high: number;
@@ -3571,7 +3943,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_64 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["relayNum"], keyof Long>]: never; }) | undefined;
+                        } & { [K_88 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["relayNum"], keyof Long>]: never; }) | undefined;
                         qosReport?: ({
                             latency?: string | undefined;
                             availability?: string | undefined;
@@ -3580,7 +3952,7 @@ export declare const MsgDetection: {
                             latency?: string | undefined;
                             availability?: string | undefined;
                             sync?: string | undefined;
-                        } & { [K_65 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["qosReport"], keyof import("../pairing/relay").QualityOfServiceReport>]: never; }) | undefined;
+                        } & { [K_89 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["qosReport"], keyof import("../pairing/relay").QualityOfServiceReport>]: never; }) | undefined;
                         epoch?: string | number | (Long & {
                             high: number;
                             low: number;
@@ -3652,7 +4024,7 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_66 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["epoch"], keyof Long>]: never; }) | undefined;
+                        } & { [K_90 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["epoch"], keyof Long>]: never; }) | undefined;
                         unresponsiveProviders?: Uint8Array | undefined;
                         lavaChainId?: string | undefined;
                         sig?: Uint8Array | undefined;
@@ -3734,7 +4106,7 @@ export declare const MsgDetection: {
                                 toString: (radix?: number | undefined) => string;
                                 toUnsigned: () => Long;
                                 xor: (other: string | number | Long) => Long;
-                            } & { [K_67 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["badge"]["cuAllocation"], keyof Long>]: never; }) | undefined;
+                            } & { [K_91 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["badge"]["cuAllocation"], keyof Long>]: never; }) | undefined;
                             epoch?: string | number | (Long & {
                                 high: number;
                                 low: number;
@@ -3806,12 +4178,12 @@ export declare const MsgDetection: {
                                 toString: (radix?: number | undefined) => string;
                                 toUnsigned: () => Long;
                                 xor: (other: string | number | Long) => Long;
-                            } & { [K_68 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["badge"]["epoch"], keyof Long>]: never; }) | undefined;
+                            } & { [K_92 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["badge"]["epoch"], keyof Long>]: never; }) | undefined;
                             address?: string | undefined;
                             lavaChainId?: string | undefined;
                             projectSig?: Uint8Array | undefined;
-                        } & { [K_69 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["badge"], keyof import("../pairing/relay").Badge>]: never; }) | undefined;
-                    } & { [K_70 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"], keyof import("../pairing/relay").RelaySession>]: never; }) | undefined;
+                        } & { [K_93 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"]["badge"], keyof import("../pairing/badges").Badge>]: never; }) | undefined;
+                    } & { [K_94 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relaySession"], keyof import("../pairing/relay").RelaySession>]: never; }) | undefined;
                     relayData?: ({
                         connectionType?: string | undefined;
                         apiUrl?: string | undefined;
@@ -3819,6 +4191,10 @@ export declare const MsgDetection: {
                         requestBlock?: string | number | Long | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
+                        metadata?: {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] | undefined;
                     } & {
                         connectionType?: string | undefined;
                         apiUrl?: string | undefined;
@@ -3894,11 +4270,24 @@ export declare const MsgDetection: {
                             toString: (radix?: number | undefined) => string;
                             toUnsigned: () => Long;
                             xor: (other: string | number | Long) => Long;
-                        } & { [K_71 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relayData"]["requestBlock"], keyof Long>]: never; }) | undefined;
+                        } & { [K_95 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relayData"]["requestBlock"], keyof Long>]: never; }) | undefined;
                         apiInterface?: string | undefined;
                         salt?: Uint8Array | undefined;
-                    } & { [K_72 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relayData"], keyof import("../pairing/relay").RelayPrivateData>]: never; }) | undefined;
-                } & { [K_73 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"], keyof import("../pairing/relay").RelayRequest>]: never; }) | undefined;
+                        metadata?: ({
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[] & ({
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        } & {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        } & { [K_96 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relayData"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_97 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relayData"]["metadata"], keyof {
+                            name?: string | undefined;
+                            value?: string | undefined;
+                        }[]>]: never; }) | undefined;
+                    } & { [K_98 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"]["relayData"], keyof import("../pairing/relay").RelayPrivateData>]: never; }) | undefined;
+                } & { [K_99 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["request"], keyof import("../pairing/relay").RelayRequest>]: never; }) | undefined;
                 reply?: ({
                     data?: Uint8Array | undefined;
                     sig?: Uint8Array | undefined;
@@ -3906,6 +4295,10 @@ export declare const MsgDetection: {
                     latestBlock?: string | number | Long | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
+                    metadata?: {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] | undefined;
                 } & {
                     data?: Uint8Array | undefined;
                     sig?: Uint8Array | undefined;
@@ -3981,12 +4374,25 @@ export declare const MsgDetection: {
                         toString: (radix?: number | undefined) => string;
                         toUnsigned: () => Long;
                         xor: (other: string | number | Long) => Long;
-                    } & { [K_74 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["reply"]["latestBlock"], keyof Long>]: never; }) | undefined;
+                    } & { [K_100 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["reply"]["latestBlock"], keyof Long>]: never; }) | undefined;
                     finalizedBlocksHashes?: Uint8Array | undefined;
                     sigBlocks?: Uint8Array | undefined;
-                } & { [K_75 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["reply"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
-            } & { [K_76 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"], keyof import("./conflict_data").ConflictRelayData>]: never; }) | undefined;
-        } & { [K_77 in Exclude<keyof I_1["responseConflict"], keyof ResponseConflict>]: never; }) | undefined;
+                    metadata?: ({
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[] & ({
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    } & {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    } & { [K_101 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["reply"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_102 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["reply"]["metadata"], keyof {
+                        name?: string | undefined;
+                        value?: string | undefined;
+                    }[]>]: never; }) | undefined;
+                } & { [K_103 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"]["reply"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
+            } & { [K_104 in Exclude<keyof I_1["responseConflict"]["conflictRelayData1"], keyof import("./conflict_data").ConflictRelayData>]: never; }) | undefined;
+        } & { [K_105 in Exclude<keyof I_1["responseConflict"], keyof ResponseConflict>]: never; }) | undefined;
         sameProviderConflict?: ({
             relayReply0?: {
                 data?: Uint8Array | undefined;
@@ -3995,6 +4401,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
             relayReply1?: {
                 data?: Uint8Array | undefined;
@@ -4003,6 +4413,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } | undefined;
         } & {
             relayReply0?: ({
@@ -4012,6 +4426,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } & {
                 data?: Uint8Array | undefined;
                 sig?: Uint8Array | undefined;
@@ -4087,10 +4505,23 @@ export declare const MsgDetection: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_78 in Exclude<keyof I_1["sameProviderConflict"]["relayReply0"]["latestBlock"], keyof Long>]: never; }) | undefined;
+                } & { [K_106 in Exclude<keyof I_1["sameProviderConflict"]["relayReply0"]["latestBlock"], keyof Long>]: never; }) | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
-            } & { [K_79 in Exclude<keyof I_1["sameProviderConflict"]["relayReply0"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
+                metadata?: ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] & ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & { [K_107 in Exclude<keyof I_1["sameProviderConflict"]["relayReply0"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_108 in Exclude<keyof I_1["sameProviderConflict"]["relayReply0"]["metadata"], keyof {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[]>]: never; }) | undefined;
+            } & { [K_109 in Exclude<keyof I_1["sameProviderConflict"]["relayReply0"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
             relayReply1?: ({
                 data?: Uint8Array | undefined;
                 sig?: Uint8Array | undefined;
@@ -4098,6 +4529,10 @@ export declare const MsgDetection: {
                 latestBlock?: string | number | Long | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
+                metadata?: {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] | undefined;
             } & {
                 data?: Uint8Array | undefined;
                 sig?: Uint8Array | undefined;
@@ -4173,12 +4608,25 @@ export declare const MsgDetection: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_80 in Exclude<keyof I_1["sameProviderConflict"]["relayReply1"]["latestBlock"], keyof Long>]: never; }) | undefined;
+                } & { [K_110 in Exclude<keyof I_1["sameProviderConflict"]["relayReply1"]["latestBlock"], keyof Long>]: never; }) | undefined;
                 finalizedBlocksHashes?: Uint8Array | undefined;
                 sigBlocks?: Uint8Array | undefined;
-            } & { [K_81 in Exclude<keyof I_1["sameProviderConflict"]["relayReply1"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
-        } & { [K_82 in Exclude<keyof I_1["sameProviderConflict"], keyof FinalizationConflict>]: never; }) | undefined;
-    } & { [K_83 in Exclude<keyof I_1, keyof MsgDetection>]: never; }>(object: I_1): MsgDetection;
+                metadata?: ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[] & ({
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                } & { [K_111 in Exclude<keyof I_1["sameProviderConflict"]["relayReply1"]["metadata"][number], keyof import("../pairing/relay").Metadata>]: never; })[] & { [K_112 in Exclude<keyof I_1["sameProviderConflict"]["relayReply1"]["metadata"], keyof {
+                    name?: string | undefined;
+                    value?: string | undefined;
+                }[]>]: never; }) | undefined;
+            } & { [K_113 in Exclude<keyof I_1["sameProviderConflict"]["relayReply1"], keyof import("../pairing/relay").RelayReply>]: never; }) | undefined;
+        } & { [K_114 in Exclude<keyof I_1["sameProviderConflict"], keyof FinalizationConflict>]: never; }) | undefined;
+    } & { [K_115 in Exclude<keyof I_1, keyof MsgDetection>]: never; }>(object: I_1): MsgDetection;
 };
 export declare const MsgDetectionResponse: {
     encode(_: MsgDetectionResponse, writer?: _m0.Writer): _m0.Writer;

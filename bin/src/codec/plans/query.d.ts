@@ -15,9 +15,9 @@ export interface QueryParamsResponse {
 export interface QueryListRequest {
 }
 export interface QueryListResponse {
-    plansInfo: listInfoStruct[];
+    plansInfo: ListInfoStruct[];
 }
-export interface listInfoStruct {
+export interface ListInfoStruct {
     index: string;
     description: string;
     price?: Coin;
@@ -99,7 +99,7 @@ export declare const QueryListResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & { [K in Exclude<keyof I["plansInfo"][number]["price"], keyof Coin>]: never; }) | undefined;
-        } & { [K_1 in Exclude<keyof I["plansInfo"][number], keyof listInfoStruct>]: never; })[] & { [K_2 in Exclude<keyof I["plansInfo"], keyof {
+        } & { [K_1 in Exclude<keyof I["plansInfo"][number], keyof ListInfoStruct>]: never; })[] & { [K_2 in Exclude<keyof I["plansInfo"], keyof {
             index?: string | undefined;
             description?: string | undefined;
             price?: {
@@ -142,7 +142,7 @@ export declare const QueryListResponse: {
                 denom?: string | undefined;
                 amount?: string | undefined;
             } & { [K_4 in Exclude<keyof I_1["plansInfo"][number]["price"], keyof Coin>]: never; }) | undefined;
-        } & { [K_5 in Exclude<keyof I_1["plansInfo"][number], keyof listInfoStruct>]: never; })[] & { [K_6 in Exclude<keyof I_1["plansInfo"], keyof {
+        } & { [K_5 in Exclude<keyof I_1["plansInfo"][number], keyof ListInfoStruct>]: never; })[] & { [K_6 in Exclude<keyof I_1["plansInfo"], keyof {
             index?: string | undefined;
             description?: string | undefined;
             price?: {
@@ -152,11 +152,11 @@ export declare const QueryListResponse: {
         }[]>]: never; }) | undefined;
     } & { [K_7 in Exclude<keyof I_1, "plansInfo">]: never; }>(object: I_1): QueryListResponse;
 };
-export declare const listInfoStruct: {
-    encode(message: listInfoStruct, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): listInfoStruct;
-    fromJSON(object: any): listInfoStruct;
-    toJSON(message: listInfoStruct): unknown;
+export declare const ListInfoStruct: {
+    encode(message: ListInfoStruct, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ListInfoStruct;
+    fromJSON(object: any): ListInfoStruct;
+    toJSON(message: ListInfoStruct): unknown;
     create<I extends {
         index?: string | undefined;
         description?: string | undefined;
@@ -174,7 +174,7 @@ export declare const listInfoStruct: {
             denom?: string | undefined;
             amount?: string | undefined;
         } & { [K in Exclude<keyof I["price"], keyof Coin>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof listInfoStruct>]: never; }>(base?: I | undefined): listInfoStruct;
+    } & { [K_1 in Exclude<keyof I, keyof ListInfoStruct>]: never; }>(base?: I | undefined): ListInfoStruct;
     fromPartial<I_1 extends {
         index?: string | undefined;
         description?: string | undefined;
@@ -192,7 +192,7 @@ export declare const listInfoStruct: {
             denom?: string | undefined;
             amount?: string | undefined;
         } & { [K_2 in Exclude<keyof I_1["price"], keyof Coin>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof listInfoStruct>]: never; }>(object: I_1): listInfoStruct;
+    } & { [K_3 in Exclude<keyof I_1, keyof ListInfoStruct>]: never; }>(object: I_1): ListInfoStruct;
 };
 export declare const QueryInfoRequest: {
     encode(message: QueryInfoRequest, writer?: _m0.Writer): _m0.Writer;

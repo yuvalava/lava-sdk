@@ -1,216 +1,38 @@
 import Long from "long";
 import _m0 from "protobufjs/minimal";
-import { ProjectData } from "../projects/project";
-export declare const protobufPackage = "lavanet.lava.subscription";
-export interface MsgBuy {
-    creator: string;
-    consumer: string;
-    index: string;
-    /** in months */
-    duration: Long;
+import { Plan } from "./plan";
+export declare const protobufPackage = "lavanet.lava.plans";
+export interface PlansAddProposal {
+    title: string;
+    description: string;
+    plans: Plan[];
 }
-export interface MsgBuyResponse {
+export interface PlansDelProposal {
+    title: string;
+    description: string;
+    plans: string[];
 }
-export interface MsgAddProject {
-    creator: string;
-    projectData?: ProjectData;
-}
-export interface MsgAddProjectResponse {
-}
-export declare const MsgBuy: {
-    encode(message: MsgBuy, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgBuy;
-    fromJSON(object: any): MsgBuy;
-    toJSON(message: MsgBuy): unknown;
+export declare const PlansAddProposal: {
+    encode(message: PlansAddProposal, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): PlansAddProposal;
+    fromJSON(object: any): PlansAddProposal;
+    toJSON(message: PlansAddProposal): unknown;
     create<I extends {
-        creator?: string | undefined;
-        consumer?: string | undefined;
-        index?: string | undefined;
-        duration?: string | number | Long | undefined;
-    } & {
-        creator?: string | undefined;
-        consumer?: string | undefined;
-        index?: string | undefined;
-        duration?: string | number | (Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long) => Long;
-            and: (other: string | number | Long) => Long;
-            compare: (other: string | number | Long) => number;
-            comp: (other: string | number | Long) => number;
-            divide: (divisor: string | number | Long) => Long;
-            div: (divisor: string | number | Long) => Long;
-            equals: (other: string | number | Long) => boolean;
-            eq: (other: string | number | Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long) => boolean;
-            gt: (other: string | number | Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long) => boolean;
-            gte: (other: string | number | Long) => boolean;
-            ge: (other: string | number | Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            eqz: () => boolean;
-            lessThan: (other: string | number | Long) => boolean;
-            lt: (other: string | number | Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long) => boolean;
-            lte: (other: string | number | Long) => boolean;
-            le: (other: string | number | Long) => boolean;
-            modulo: (other: string | number | Long) => Long;
-            mod: (other: string | number | Long) => Long;
-            rem: (other: string | number | Long) => Long;
-            multiply: (multiplier: string | number | Long) => Long;
-            mul: (multiplier: string | number | Long) => Long;
-            negate: () => Long;
-            neg: () => Long;
-            not: () => Long;
-            countLeadingZeros: () => number;
-            clz: () => number;
-            countTrailingZeros: () => number;
-            ctz: () => number;
-            notEquals: (other: string | number | Long) => boolean;
-            neq: (other: string | number | Long) => boolean;
-            ne: (other: string | number | Long) => boolean;
-            or: (other: string | number | Long) => Long;
-            shiftLeft: (numBits: number | Long) => Long;
-            shl: (numBits: number | Long) => Long;
-            shiftRight: (numBits: number | Long) => Long;
-            shr: (numBits: number | Long) => Long;
-            shiftRightUnsigned: (numBits: number | Long) => Long;
-            shru: (numBits: number | Long) => Long;
-            shr_u: (numBits: number | Long) => Long;
-            rotateLeft: (numBits: number | Long) => Long;
-            rotl: (numBits: number | Long) => Long;
-            rotateRight: (numBits: number | Long) => Long;
-            rotr: (numBits: number | Long) => Long;
-            subtract: (subtrahend: string | number | Long) => Long;
-            sub: (subtrahend: string | number | Long) => Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long;
-            xor: (other: string | number | Long) => Long;
-        } & { [K in Exclude<keyof I["duration"], keyof Long>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof MsgBuy>]: never; }>(base?: I | undefined): MsgBuy;
-    fromPartial<I_1 extends {
-        creator?: string | undefined;
-        consumer?: string | undefined;
-        index?: string | undefined;
-        duration?: string | number | Long | undefined;
-    } & {
-        creator?: string | undefined;
-        consumer?: string | undefined;
-        index?: string | undefined;
-        duration?: string | number | (Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long) => Long;
-            and: (other: string | number | Long) => Long;
-            compare: (other: string | number | Long) => number;
-            comp: (other: string | number | Long) => number;
-            divide: (divisor: string | number | Long) => Long;
-            div: (divisor: string | number | Long) => Long;
-            equals: (other: string | number | Long) => boolean;
-            eq: (other: string | number | Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long) => boolean;
-            gt: (other: string | number | Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long) => boolean;
-            gte: (other: string | number | Long) => boolean;
-            ge: (other: string | number | Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            eqz: () => boolean;
-            lessThan: (other: string | number | Long) => boolean;
-            lt: (other: string | number | Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long) => boolean;
-            lte: (other: string | number | Long) => boolean;
-            le: (other: string | number | Long) => boolean;
-            modulo: (other: string | number | Long) => Long;
-            mod: (other: string | number | Long) => Long;
-            rem: (other: string | number | Long) => Long;
-            multiply: (multiplier: string | number | Long) => Long;
-            mul: (multiplier: string | number | Long) => Long;
-            negate: () => Long;
-            neg: () => Long;
-            not: () => Long;
-            countLeadingZeros: () => number;
-            clz: () => number;
-            countTrailingZeros: () => number;
-            ctz: () => number;
-            notEquals: (other: string | number | Long) => boolean;
-            neq: (other: string | number | Long) => boolean;
-            ne: (other: string | number | Long) => boolean;
-            or: (other: string | number | Long) => Long;
-            shiftLeft: (numBits: number | Long) => Long;
-            shl: (numBits: number | Long) => Long;
-            shiftRight: (numBits: number | Long) => Long;
-            shr: (numBits: number | Long) => Long;
-            shiftRightUnsigned: (numBits: number | Long) => Long;
-            shru: (numBits: number | Long) => Long;
-            shr_u: (numBits: number | Long) => Long;
-            rotateLeft: (numBits: number | Long) => Long;
-            rotl: (numBits: number | Long) => Long;
-            rotateRight: (numBits: number | Long) => Long;
-            rotr: (numBits: number | Long) => Long;
-            subtract: (subtrahend: string | number | Long) => Long;
-            sub: (subtrahend: string | number | Long) => Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long;
-            xor: (other: string | number | Long) => Long;
-        } & { [K_2 in Exclude<keyof I_1["duration"], keyof Long>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof MsgBuy>]: never; }>(object: I_1): MsgBuy;
-};
-export declare const MsgBuyResponse: {
-    encode(_: MsgBuyResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgBuyResponse;
-    fromJSON(_: any): MsgBuyResponse;
-    toJSON(_: MsgBuyResponse): unknown;
-    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgBuyResponse;
-    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): MsgBuyResponse;
-};
-export declare const MsgAddProject: {
-    encode(message: MsgAddProject, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddProject;
-    fromJSON(object: any): MsgAddProject;
-    toJSON(message: MsgAddProject): unknown;
-    create<I extends {
-        creator?: string | undefined;
-        projectData?: {
-            name?: string | undefined;
+        title?: string | undefined;
+        description?: string | undefined;
+        plans?: {
+            index?: string | undefined;
+            block?: string | number | Long | undefined;
+            price?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            allowOveruse?: boolean | undefined;
+            overuseRate?: string | number | Long | undefined;
             description?: string | undefined;
-            enabled?: boolean | undefined;
-            projectKeys?: {
-                key?: string | undefined;
-                kinds?: number | undefined;
-            }[] | undefined;
-            policy?: {
+            type?: string | undefined;
+            annualDiscountPercentage?: string | number | Long | undefined;
+            planPolicy?: {
                 chainPolicies?: {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
@@ -220,18 +42,45 @@ export declare const MsgAddProject: {
                 epochCuLimit?: string | number | Long | undefined;
                 maxProvidersToPair?: string | number | Long | undefined;
             } | undefined;
-        } | undefined;
+        }[] | undefined;
     } & {
-        creator?: string | undefined;
-        projectData?: ({
-            name?: string | undefined;
+        title?: string | undefined;
+        description?: string | undefined;
+        plans?: ({
+            index?: string | undefined;
+            block?: string | number | Long | undefined;
+            price?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            allowOveruse?: boolean | undefined;
+            overuseRate?: string | number | Long | undefined;
             description?: string | undefined;
-            enabled?: boolean | undefined;
-            projectKeys?: {
-                key?: string | undefined;
-                kinds?: number | undefined;
-            }[] | undefined;
-            policy?: {
+            type?: string | undefined;
+            annualDiscountPercentage?: string | number | Long | undefined;
+            planPolicy?: {
+                chainPolicies?: {
+                    chainId?: string | undefined;
+                    apis?: string[] | undefined;
+                }[] | undefined;
+                geolocationProfile?: string | number | Long | undefined;
+                totalCuLimit?: string | number | Long | undefined;
+                epochCuLimit?: string | number | Long | undefined;
+                maxProvidersToPair?: string | number | Long | undefined;
+            } | undefined;
+        }[] & ({
+            index?: string | undefined;
+            block?: string | number | Long | undefined;
+            price?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            allowOveruse?: boolean | undefined;
+            overuseRate?: string | number | Long | undefined;
+            description?: string | undefined;
+            type?: string | undefined;
+            annualDiscountPercentage?: string | number | Long | undefined;
+            planPolicy?: {
                 chainPolicies?: {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
@@ -242,23 +91,234 @@ export declare const MsgAddProject: {
                 maxProvidersToPair?: string | number | Long | undefined;
             } | undefined;
         } & {
-            name?: string | undefined;
-            description?: string | undefined;
-            enabled?: boolean | undefined;
-            projectKeys?: ({
-                key?: string | undefined;
-                kinds?: number | undefined;
-            }[] & ({
-                key?: string | undefined;
-                kinds?: number | undefined;
+            index?: string | undefined;
+            block?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K in Exclude<keyof I["plans"][number]["block"], keyof Long>]: never; }) | undefined;
+            price?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
             } & {
-                key?: string | undefined;
-                kinds?: number | undefined;
-            } & { [K in Exclude<keyof I["projectData"]["projectKeys"][number], keyof import("../projects/project").ProjectKey>]: never; })[] & { [K_1 in Exclude<keyof I["projectData"]["projectKeys"], keyof {
-                key?: string | undefined;
-                kinds?: number | undefined;
-            }[]>]: never; }) | undefined;
-            policy?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_1 in Exclude<keyof I["plans"][number]["price"], keyof import("../cosmos/base/v1beta1/coin").Coin>]: never; }) | undefined;
+            allowOveruse?: boolean | undefined;
+            overuseRate?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_2 in Exclude<keyof I["plans"][number]["overuseRate"], keyof Long>]: never; }) | undefined;
+            description?: string | undefined;
+            type?: string | undefined;
+            annualDiscountPercentage?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_3 in Exclude<keyof I["plans"][number]["annualDiscountPercentage"], keyof Long>]: never; }) | undefined;
+            planPolicy?: ({
                 chainPolicies?: {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
@@ -276,8 +336,8 @@ export declare const MsgAddProject: {
                     apis?: string[] | undefined;
                 } & {
                     chainId?: string | undefined;
-                    apis?: (string[] & string[] & { [K_2 in Exclude<keyof I["projectData"]["policy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
-                } & { [K_3 in Exclude<keyof I["projectData"]["policy"]["chainPolicies"][number], keyof import("../projects/project").ChainPolicy>]: never; })[] & { [K_4 in Exclude<keyof I["projectData"]["policy"]["chainPolicies"], keyof {
+                    apis?: (string[] & string[] & { [K_4 in Exclude<keyof I["plans"][number]["planPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
+                } & { [K_5 in Exclude<keyof I["plans"][number]["planPolicy"]["chainPolicies"][number], keyof import("../projects/project").ChainPolicy>]: never; })[] & { [K_6 in Exclude<keyof I["plans"][number]["planPolicy"]["chainPolicies"], keyof {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
                 }[]>]: never; }) | undefined;
@@ -352,7 +412,7 @@ export declare const MsgAddProject: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_5 in Exclude<keyof I["projectData"]["policy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
+                } & { [K_7 in Exclude<keyof I["plans"][number]["planPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
                 totalCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -424,7 +484,7 @@ export declare const MsgAddProject: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_6 in Exclude<keyof I["projectData"]["policy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_8 in Exclude<keyof I["plans"][number]["planPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
                 epochCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -496,7 +556,7 @@ export declare const MsgAddProject: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_7 in Exclude<keyof I["projectData"]["policy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_9 in Exclude<keyof I["plans"][number]["planPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
                 maxProvidersToPair?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -568,21 +628,21 @@ export declare const MsgAddProject: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_8 in Exclude<keyof I["projectData"]["policy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
-            } & { [K_9 in Exclude<keyof I["projectData"]["policy"], keyof import("../projects/project").Policy>]: never; }) | undefined;
-        } & { [K_10 in Exclude<keyof I["projectData"], keyof ProjectData>]: never; }) | undefined;
-    } & { [K_11 in Exclude<keyof I, keyof MsgAddProject>]: never; }>(base?: I | undefined): MsgAddProject;
-    fromPartial<I_1 extends {
-        creator?: string | undefined;
-        projectData?: {
-            name?: string | undefined;
+                } & { [K_10 in Exclude<keyof I["plans"][number]["planPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
+            } & { [K_11 in Exclude<keyof I["plans"][number]["planPolicy"], keyof import("../projects/project").Policy>]: never; }) | undefined;
+        } & { [K_12 in Exclude<keyof I["plans"][number], keyof Plan>]: never; })[] & { [K_13 in Exclude<keyof I["plans"], keyof {
+            index?: string | undefined;
+            block?: string | number | Long | undefined;
+            price?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            allowOveruse?: boolean | undefined;
+            overuseRate?: string | number | Long | undefined;
             description?: string | undefined;
-            enabled?: boolean | undefined;
-            projectKeys?: {
-                key?: string | undefined;
-                kinds?: number | undefined;
-            }[] | undefined;
-            policy?: {
+            type?: string | undefined;
+            annualDiscountPercentage?: string | number | Long | undefined;
+            planPolicy?: {
                 chainPolicies?: {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
@@ -592,18 +652,72 @@ export declare const MsgAddProject: {
                 epochCuLimit?: string | number | Long | undefined;
                 maxProvidersToPair?: string | number | Long | undefined;
             } | undefined;
-        } | undefined;
-    } & {
-        creator?: string | undefined;
-        projectData?: ({
-            name?: string | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_14 in Exclude<keyof I, keyof PlansAddProposal>]: never; }>(base?: I | undefined): PlansAddProposal;
+    fromPartial<I_1 extends {
+        title?: string | undefined;
+        description?: string | undefined;
+        plans?: {
+            index?: string | undefined;
+            block?: string | number | Long | undefined;
+            price?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            allowOveruse?: boolean | undefined;
+            overuseRate?: string | number | Long | undefined;
             description?: string | undefined;
-            enabled?: boolean | undefined;
-            projectKeys?: {
-                key?: string | undefined;
-                kinds?: number | undefined;
-            }[] | undefined;
-            policy?: {
+            type?: string | undefined;
+            annualDiscountPercentage?: string | number | Long | undefined;
+            planPolicy?: {
+                chainPolicies?: {
+                    chainId?: string | undefined;
+                    apis?: string[] | undefined;
+                }[] | undefined;
+                geolocationProfile?: string | number | Long | undefined;
+                totalCuLimit?: string | number | Long | undefined;
+                epochCuLimit?: string | number | Long | undefined;
+                maxProvidersToPair?: string | number | Long | undefined;
+            } | undefined;
+        }[] | undefined;
+    } & {
+        title?: string | undefined;
+        description?: string | undefined;
+        plans?: ({
+            index?: string | undefined;
+            block?: string | number | Long | undefined;
+            price?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            allowOveruse?: boolean | undefined;
+            overuseRate?: string | number | Long | undefined;
+            description?: string | undefined;
+            type?: string | undefined;
+            annualDiscountPercentage?: string | number | Long | undefined;
+            planPolicy?: {
+                chainPolicies?: {
+                    chainId?: string | undefined;
+                    apis?: string[] | undefined;
+                }[] | undefined;
+                geolocationProfile?: string | number | Long | undefined;
+                totalCuLimit?: string | number | Long | undefined;
+                epochCuLimit?: string | number | Long | undefined;
+                maxProvidersToPair?: string | number | Long | undefined;
+            } | undefined;
+        }[] & ({
+            index?: string | undefined;
+            block?: string | number | Long | undefined;
+            price?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            allowOveruse?: boolean | undefined;
+            overuseRate?: string | number | Long | undefined;
+            description?: string | undefined;
+            type?: string | undefined;
+            annualDiscountPercentage?: string | number | Long | undefined;
+            planPolicy?: {
                 chainPolicies?: {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
@@ -614,23 +728,234 @@ export declare const MsgAddProject: {
                 maxProvidersToPair?: string | number | Long | undefined;
             } | undefined;
         } & {
-            name?: string | undefined;
-            description?: string | undefined;
-            enabled?: boolean | undefined;
-            projectKeys?: ({
-                key?: string | undefined;
-                kinds?: number | undefined;
-            }[] & ({
-                key?: string | undefined;
-                kinds?: number | undefined;
+            index?: string | undefined;
+            block?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_15 in Exclude<keyof I_1["plans"][number]["block"], keyof Long>]: never; }) | undefined;
+            price?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
             } & {
-                key?: string | undefined;
-                kinds?: number | undefined;
-            } & { [K_12 in Exclude<keyof I_1["projectData"]["projectKeys"][number], keyof import("../projects/project").ProjectKey>]: never; })[] & { [K_13 in Exclude<keyof I_1["projectData"]["projectKeys"], keyof {
-                key?: string | undefined;
-                kinds?: number | undefined;
-            }[]>]: never; }) | undefined;
-            policy?: ({
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } & { [K_16 in Exclude<keyof I_1["plans"][number]["price"], keyof import("../cosmos/base/v1beta1/coin").Coin>]: never; }) | undefined;
+            allowOveruse?: boolean | undefined;
+            overuseRate?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_17 in Exclude<keyof I_1["plans"][number]["overuseRate"], keyof Long>]: never; }) | undefined;
+            description?: string | undefined;
+            type?: string | undefined;
+            annualDiscountPercentage?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_18 in Exclude<keyof I_1["plans"][number]["annualDiscountPercentage"], keyof Long>]: never; }) | undefined;
+            planPolicy?: ({
                 chainPolicies?: {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
@@ -648,8 +973,8 @@ export declare const MsgAddProject: {
                     apis?: string[] | undefined;
                 } & {
                     chainId?: string | undefined;
-                    apis?: (string[] & string[] & { [K_14 in Exclude<keyof I_1["projectData"]["policy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
-                } & { [K_15 in Exclude<keyof I_1["projectData"]["policy"]["chainPolicies"][number], keyof import("../projects/project").ChainPolicy>]: never; })[] & { [K_16 in Exclude<keyof I_1["projectData"]["policy"]["chainPolicies"], keyof {
+                    apis?: (string[] & string[] & { [K_19 in Exclude<keyof I_1["plans"][number]["planPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
+                } & { [K_20 in Exclude<keyof I_1["plans"][number]["planPolicy"]["chainPolicies"][number], keyof import("../projects/project").ChainPolicy>]: never; })[] & { [K_21 in Exclude<keyof I_1["plans"][number]["planPolicy"]["chainPolicies"], keyof {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
                 }[]>]: never; }) | undefined;
@@ -724,7 +1049,7 @@ export declare const MsgAddProject: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_17 in Exclude<keyof I_1["projectData"]["policy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
+                } & { [K_22 in Exclude<keyof I_1["plans"][number]["planPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
                 totalCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -796,7 +1121,7 @@ export declare const MsgAddProject: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_18 in Exclude<keyof I_1["projectData"]["policy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_23 in Exclude<keyof I_1["plans"][number]["planPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
                 epochCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -868,7 +1193,7 @@ export declare const MsgAddProject: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_19 in Exclude<keyof I_1["projectData"]["policy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_24 in Exclude<keyof I_1["plans"][number]["planPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
                 maxProvidersToPair?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -940,37 +1265,57 @@ export declare const MsgAddProject: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_20 in Exclude<keyof I_1["projectData"]["policy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
-            } & { [K_21 in Exclude<keyof I_1["projectData"]["policy"], keyof import("../projects/project").Policy>]: never; }) | undefined;
-        } & { [K_22 in Exclude<keyof I_1["projectData"], keyof ProjectData>]: never; }) | undefined;
-    } & { [K_23 in Exclude<keyof I_1, keyof MsgAddProject>]: never; }>(object: I_1): MsgAddProject;
+                } & { [K_25 in Exclude<keyof I_1["plans"][number]["planPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
+            } & { [K_26 in Exclude<keyof I_1["plans"][number]["planPolicy"], keyof import("../projects/project").Policy>]: never; }) | undefined;
+        } & { [K_27 in Exclude<keyof I_1["plans"][number], keyof Plan>]: never; })[] & { [K_28 in Exclude<keyof I_1["plans"], keyof {
+            index?: string | undefined;
+            block?: string | number | Long | undefined;
+            price?: {
+                denom?: string | undefined;
+                amount?: string | undefined;
+            } | undefined;
+            allowOveruse?: boolean | undefined;
+            overuseRate?: string | number | Long | undefined;
+            description?: string | undefined;
+            type?: string | undefined;
+            annualDiscountPercentage?: string | number | Long | undefined;
+            planPolicy?: {
+                chainPolicies?: {
+                    chainId?: string | undefined;
+                    apis?: string[] | undefined;
+                }[] | undefined;
+                geolocationProfile?: string | number | Long | undefined;
+                totalCuLimit?: string | number | Long | undefined;
+                epochCuLimit?: string | number | Long | undefined;
+                maxProvidersToPair?: string | number | Long | undefined;
+            } | undefined;
+        }[]>]: never; }) | undefined;
+    } & { [K_29 in Exclude<keyof I_1, keyof PlansAddProposal>]: never; }>(object: I_1): PlansAddProposal;
 };
-export declare const MsgAddProjectResponse: {
-    encode(_: MsgAddProjectResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): MsgAddProjectResponse;
-    fromJSON(_: any): MsgAddProjectResponse;
-    toJSON(_: MsgAddProjectResponse): unknown;
-    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): MsgAddProjectResponse;
-    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): MsgAddProjectResponse;
+export declare const PlansDelProposal: {
+    encode(message: PlansDelProposal, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): PlansDelProposal;
+    fromJSON(object: any): PlansDelProposal;
+    toJSON(message: PlansDelProposal): unknown;
+    create<I extends {
+        title?: string | undefined;
+        description?: string | undefined;
+        plans?: string[] | undefined;
+    } & {
+        title?: string | undefined;
+        description?: string | undefined;
+        plans?: (string[] & string[] & { [K in Exclude<keyof I["plans"], keyof string[]>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, keyof PlansDelProposal>]: never; }>(base?: I | undefined): PlansDelProposal;
+    fromPartial<I_1 extends {
+        title?: string | undefined;
+        description?: string | undefined;
+        plans?: string[] | undefined;
+    } & {
+        title?: string | undefined;
+        description?: string | undefined;
+        plans?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["plans"], keyof string[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, keyof PlansDelProposal>]: never; }>(object: I_1): PlansDelProposal;
 };
-/** Msg defines the Msg service. */
-export interface Msg {
-    Buy(request: MsgBuy): Promise<MsgBuyResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
-    AddProject(request: MsgAddProject): Promise<MsgAddProjectResponse>;
-}
-export declare class MsgClientImpl implements Msg {
-    private readonly rpc;
-    private readonly service;
-    constructor(rpc: Rpc, opts?: {
-        service?: string;
-    });
-    Buy(request: MsgBuy): Promise<MsgBuyResponse>;
-    AddProject(request: MsgAddProject): Promise<MsgAddProjectResponse>;
-}
-interface Rpc {
-    request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;
-}
 declare type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 export declare type DeepPartial<T> = T extends Builtin ? T : T extends Long ? string | number | Long : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>> : T extends {} ? {
     [K in keyof T]?: DeepPartial<T[K]>;
