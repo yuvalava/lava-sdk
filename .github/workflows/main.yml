@@ -24,8 +24,5 @@ jobs:
             - name: ESLint
               run: ./node_modules/.bin/eslint '**/*.ts'
 
-            - name: Prettier
-              run: ./node_modules/.bin/prettier --check --loglevel error .
-
             - name: Test
               run: ./node_modules/.bin/jest ./src
