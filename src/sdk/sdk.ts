@@ -114,6 +114,14 @@ export class LavaSDK {
       console.log("badgeSigner: ", badgeSignerAddress)
       console.log("badgeSignerAddress: ", badgeUser)
 
+      let account: AccountData = {
+        algo: 'secp256k1',
+        address: badgeSignerAddress,
+        pubkey: new Uint8Array([]),
+      };
+
+      this.account = account
+      
       // create relayer with badge user's private key
       const lavaRelayer = new Relayer(
         LAVA_CHAIN_ID,
@@ -166,32 +174,37 @@ export class LavaSDK {
         QueryShowAllChainsResponse.decode(byteArrayResponse);
 
       console.log("parsedChainList with BADGE: ", parsedChainList)
-      // // Validate chainID
-      // if (!isValidChainID(this.chainID, parsedChainList)) {
-      //   throw SDKErrors.errChainIDUnsupported;
-      // }
+      // Validate chainID
+      if (!isValidChainID(this.chainID, parsedChainList)) {
+        throw SDKErrors.errChainIDUnsupported;
+      }
 
-      // // If rpc is not defined use default for specified chainID
-      // this.rpcInterface =
-      //   this.rpcInterface || fetchRpcInterface(this.chainID, parsedChainList);
+      // If rpc is not defined use default for specified chainID
+      this.rpcInterface =
+        this.rpcInterface || fetchRpcInterface(this.chainID, parsedChainList);
+        console.log("this.rpcInterface BADGE: ", this.rpcInterface)
 
-      // // Save lava providers as local attribute
-      // this.lavaProviders = lavaProviders;
+      // Save lava providers as local attribute
+      this.lavaProviders = lavaProviders;
+      console.log("this.lavaProviders BADGE: ", this.lavaProviders)
 
-      // // Get pairing list for current epoch
-      // this.activeSessionManager = await this.lavaProviders.getSession(
-      //   this.chainID,
-      //   this.rpcInterface
-      // );
+      // Get pairing list for current epoch
+      this.activeSessionManager = await this.lavaProviders.getSession(
+        this.chainID,
+        this.rpcInterface
+      );
+      console.log("this.activeSessionManager BADGE: ", this.activeSessionManager)
 
-      // // Create relayer for querying network
-      // this.relayer = new Relayer(this.chainID, this.privKey, this.lavaChainId);
+
+      // Create relayer for querying network
+      this.relayer = new Relayer(this.chainID, privKey, this.lavaChainId, badge);
+      console.log("this.relayer BADGE: ", this.relayer)
 
     } else {
       wallet = await createWallet(this.privKey);
       // Get account from wallet
       this.account = await wallet.getConsumerAccount();
-      console.log("this.account:", this.account.address)
+      console.log("this.account:", this.account)
 
       //
       // TODO: CARRY THIS OUTSIDE OF THE ELSE BLOCK
@@ -203,7 +216,7 @@ export class LavaSDK {
         this.privKey,
         this.lavaChainId
       );
-      console.log('lavaRelayer: ', lavaRelayer)
+
       // Create new instance of lava providers
       const lavaProviders = await new LavaProviders(
         this.account.address,
@@ -211,12 +224,10 @@ export class LavaSDK {
         lavaRelayer,
         this.geolocation
       );
-      console.log('lavaProviders: ', lavaProviders)
 
 
       // Init lava providers
       await lavaProviders.init(this.pairingListConfig);
-      console.log('lavaProviders after init: ', lavaProviders)
 
       const sendRelayOptions = {
         data: this.generateRPCData("abci_query", [
@@ -235,17 +246,13 @@ export class LavaSDK {
         10,
         "tendermintrpc"
       );
-      console.log("info: ", info)
 
       const byteArrayResponse = this.base64ToUint8Array(
         info.result.response.value
       );
-      console.log("byteArrayResponse: ", byteArrayResponse)
 
       const parsedChainList =
         QueryShowAllChainsResponse.decode(byteArrayResponse);
-
-      console.log("parsedChainList: ", parsedChainList)
 
       // Validate chainID
       if (!isValidChainID(this.chainID, parsedChainList)) {
@@ -264,7 +271,6 @@ export class LavaSDK {
         this.chainID,
         this.rpcInterface
       );
-      console.log("this.activeSessionManager: ", this.activeSessionManager)
 
       // Create relayer for querying network
       this.relayer = new Relayer(this.chainID, this.privKey, this.lavaChainId);

@@ -37,7 +37,7 @@ class Relayer {
     const enc = new TextEncoder();
 
     const consumerSession = consumerProviderSession.Session;
-
+    console.log("consumerSession: ", consumerSession)
     // Increase used compute units
     consumerProviderSession.UsedComputeUnits =
       consumerProviderSession.UsedComputeUnits + cuSum;
@@ -66,7 +66,8 @@ class Relayer {
     requestSession.setContentHash(contentHash);
     requestSession.setSig(new Uint8Array());
     requestSession.setLavaChainId(this.lavaChainId);
-
+    requestSession.setBadge(this.badge)
+    console.log(" requestSession badge: ", requestSession.getBadge())
     // Sign data
     const signedMessage = await this.signRelay(requestSession, this.privKey);
 
