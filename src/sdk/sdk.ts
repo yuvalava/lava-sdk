@@ -103,6 +103,7 @@ export class LavaSDK {
       const { wallet, privKey } = await createDynamicWallet();
       const walletAddress = (await wallet.getConsumerAccount()).address
       console.log("walletAddress:", walletAddress)
+      console.log("walletPrivKey: ", privKey)
       const badgeResponse = await fetchBadge(this.badge.badgeServerAddress, walletAddress, this.badge.projectId)
       console.log("badgeResponse: ", badgeResponse)
 
@@ -110,9 +111,6 @@ export class LavaSDK {
       const badge = badgeResponse.getBadge()
       const badgeSignerAddress = badgeResponse.getBadgeSignerAddress()
       const badgeUser = badge?.getAddress()
-      console.log("badgeExtracted: ", badge)
-      console.log("badgeSigner: ", badgeSignerAddress)
-      console.log("badgeSignerAddress: ", badgeUser)
 
       let account: AccountData = {
         algo: 'secp256k1',
@@ -129,7 +127,6 @@ export class LavaSDK {
         this.lavaChainId,
         badge,
       );
-      console.log('lavaRelayer with BADGE: ', lavaRelayer)
 
       // Create new instance of lava providers
       const lavaProviders = await new LavaProviders(
@@ -138,12 +135,9 @@ export class LavaSDK {
         lavaRelayer,
         this.geolocation
       );
-      console.log('lavaProviders with BADGE: ', lavaProviders)
 
       // Init lava providers
       await lavaProviders.init(this.pairingListConfig);
-
-      console.log('lavaProviders after init with BADGE: ', lavaProviders)
 
       const sendRelayOptions = {
         data: this.generateRPCData("abci_query", [
@@ -162,18 +156,14 @@ export class LavaSDK {
         10,
         "tendermintrpc"
       );
-      console.log("info with BADGE: ", info)
 
       const byteArrayResponse = this.base64ToUint8Array(
         info.result.response.value
       );
-      console.log("byteArrayResponse with BADGE: ", byteArrayResponse)
-
 
       const parsedChainList =
         QueryShowAllChainsResponse.decode(byteArrayResponse);
 
-      console.log("parsedChainList with BADGE: ", parsedChainList)
       // Validate chainID
       if (!isValidChainID(this.chainID, parsedChainList)) {
         throw SDKErrors.errChainIDUnsupported;
@@ -182,23 +172,18 @@ export class LavaSDK {
       // If rpc is not defined use default for specified chainID
       this.rpcInterface =
         this.rpcInterface || fetchRpcInterface(this.chainID, parsedChainList);
-        console.log("this.rpcInterface BADGE: ", this.rpcInterface)
 
       // Save lava providers as local attribute
       this.lavaProviders = lavaProviders;
-      console.log("this.lavaProviders BADGE: ", this.lavaProviders)
 
       // Get pairing list for current epoch
       this.activeSessionManager = await this.lavaProviders.getSession(
         this.chainID,
         this.rpcInterface
       );
-      console.log("this.activeSessionManager BADGE: ", this.activeSessionManager)
-
 
       // Create relayer for querying network
       this.relayer = new Relayer(this.chainID, privKey, this.lavaChainId, badge);
-      console.log("this.relayer BADGE: ", this.relayer)
 
     } else {
       wallet = await createWallet(this.privKey);
@@ -274,7 +259,6 @@ export class LavaSDK {
 
       // Create relayer for querying network
       this.relayer = new Relayer(this.chainID, this.privKey, this.lavaChainId);
-      console.log("this.relayer: ", this.relayer)
     }
 
   }
