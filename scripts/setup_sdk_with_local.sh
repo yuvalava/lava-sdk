@@ -16,7 +16,7 @@ echo "User3 Private Key: $privateKey"
 # Capture unique iPPORT addresses and corresponding addresses
 pairing=$(lavad q pairing providers LAV1)
 addresses=$(echo "$pairing" | grep 'iPPORT:' | awk '{print $2}' | sort -u)
-public_addresses=$(echo "$pairing" | grep 'address:' | awk '{print $3}' | sort -u)
+public_addresses=$(echo "$pairing" | grep 'address:' | awk '{print $3}')
 
 # Associative array to store the JSON structure
 declare -A json_data
@@ -30,10 +30,11 @@ for rpc_address in $addresses; do
     index_inner=0;
     for public_address in $public_addresses; do
         ((index_inner++))
-        if ((index_inner < addresses_length)); then
+        # echo "$index_inner,$addresses_length"
+        if ((index_inner < index+1)); then
             continue
         fi
-        if ((index_inner > addresses_length)); then
+        if ((index_inner > index+1)); then
             break
         fi
         echo "Adding Provider: $rpc_address, $public_address"
@@ -70,9 +71,9 @@ echo "$json_content" > pairingList.json
 
 echo "Done." 
 
-sed -i 's/geolocation: "2",/geolocation: "1",\n\n    pairingListConfig: "pairingList.json",/g' examples/jsonRPC.ts
-sed -i 's/geolocation: "2",/geolocation: "1",\n\n    pairingListConfig: "pairingList.json",/g' examples/restAPI.ts
-sed -i 's/geolocation: "2",/geolocation: "1",\n\n    pairingListConfig: "pairingList.json",/g' examples/tendermintRPC.ts
+sed -i 's/geolocation: "2",/geolocation: "1",\n\n    pairingListConfig: "pairingList.json",\n\n    lavaChainId: "lava",/g' examples/jsonRPC.ts
+sed -i 's/geolocation: "2",/geolocation: "1",\n\n    pairingListConfig: "pairingList.json",\n\n    lavaChainId: "lava",/g' examples/restAPI.ts
+sed -i 's/geolocation: "2",/geolocation: "1",\n\n    pairingListConfig: "pairingList.json",\n\n    lavaChainId: "lava",/g' examples/tendermintRPC.ts
 
 sed -i 's/privateKey: "<lava consumer private key>",/privateKey:\n      "'"$privateKey"'",/g' examples/jsonRPC.ts
 sed -i 's/privateKey: "<lava consumer private key>",/privateKey:\n      "'"$privateKey"'",/g' examples/restAPI.ts
