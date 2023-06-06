@@ -9,7 +9,7 @@ lavad tx subscription buy "DefaultPlan" -y --from user1 --gas-adjustment "1.5" -
 
 privateKey=$(yes | lavad keys export user1 --unsafe --unarmored-hex)
 echo ""
-echo "User3 Private Key: $privateKey"
+echo "User1 Private Key: $privateKey"
 
 
 
@@ -71,10 +71,14 @@ echo "$json_content" > pairingList.json
 
 echo "Done." 
 
-sed -i 's/geolocation: "2",/geolocation: "1",\n\n    pairingListConfig: "pairingList.json",\n\n    lavaChainId: "lava",/g' examples/jsonRPC.ts
-sed -i 's/geolocation: "2",/geolocation: "1",\n\n    pairingListConfig: "pairingList.json",\n\n    lavaChainId: "lava",/g' examples/restAPI.ts
-sed -i 's/geolocation: "2",/geolocation: "1",\n\n    pairingListConfig: "pairingList.json",\n\n    lavaChainId: "lava",/g' examples/tendermintRPC.ts
+cp examples/jsonRPC.ts examples/jsonRPC_test.ts
+cp examples/restAPI.ts examples/restAPI_test.ts
+cp examples/tendermintRPC.ts examples/tendermintRPC_test.ts
 
-sed -i 's/privateKey: "<lava consumer private key>",/privateKey:\n      "'"$privateKey"'",/g' examples/jsonRPC.ts
-sed -i 's/privateKey: "<lava consumer private key>",/privateKey:\n      "'"$privateKey"'",/g' examples/restAPI.ts
-sed -i 's/privateKey: "<lava consumer private key>",/privateKey:\n      "'"$privateKey"'",/g' examples/tendermintRPC.ts
+sed -i 's/geolocation: "2",/geolocation: "1",\n\n    pairingListConfig: "pairingList.json",\n\n    lavaChainId: "lava",/g' examples/jsonRPC_test.ts
+sed -i 's/geolocation: "2",/geolocation: "1",\n\n    pairingListConfig: "pairingList.json",\n\n    lavaChainId: "lava",/g' examples/restAPI_test.ts
+sed -i 's/geolocation: "2",/geolocation: "1",\n\n    pairingListConfig: "pairingList.json",\n\n    lavaChainId: "lava",/g' examples/tendermintRPC_test.ts
+
+sed -i 's/privateKey: "<lava consumer private key>",/privateKey:\n      "'"$privateKey"'",/g' examples/jsonRPC_test.ts
+sed -i 's/privateKey: "<lava consumer private key>",/privateKey:\n      "'"$privateKey"'",/g' examples/restAPI_test.ts
+sed -i 's/privateKey: "<lava consumer private key>",/privateKey:\n      "'"$privateKey"'",/g' examples/tendermintRPC_test.ts
