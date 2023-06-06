@@ -7,8 +7,8 @@ import {
   RelayReply,
   RelaySession,
   RelayPrivateData,
-} from "../pairing/relay_pb";
-import { Relayer as RelayerService } from "../pairing/relay_pb_service";
+} from "../grpc_web_services/pairing/relay_pb";
+import { Relayer as RelayerService } from "../grpc_web_services/pairing/relay_pb_service";
 import { Badge } from "../badge/badges_pb"
 import transport from "../util/browser";
 
@@ -16,13 +16,23 @@ class Relayer {
   private chainID: string;
   private privKey: string;
   private lavaChainId: string;
+  private prefix = "http";
   private badge?: Badge;
 
-  constructor(chainID: string, privKey: string, lavaChainId: string, badge?: Badge) {
+  constructor(
+    chainID: string,
+    privKey: string,
+    lavaChainId: string,
+    secure: boolean,
+    badge?: Badge
+  ) {
     this.chainID = chainID;
     this.privKey = privKey;
     this.lavaChainId = lavaChainId;
-    this.badge = badge;
+    if (secure) {
+      this.prefix = "https";
+    }
+    this.badge = badge
   }
 
   async sendRelay(
@@ -84,7 +94,7 @@ class Relayer {
     const requestPromise = new Promise<RelayReply>((resolve, reject) => {
       grpc.invoke(RelayerService.Relay, {
         request: request,
-        host: "http://" + consumerSession.Endpoint.Addr,
+        host: this.prefix + "://" + consumerSession.Endpoint.Addr,
         transport: transport,
         onMessage: (message: RelayReply) => {
           resolve(message);

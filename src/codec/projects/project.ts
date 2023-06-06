@@ -310,7 +310,7 @@ export const ProjectKey = {
           message.key = reader.string();
           continue;
         case 4:
-          if (tag !== 32) {
+          if (tag != 32) {
             break;
           }
 

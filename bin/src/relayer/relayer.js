@@ -15,11 +15,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const crypto_1 = require("@cosmjs/crypto");
 const encoding_1 = require("@cosmjs/encoding");
 const grpc_web_1 = require("@improbable-eng/grpc-web");
-const relay_pb_1 = require("../pairing/relay_pb");
-const relay_pb_service_1 = require("../pairing/relay_pb_service");
+const relay_pb_1 = require("../grpc_web_services/pairing/relay_pb");
+const relay_pb_service_1 = require("../grpc_web_services/pairing/relay_pb_service");
 const browser_1 = __importDefault(require("../util/browser"));
 class Relayer {
-    constructor(chainID, privKey, lavaChainId, badge) {
+    constructor(chainID, privKey, lavaChainId, secure, badge) {
+        this.prefix = "http";
         this.byteArrayToString = (byteArray) => {
             let output = "";
             for (let i = 0; i < byteArray.length; i++) {
@@ -48,6 +49,9 @@ class Relayer {
         this.chainID = chainID;
         this.privKey = privKey;
         this.lavaChainId = lavaChainId;
+        if (secure) {
+            this.prefix = "https";
+        }
         this.badge = badge;
     }
     sendRelay(options, consumerProviderSession, cuSum, apiInterface) {
@@ -94,7 +98,7 @@ class Relayer {
             const requestPromise = new Promise((resolve, reject) => {
                 grpc_web_1.grpc.invoke(relay_pb_service_1.Relayer.Relay, {
                     request: request,
-                    host: "http://" + consumerSession.Endpoint.Addr,
+                    host: this.prefix + "://" + consumerSession.Endpoint.Addr,
                     transport: browser_1.default,
                     onMessage: (message) => {
                         resolve(message);

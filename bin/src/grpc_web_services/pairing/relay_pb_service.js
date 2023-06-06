@@ -2,6 +2,7 @@
 // file: pairing/relay.proto
 
 var pairing_relay_pb = require("../pairing/relay_pb");
+var google_protobuf_wrappers_pb = require("google-protobuf/google/protobuf/wrappers_pb");
 var grpc = require("@improbable-eng/grpc-web").grpc;
 
 var Relayer = (function () {
@@ -26,6 +27,15 @@ Relayer.RelaySubscribe = {
   responseStream: true,
   requestType: pairing_relay_pb.RelayRequest,
   responseType: pairing_relay_pb.RelayReply
+};
+
+Relayer.Probe = {
+  methodName: "Probe",
+  service: Relayer,
+  requestStream: false,
+  responseStream: false,
+  requestType: google_protobuf_wrappers_pb.UInt64Value,
+  responseType: google_protobuf_wrappers_pb.UInt64Value
 };
 
 exports.Relayer = Relayer;
@@ -100,6 +110,37 @@ RelayerClient.prototype.relaySubscribe = function relaySubscribe(requestMessage,
     },
     cancel: function () {
       listeners = null;
+      client.close();
+    }
+  };
+};
+
+RelayerClient.prototype.probe = function probe(requestMessage, metadata, callback) {
+  if (arguments.length === 2) {
+    callback = arguments[1];
+  }
+  var client = grpc.unary(Relayer.Probe, {
+    request: requestMessage,
+    host: this.serviceHost,
+    metadata: metadata,
+    transport: this.options.transport,
+    debug: this.options.debug,
+    onEnd: function (response) {
+      if (callback) {
+        if (response.status !== grpc.Code.OK) {
+          var err = new Error(response.statusMessage);
+          err.code = response.status;
+          err.metadata = response.trailers;
+          callback(err, null);
+        } else {
+          callback(null, response.message);
+        }
+      }
+    }
+  });
+  return {
+    cancel: function () {
+      callback = null;
       client.close();
     }
   };

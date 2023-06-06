@@ -898,7 +898,7 @@ export declare const RelayCacheGet: {
                     address?: string | undefined;
                     lavaChainId?: string | undefined;
                     projectSig?: Uint8Array | undefined;
-                } & { [K_7 in Exclude<keyof I["request"]["relaySession"]["badge"], keyof import("./badges").Badge>]: never; }) | undefined;
+                } & { [K_7 in Exclude<keyof I["request"]["relaySession"]["badge"], keyof import("./relay").Badge>]: never; }) | undefined;
             } & { [K_8 in Exclude<keyof I["request"]["relaySession"], keyof import("./relay").RelaySession>]: never; }) | undefined;
             relayData?: ({
                 connectionType?: string | undefined;
@@ -1572,7 +1572,7 @@ export declare const RelayCacheGet: {
                     address?: string | undefined;
                     lavaChainId?: string | undefined;
                     projectSig?: Uint8Array | undefined;
-                } & { [K_22 in Exclude<keyof I_1["request"]["relaySession"]["badge"], keyof import("./badges").Badge>]: never; }) | undefined;
+                } & { [K_22 in Exclude<keyof I_1["request"]["relaySession"]["badge"], keyof import("./relay").Badge>]: never; }) | undefined;
             } & { [K_23 in Exclude<keyof I_1["request"]["relaySession"], keyof import("./relay").RelaySession>]: never; }) | undefined;
             relayData?: ({
                 connectionType?: string | undefined;
@@ -2265,7 +2265,7 @@ export declare const RelayCacheSet: {
                     address?: string | undefined;
                     lavaChainId?: string | undefined;
                     projectSig?: Uint8Array | undefined;
-                } & { [K_7 in Exclude<keyof I["request"]["relaySession"]["badge"], keyof import("./badges").Badge>]: never; }) | undefined;
+                } & { [K_7 in Exclude<keyof I["request"]["relaySession"]["badge"], keyof import("./relay").Badge>]: never; }) | undefined;
             } & { [K_8 in Exclude<keyof I["request"]["relaySession"], keyof import("./relay").RelaySession>]: never; }) | undefined;
             relayData?: ({
                 connectionType?: string | undefined;
@@ -3056,7 +3056,7 @@ export declare const RelayCacheSet: {
                     address?: string | undefined;
                     lavaChainId?: string | undefined;
                     projectSig?: Uint8Array | undefined;
-                } & { [K_26 in Exclude<keyof I_1["request"]["relaySession"]["badge"], keyof import("./badges").Badge>]: never; }) | undefined;
+                } & { [K_26 in Exclude<keyof I_1["request"]["relaySession"]["badge"], keyof import("./relay").Badge>]: never; }) | undefined;
             } & { [K_27 in Exclude<keyof I_1["request"]["relaySession"], keyof import("./relay").RelaySession>]: never; }) | undefined;
             relayData?: ({
                 connectionType?: string | undefined;

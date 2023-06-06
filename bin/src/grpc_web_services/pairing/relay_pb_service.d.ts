@@ -2,6 +2,7 @@
 // file: pairing/relay.proto
 
 import * as pairing_relay_pb from "../pairing/relay_pb";
+import * as google_protobuf_wrappers_pb from "google-protobuf/google/protobuf/wrappers_pb";
 import {grpc} from "@improbable-eng/grpc-web";
 
 type RelayerRelay = {
@@ -22,10 +23,20 @@ type RelayerRelaySubscribe = {
   readonly responseType: typeof pairing_relay_pb.RelayReply;
 };
 
+type RelayerProbe = {
+  readonly methodName: string;
+  readonly service: typeof Relayer;
+  readonly requestStream: false;
+  readonly responseStream: false;
+  readonly requestType: typeof google_protobuf_wrappers_pb.UInt64Value;
+  readonly responseType: typeof google_protobuf_wrappers_pb.UInt64Value;
+};
+
 export class Relayer {
   static readonly serviceName: string;
   static readonly Relay: RelayerRelay;
   static readonly RelaySubscribe: RelayerRelaySubscribe;
+  static readonly Probe: RelayerProbe;
 }
 
 export type ServiceError = { message: string, code: number; metadata: grpc.Metadata }
@@ -70,5 +81,14 @@ export class RelayerClient {
     callback: (error: ServiceError|null, responseMessage: pairing_relay_pb.RelayReply|null) => void
   ): UnaryResponse;
   relaySubscribe(requestMessage: pairing_relay_pb.RelayRequest, metadata?: grpc.Metadata): ResponseStream<pairing_relay_pb.RelayReply>;
+  probe(
+    requestMessage: google_protobuf_wrappers_pb.UInt64Value,
+    metadata: grpc.Metadata,
+    callback: (error: ServiceError|null, responseMessage: google_protobuf_wrappers_pb.UInt64Value|null) => void
+  ): UnaryResponse;
+  probe(
+    requestMessage: google_protobuf_wrappers_pb.UInt64Value,
+    callback: (error: ServiceError|null, responseMessage: google_protobuf_wrappers_pb.UInt64Value|null) => void
+  ): UnaryResponse;
 }
 

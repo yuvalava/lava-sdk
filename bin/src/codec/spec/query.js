@@ -413,7 +413,7 @@ exports.QueryShowAllChainsResponse = {
     },
 };
 function createBaseShowAllChainsInfoStruct() {
-    return { chainName: "", chainID: "", enabledApiInterfaces: [] };
+    return { chainName: "", chainID: "", enabledApiInterfaces: [], apiCount: long_1.default.UZERO };
 }
 exports.ShowAllChainsInfoStruct = {
     encode(message, writer = minimal_1.default.Writer.create()) {
@@ -425,6 +425,9 @@ exports.ShowAllChainsInfoStruct = {
         }
         for (const v of message.enabledApiInterfaces) {
             writer.uint32(26).string(v);
+        }
+        if (!message.apiCount.isZero()) {
+            writer.uint32(32).uint64(message.apiCount);
         }
         return writer;
     },
@@ -453,8 +456,14 @@ exports.ShowAllChainsInfoStruct = {
                     }
                     message.enabledApiInterfaces.push(reader.string());
                     continue;
+                case 4:
+                    if (tag != 32) {
+                        break;
+                    }
+                    message.apiCount = reader.uint64();
+                    continue;
             }
-            if ((tag & 7) === 4 || tag === 0) {
+            if ((tag & 7) == 4 || tag == 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -468,6 +477,7 @@ exports.ShowAllChainsInfoStruct = {
             enabledApiInterfaces: Array.isArray(object === null || object === void 0 ? void 0 : object.enabledApiInterfaces)
                 ? object.enabledApiInterfaces.map((e) => String(e))
                 : [],
+            apiCount: isSet(object.apiCount) ? long_1.default.fromValue(object.apiCount) : long_1.default.UZERO,
         };
     },
     toJSON(message) {
@@ -480,6 +490,7 @@ exports.ShowAllChainsInfoStruct = {
         else {
             obj.enabledApiInterfaces = [];
         }
+        message.apiCount !== undefined && (obj.apiCount = (message.apiCount || long_1.default.UZERO).toString());
         return obj;
     },
     create(base) {
@@ -491,6 +502,9 @@ exports.ShowAllChainsInfoStruct = {
         message.chainName = (_a = object.chainName) !== null && _a !== void 0 ? _a : "";
         message.chainID = (_b = object.chainID) !== null && _b !== void 0 ? _b : "";
         message.enabledApiInterfaces = ((_c = object.enabledApiInterfaces) === null || _c === void 0 ? void 0 : _c.map((e) => e)) || [];
+        message.apiCount = (object.apiCount !== undefined && object.apiCount !== null)
+            ? long_1.default.fromValue(object.apiCount)
+            : long_1.default.UZERO;
         return message;
     },
 };
