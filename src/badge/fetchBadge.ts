@@ -47,17 +47,3 @@ async function relayWithTimeout(timeLimit: number, task: any) {
     }
     return response;
 }
-  
-// // Call the function to send the request
-// fetchBadge("http://localhost:8080", "user1", "projectId" )
-//     .then((response) => {
-//         processResponse(response);
-//     })
-//     .catch((error) => {
-//         console.error("Error custom:", error);
-//     });
-
-// // Function to process the response
-// function processResponse(response: GenerateBadgeResponse) {
-//     console.log("Response:", response.toObject());
-// }
