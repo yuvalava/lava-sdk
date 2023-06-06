@@ -82,7 +82,6 @@ exports.createWallet = createWallet;
 function createDynamicWallet() {
     return __awaiter(this, void 0, void 0, function* () {
         const walletWithRandomSeed = yield launchpad_1.Secp256k1HdWallet.generate(undefined, { prefix: lavaPrefix });
-        console.log("Wallet created with Mnemonic:", walletWithRandomSeed.mnemonic);
         const walletPrivKey = yield getWalletPrivateKey(walletWithRandomSeed.mnemonic);
         const privKey = Array.from(walletPrivKey.privkey)
             .map(byte => byte.toString(16).padStart(2, '0'))

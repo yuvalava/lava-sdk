@@ -4,6 +4,7 @@ import { AccountData } from "@cosmjs/proto-signing";
 import Relayer from "../relayer/relayer";
 import { fetchBadge } from "../badge/fetchBadge"
 import { RelayReply } from "../pairing/relay_pb";
+import { Badge } from "../badge/badges_pb";
 import { SessionManager, ConsumerSessionWithProvider } from "../types/types";
 import {
   isValidChainID,
@@ -99,168 +100,89 @@ export class LavaSDK {
 
   private async init() {
     let wallet: LavaWallet
+    let badge: Badge | undefined;
+
     if (this.isBadge) {
       const { wallet, privKey } = await createDynamicWallet();
+      this.privKey = privKey
       const walletAddress = (await wallet.getConsumerAccount()).address
-      console.log("walletAddress:", walletAddress)
-      console.log("walletPrivKey: ", privKey)
       const badgeResponse = await fetchBadge(this.badge.badgeServerAddress, walletAddress, this.badge.projectId)
-      console.log("badgeResponse: ", badgeResponse)
-
-      // parsing badgeResponse
-      const badge = badgeResponse.getBadge()
+      badge = badgeResponse.getBadge()
       const badgeSignerAddress = badgeResponse.getBadgeSignerAddress()
-      const badgeUser = badge?.getAddress()
-
-      let account: AccountData = {
+      this.account = {
         algo: 'secp256k1',
         address: badgeSignerAddress,
         pubkey: new Uint8Array([]),
       };
-
-      this.account = account
-      
-      // create relayer with badge user's private key
-      const lavaRelayer = new Relayer(
-        LAVA_CHAIN_ID,
-        privKey,
-        this.lavaChainId,
-        badge,
-      );
-
-      // Create new instance of lava providers
-      const lavaProviders = await new LavaProviders(
-        badgeSignerAddress,
-        this.network,
-        lavaRelayer,
-        this.geolocation
-      );
-
-      // Init lava providers
-      await lavaProviders.init(this.pairingListConfig);
-
-      const sendRelayOptions = {
-        data: this.generateRPCData("abci_query", [
-          "/lavanet.lava.spec.Query/ShowAllChains",
-          "",
-          "0",
-          false,
-        ]),
-        url: "",
-        connectionType: "",
-      };
-
-      const info = await lavaProviders.SendRelayWithRetry(
-        sendRelayOptions,
-        lavaProviders.GetNextLavaProvider(),
-        10,
-        "tendermintrpc"
-      );
-
-      const byteArrayResponse = this.base64ToUint8Array(
-        info.result.response.value
-      );
-
-      const parsedChainList =
-        QueryShowAllChainsResponse.decode(byteArrayResponse);
-
-      // Validate chainID
-      if (!isValidChainID(this.chainID, parsedChainList)) {
-        throw SDKErrors.errChainIDUnsupported;
-      }
-
-      // If rpc is not defined use default for specified chainID
-      this.rpcInterface =
-        this.rpcInterface || fetchRpcInterface(this.chainID, parsedChainList);
-
-      // Save lava providers as local attribute
-      this.lavaProviders = lavaProviders;
-
-      // Get pairing list for current epoch
-      this.activeSessionManager = await this.lavaProviders.getSession(
-        this.chainID,
-        this.rpcInterface
-      );
-
-      // Create relayer for querying network
-      this.relayer = new Relayer(this.chainID, privKey, this.lavaChainId, badge);
-
     } else {
       wallet = await createWallet(this.privKey);
-      // Get account from wallet
       this.account = await wallet.getConsumerAccount();
-      console.log("this.account:", this.account)
-
-      //
-      // TODO: CARRY THIS OUTSIDE OF THE ELSE BLOCK
-      //
-
-      // Init relayer for lava providers
-      const lavaRelayer = new Relayer(
-        LAVA_CHAIN_ID,
-        this.privKey,
-        this.lavaChainId
-      );
-
-      // Create new instance of lava providers
-      const lavaProviders = await new LavaProviders(
-        this.account.address,
-        this.network,
-        lavaRelayer,
-        this.geolocation
-      );
-
-
-      // Init lava providers
-      await lavaProviders.init(this.pairingListConfig);
-
-      const sendRelayOptions = {
-        data: this.generateRPCData("abci_query", [
-          "/lavanet.lava.spec.Query/ShowAllChains",
-          "",
-          "0",
-          false,
-        ]),
-        url: "",
-        connectionType: "",
-      };
-
-      const info = await lavaProviders.SendRelayWithRetry(
-        sendRelayOptions,
-        lavaProviders.GetNextLavaProvider(),
-        10,
-        "tendermintrpc"
-      );
-
-      const byteArrayResponse = this.base64ToUint8Array(
-        info.result.response.value
-      );
-
-      const parsedChainList =
-        QueryShowAllChainsResponse.decode(byteArrayResponse);
-
-      // Validate chainID
-      if (!isValidChainID(this.chainID, parsedChainList)) {
-        throw SDKErrors.errChainIDUnsupported;
-      }
-
-      // If rpc is not defined use default for specified chainID
-      this.rpcInterface =
-        this.rpcInterface || fetchRpcInterface(this.chainID, parsedChainList);
-
-      // Save lava providers as local attribute
-      this.lavaProviders = lavaProviders;
-
-      // Get pairing list for current epoch
-      this.activeSessionManager = await this.lavaProviders.getSession(
-        this.chainID,
-        this.rpcInterface
-      );
-
-      // Create relayer for querying network
-      this.relayer = new Relayer(this.chainID, this.privKey, this.lavaChainId);
     }
 
+    // Init relayer for lava providers
+    const lavaRelayer = new Relayer(
+      LAVA_CHAIN_ID,
+      this.privKey,
+      this.lavaChainId,
+      badge
+    );
+
+    // Create new instance of lava providers
+    const lavaProviders = await new LavaProviders(
+      this.account.address,
+      this.network,
+      lavaRelayer,
+      this.geolocation
+    );
+
+    // Init lava providers
+    await lavaProviders.init(this.pairingListConfig);
+
+    const sendRelayOptions = {
+      data: this.generateRPCData("abci_query", [
+        "/lavanet.lava.spec.Query/ShowAllChains",
+        "",
+        "0",
+        false,
+      ]),
+      url: "",
+      connectionType: "",
+    };
+
+    const info = await lavaProviders.SendRelayWithRetry(
+      sendRelayOptions,
+      lavaProviders.GetNextLavaProvider(),
+      10,
+      "tendermintrpc"
+    );
+
+    const byteArrayResponse = this.base64ToUint8Array(
+      info.result.response.value
+    );
+
+    const parsedChainList =
+      QueryShowAllChainsResponse.decode(byteArrayResponse);
+
+    // Validate chainID
+    if (!isValidChainID(this.chainID, parsedChainList)) {
+      throw SDKErrors.errChainIDUnsupported;
+    }
+
+    // If rpc is not defined use default for specified chainID
+    this.rpcInterface =
+      this.rpcInterface || fetchRpcInterface(this.chainID, parsedChainList);
+
+    // Save lava providers as local attribute
+    this.lavaProviders = lavaProviders;
+
+    // Get pairing list for current epoch
+    this.activeSessionManager = await this.lavaProviders.getSession(
+      this.chainID,
+      this.rpcInterface
+    );
+
+    // Create relayer for querying network
+    this.relayer = new Relayer(this.chainID, this.privKey, this.lavaChainId, badge)
   }
 
   private async handleRpcRelay(options: SendRelayOptions): Promise<string> {

@@ -98,15 +98,11 @@ interface WalletCreationResult {
 
 export async function createDynamicWallet(): Promise<WalletCreationResult> {
   const walletWithRandomSeed = await Secp256k1HdWallet.generate(undefined, { prefix: lavaPrefix });
-  console.log("Wallet created with Mnemonic:", walletWithRandomSeed.mnemonic);
-
   const walletPrivKey = await getWalletPrivateKey(walletWithRandomSeed.mnemonic)
   const privKey = Array.from(walletPrivKey.privkey)
         .map(byte => byte.toString(16).padStart(2, '0'))
         .join('');
-
   const wallet = await createWallet(privKey);
-
   return {wallet, privKey};
 }
 

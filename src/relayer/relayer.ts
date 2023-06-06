@@ -71,8 +71,10 @@ class Relayer {
 
     requestSession.setSig(signedMessage);
 
-    // Badge is separated from the signature!
-    requestSession.setBadge(this.badge)
+    if (this.badge) {
+      // Badge is separated from the signature!
+      requestSession.setBadge(this.badge)
+    }
 
     // Create request
     const request = new RelayRequest();

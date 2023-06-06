@@ -83,8 +83,10 @@ class Relayer {
             // Sign data
             const signedMessage = yield this.signRelay(requestSession, this.privKey);
             requestSession.setSig(signedMessage);
-            // Badge is separated from the signature!
-            requestSession.setBadge(this.badge);
+            if (this.badge) {
+                // Badge is separated from the signature!
+                requestSession.setBadge(this.badge);
+            }
             // Create request
             const request = new relay_pb_1.RelayRequest();
             request.setRelaySession(requestSession);
