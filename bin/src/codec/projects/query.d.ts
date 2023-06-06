@@ -76,7 +76,7 @@ export declare const QueryInfoResponse: {
             enabled?: boolean | undefined;
             projectKeys?: {
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[] | undefined;
             adminPolicy?: {
                 chainPolicies?: {
@@ -109,7 +109,7 @@ export declare const QueryInfoResponse: {
             enabled?: boolean | undefined;
             projectKeys?: {
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[] | undefined;
             adminPolicy?: {
                 chainPolicies?: {
@@ -140,16 +140,16 @@ export declare const QueryInfoResponse: {
             enabled?: boolean | undefined;
             projectKeys?: ({
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[] & ({
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             } & {
                 key?: string | undefined;
-                types?: (import("./project").ProjectKey_keyType[] & import("./project").ProjectKey_keyType[] & { [K in Exclude<keyof I["project"]["projectKeys"][number]["types"], keyof import("./project").ProjectKey_keyType[]>]: never; }) | undefined;
-            } & { [K_1 in Exclude<keyof I["project"]["projectKeys"][number], keyof import("./project").ProjectKey>]: never; })[] & { [K_2 in Exclude<keyof I["project"]["projectKeys"], keyof {
+                kinds?: number | undefined;
+            } & { [K in Exclude<keyof I["project"]["projectKeys"][number], keyof import("./project").ProjectKey>]: never; })[] & { [K_1 in Exclude<keyof I["project"]["projectKeys"], keyof {
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[]>]: never; }) | undefined;
             adminPolicy?: ({
                 chainPolicies?: {
@@ -169,8 +169,8 @@ export declare const QueryInfoResponse: {
                     apis?: string[] | undefined;
                 } & {
                     chainId?: string | undefined;
-                    apis?: (string[] & string[] & { [K_3 in Exclude<keyof I["project"]["adminPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
-                } & { [K_4 in Exclude<keyof I["project"]["adminPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_5 in Exclude<keyof I["project"]["adminPolicy"]["chainPolicies"], keyof {
+                    apis?: (string[] & string[] & { [K_2 in Exclude<keyof I["project"]["adminPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
+                } & { [K_3 in Exclude<keyof I["project"]["adminPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_4 in Exclude<keyof I["project"]["adminPolicy"]["chainPolicies"], keyof {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
                 }[]>]: never; }) | undefined;
@@ -245,7 +245,7 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_6 in Exclude<keyof I["project"]["adminPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
+                } & { [K_5 in Exclude<keyof I["project"]["adminPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
                 totalCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -317,7 +317,7 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_7 in Exclude<keyof I["project"]["adminPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_6 in Exclude<keyof I["project"]["adminPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
                 epochCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -389,7 +389,7 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_8 in Exclude<keyof I["project"]["adminPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_7 in Exclude<keyof I["project"]["adminPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
                 maxProvidersToPair?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -461,8 +461,8 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_9 in Exclude<keyof I["project"]["adminPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
-            } & { [K_10 in Exclude<keyof I["project"]["adminPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
+                } & { [K_8 in Exclude<keyof I["project"]["adminPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
+            } & { [K_9 in Exclude<keyof I["project"]["adminPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
             usedCu?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -534,7 +534,7 @@ export declare const QueryInfoResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_11 in Exclude<keyof I["project"]["usedCu"], keyof Long>]: never; }) | undefined;
+            } & { [K_10 in Exclude<keyof I["project"]["usedCu"], keyof Long>]: never; }) | undefined;
             subscriptionPolicy?: ({
                 chainPolicies?: {
                     chainId?: string | undefined;
@@ -553,8 +553,8 @@ export declare const QueryInfoResponse: {
                     apis?: string[] | undefined;
                 } & {
                     chainId?: string | undefined;
-                    apis?: (string[] & string[] & { [K_12 in Exclude<keyof I["project"]["subscriptionPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
-                } & { [K_13 in Exclude<keyof I["project"]["subscriptionPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_14 in Exclude<keyof I["project"]["subscriptionPolicy"]["chainPolicies"], keyof {
+                    apis?: (string[] & string[] & { [K_11 in Exclude<keyof I["project"]["subscriptionPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
+                } & { [K_12 in Exclude<keyof I["project"]["subscriptionPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_13 in Exclude<keyof I["project"]["subscriptionPolicy"]["chainPolicies"], keyof {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
                 }[]>]: never; }) | undefined;
@@ -629,7 +629,7 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_15 in Exclude<keyof I["project"]["subscriptionPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
+                } & { [K_14 in Exclude<keyof I["project"]["subscriptionPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
                 totalCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -701,7 +701,7 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_16 in Exclude<keyof I["project"]["subscriptionPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_15 in Exclude<keyof I["project"]["subscriptionPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
                 epochCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -773,7 +773,7 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_17 in Exclude<keyof I["project"]["subscriptionPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_16 in Exclude<keyof I["project"]["subscriptionPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
                 maxProvidersToPair?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -845,8 +845,8 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_18 in Exclude<keyof I["project"]["subscriptionPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
-            } & { [K_19 in Exclude<keyof I["project"]["subscriptionPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
+                } & { [K_17 in Exclude<keyof I["project"]["subscriptionPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
+            } & { [K_18 in Exclude<keyof I["project"]["subscriptionPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
             snapshot?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -918,9 +918,9 @@ export declare const QueryInfoResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_20 in Exclude<keyof I["project"]["snapshot"], keyof Long>]: never; }) | undefined;
-        } & { [K_21 in Exclude<keyof I["project"], keyof Project>]: never; }) | undefined;
-    } & { [K_22 in Exclude<keyof I, "project">]: never; }>(base?: I | undefined): QueryInfoResponse;
+            } & { [K_19 in Exclude<keyof I["project"]["snapshot"], keyof Long>]: never; }) | undefined;
+        } & { [K_20 in Exclude<keyof I["project"], keyof Project>]: never; }) | undefined;
+    } & { [K_21 in Exclude<keyof I, "project">]: never; }>(base?: I | undefined): QueryInfoResponse;
     fromPartial<I_1 extends {
         project?: {
             index?: string | undefined;
@@ -929,7 +929,7 @@ export declare const QueryInfoResponse: {
             enabled?: boolean | undefined;
             projectKeys?: {
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[] | undefined;
             adminPolicy?: {
                 chainPolicies?: {
@@ -962,7 +962,7 @@ export declare const QueryInfoResponse: {
             enabled?: boolean | undefined;
             projectKeys?: {
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[] | undefined;
             adminPolicy?: {
                 chainPolicies?: {
@@ -993,16 +993,16 @@ export declare const QueryInfoResponse: {
             enabled?: boolean | undefined;
             projectKeys?: ({
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[] & ({
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             } & {
                 key?: string | undefined;
-                types?: (import("./project").ProjectKey_keyType[] & import("./project").ProjectKey_keyType[] & { [K_23 in Exclude<keyof I_1["project"]["projectKeys"][number]["types"], keyof import("./project").ProjectKey_keyType[]>]: never; }) | undefined;
-            } & { [K_24 in Exclude<keyof I_1["project"]["projectKeys"][number], keyof import("./project").ProjectKey>]: never; })[] & { [K_25 in Exclude<keyof I_1["project"]["projectKeys"], keyof {
+                kinds?: number | undefined;
+            } & { [K_22 in Exclude<keyof I_1["project"]["projectKeys"][number], keyof import("./project").ProjectKey>]: never; })[] & { [K_23 in Exclude<keyof I_1["project"]["projectKeys"], keyof {
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[]>]: never; }) | undefined;
             adminPolicy?: ({
                 chainPolicies?: {
@@ -1022,8 +1022,8 @@ export declare const QueryInfoResponse: {
                     apis?: string[] | undefined;
                 } & {
                     chainId?: string | undefined;
-                    apis?: (string[] & string[] & { [K_26 in Exclude<keyof I_1["project"]["adminPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
-                } & { [K_27 in Exclude<keyof I_1["project"]["adminPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_28 in Exclude<keyof I_1["project"]["adminPolicy"]["chainPolicies"], keyof {
+                    apis?: (string[] & string[] & { [K_24 in Exclude<keyof I_1["project"]["adminPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
+                } & { [K_25 in Exclude<keyof I_1["project"]["adminPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_26 in Exclude<keyof I_1["project"]["adminPolicy"]["chainPolicies"], keyof {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
                 }[]>]: never; }) | undefined;
@@ -1098,7 +1098,7 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_29 in Exclude<keyof I_1["project"]["adminPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
+                } & { [K_27 in Exclude<keyof I_1["project"]["adminPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
                 totalCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -1170,7 +1170,7 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_30 in Exclude<keyof I_1["project"]["adminPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_28 in Exclude<keyof I_1["project"]["adminPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
                 epochCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -1242,7 +1242,7 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_31 in Exclude<keyof I_1["project"]["adminPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_29 in Exclude<keyof I_1["project"]["adminPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
                 maxProvidersToPair?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -1314,8 +1314,8 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_32 in Exclude<keyof I_1["project"]["adminPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
-            } & { [K_33 in Exclude<keyof I_1["project"]["adminPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
+                } & { [K_30 in Exclude<keyof I_1["project"]["adminPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
+            } & { [K_31 in Exclude<keyof I_1["project"]["adminPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
             usedCu?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -1387,7 +1387,7 @@ export declare const QueryInfoResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_34 in Exclude<keyof I_1["project"]["usedCu"], keyof Long>]: never; }) | undefined;
+            } & { [K_32 in Exclude<keyof I_1["project"]["usedCu"], keyof Long>]: never; }) | undefined;
             subscriptionPolicy?: ({
                 chainPolicies?: {
                     chainId?: string | undefined;
@@ -1406,8 +1406,8 @@ export declare const QueryInfoResponse: {
                     apis?: string[] | undefined;
                 } & {
                     chainId?: string | undefined;
-                    apis?: (string[] & string[] & { [K_35 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
-                } & { [K_36 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_37 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["chainPolicies"], keyof {
+                    apis?: (string[] & string[] & { [K_33 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
+                } & { [K_34 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_35 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["chainPolicies"], keyof {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
                 }[]>]: never; }) | undefined;
@@ -1482,7 +1482,7 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_38 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
+                } & { [K_36 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
                 totalCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -1554,7 +1554,7 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_39 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_37 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
                 epochCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -1626,7 +1626,7 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_40 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_38 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
                 maxProvidersToPair?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -1698,8 +1698,8 @@ export declare const QueryInfoResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_41 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
-            } & { [K_42 in Exclude<keyof I_1["project"]["subscriptionPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
+                } & { [K_39 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
+            } & { [K_40 in Exclude<keyof I_1["project"]["subscriptionPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
             snapshot?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -1771,9 +1771,9 @@ export declare const QueryInfoResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_43 in Exclude<keyof I_1["project"]["snapshot"], keyof Long>]: never; }) | undefined;
-        } & { [K_44 in Exclude<keyof I_1["project"], keyof Project>]: never; }) | undefined;
-    } & { [K_45 in Exclude<keyof I_1, "project">]: never; }>(object: I_1): QueryInfoResponse;
+            } & { [K_41 in Exclude<keyof I_1["project"]["snapshot"], keyof Long>]: never; }) | undefined;
+        } & { [K_42 in Exclude<keyof I_1["project"], keyof Project>]: never; }) | undefined;
+    } & { [K_43 in Exclude<keyof I_1, "project">]: never; }>(object: I_1): QueryInfoResponse;
 };
 export declare const QueryDeveloperRequest: {
     encode(message: QueryDeveloperRequest, writer?: _m0.Writer): _m0.Writer;
@@ -1804,7 +1804,7 @@ export declare const QueryDeveloperResponse: {
             enabled?: boolean | undefined;
             projectKeys?: {
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[] | undefined;
             adminPolicy?: {
                 chainPolicies?: {
@@ -1837,7 +1837,7 @@ export declare const QueryDeveloperResponse: {
             enabled?: boolean | undefined;
             projectKeys?: {
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[] | undefined;
             adminPolicy?: {
                 chainPolicies?: {
@@ -1868,16 +1868,16 @@ export declare const QueryDeveloperResponse: {
             enabled?: boolean | undefined;
             projectKeys?: ({
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[] & ({
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             } & {
                 key?: string | undefined;
-                types?: (import("./project").ProjectKey_keyType[] & import("./project").ProjectKey_keyType[] & { [K in Exclude<keyof I["project"]["projectKeys"][number]["types"], keyof import("./project").ProjectKey_keyType[]>]: never; }) | undefined;
-            } & { [K_1 in Exclude<keyof I["project"]["projectKeys"][number], keyof import("./project").ProjectKey>]: never; })[] & { [K_2 in Exclude<keyof I["project"]["projectKeys"], keyof {
+                kinds?: number | undefined;
+            } & { [K in Exclude<keyof I["project"]["projectKeys"][number], keyof import("./project").ProjectKey>]: never; })[] & { [K_1 in Exclude<keyof I["project"]["projectKeys"], keyof {
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[]>]: never; }) | undefined;
             adminPolicy?: ({
                 chainPolicies?: {
@@ -1897,8 +1897,8 @@ export declare const QueryDeveloperResponse: {
                     apis?: string[] | undefined;
                 } & {
                     chainId?: string | undefined;
-                    apis?: (string[] & string[] & { [K_3 in Exclude<keyof I["project"]["adminPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
-                } & { [K_4 in Exclude<keyof I["project"]["adminPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_5 in Exclude<keyof I["project"]["adminPolicy"]["chainPolicies"], keyof {
+                    apis?: (string[] & string[] & { [K_2 in Exclude<keyof I["project"]["adminPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
+                } & { [K_3 in Exclude<keyof I["project"]["adminPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_4 in Exclude<keyof I["project"]["adminPolicy"]["chainPolicies"], keyof {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
                 }[]>]: never; }) | undefined;
@@ -1973,7 +1973,7 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_6 in Exclude<keyof I["project"]["adminPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
+                } & { [K_5 in Exclude<keyof I["project"]["adminPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
                 totalCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -2045,7 +2045,7 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_7 in Exclude<keyof I["project"]["adminPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_6 in Exclude<keyof I["project"]["adminPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
                 epochCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -2117,7 +2117,7 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_8 in Exclude<keyof I["project"]["adminPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_7 in Exclude<keyof I["project"]["adminPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
                 maxProvidersToPair?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -2189,8 +2189,8 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_9 in Exclude<keyof I["project"]["adminPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
-            } & { [K_10 in Exclude<keyof I["project"]["adminPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
+                } & { [K_8 in Exclude<keyof I["project"]["adminPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
+            } & { [K_9 in Exclude<keyof I["project"]["adminPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
             usedCu?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -2262,7 +2262,7 @@ export declare const QueryDeveloperResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_11 in Exclude<keyof I["project"]["usedCu"], keyof Long>]: never; }) | undefined;
+            } & { [K_10 in Exclude<keyof I["project"]["usedCu"], keyof Long>]: never; }) | undefined;
             subscriptionPolicy?: ({
                 chainPolicies?: {
                     chainId?: string | undefined;
@@ -2281,8 +2281,8 @@ export declare const QueryDeveloperResponse: {
                     apis?: string[] | undefined;
                 } & {
                     chainId?: string | undefined;
-                    apis?: (string[] & string[] & { [K_12 in Exclude<keyof I["project"]["subscriptionPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
-                } & { [K_13 in Exclude<keyof I["project"]["subscriptionPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_14 in Exclude<keyof I["project"]["subscriptionPolicy"]["chainPolicies"], keyof {
+                    apis?: (string[] & string[] & { [K_11 in Exclude<keyof I["project"]["subscriptionPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
+                } & { [K_12 in Exclude<keyof I["project"]["subscriptionPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_13 in Exclude<keyof I["project"]["subscriptionPolicy"]["chainPolicies"], keyof {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
                 }[]>]: never; }) | undefined;
@@ -2357,7 +2357,7 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_15 in Exclude<keyof I["project"]["subscriptionPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
+                } & { [K_14 in Exclude<keyof I["project"]["subscriptionPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
                 totalCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -2429,7 +2429,7 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_16 in Exclude<keyof I["project"]["subscriptionPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_15 in Exclude<keyof I["project"]["subscriptionPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
                 epochCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -2501,7 +2501,7 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_17 in Exclude<keyof I["project"]["subscriptionPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_16 in Exclude<keyof I["project"]["subscriptionPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
                 maxProvidersToPair?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -2573,8 +2573,8 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_18 in Exclude<keyof I["project"]["subscriptionPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
-            } & { [K_19 in Exclude<keyof I["project"]["subscriptionPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
+                } & { [K_17 in Exclude<keyof I["project"]["subscriptionPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
+            } & { [K_18 in Exclude<keyof I["project"]["subscriptionPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
             snapshot?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -2646,9 +2646,9 @@ export declare const QueryDeveloperResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_20 in Exclude<keyof I["project"]["snapshot"], keyof Long>]: never; }) | undefined;
-        } & { [K_21 in Exclude<keyof I["project"], keyof Project>]: never; }) | undefined;
-    } & { [K_22 in Exclude<keyof I, "project">]: never; }>(base?: I | undefined): QueryDeveloperResponse;
+            } & { [K_19 in Exclude<keyof I["project"]["snapshot"], keyof Long>]: never; }) | undefined;
+        } & { [K_20 in Exclude<keyof I["project"], keyof Project>]: never; }) | undefined;
+    } & { [K_21 in Exclude<keyof I, "project">]: never; }>(base?: I | undefined): QueryDeveloperResponse;
     fromPartial<I_1 extends {
         project?: {
             index?: string | undefined;
@@ -2657,7 +2657,7 @@ export declare const QueryDeveloperResponse: {
             enabled?: boolean | undefined;
             projectKeys?: {
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[] | undefined;
             adminPolicy?: {
                 chainPolicies?: {
@@ -2690,7 +2690,7 @@ export declare const QueryDeveloperResponse: {
             enabled?: boolean | undefined;
             projectKeys?: {
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[] | undefined;
             adminPolicy?: {
                 chainPolicies?: {
@@ -2721,16 +2721,16 @@ export declare const QueryDeveloperResponse: {
             enabled?: boolean | undefined;
             projectKeys?: ({
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[] & ({
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             } & {
                 key?: string | undefined;
-                types?: (import("./project").ProjectKey_keyType[] & import("./project").ProjectKey_keyType[] & { [K_23 in Exclude<keyof I_1["project"]["projectKeys"][number]["types"], keyof import("./project").ProjectKey_keyType[]>]: never; }) | undefined;
-            } & { [K_24 in Exclude<keyof I_1["project"]["projectKeys"][number], keyof import("./project").ProjectKey>]: never; })[] & { [K_25 in Exclude<keyof I_1["project"]["projectKeys"], keyof {
+                kinds?: number | undefined;
+            } & { [K_22 in Exclude<keyof I_1["project"]["projectKeys"][number], keyof import("./project").ProjectKey>]: never; })[] & { [K_23 in Exclude<keyof I_1["project"]["projectKeys"], keyof {
                 key?: string | undefined;
-                types?: import("./project").ProjectKey_keyType[] | undefined;
+                kinds?: number | undefined;
             }[]>]: never; }) | undefined;
             adminPolicy?: ({
                 chainPolicies?: {
@@ -2750,8 +2750,8 @@ export declare const QueryDeveloperResponse: {
                     apis?: string[] | undefined;
                 } & {
                     chainId?: string | undefined;
-                    apis?: (string[] & string[] & { [K_26 in Exclude<keyof I_1["project"]["adminPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
-                } & { [K_27 in Exclude<keyof I_1["project"]["adminPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_28 in Exclude<keyof I_1["project"]["adminPolicy"]["chainPolicies"], keyof {
+                    apis?: (string[] & string[] & { [K_24 in Exclude<keyof I_1["project"]["adminPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
+                } & { [K_25 in Exclude<keyof I_1["project"]["adminPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_26 in Exclude<keyof I_1["project"]["adminPolicy"]["chainPolicies"], keyof {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
                 }[]>]: never; }) | undefined;
@@ -2826,7 +2826,7 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_29 in Exclude<keyof I_1["project"]["adminPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
+                } & { [K_27 in Exclude<keyof I_1["project"]["adminPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
                 totalCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -2898,7 +2898,7 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_30 in Exclude<keyof I_1["project"]["adminPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_28 in Exclude<keyof I_1["project"]["adminPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
                 epochCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -2970,7 +2970,7 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_31 in Exclude<keyof I_1["project"]["adminPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_29 in Exclude<keyof I_1["project"]["adminPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
                 maxProvidersToPair?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -3042,8 +3042,8 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_32 in Exclude<keyof I_1["project"]["adminPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
-            } & { [K_33 in Exclude<keyof I_1["project"]["adminPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
+                } & { [K_30 in Exclude<keyof I_1["project"]["adminPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
+            } & { [K_31 in Exclude<keyof I_1["project"]["adminPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
             usedCu?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -3115,7 +3115,7 @@ export declare const QueryDeveloperResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_34 in Exclude<keyof I_1["project"]["usedCu"], keyof Long>]: never; }) | undefined;
+            } & { [K_32 in Exclude<keyof I_1["project"]["usedCu"], keyof Long>]: never; }) | undefined;
             subscriptionPolicy?: ({
                 chainPolicies?: {
                     chainId?: string | undefined;
@@ -3134,8 +3134,8 @@ export declare const QueryDeveloperResponse: {
                     apis?: string[] | undefined;
                 } & {
                     chainId?: string | undefined;
-                    apis?: (string[] & string[] & { [K_35 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
-                } & { [K_36 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_37 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["chainPolicies"], keyof {
+                    apis?: (string[] & string[] & { [K_33 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["chainPolicies"][number]["apis"], keyof string[]>]: never; }) | undefined;
+                } & { [K_34 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["chainPolicies"][number], keyof import("./project").ChainPolicy>]: never; })[] & { [K_35 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["chainPolicies"], keyof {
                     chainId?: string | undefined;
                     apis?: string[] | undefined;
                 }[]>]: never; }) | undefined;
@@ -3210,7 +3210,7 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_38 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
+                } & { [K_36 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["geolocationProfile"], keyof Long>]: never; }) | undefined;
                 totalCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -3282,7 +3282,7 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_39 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_37 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["totalCuLimit"], keyof Long>]: never; }) | undefined;
                 epochCuLimit?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -3354,7 +3354,7 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_40 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
+                } & { [K_38 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["epochCuLimit"], keyof Long>]: never; }) | undefined;
                 maxProvidersToPair?: string | number | (Long & {
                     high: number;
                     low: number;
@@ -3426,8 +3426,8 @@ export declare const QueryDeveloperResponse: {
                     toString: (radix?: number | undefined) => string;
                     toUnsigned: () => Long;
                     xor: (other: string | number | Long) => Long;
-                } & { [K_41 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
-            } & { [K_42 in Exclude<keyof I_1["project"]["subscriptionPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
+                } & { [K_39 in Exclude<keyof I_1["project"]["subscriptionPolicy"]["maxProvidersToPair"], keyof Long>]: never; }) | undefined;
+            } & { [K_40 in Exclude<keyof I_1["project"]["subscriptionPolicy"], keyof import("./project").Policy>]: never; }) | undefined;
             snapshot?: string | number | (Long & {
                 high: number;
                 low: number;
@@ -3499,9 +3499,9 @@ export declare const QueryDeveloperResponse: {
                 toString: (radix?: number | undefined) => string;
                 toUnsigned: () => Long;
                 xor: (other: string | number | Long) => Long;
-            } & { [K_43 in Exclude<keyof I_1["project"]["snapshot"], keyof Long>]: never; }) | undefined;
-        } & { [K_44 in Exclude<keyof I_1["project"], keyof Project>]: never; }) | undefined;
-    } & { [K_45 in Exclude<keyof I_1, "project">]: never; }>(object: I_1): QueryDeveloperResponse;
+            } & { [K_41 in Exclude<keyof I_1["project"]["snapshot"], keyof Long>]: never; }) | undefined;
+        } & { [K_42 in Exclude<keyof I_1["project"], keyof Project>]: never; }) | undefined;
+    } & { [K_43 in Exclude<keyof I_1, "project">]: never; }>(object: I_1): QueryDeveloperResponse;
 };
 /** Query defines the gRPC querier service. */
 export interface Query {

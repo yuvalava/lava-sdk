@@ -28,24 +28,25 @@ export interface QueryAllSpecResponse {
 export interface QueryShowAllChainsRequest {
 }
 export interface QueryShowAllChainsResponse {
-    chainInfoList: showAllChainsInfoStruct[];
+    chainInfoList: ShowAllChainsInfoStruct[];
 }
-export interface showAllChainsInfoStruct {
+export interface ShowAllChainsInfoStruct {
     chainName: string;
     chainID: string;
     enabledApiInterfaces: string[];
+    apiCount: Long;
 }
 export interface QueryShowChainInfoRequest {
     chainName: string;
 }
-export interface apiList {
+export interface ApiList {
     interface: string;
     supportedApis: string[];
 }
 export interface QueryShowChainInfoResponse {
     chainID: string;
     interfaces: string[];
-    supportedApisInterfaceList: apiList[];
+    supportedApisInterfaceList: ApiList[];
 }
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
@@ -4371,75 +4372,373 @@ export declare const QueryShowAllChainsResponse: {
             chainName?: string | undefined;
             chainID?: string | undefined;
             enabledApiInterfaces?: string[] | undefined;
+            apiCount?: string | number | Long | undefined;
         }[] | undefined;
     } & {
         chainInfoList?: ({
             chainName?: string | undefined;
             chainID?: string | undefined;
             enabledApiInterfaces?: string[] | undefined;
+            apiCount?: string | number | Long | undefined;
         }[] & ({
             chainName?: string | undefined;
             chainID?: string | undefined;
             enabledApiInterfaces?: string[] | undefined;
+            apiCount?: string | number | Long | undefined;
         } & {
             chainName?: string | undefined;
             chainID?: string | undefined;
             enabledApiInterfaces?: (string[] & string[] & { [K in Exclude<keyof I["chainInfoList"][number]["enabledApiInterfaces"], keyof string[]>]: never; }) | undefined;
-        } & { [K_1 in Exclude<keyof I["chainInfoList"][number], keyof showAllChainsInfoStruct>]: never; })[] & { [K_2 in Exclude<keyof I["chainInfoList"], keyof {
+            apiCount?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_1 in Exclude<keyof I["chainInfoList"][number]["apiCount"], keyof Long>]: never; }) | undefined;
+        } & { [K_2 in Exclude<keyof I["chainInfoList"][number], keyof ShowAllChainsInfoStruct>]: never; })[] & { [K_3 in Exclude<keyof I["chainInfoList"], keyof {
             chainName?: string | undefined;
             chainID?: string | undefined;
             enabledApiInterfaces?: string[] | undefined;
+            apiCount?: string | number | Long | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I, "chainInfoList">]: never; }>(base?: I | undefined): QueryShowAllChainsResponse;
+    } & { [K_4 in Exclude<keyof I, "chainInfoList">]: never; }>(base?: I | undefined): QueryShowAllChainsResponse;
     fromPartial<I_1 extends {
         chainInfoList?: {
             chainName?: string | undefined;
             chainID?: string | undefined;
             enabledApiInterfaces?: string[] | undefined;
+            apiCount?: string | number | Long | undefined;
         }[] | undefined;
     } & {
         chainInfoList?: ({
             chainName?: string | undefined;
             chainID?: string | undefined;
             enabledApiInterfaces?: string[] | undefined;
+            apiCount?: string | number | Long | undefined;
         }[] & ({
             chainName?: string | undefined;
             chainID?: string | undefined;
             enabledApiInterfaces?: string[] | undefined;
+            apiCount?: string | number | Long | undefined;
         } & {
             chainName?: string | undefined;
             chainID?: string | undefined;
-            enabledApiInterfaces?: (string[] & string[] & { [K_4 in Exclude<keyof I_1["chainInfoList"][number]["enabledApiInterfaces"], keyof string[]>]: never; }) | undefined;
-        } & { [K_5 in Exclude<keyof I_1["chainInfoList"][number], keyof showAllChainsInfoStruct>]: never; })[] & { [K_6 in Exclude<keyof I_1["chainInfoList"], keyof {
+            enabledApiInterfaces?: (string[] & string[] & { [K_5 in Exclude<keyof I_1["chainInfoList"][number]["enabledApiInterfaces"], keyof string[]>]: never; }) | undefined;
+            apiCount?: string | number | (Long & {
+                high: number;
+                low: number;
+                unsigned: boolean;
+                add: (addend: string | number | Long) => Long;
+                and: (other: string | number | Long) => Long;
+                compare: (other: string | number | Long) => number;
+                comp: (other: string | number | Long) => number;
+                divide: (divisor: string | number | Long) => Long;
+                div: (divisor: string | number | Long) => Long;
+                equals: (other: string | number | Long) => boolean;
+                eq: (other: string | number | Long) => boolean;
+                getHighBits: () => number;
+                getHighBitsUnsigned: () => number;
+                getLowBits: () => number;
+                getLowBitsUnsigned: () => number;
+                getNumBitsAbs: () => number;
+                greaterThan: (other: string | number | Long) => boolean;
+                gt: (other: string | number | Long) => boolean;
+                greaterThanOrEqual: (other: string | number | Long) => boolean;
+                gte: (other: string | number | Long) => boolean;
+                ge: (other: string | number | Long) => boolean;
+                isEven: () => boolean;
+                isNegative: () => boolean;
+                isOdd: () => boolean;
+                isPositive: () => boolean;
+                isZero: () => boolean;
+                eqz: () => boolean;
+                lessThan: (other: string | number | Long) => boolean;
+                lt: (other: string | number | Long) => boolean;
+                lessThanOrEqual: (other: string | number | Long) => boolean;
+                lte: (other: string | number | Long) => boolean;
+                le: (other: string | number | Long) => boolean;
+                modulo: (other: string | number | Long) => Long;
+                mod: (other: string | number | Long) => Long;
+                rem: (other: string | number | Long) => Long;
+                multiply: (multiplier: string | number | Long) => Long;
+                mul: (multiplier: string | number | Long) => Long;
+                negate: () => Long;
+                neg: () => Long;
+                not: () => Long;
+                countLeadingZeros: () => number;
+                clz: () => number;
+                countTrailingZeros: () => number;
+                ctz: () => number;
+                notEquals: (other: string | number | Long) => boolean;
+                neq: (other: string | number | Long) => boolean;
+                ne: (other: string | number | Long) => boolean;
+                or: (other: string | number | Long) => Long;
+                shiftLeft: (numBits: number | Long) => Long;
+                shl: (numBits: number | Long) => Long;
+                shiftRight: (numBits: number | Long) => Long;
+                shr: (numBits: number | Long) => Long;
+                shiftRightUnsigned: (numBits: number | Long) => Long;
+                shru: (numBits: number | Long) => Long;
+                shr_u: (numBits: number | Long) => Long;
+                rotateLeft: (numBits: number | Long) => Long;
+                rotl: (numBits: number | Long) => Long;
+                rotateRight: (numBits: number | Long) => Long;
+                rotr: (numBits: number | Long) => Long;
+                subtract: (subtrahend: string | number | Long) => Long;
+                sub: (subtrahend: string | number | Long) => Long;
+                toInt: () => number;
+                toNumber: () => number;
+                toBytes: (le?: boolean | undefined) => number[];
+                toBytesLE: () => number[];
+                toBytesBE: () => number[];
+                toSigned: () => Long;
+                toString: (radix?: number | undefined) => string;
+                toUnsigned: () => Long;
+                xor: (other: string | number | Long) => Long;
+            } & { [K_6 in Exclude<keyof I_1["chainInfoList"][number]["apiCount"], keyof Long>]: never; }) | undefined;
+        } & { [K_7 in Exclude<keyof I_1["chainInfoList"][number], keyof ShowAllChainsInfoStruct>]: never; })[] & { [K_8 in Exclude<keyof I_1["chainInfoList"], keyof {
             chainName?: string | undefined;
             chainID?: string | undefined;
             enabledApiInterfaces?: string[] | undefined;
+            apiCount?: string | number | Long | undefined;
         }[]>]: never; }) | undefined;
-    } & { [K_7 in Exclude<keyof I_1, "chainInfoList">]: never; }>(object: I_1): QueryShowAllChainsResponse;
+    } & { [K_9 in Exclude<keyof I_1, "chainInfoList">]: never; }>(object: I_1): QueryShowAllChainsResponse;
 };
-export declare const showAllChainsInfoStruct: {
-    encode(message: showAllChainsInfoStruct, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): showAllChainsInfoStruct;
-    fromJSON(object: any): showAllChainsInfoStruct;
-    toJSON(message: showAllChainsInfoStruct): unknown;
+export declare const ShowAllChainsInfoStruct: {
+    encode(message: ShowAllChainsInfoStruct, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ShowAllChainsInfoStruct;
+    fromJSON(object: any): ShowAllChainsInfoStruct;
+    toJSON(message: ShowAllChainsInfoStruct): unknown;
     create<I extends {
         chainName?: string | undefined;
         chainID?: string | undefined;
         enabledApiInterfaces?: string[] | undefined;
+        apiCount?: string | number | Long | undefined;
     } & {
         chainName?: string | undefined;
         chainID?: string | undefined;
         enabledApiInterfaces?: (string[] & string[] & { [K in Exclude<keyof I["enabledApiInterfaces"], keyof string[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof showAllChainsInfoStruct>]: never; }>(base?: I | undefined): showAllChainsInfoStruct;
+        apiCount?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_1 in Exclude<keyof I["apiCount"], keyof Long>]: never; }) | undefined;
+    } & { [K_2 in Exclude<keyof I, keyof ShowAllChainsInfoStruct>]: never; }>(base?: I | undefined): ShowAllChainsInfoStruct;
     fromPartial<I_1 extends {
         chainName?: string | undefined;
         chainID?: string | undefined;
         enabledApiInterfaces?: string[] | undefined;
+        apiCount?: string | number | Long | undefined;
     } & {
         chainName?: string | undefined;
         chainID?: string | undefined;
-        enabledApiInterfaces?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["enabledApiInterfaces"], keyof string[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof showAllChainsInfoStruct>]: never; }>(object: I_1): showAllChainsInfoStruct;
+        enabledApiInterfaces?: (string[] & string[] & { [K_3 in Exclude<keyof I_1["enabledApiInterfaces"], keyof string[]>]: never; }) | undefined;
+        apiCount?: string | number | (Long & {
+            high: number;
+            low: number;
+            unsigned: boolean;
+            add: (addend: string | number | Long) => Long;
+            and: (other: string | number | Long) => Long;
+            compare: (other: string | number | Long) => number;
+            comp: (other: string | number | Long) => number;
+            divide: (divisor: string | number | Long) => Long;
+            div: (divisor: string | number | Long) => Long;
+            equals: (other: string | number | Long) => boolean;
+            eq: (other: string | number | Long) => boolean;
+            getHighBits: () => number;
+            getHighBitsUnsigned: () => number;
+            getLowBits: () => number;
+            getLowBitsUnsigned: () => number;
+            getNumBitsAbs: () => number;
+            greaterThan: (other: string | number | Long) => boolean;
+            gt: (other: string | number | Long) => boolean;
+            greaterThanOrEqual: (other: string | number | Long) => boolean;
+            gte: (other: string | number | Long) => boolean;
+            ge: (other: string | number | Long) => boolean;
+            isEven: () => boolean;
+            isNegative: () => boolean;
+            isOdd: () => boolean;
+            isPositive: () => boolean;
+            isZero: () => boolean;
+            eqz: () => boolean;
+            lessThan: (other: string | number | Long) => boolean;
+            lt: (other: string | number | Long) => boolean;
+            lessThanOrEqual: (other: string | number | Long) => boolean;
+            lte: (other: string | number | Long) => boolean;
+            le: (other: string | number | Long) => boolean;
+            modulo: (other: string | number | Long) => Long;
+            mod: (other: string | number | Long) => Long;
+            rem: (other: string | number | Long) => Long;
+            multiply: (multiplier: string | number | Long) => Long;
+            mul: (multiplier: string | number | Long) => Long;
+            negate: () => Long;
+            neg: () => Long;
+            not: () => Long;
+            countLeadingZeros: () => number;
+            clz: () => number;
+            countTrailingZeros: () => number;
+            ctz: () => number;
+            notEquals: (other: string | number | Long) => boolean;
+            neq: (other: string | number | Long) => boolean;
+            ne: (other: string | number | Long) => boolean;
+            or: (other: string | number | Long) => Long;
+            shiftLeft: (numBits: number | Long) => Long;
+            shl: (numBits: number | Long) => Long;
+            shiftRight: (numBits: number | Long) => Long;
+            shr: (numBits: number | Long) => Long;
+            shiftRightUnsigned: (numBits: number | Long) => Long;
+            shru: (numBits: number | Long) => Long;
+            shr_u: (numBits: number | Long) => Long;
+            rotateLeft: (numBits: number | Long) => Long;
+            rotl: (numBits: number | Long) => Long;
+            rotateRight: (numBits: number | Long) => Long;
+            rotr: (numBits: number | Long) => Long;
+            subtract: (subtrahend: string | number | Long) => Long;
+            sub: (subtrahend: string | number | Long) => Long;
+            toInt: () => number;
+            toNumber: () => number;
+            toBytes: (le?: boolean | undefined) => number[];
+            toBytesLE: () => number[];
+            toBytesBE: () => number[];
+            toSigned: () => Long;
+            toString: (radix?: number | undefined) => string;
+            toUnsigned: () => Long;
+            xor: (other: string | number | Long) => Long;
+        } & { [K_4 in Exclude<keyof I_1["apiCount"], keyof Long>]: never; }) | undefined;
+    } & { [K_5 in Exclude<keyof I_1, keyof ShowAllChainsInfoStruct>]: never; }>(object: I_1): ShowAllChainsInfoStruct;
 };
 export declare const QueryShowChainInfoRequest: {
     encode(message: QueryShowChainInfoRequest, writer?: _m0.Writer): _m0.Writer;
@@ -4457,25 +4756,25 @@ export declare const QueryShowChainInfoRequest: {
         chainName?: string | undefined;
     } & { [K_1 in Exclude<keyof I_1, "chainName">]: never; }>(object: I_1): QueryShowChainInfoRequest;
 };
-export declare const apiList: {
-    encode(message: apiList, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): apiList;
-    fromJSON(object: any): apiList;
-    toJSON(message: apiList): unknown;
+export declare const ApiList: {
+    encode(message: ApiList, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): ApiList;
+    fromJSON(object: any): ApiList;
+    toJSON(message: ApiList): unknown;
     create<I extends {
         interface?: string | undefined;
         supportedApis?: string[] | undefined;
     } & {
         interface?: string | undefined;
         supportedApis?: (string[] & string[] & { [K in Exclude<keyof I["supportedApis"], keyof string[]>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof apiList>]: never; }>(base?: I | undefined): apiList;
+    } & { [K_1 in Exclude<keyof I, keyof ApiList>]: never; }>(base?: I | undefined): ApiList;
     fromPartial<I_1 extends {
         interface?: string | undefined;
         supportedApis?: string[] | undefined;
     } & {
         interface?: string | undefined;
         supportedApis?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["supportedApis"], keyof string[]>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof apiList>]: never; }>(object: I_1): apiList;
+    } & { [K_3 in Exclude<keyof I_1, keyof ApiList>]: never; }>(object: I_1): ApiList;
 };
 export declare const QueryShowChainInfoResponse: {
     encode(message: QueryShowChainInfoResponse, writer?: _m0.Writer): _m0.Writer;
@@ -4501,7 +4800,7 @@ export declare const QueryShowChainInfoResponse: {
         } & {
             interface?: string | undefined;
             supportedApis?: (string[] & string[] & { [K_1 in Exclude<keyof I["supportedApisInterfaceList"][number]["supportedApis"], keyof string[]>]: never; }) | undefined;
-        } & { [K_2 in Exclude<keyof I["supportedApisInterfaceList"][number], keyof apiList>]: never; })[] & { [K_3 in Exclude<keyof I["supportedApisInterfaceList"], keyof {
+        } & { [K_2 in Exclude<keyof I["supportedApisInterfaceList"][number], keyof ApiList>]: never; })[] & { [K_3 in Exclude<keyof I["supportedApisInterfaceList"], keyof {
             interface?: string | undefined;
             supportedApis?: string[] | undefined;
         }[]>]: never; }) | undefined;
@@ -4525,7 +4824,7 @@ export declare const QueryShowChainInfoResponse: {
         } & {
             interface?: string | undefined;
             supportedApis?: (string[] & string[] & { [K_6 in Exclude<keyof I_1["supportedApisInterfaceList"][number]["supportedApis"], keyof string[]>]: never; }) | undefined;
-        } & { [K_7 in Exclude<keyof I_1["supportedApisInterfaceList"][number], keyof apiList>]: never; })[] & { [K_8 in Exclude<keyof I_1["supportedApisInterfaceList"], keyof {
+        } & { [K_7 in Exclude<keyof I_1["supportedApisInterfaceList"][number], keyof ApiList>]: never; })[] & { [K_8 in Exclude<keyof I_1["supportedApisInterfaceList"], keyof {
             interface?: string | undefined;
             supportedApis?: string[] | undefined;
         }[]>]: never; }) | undefined;

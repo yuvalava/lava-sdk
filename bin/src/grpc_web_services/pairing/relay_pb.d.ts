@@ -79,78 +79,6 @@ export namespace RelaySession {
   }
 }
 
-export class RelayPrivateData extends jspb.Message {
-  getConnectionType(): string;
-  setConnectionType(value: string): void;
-
-  getApiUrl(): string;
-  setApiUrl(value: string): void;
-
-  getData(): Uint8Array | string;
-  getData_asU8(): Uint8Array;
-  getData_asB64(): string;
-  setData(value: Uint8Array | string): void;
-
-  getRequestBlock(): number;
-  setRequestBlock(value: number): void;
-
-  getApiInterface(): string;
-  setApiInterface(value: string): void;
-
-  getSalt(): Uint8Array | string;
-  getSalt_asU8(): Uint8Array;
-  getSalt_asB64(): string;
-  setSalt(value: Uint8Array | string): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): RelayPrivateData.AsObject;
-  static toObject(includeInstance: boolean, msg: RelayPrivateData): RelayPrivateData.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: RelayPrivateData, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): RelayPrivateData;
-  static deserializeBinaryFromReader(message: RelayPrivateData, reader: jspb.BinaryReader): RelayPrivateData;
-}
-
-export namespace RelayPrivateData {
-  export type AsObject = {
-    connectionType: string,
-    apiUrl: string,
-    data: Uint8Array | string,
-    requestBlock: number,
-    apiInterface: string,
-    salt: Uint8Array | string,
-  }
-}
-
-export class RelayRequest extends jspb.Message {
-  hasRelaySession(): boolean;
-  clearRelaySession(): void;
-  getRelaySession(): RelaySession | undefined;
-  setRelaySession(value?: RelaySession): void;
-
-  hasRelayData(): boolean;
-  clearRelayData(): void;
-  getRelayData(): RelayPrivateData | undefined;
-  setRelayData(value?: RelayPrivateData): void;
-
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): RelayRequest.AsObject;
-  static toObject(includeInstance: boolean, msg: RelayRequest): RelayRequest.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: RelayRequest, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): RelayRequest;
-  static deserializeBinaryFromReader(message: RelayRequest, reader: jspb.BinaryReader): RelayRequest;
-}
-
-export namespace RelayRequest {
-  export type AsObject = {
-    relaySession?: RelaySession.AsObject,
-    relayData?: RelayPrivateData.AsObject,
-  }
-}
-
 export class Badge extends jspb.Message {
   getCuAllocation(): number;
   setCuAllocation(value: number): void;
@@ -189,6 +117,108 @@ export namespace Badge {
   }
 }
 
+export class RelayPrivateData extends jspb.Message {
+  getConnectionType(): string;
+  setConnectionType(value: string): void;
+
+  getApiUrl(): string;
+  setApiUrl(value: string): void;
+
+  getData(): Uint8Array | string;
+  getData_asU8(): Uint8Array;
+  getData_asB64(): string;
+  setData(value: Uint8Array | string): void;
+
+  getRequestBlock(): number;
+  setRequestBlock(value: number): void;
+
+  getApiInterface(): string;
+  setApiInterface(value: string): void;
+
+  getSalt(): Uint8Array | string;
+  getSalt_asU8(): Uint8Array;
+  getSalt_asB64(): string;
+  setSalt(value: Uint8Array | string): void;
+
+  clearMetadataList(): void;
+  getMetadataList(): Array<Metadata>;
+  setMetadataList(value: Array<Metadata>): void;
+  addMetadata(value?: Metadata, index?: number): Metadata;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RelayPrivateData.AsObject;
+  static toObject(includeInstance: boolean, msg: RelayPrivateData): RelayPrivateData.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: RelayPrivateData, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RelayPrivateData;
+  static deserializeBinaryFromReader(message: RelayPrivateData, reader: jspb.BinaryReader): RelayPrivateData;
+}
+
+export namespace RelayPrivateData {
+  export type AsObject = {
+    connectionType: string,
+    apiUrl: string,
+    data: Uint8Array | string,
+    requestBlock: number,
+    apiInterface: string,
+    salt: Uint8Array | string,
+    metadataList: Array<Metadata.AsObject>,
+  }
+}
+
+export class Metadata extends jspb.Message {
+  getName(): string;
+  setName(value: string): void;
+
+  getValue(): string;
+  setValue(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Metadata.AsObject;
+  static toObject(includeInstance: boolean, msg: Metadata): Metadata.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: Metadata, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Metadata;
+  static deserializeBinaryFromReader(message: Metadata, reader: jspb.BinaryReader): Metadata;
+}
+
+export namespace Metadata {
+  export type AsObject = {
+    name: string,
+    value: string,
+  }
+}
+
+export class RelayRequest extends jspb.Message {
+  hasRelaySession(): boolean;
+  clearRelaySession(): void;
+  getRelaySession(): RelaySession | undefined;
+  setRelaySession(value?: RelaySession): void;
+
+  hasRelayData(): boolean;
+  clearRelayData(): void;
+  getRelayData(): RelayPrivateData | undefined;
+  setRelayData(value?: RelayPrivateData): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RelayRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: RelayRequest): RelayRequest.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: RelayRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RelayRequest;
+  static deserializeBinaryFromReader(message: RelayRequest, reader: jspb.BinaryReader): RelayRequest;
+}
+
+export namespace RelayRequest {
+  export type AsObject = {
+    relaySession?: RelaySession.AsObject,
+    relayData?: RelayPrivateData.AsObject,
+  }
+}
+
 export class RelayReply extends jspb.Message {
   getData(): Uint8Array | string;
   getData_asU8(): Uint8Array;
@@ -216,6 +246,11 @@ export class RelayReply extends jspb.Message {
   getSigBlocks_asB64(): string;
   setSigBlocks(value: Uint8Array | string): void;
 
+  clearMetadataList(): void;
+  getMetadataList(): Array<Metadata>;
+  setMetadataList(value: Array<Metadata>): void;
+  addMetadata(value?: Metadata, index?: number): Metadata;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): RelayReply.AsObject;
   static toObject(includeInstance: boolean, msg: RelayReply): RelayReply.AsObject;
@@ -234,6 +269,7 @@ export namespace RelayReply {
     latestBlock: number,
     finalizedBlocksHashes: Uint8Array | string,
     sigBlocks: Uint8Array | string,
+    metadataList: Array<Metadata.AsObject>,
   }
 }
 

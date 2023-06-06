@@ -349,11 +349,11 @@ class LavaProviders {
         });
     }
     extractBlockNumberFromError(error) {
-        let currentBlockHeightRegex = /current epoch: (\d+)/;
+        let currentBlockHeightRegex = /current epoch Value:(\d+)/;
         let match = error.message.match(currentBlockHeightRegex);
         // Retry with new error
         if (match == null) {
-            currentBlockHeightRegex = /current lava block Value:(\d+)/;
+            currentBlockHeightRegex = /current epoch: (\d+)/; // older epoch parsing
             match = error.message.match(currentBlockHeightRegex);
             return match ? match[1] : null;
         }

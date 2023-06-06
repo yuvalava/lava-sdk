@@ -1,4 +1,4 @@
-import { RelayPrivateData } from "../pairing/relay_pb";
+import { RelayPrivateData } from "../grpc_web_services/pairing/relay_pb";
 import Relayer from "./relayer";
 
 describe("Test relay request", () => {
@@ -48,7 +48,7 @@ describe("Test relay request", () => {
         ]),
       },
     ];
-    const relayer = new Relayer("", "", "");
+    const relayer = new Relayer("", "", "", false);
 
     for (const testCase of testTable) {
       // Test case logic goes here

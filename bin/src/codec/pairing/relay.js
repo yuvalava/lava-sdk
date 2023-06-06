@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RelayerClientImpl = exports.QualityOfServiceReport = exports.RelayReply = exports.Badge = exports.RelayRequest = exports.RelayPrivateData = exports.RelaySession = exports.protobufPackage = void 0;
+exports.RelayerClientImpl = exports.QualityOfServiceReport = exports.RelayReply = exports.RelayRequest = exports.Metadata = exports.RelayPrivateData = exports.Badge = exports.RelaySession = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
@@ -218,196 +218,6 @@ exports.RelaySession = {
         return message;
     },
 };
-function createBaseRelayPrivateData() {
-    return {
-        connectionType: "",
-        apiUrl: "",
-        data: new Uint8Array(),
-        requestBlock: long_1.default.ZERO,
-        apiInterface: "",
-        salt: new Uint8Array(),
-    };
-}
-exports.RelayPrivateData = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.connectionType !== "") {
-            writer.uint32(10).string(message.connectionType);
-        }
-        if (message.apiUrl !== "") {
-            writer.uint32(18).string(message.apiUrl);
-        }
-        if (message.data.length !== 0) {
-            writer.uint32(26).bytes(message.data);
-        }
-        if (!message.requestBlock.isZero()) {
-            writer.uint32(32).int64(message.requestBlock);
-        }
-        if (message.apiInterface !== "") {
-            writer.uint32(42).string(message.apiInterface);
-        }
-        if (message.salt.length !== 0) {
-            writer.uint32(50).bytes(message.salt);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseRelayPrivateData();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    if (tag != 10) {
-                        break;
-                    }
-                    message.connectionType = reader.string();
-                    continue;
-                case 2:
-                    if (tag != 18) {
-                        break;
-                    }
-                    message.apiUrl = reader.string();
-                    continue;
-                case 3:
-                    if (tag != 26) {
-                        break;
-                    }
-                    message.data = reader.bytes();
-                    continue;
-                case 4:
-                    if (tag != 32) {
-                        break;
-                    }
-                    message.requestBlock = reader.int64();
-                    continue;
-                case 5:
-                    if (tag != 42) {
-                        break;
-                    }
-                    message.apiInterface = reader.string();
-                    continue;
-                case 6:
-                    if (tag != 50) {
-                        break;
-                    }
-                    message.salt = reader.bytes();
-                    continue;
-            }
-            if ((tag & 7) == 4 || tag == 0) {
-                break;
-            }
-            reader.skipType(tag & 7);
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            connectionType: isSet(object.connectionType) ? String(object.connectionType) : "",
-            apiUrl: isSet(object.apiUrl) ? String(object.apiUrl) : "",
-            data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-            requestBlock: isSet(object.requestBlock) ? long_1.default.fromValue(object.requestBlock) : long_1.default.ZERO,
-            apiInterface: isSet(object.apiInterface) ? String(object.apiInterface) : "",
-            salt: isSet(object.salt) ? bytesFromBase64(object.salt) : new Uint8Array(),
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.connectionType !== undefined && (obj.connectionType = message.connectionType);
-        message.apiUrl !== undefined && (obj.apiUrl = message.apiUrl);
-        message.data !== undefined &&
-            (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
-        message.requestBlock !== undefined && (obj.requestBlock = (message.requestBlock || long_1.default.ZERO).toString());
-        message.apiInterface !== undefined && (obj.apiInterface = message.apiInterface);
-        message.salt !== undefined &&
-            (obj.salt = base64FromBytes(message.salt !== undefined ? message.salt : new Uint8Array()));
-        return obj;
-    },
-    create(base) {
-        return exports.RelayPrivateData.fromPartial(base !== null && base !== void 0 ? base : {});
-    },
-    fromPartial(object) {
-        var _a, _b, _c, _d, _e;
-        const message = createBaseRelayPrivateData();
-        message.connectionType = (_a = object.connectionType) !== null && _a !== void 0 ? _a : "";
-        message.apiUrl = (_b = object.apiUrl) !== null && _b !== void 0 ? _b : "";
-        message.data = (_c = object.data) !== null && _c !== void 0 ? _c : new Uint8Array();
-        message.requestBlock = (object.requestBlock !== undefined && object.requestBlock !== null)
-            ? long_1.default.fromValue(object.requestBlock)
-            : long_1.default.ZERO;
-        message.apiInterface = (_d = object.apiInterface) !== null && _d !== void 0 ? _d : "";
-        message.salt = (_e = object.salt) !== null && _e !== void 0 ? _e : new Uint8Array();
-        return message;
-    },
-};
-function createBaseRelayRequest() {
-    return { relaySession: undefined, relayData: undefined };
-}
-exports.RelayRequest = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.relaySession !== undefined) {
-            exports.RelaySession.encode(message.relaySession, writer.uint32(10).fork()).ldelim();
-        }
-        if (message.relayData !== undefined) {
-            exports.RelayPrivateData.encode(message.relayData, writer.uint32(18).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseRelayRequest();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    if (tag != 10) {
-                        break;
-                    }
-                    message.relaySession = exports.RelaySession.decode(reader, reader.uint32());
-                    continue;
-                case 2:
-                    if (tag != 18) {
-                        break;
-                    }
-                    message.relayData = exports.RelayPrivateData.decode(reader, reader.uint32());
-                    continue;
-            }
-            if ((tag & 7) == 4 || tag == 0) {
-                break;
-            }
-            reader.skipType(tag & 7);
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            relaySession: isSet(object.relaySession) ? exports.RelaySession.fromJSON(object.relaySession) : undefined,
-            relayData: isSet(object.relayData) ? exports.RelayPrivateData.fromJSON(object.relayData) : undefined,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.relaySession !== undefined &&
-            (obj.relaySession = message.relaySession ? exports.RelaySession.toJSON(message.relaySession) : undefined);
-        message.relayData !== undefined &&
-            (obj.relayData = message.relayData ? exports.RelayPrivateData.toJSON(message.relayData) : undefined);
-        return obj;
-    },
-    create(base) {
-        return exports.RelayRequest.fromPartial(base !== null && base !== void 0 ? base : {});
-    },
-    fromPartial(object) {
-        const message = createBaseRelayRequest();
-        message.relaySession = (object.relaySession !== undefined && object.relaySession !== null)
-            ? exports.RelaySession.fromPartial(object.relaySession)
-            : undefined;
-        message.relayData = (object.relayData !== undefined && object.relayData !== null)
-            ? exports.RelayPrivateData.fromPartial(object.relayData)
-            : undefined;
-        return message;
-    },
-};
 function createBaseBadge() {
     return { cuAllocation: long_1.default.UZERO, epoch: long_1.default.UZERO, address: "", lavaChainId: "", projectSig: new Uint8Array() };
 }
@@ -510,6 +320,277 @@ exports.Badge = {
         return message;
     },
 };
+function createBaseRelayPrivateData() {
+    return {
+        connectionType: "",
+        apiUrl: "",
+        data: new Uint8Array(),
+        requestBlock: long_1.default.ZERO,
+        apiInterface: "",
+        salt: new Uint8Array(),
+        metadata: [],
+    };
+}
+exports.RelayPrivateData = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.connectionType !== "") {
+            writer.uint32(10).string(message.connectionType);
+        }
+        if (message.apiUrl !== "") {
+            writer.uint32(18).string(message.apiUrl);
+        }
+        if (message.data.length !== 0) {
+            writer.uint32(26).bytes(message.data);
+        }
+        if (!message.requestBlock.isZero()) {
+            writer.uint32(32).int64(message.requestBlock);
+        }
+        if (message.apiInterface !== "") {
+            writer.uint32(42).string(message.apiInterface);
+        }
+        if (message.salt.length !== 0) {
+            writer.uint32(50).bytes(message.salt);
+        }
+        for (const v of message.metadata) {
+            exports.Metadata.encode(v, writer.uint32(58).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseRelayPrivateData();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag != 10) {
+                        break;
+                    }
+                    message.connectionType = reader.string();
+                    continue;
+                case 2:
+                    if (tag != 18) {
+                        break;
+                    }
+                    message.apiUrl = reader.string();
+                    continue;
+                case 3:
+                    if (tag != 26) {
+                        break;
+                    }
+                    message.data = reader.bytes();
+                    continue;
+                case 4:
+                    if (tag != 32) {
+                        break;
+                    }
+                    message.requestBlock = reader.int64();
+                    continue;
+                case 5:
+                    if (tag != 42) {
+                        break;
+                    }
+                    message.apiInterface = reader.string();
+                    continue;
+                case 6:
+                    if (tag != 50) {
+                        break;
+                    }
+                    message.salt = reader.bytes();
+                    continue;
+                case 7:
+                    if (tag != 58) {
+                        break;
+                    }
+                    message.metadata.push(exports.Metadata.decode(reader, reader.uint32()));
+                    continue;
+            }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            connectionType: isSet(object.connectionType) ? String(object.connectionType) : "",
+            apiUrl: isSet(object.apiUrl) ? String(object.apiUrl) : "",
+            data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+            requestBlock: isSet(object.requestBlock) ? long_1.default.fromValue(object.requestBlock) : long_1.default.ZERO,
+            apiInterface: isSet(object.apiInterface) ? String(object.apiInterface) : "",
+            salt: isSet(object.salt) ? bytesFromBase64(object.salt) : new Uint8Array(),
+            metadata: Array.isArray(object === null || object === void 0 ? void 0 : object.metadata) ? object.metadata.map((e) => exports.Metadata.fromJSON(e)) : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.connectionType !== undefined && (obj.connectionType = message.connectionType);
+        message.apiUrl !== undefined && (obj.apiUrl = message.apiUrl);
+        message.data !== undefined &&
+            (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
+        message.requestBlock !== undefined && (obj.requestBlock = (message.requestBlock || long_1.default.ZERO).toString());
+        message.apiInterface !== undefined && (obj.apiInterface = message.apiInterface);
+        message.salt !== undefined &&
+            (obj.salt = base64FromBytes(message.salt !== undefined ? message.salt : new Uint8Array()));
+        if (message.metadata) {
+            obj.metadata = message.metadata.map((e) => e ? exports.Metadata.toJSON(e) : undefined);
+        }
+        else {
+            obj.metadata = [];
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.RelayPrivateData.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d, _e, _f;
+        const message = createBaseRelayPrivateData();
+        message.connectionType = (_a = object.connectionType) !== null && _a !== void 0 ? _a : "";
+        message.apiUrl = (_b = object.apiUrl) !== null && _b !== void 0 ? _b : "";
+        message.data = (_c = object.data) !== null && _c !== void 0 ? _c : new Uint8Array();
+        message.requestBlock = (object.requestBlock !== undefined && object.requestBlock !== null)
+            ? long_1.default.fromValue(object.requestBlock)
+            : long_1.default.ZERO;
+        message.apiInterface = (_d = object.apiInterface) !== null && _d !== void 0 ? _d : "";
+        message.salt = (_e = object.salt) !== null && _e !== void 0 ? _e : new Uint8Array();
+        message.metadata = ((_f = object.metadata) === null || _f === void 0 ? void 0 : _f.map((e) => exports.Metadata.fromPartial(e))) || [];
+        return message;
+    },
+};
+function createBaseMetadata() {
+    return { name: "", value: "" };
+}
+exports.Metadata = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.name !== "") {
+            writer.uint32(10).string(message.name);
+        }
+        if (message.value !== "") {
+            writer.uint32(18).string(message.value);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseMetadata();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag != 10) {
+                        break;
+                    }
+                    message.name = reader.string();
+                    continue;
+                case 2:
+                    if (tag != 18) {
+                        break;
+                    }
+                    message.value = reader.string();
+                    continue;
+            }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            name: isSet(object.name) ? String(object.name) : "",
+            value: isSet(object.value) ? String(object.value) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.name !== undefined && (obj.name = message.name);
+        message.value !== undefined && (obj.value = message.value);
+        return obj;
+    },
+    create(base) {
+        return exports.Metadata.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseMetadata();
+        message.name = (_a = object.name) !== null && _a !== void 0 ? _a : "";
+        message.value = (_b = object.value) !== null && _b !== void 0 ? _b : "";
+        return message;
+    },
+};
+function createBaseRelayRequest() {
+    return { relaySession: undefined, relayData: undefined };
+}
+exports.RelayRequest = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.relaySession !== undefined) {
+            exports.RelaySession.encode(message.relaySession, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.relayData !== undefined) {
+            exports.RelayPrivateData.encode(message.relayData, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseRelayRequest();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag != 10) {
+                        break;
+                    }
+                    message.relaySession = exports.RelaySession.decode(reader, reader.uint32());
+                    continue;
+                case 2:
+                    if (tag != 18) {
+                        break;
+                    }
+                    message.relayData = exports.RelayPrivateData.decode(reader, reader.uint32());
+                    continue;
+            }
+            if ((tag & 7) == 4 || tag == 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            relaySession: isSet(object.relaySession) ? exports.RelaySession.fromJSON(object.relaySession) : undefined,
+            relayData: isSet(object.relayData) ? exports.RelayPrivateData.fromJSON(object.relayData) : undefined,
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.relaySession !== undefined &&
+            (obj.relaySession = message.relaySession ? exports.RelaySession.toJSON(message.relaySession) : undefined);
+        message.relayData !== undefined &&
+            (obj.relayData = message.relayData ? exports.RelayPrivateData.toJSON(message.relayData) : undefined);
+        return obj;
+    },
+    create(base) {
+        return exports.RelayRequest.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        const message = createBaseRelayRequest();
+        message.relaySession = (object.relaySession !== undefined && object.relaySession !== null)
+            ? exports.RelaySession.fromPartial(object.relaySession)
+            : undefined;
+        message.relayData = (object.relayData !== undefined && object.relayData !== null)
+            ? exports.RelayPrivateData.fromPartial(object.relayData)
+            : undefined;
+        return message;
+    },
+};
 function createBaseRelayReply() {
     return {
         data: new Uint8Array(),
@@ -518,6 +599,7 @@ function createBaseRelayReply() {
         latestBlock: long_1.default.ZERO,
         finalizedBlocksHashes: new Uint8Array(),
         sigBlocks: new Uint8Array(),
+        metadata: [],
     };
 }
 exports.RelayReply = {
@@ -539,6 +621,9 @@ exports.RelayReply = {
         }
         if (message.sigBlocks.length !== 0) {
             writer.uint32(50).bytes(message.sigBlocks);
+        }
+        for (const v of message.metadata) {
+            exports.Metadata.encode(v, writer.uint32(58).fork()).ldelim();
         }
         return writer;
     },
@@ -585,6 +670,12 @@ exports.RelayReply = {
                     }
                     message.sigBlocks = reader.bytes();
                     continue;
+                case 7:
+                    if (tag != 58) {
+                        break;
+                    }
+                    message.metadata.push(exports.Metadata.decode(reader, reader.uint32()));
+                    continue;
             }
             if ((tag & 7) == 4 || tag == 0) {
                 break;
@@ -603,6 +694,7 @@ exports.RelayReply = {
                 ? bytesFromBase64(object.finalizedBlocksHashes)
                 : new Uint8Array(),
             sigBlocks: isSet(object.sigBlocks) ? bytesFromBase64(object.sigBlocks) : new Uint8Array(),
+            metadata: Array.isArray(object === null || object === void 0 ? void 0 : object.metadata) ? object.metadata.map((e) => exports.Metadata.fromJSON(e)) : [],
         };
     },
     toJSON(message) {
@@ -617,13 +709,19 @@ exports.RelayReply = {
             (obj.finalizedBlocksHashes = base64FromBytes(message.finalizedBlocksHashes !== undefined ? message.finalizedBlocksHashes : new Uint8Array()));
         message.sigBlocks !== undefined &&
             (obj.sigBlocks = base64FromBytes(message.sigBlocks !== undefined ? message.sigBlocks : new Uint8Array()));
+        if (message.metadata) {
+            obj.metadata = message.metadata.map((e) => e ? exports.Metadata.toJSON(e) : undefined);
+        }
+        else {
+            obj.metadata = [];
+        }
         return obj;
     },
     create(base) {
         return exports.RelayReply.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e, _f;
         const message = createBaseRelayReply();
         message.data = (_a = object.data) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.sig = (_b = object.sig) !== null && _b !== void 0 ? _b : new Uint8Array();
@@ -633,6 +731,7 @@ exports.RelayReply = {
             : long_1.default.ZERO;
         message.finalizedBlocksHashes = (_d = object.finalizedBlocksHashes) !== null && _d !== void 0 ? _d : new Uint8Array();
         message.sigBlocks = (_e = object.sigBlocks) !== null && _e !== void 0 ? _e : new Uint8Array();
+        message.metadata = ((_f = object.metadata) === null || _f === void 0 ? void 0 : _f.map((e) => exports.Metadata.fromPartial(e))) || [];
         return message;
     },
 };
