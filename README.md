@@ -142,7 +142,7 @@ If you are using `create-react-app` version 5 or higher, or `Angular` version 11
 ```bash
 yarn add --dev react-app-rewired crypto-browserify stream-browserify browserify-zlib assert stream-http https-browserify os-browserify url buffer process net tls bufferutil utf-8-validate path-browserify
 ```
-2. Create `config-overrides.js` in the root of your project folder
+2. Create `config-overrides.js` in the root of your project folder, and append the following lines:
 ```javascript
 const webpack = require("webpack");
 
@@ -191,7 +191,7 @@ module.exports = function override(config) {
     "eject": "react-scripts eject"
 },
 ```
-#### <b> Angular solution </b>
+#### <b> Angular solution (TBD)</b>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
