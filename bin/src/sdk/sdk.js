@@ -52,6 +52,7 @@ class LavaSDK {
         // If lava pairing config not defined set as empty
         pairingListConfig = pairingListConfig || "";
         // Initialize local attributes
+        this.secure = options.secure ? options.secure : false;
         this.chainID = chainID;
         this.rpcInterface = rpcInterface ? rpcInterface : "";
         this.privKey = privateKey;
@@ -76,7 +77,7 @@ class LavaSDK {
             // Get account from wallet
             this.account = yield wallet.getConsumerAccount();
             // Init relayer for lava providers
-            const lavaRelayer = new relayer_1.default(default_1.LAVA_CHAIN_ID, this.privKey, this.lavaChainId);
+            const lavaRelayer = new relayer_1.default(default_1.LAVA_CHAIN_ID, this.privKey, this.lavaChainId, this.secure);
             // Create new instance of lava providers
             const lavaProviders = yield new providers_1.LavaProviders(this.account.address, this.network, lavaRelayer, this.geolocation);
             // Init lava providers
@@ -106,7 +107,7 @@ class LavaSDK {
             // Get pairing list for current epoch
             this.activeSessionManager = yield this.lavaProviders.getSession(this.chainID, this.rpcInterface);
             // Create relayer for querying network
-            this.relayer = new relayer_1.default(this.chainID, this.privKey, this.lavaChainId);
+            this.relayer = new relayer_1.default(this.chainID, this.privKey, this.lavaChainId, this.secure);
         });
     }
     handleRpcRelay(options) {

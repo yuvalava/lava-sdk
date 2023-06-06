@@ -38,20 +38,21 @@ export interface QueryShowAllChainsRequest {
 }
 
 export interface QueryShowAllChainsResponse {
-  chainInfoList: showAllChainsInfoStruct[];
+  chainInfoList: ShowAllChainsInfoStruct[];
 }
 
-export interface showAllChainsInfoStruct {
+export interface ShowAllChainsInfoStruct {
   chainName: string;
   chainID: string;
   enabledApiInterfaces: string[];
+  apiCount: Long;
 }
 
 export interface QueryShowChainInfoRequest {
   chainName: string;
 }
 
-export interface apiList {
+export interface ApiList {
   interface: string;
   supportedApis: string[];
 }
@@ -59,7 +60,7 @@ export interface apiList {
 export interface QueryShowChainInfoResponse {
   chainID: string;
   interfaces: string[];
-  supportedApisInterfaceList: apiList[];
+  supportedApisInterfaceList: ApiList[];
 }
 
 function createBaseQueryParamsRequest(): QueryParamsRequest {
@@ -464,7 +465,7 @@ function createBaseQueryShowAllChainsResponse(): QueryShowAllChainsResponse {
 export const QueryShowAllChainsResponse = {
   encode(message: QueryShowAllChainsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.chainInfoList) {
-      showAllChainsInfoStruct.encode(v!, writer.uint32(18).fork()).ldelim();
+      ShowAllChainsInfoStruct.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -481,7 +482,7 @@ export const QueryShowAllChainsResponse = {
             break;
           }
 
-          message.chainInfoList.push(showAllChainsInfoStruct.decode(reader, reader.uint32()));
+          message.chainInfoList.push(ShowAllChainsInfoStruct.decode(reader, reader.uint32()));
           continue;
       }
       if ((tag & 7) == 4 || tag == 0) {
@@ -495,7 +496,7 @@ export const QueryShowAllChainsResponse = {
   fromJSON(object: any): QueryShowAllChainsResponse {
     return {
       chainInfoList: Array.isArray(object?.chainInfoList)
-        ? object.chainInfoList.map((e: any) => showAllChainsInfoStruct.fromJSON(e))
+        ? object.chainInfoList.map((e: any) => ShowAllChainsInfoStruct.fromJSON(e))
         : [],
     };
   },
@@ -503,7 +504,7 @@ export const QueryShowAllChainsResponse = {
   toJSON(message: QueryShowAllChainsResponse): unknown {
     const obj: any = {};
     if (message.chainInfoList) {
-      obj.chainInfoList = message.chainInfoList.map((e) => e ? showAllChainsInfoStruct.toJSON(e) : undefined);
+      obj.chainInfoList = message.chainInfoList.map((e) => e ? ShowAllChainsInfoStruct.toJSON(e) : undefined);
     } else {
       obj.chainInfoList = [];
     }
@@ -516,17 +517,17 @@ export const QueryShowAllChainsResponse = {
 
   fromPartial<I extends Exact<DeepPartial<QueryShowAllChainsResponse>, I>>(object: I): QueryShowAllChainsResponse {
     const message = createBaseQueryShowAllChainsResponse();
-    message.chainInfoList = object.chainInfoList?.map((e) => showAllChainsInfoStruct.fromPartial(e)) || [];
+    message.chainInfoList = object.chainInfoList?.map((e) => ShowAllChainsInfoStruct.fromPartial(e)) || [];
     return message;
   },
 };
 
-function createBaseshowAllChainsInfoStruct(): showAllChainsInfoStruct {
-  return { chainName: "", chainID: "", enabledApiInterfaces: [] };
+function createBaseShowAllChainsInfoStruct(): ShowAllChainsInfoStruct {
+  return { chainName: "", chainID: "", enabledApiInterfaces: [], apiCount: Long.UZERO };
 }
 
-export const showAllChainsInfoStruct = {
-  encode(message: showAllChainsInfoStruct, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const ShowAllChainsInfoStruct = {
+  encode(message: ShowAllChainsInfoStruct, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chainName !== "") {
       writer.uint32(10).string(message.chainName);
     }
@@ -536,13 +537,16 @@ export const showAllChainsInfoStruct = {
     for (const v of message.enabledApiInterfaces) {
       writer.uint32(26).string(v!);
     }
+    if (!message.apiCount.isZero()) {
+      writer.uint32(32).uint64(message.apiCount);
+    }
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): showAllChainsInfoStruct {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ShowAllChainsInfoStruct {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseshowAllChainsInfoStruct();
+    const message = createBaseShowAllChainsInfoStruct();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -567,6 +571,13 @@ export const showAllChainsInfoStruct = {
 
           message.enabledApiInterfaces.push(reader.string());
           continue;
+        case 4:
+          if (tag != 32) {
+            break;
+          }
+
+          message.apiCount = reader.uint64() as Long;
+          continue;
       }
       if ((tag & 7) == 4 || tag == 0) {
         break;
@@ -576,17 +587,18 @@ export const showAllChainsInfoStruct = {
     return message;
   },
 
-  fromJSON(object: any): showAllChainsInfoStruct {
+  fromJSON(object: any): ShowAllChainsInfoStruct {
     return {
       chainName: isSet(object.chainName) ? String(object.chainName) : "",
       chainID: isSet(object.chainID) ? String(object.chainID) : "",
       enabledApiInterfaces: Array.isArray(object?.enabledApiInterfaces)
         ? object.enabledApiInterfaces.map((e: any) => String(e))
         : [],
+      apiCount: isSet(object.apiCount) ? Long.fromValue(object.apiCount) : Long.UZERO,
     };
   },
 
-  toJSON(message: showAllChainsInfoStruct): unknown {
+  toJSON(message: ShowAllChainsInfoStruct): unknown {
     const obj: any = {};
     message.chainName !== undefined && (obj.chainName = message.chainName);
     message.chainID !== undefined && (obj.chainID = message.chainID);
@@ -595,18 +607,22 @@ export const showAllChainsInfoStruct = {
     } else {
       obj.enabledApiInterfaces = [];
     }
+    message.apiCount !== undefined && (obj.apiCount = (message.apiCount || Long.UZERO).toString());
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<showAllChainsInfoStruct>, I>>(base?: I): showAllChainsInfoStruct {
-    return showAllChainsInfoStruct.fromPartial(base ?? {});
+  create<I extends Exact<DeepPartial<ShowAllChainsInfoStruct>, I>>(base?: I): ShowAllChainsInfoStruct {
+    return ShowAllChainsInfoStruct.fromPartial(base ?? {});
   },
 
-  fromPartial<I extends Exact<DeepPartial<showAllChainsInfoStruct>, I>>(object: I): showAllChainsInfoStruct {
-    const message = createBaseshowAllChainsInfoStruct();
+  fromPartial<I extends Exact<DeepPartial<ShowAllChainsInfoStruct>, I>>(object: I): ShowAllChainsInfoStruct {
+    const message = createBaseShowAllChainsInfoStruct();
     message.chainName = object.chainName ?? "";
     message.chainID = object.chainID ?? "";
     message.enabledApiInterfaces = object.enabledApiInterfaces?.map((e) => e) || [];
+    message.apiCount = (object.apiCount !== undefined && object.apiCount !== null)
+      ? Long.fromValue(object.apiCount)
+      : Long.UZERO;
     return message;
   },
 };
@@ -667,12 +683,12 @@ export const QueryShowChainInfoRequest = {
   },
 };
 
-function createBaseapiList(): apiList {
+function createBaseApiList(): ApiList {
   return { interface: "", supportedApis: [] };
 }
 
-export const apiList = {
-  encode(message: apiList, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const ApiList = {
+  encode(message: ApiList, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.interface !== "") {
       writer.uint32(34).string(message.interface);
     }
@@ -682,10 +698,10 @@ export const apiList = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): apiList {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ApiList {
     const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseapiList();
+    const message = createBaseApiList();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -712,14 +728,14 @@ export const apiList = {
     return message;
   },
 
-  fromJSON(object: any): apiList {
+  fromJSON(object: any): ApiList {
     return {
       interface: isSet(object.interface) ? String(object.interface) : "",
       supportedApis: Array.isArray(object?.supportedApis) ? object.supportedApis.map((e: any) => String(e)) : [],
     };
   },
 
-  toJSON(message: apiList): unknown {
+  toJSON(message: ApiList): unknown {
     const obj: any = {};
     message.interface !== undefined && (obj.interface = message.interface);
     if (message.supportedApis) {
@@ -730,12 +746,12 @@ export const apiList = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<apiList>, I>>(base?: I): apiList {
-    return apiList.fromPartial(base ?? {});
+  create<I extends Exact<DeepPartial<ApiList>, I>>(base?: I): ApiList {
+    return ApiList.fromPartial(base ?? {});
   },
 
-  fromPartial<I extends Exact<DeepPartial<apiList>, I>>(object: I): apiList {
-    const message = createBaseapiList();
+  fromPartial<I extends Exact<DeepPartial<ApiList>, I>>(object: I): ApiList {
+    const message = createBaseApiList();
     message.interface = object.interface ?? "";
     message.supportedApis = object.supportedApis?.map((e) => e) || [];
     return message;
@@ -755,7 +771,7 @@ export const QueryShowChainInfoResponse = {
       writer.uint32(18).string(v!);
     }
     for (const v of message.supportedApisInterfaceList) {
-      apiList.encode(v!, writer.uint32(26).fork()).ldelim();
+      ApiList.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -786,7 +802,7 @@ export const QueryShowChainInfoResponse = {
             break;
           }
 
-          message.supportedApisInterfaceList.push(apiList.decode(reader, reader.uint32()));
+          message.supportedApisInterfaceList.push(ApiList.decode(reader, reader.uint32()));
           continue;
       }
       if ((tag & 7) == 4 || tag == 0) {
@@ -802,7 +818,7 @@ export const QueryShowChainInfoResponse = {
       chainID: isSet(object.chainID) ? String(object.chainID) : "",
       interfaces: Array.isArray(object?.interfaces) ? object.interfaces.map((e: any) => String(e)) : [],
       supportedApisInterfaceList: Array.isArray(object?.supportedApisInterfaceList)
-        ? object.supportedApisInterfaceList.map((e: any) => apiList.fromJSON(e))
+        ? object.supportedApisInterfaceList.map((e: any) => ApiList.fromJSON(e))
         : [],
     };
   },
@@ -816,7 +832,7 @@ export const QueryShowChainInfoResponse = {
       obj.interfaces = [];
     }
     if (message.supportedApisInterfaceList) {
-      obj.supportedApisInterfaceList = message.supportedApisInterfaceList.map((e) => e ? apiList.toJSON(e) : undefined);
+      obj.supportedApisInterfaceList = message.supportedApisInterfaceList.map((e) => e ? ApiList.toJSON(e) : undefined);
     } else {
       obj.supportedApisInterfaceList = [];
     }
@@ -831,7 +847,7 @@ export const QueryShowChainInfoResponse = {
     const message = createBaseQueryShowChainInfoResponse();
     message.chainID = object.chainID ?? "";
     message.interfaces = object.interfaces?.map((e) => e) || [];
-    message.supportedApisInterfaceList = object.supportedApisInterfaceList?.map((e) => apiList.fromPartial(e)) || [];
+    message.supportedApisInterfaceList = object.supportedApisInterfaceList?.map((e) => ApiList.fromPartial(e)) || [];
     return message;
   },
 };

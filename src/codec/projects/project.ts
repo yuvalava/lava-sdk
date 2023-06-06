@@ -25,45 +25,43 @@ export interface Project {
 export interface ProjectKey {
   /** the address of the project key */
   key: string;
-  /** the key type, determines the privilages of the key */
-  types: ProjectKey_keyType[];
+  kinds: number;
 }
 
-/** bitmap, must only be power of 2 */
-export enum ProjectKey_keyType {
+export enum ProjectKey_Type {
   NONE = 0,
   ADMIN = 1,
   DEVELOPER = 2,
   UNRECOGNIZED = -1,
 }
 
-export function projectKey_keyTypeFromJSON(object: any): ProjectKey_keyType {
+export function projectKey_TypeFromJSON(object: any): ProjectKey_Type {
   switch (object) {
     case 0:
     case "NONE":
-      return ProjectKey_keyType.NONE;
+      return ProjectKey_Type.NONE;
     case 1:
     case "ADMIN":
-      return ProjectKey_keyType.ADMIN;
+      return ProjectKey_Type.ADMIN;
     case 2:
     case "DEVELOPER":
-      return ProjectKey_keyType.DEVELOPER;
+      return ProjectKey_Type.DEVELOPER;
     case -1:
     case "UNRECOGNIZED":
     default:
-      return ProjectKey_keyType.UNRECOGNIZED;
+      return ProjectKey_Type.UNRECOGNIZED;
   }
 }
 
-export function projectKey_keyTypeToJSON(object: ProjectKey_keyType): string {
+export function projectKey_TypeToJSON(object: ProjectKey_Type): string {
   switch (object) {
-    case ProjectKey_keyType.NONE:
+    case ProjectKey_Type.NONE:
       return "NONE";
-    case ProjectKey_keyType.ADMIN:
+    case ProjectKey_Type.ADMIN:
       return "ADMIN";
-    case ProjectKey_keyType.DEVELOPER:
+    case ProjectKey_Type.DEVELOPER:
       return "DEVELOPER";
-    case ProjectKey_keyType.UNRECOGNIZED:
+    case ProjectKey_Type.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
   }
@@ -283,7 +281,7 @@ export const Project = {
 };
 
 function createBaseProjectKey(): ProjectKey {
-  return { key: "", types: [] };
+  return { key: "", kinds: 0 };
 }
 
 export const ProjectKey = {
@@ -291,11 +289,9 @@ export const ProjectKey = {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
-    writer.uint32(18).fork();
-    for (const v of message.types) {
-      writer.int32(v);
+    if (message.kinds !== 0) {
+      writer.uint32(32).uint32(message.kinds);
     }
-    writer.ldelim();
     return writer;
   },
 
@@ -313,22 +309,13 @@ export const ProjectKey = {
 
           message.key = reader.string();
           continue;
-        case 2:
-          if (tag == 16) {
-            message.types.push(reader.int32() as any);
-            continue;
+        case 4:
+          if (tag != 32) {
+            break;
           }
 
-          if (tag == 18) {
-            const end2 = reader.uint32() + reader.pos;
-            while (reader.pos < end2) {
-              message.types.push(reader.int32() as any);
-            }
-
-            continue;
-          }
-
-          break;
+          message.kinds = reader.uint32();
+          continue;
       }
       if ((tag & 7) == 4 || tag == 0) {
         break;
@@ -339,20 +326,13 @@ export const ProjectKey = {
   },
 
   fromJSON(object: any): ProjectKey {
-    return {
-      key: isSet(object.key) ? String(object.key) : "",
-      types: Array.isArray(object?.types) ? object.types.map((e: any) => projectKey_keyTypeFromJSON(e)) : [],
-    };
+    return { key: isSet(object.key) ? String(object.key) : "", kinds: isSet(object.kinds) ? Number(object.kinds) : 0 };
   },
 
   toJSON(message: ProjectKey): unknown {
     const obj: any = {};
     message.key !== undefined && (obj.key = message.key);
-    if (message.types) {
-      obj.types = message.types.map((e) => projectKey_keyTypeToJSON(e));
-    } else {
-      obj.types = [];
-    }
+    message.kinds !== undefined && (obj.kinds = Math.round(message.kinds));
     return obj;
   },
 
@@ -363,7 +343,7 @@ export const ProjectKey = {
   fromPartial<I extends Exact<DeepPartial<ProjectKey>, I>>(object: I): ProjectKey {
     const message = createBaseProjectKey();
     message.key = object.key ?? "";
-    message.types = object.types?.map((e) => e) || [];
+    message.kinds = object.kinds ?? 0;
     return message;
   },
 };

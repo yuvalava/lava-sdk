@@ -17,6 +17,12 @@ export interface QueryCurrentRequest {
 export interface QueryCurrentResponse {
     sub?: Subscription;
 }
+export interface QueryListProjectsRequest {
+    subscription: string;
+}
+export interface QueryListProjectsResponse {
+    projects: string[];
+}
 export declare const QueryParamsRequest: {
     encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
     decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest;
@@ -1429,12 +1435,46 @@ export declare const QueryCurrentResponse: {
         } & { [K_20 in Exclude<keyof I_1["sub"], keyof Subscription>]: never; }) | undefined;
     } & { [K_21 in Exclude<keyof I_1, "sub">]: never; }>(object: I_1): QueryCurrentResponse;
 };
+export declare const QueryListProjectsRequest: {
+    encode(message: QueryListProjectsRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryListProjectsRequest;
+    fromJSON(object: any): QueryListProjectsRequest;
+    toJSON(message: QueryListProjectsRequest): unknown;
+    create<I extends {
+        subscription?: string | undefined;
+    } & {
+        subscription?: string | undefined;
+    } & { [K in Exclude<keyof I, "subscription">]: never; }>(base?: I | undefined): QueryListProjectsRequest;
+    fromPartial<I_1 extends {
+        subscription?: string | undefined;
+    } & {
+        subscription?: string | undefined;
+    } & { [K_1 in Exclude<keyof I_1, "subscription">]: never; }>(object: I_1): QueryListProjectsRequest;
+};
+export declare const QueryListProjectsResponse: {
+    encode(message: QueryListProjectsResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryListProjectsResponse;
+    fromJSON(object: any): QueryListProjectsResponse;
+    toJSON(message: QueryListProjectsResponse): unknown;
+    create<I extends {
+        projects?: string[] | undefined;
+    } & {
+        projects?: (string[] & string[] & { [K in Exclude<keyof I["projects"], keyof string[]>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "projects">]: never; }>(base?: I | undefined): QueryListProjectsResponse;
+    fromPartial<I_1 extends {
+        projects?: string[] | undefined;
+    } & {
+        projects?: (string[] & string[] & { [K_2 in Exclude<keyof I_1["projects"], keyof string[]>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "projects">]: never; }>(object: I_1): QueryListProjectsResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Parameters queries the parameters of the module. */
     Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
     /** Queries a list of Current items. */
     Current(request: QueryCurrentRequest): Promise<QueryCurrentResponse>;
+    /** Queries a list of ListProjects items. */
+    ListProjects(request: QueryListProjectsRequest): Promise<QueryListProjectsResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -1444,6 +1484,7 @@ export declare class QueryClientImpl implements Query {
     });
     Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
     Current(request: QueryCurrentRequest): Promise<QueryCurrentResponse>;
+    ListProjects(request: QueryListProjectsRequest): Promise<QueryListProjectsResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

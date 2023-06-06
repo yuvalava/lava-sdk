@@ -517,7 +517,7 @@ export class LavaProviders {
 
     // Retry with new error
     if (match == null) {
-      currentBlockHeightRegex = /current lava block Value:(\d+)/;
+      currentBlockHeightRegex = /current epoch: (\d+)/; // older epoch parsing
 
       match = error.message.match(currentBlockHeightRegex);
       return match ? match[1] : null;

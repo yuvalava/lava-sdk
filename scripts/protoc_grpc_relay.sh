@@ -4,15 +4,26 @@
 ROOT_PROTO_DIR="./proto/cosmos/cosmos-sdk"
 COSMOS_PROTO_DIR="$ROOT_PROTO_DIR/proto"
 THIRD_PARTY_PROTO_DIR="$ROOT_PROTO_DIR/third_party/proto"
-OUT_DIR="./src/codec/"
+OUT_DIR="./src/grpc_web_services"
+
+mkdir -p "$OUT_DIR"
 
 protoc --plugin="protoc-gen-ts=./node_modules/.bin/protoc-gen-ts" \
-    --js_out="import_style=commonjs,binary:./src" \
-    --ts_out="service=grpc-web:./src" \
+    --js_out="import_style=commonjs,binary:$OUT_DIR" \
+    --ts_out="service=grpc-web:$OUT_DIR" \
     --proto_path="$COSMOS_PROTO_DIR" \
     --proto_path="$THIRD_PARTY_PROTO_DIR" \
-    ./proto/cosmos/cosmos-sdk/third_party/proto/pairing/relay.proto
-
+    ./proto/cosmos/cosmos-sdk/third_party/proto/pairing/relay.proto \
+    $COSMOS_PROTO_DIR/gogoproto/gogo.proto \
+    $COSMOS_PROTO_DIR/google/protobuf/descriptor.proto \
+    $COSMOS_PROTO_DIR/google/protobuf/wrappers.proto \
 # mv ./src/proto/test ./src/pairing/.
 # rm -rf ./src/proto
 # mv ./src/pairing ./src/proto
+
+cp -r $OUT_DIR ./bin/src/.
+
+echo "-------------------- CHANGE NEEDED --------------"
+echo "We need to change snake case to cammel case in relay_pb.js"
+echo "Also copy the compiled files to the bin
+echo "-------------------------------------------------"

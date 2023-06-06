@@ -9,6 +9,7 @@ export declare class LavaSDK {
     private lavaProviders;
     private account;
     private relayer;
+    private secure;
     private activeSessionManager;
     /**
      * Create Lava-SDK instance
@@ -69,4 +70,5 @@ export interface LavaSDKOptions {
     network?: string;
     geolocation?: string;
     lavaChainId?: string;
+    secure?: boolean;
 }

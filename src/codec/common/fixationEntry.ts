@@ -15,10 +15,19 @@ export interface Entry {
   refcount: Long;
   /** the data saved in the entry */
   data: Uint8Array;
+  /** block when the entry becomes deleted */
+  deleteAt: Long;
 }
 
 function createBaseEntry(): Entry {
-  return { index: "", block: Long.UZERO, staleAt: Long.UZERO, refcount: Long.UZERO, data: new Uint8Array() };
+  return {
+    index: "",
+    block: Long.UZERO,
+    staleAt: Long.UZERO,
+    refcount: Long.UZERO,
+    data: new Uint8Array(),
+    deleteAt: Long.UZERO,
+  };
 }
 
 export const Entry = {
@@ -37,6 +46,9 @@ export const Entry = {
     }
     if (message.data.length !== 0) {
       writer.uint32(42).bytes(message.data);
+    }
+    if (!message.deleteAt.isZero()) {
+      writer.uint32(48).uint64(message.deleteAt);
     }
     return writer;
   },
@@ -83,6 +95,13 @@ export const Entry = {
 
           message.data = reader.bytes();
           continue;
+        case 6:
+          if (tag != 48) {
+            break;
+          }
+
+          message.deleteAt = reader.uint64() as Long;
+          continue;
       }
       if ((tag & 7) == 4 || tag == 0) {
         break;
@@ -99,6 +118,7 @@ export const Entry = {
       staleAt: isSet(object.staleAt) ? Long.fromValue(object.staleAt) : Long.UZERO,
       refcount: isSet(object.refcount) ? Long.fromValue(object.refcount) : Long.UZERO,
       data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+      deleteAt: isSet(object.deleteAt) ? Long.fromValue(object.deleteAt) : Long.UZERO,
     };
   },
 
@@ -110,6 +130,7 @@ export const Entry = {
     message.refcount !== undefined && (obj.refcount = (message.refcount || Long.UZERO).toString());
     message.data !== undefined &&
       (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
+    message.deleteAt !== undefined && (obj.deleteAt = (message.deleteAt || Long.UZERO).toString());
     return obj;
   },
 
@@ -128,6 +149,9 @@ export const Entry = {
       ? Long.fromValue(object.refcount)
       : Long.UZERO;
     message.data = object.data ?? new Uint8Array();
+    message.deleteAt = (object.deleteAt !== undefined && object.deleteAt !== null)
+      ? Long.fromValue(object.deleteAt)
+      : Long.UZERO;
     return message;
   },
 };
