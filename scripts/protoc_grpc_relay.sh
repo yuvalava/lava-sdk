@@ -22,3 +22,8 @@ protoc --plugin="protoc-gen-ts=./node_modules/.bin/protoc-gen-ts" \
 # mv ./src/pairing ./src/proto
 
 cp -r $OUT_DIR ./bin/src/.
+
+echo "-------------------- CHANGE NEEDED --------------"
+echo "We need to change snake case to cammel case in relay_pb.js"
+echo "Also copy the compiled files to the bin
+echo "-------------------------------------------------"
