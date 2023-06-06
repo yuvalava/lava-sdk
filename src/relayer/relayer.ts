@@ -9,7 +9,7 @@ import {
   RelayPrivateData,
 } from "../grpc_web_services/pairing/relay_pb";
 import { Relayer as RelayerService } from "../grpc_web_services/pairing/relay_pb_service";
-import { Badge } from "../badge/badges_pb"
+import { Badge } from "../badge/badges_pb";
 import transport from "../util/browser";
 
 class Relayer {
@@ -32,7 +32,7 @@ class Relayer {
     if (secure) {
       this.prefix = "https";
     }
-    this.badge = badge
+    this.badge = badge;
   }
 
   async sendRelay(
@@ -83,7 +83,7 @@ class Relayer {
 
     if (this.badge) {
       // Badge is separated from the signature!
-      requestSession.setBadge(this.badge)
+      requestSession.setBadge(this.badge);
     }
 
     // Create request

@@ -17,7 +17,7 @@ import {
   Slip10Curve,
   stringToPath,
   ripemd160,
-  Slip10RawIndex
+  Slip10RawIndex,
 } from "@cosmjs/crypto";
 import { toBech32 } from "@cosmjs/encoding";
 
@@ -97,17 +97,26 @@ interface WalletCreationResult {
 }
 
 export async function createDynamicWallet(): Promise<WalletCreationResult> {
-  const walletWithRandomSeed = await Secp256k1HdWallet.generate(undefined, { prefix: lavaPrefix });
-  const walletPrivKey = await getWalletPrivateKey(walletWithRandomSeed.mnemonic)
+  const walletWithRandomSeed = await Secp256k1HdWallet.generate(undefined, {
+    prefix: lavaPrefix,
+  });
+  const walletPrivKey = await getWalletPrivateKey(
+    walletWithRandomSeed.mnemonic
+  );
   const privKey = Array.from(walletPrivKey.privkey)
-        .map(byte => byte.toString(16).padStart(2, '0'))
-        .join('');
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("");
   const wallet = await createWallet(privKey);
-  return {wallet, privKey};
+  return { wallet, privKey };
 }
 
-async function getWalletPrivateKey(walletMnemonic: string): Promise<AccountDataWithPrivkey> {
-  const { privkey, pubkey } = await getKeyPair([Slip10RawIndex.normal(0)], walletMnemonic);
+async function getWalletPrivateKey(
+  walletMnemonic: string
+): Promise<AccountDataWithPrivkey> {
+  const { privkey, pubkey } = await getKeyPair(
+    [Slip10RawIndex.normal(0)],
+    walletMnemonic
+  );
   const address = toBech32(lavaPrefix, rawSecp256k1PubkeyToRawAddress(pubkey));
   return {
     algo: "secp256k1",
@@ -117,7 +126,10 @@ async function getWalletPrivateKey(walletMnemonic: string): Promise<AccountDataW
   };
 }
 
-async function getKeyPair(hdPath: HdPath, walletMnemonic: string): Promise<Secp256k1Keypair> {
+async function getKeyPair(
+  hdPath: HdPath,
+  walletMnemonic: string
+): Promise<Secp256k1Keypair> {
   const mnemonicChecked = new EnglishMnemonic(walletMnemonic);
   const seed = await Bip39.mnemonicToSeed(mnemonicChecked);
   const { privkey } = Slip10.derivePath(Slip10Curve.Secp256k1, seed, hdPath);
@@ -130,7 +142,9 @@ async function getKeyPair(hdPath: HdPath, walletMnemonic: string): Promise<Secp2
 
 function rawSecp256k1PubkeyToRawAddress(pubkeyData: Uint8Array): Uint8Array {
   if (pubkeyData.length !== 33) {
-    throw new Error(`Invalid Secp256k1 pubkey length (compressed): ${pubkeyData.length}`);
+    throw new Error(
+      `Invalid Secp256k1 pubkey length (compressed): ${pubkeyData.length}`
+    );
   }
   return ripemd160(sha256(pubkeyData));
 }

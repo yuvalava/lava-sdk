@@ -91,7 +91,7 @@ class LavaSDK {
                 badge = badgeResponse.getBadge();
                 const badgeSignerAddress = badgeResponse.getBadgeSignerAddress();
                 this.account = {
-                    algo: 'secp256k1',
+                    algo: "secp256k1",
                     address: badgeSignerAddress,
                     pubkey: new Uint8Array([]),
                 };
