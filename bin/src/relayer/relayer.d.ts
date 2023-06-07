@@ -1,6 +1,6 @@
 import { ConsumerSessionWithProvider } from "../types/types";
 import { RelayReply, RelaySession, RelayPrivateData } from "../grpc_web_services/pairing/relay_pb";
-import { Badge } from "../badge/badges_pb";
+import { Badge } from "../grpc_web_services/pairing/relay_pb";
 declare class Relayer {
     private chainID;
     private privKey;

@@ -78,7 +78,7 @@ exports.Entry = {
                     message.data = reader.bytes();
                     continue;
                 case 6:
-                    if (tag != 48) {
+                    if (tag !== 48) {
                         break;
                     }
                     message.deleteAt = reader.uint64();

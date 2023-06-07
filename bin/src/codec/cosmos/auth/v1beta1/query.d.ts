@@ -29,6 +29,18 @@ export interface QueryAccountRequest {
     /** address defines the address to query for. */
     address: string;
 }
+/**
+ * QueryModuleAccountsRequest is the request type for the Query/ModuleAccounts RPC method.
+ *
+ * Since: cosmos-sdk 0.46
+ */
+export interface QueryModuleAccountsRequest {
+}
+/** QueryParamsResponse is the response type for the Query/Params RPC method. */
+export interface QueryParamsResponse {
+    /** params defines the parameters of the module. */
+    params?: Params;
+}
 /** QueryAccountResponse is the response type for the Query/Account RPC method. */
 export interface QueryAccountResponse {
     /** account defines the account of the corresponding address. */
@@ -37,18 +49,6 @@ export interface QueryAccountResponse {
 /** QueryParamsRequest is the request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {
 }
-/** QueryParamsResponse is the response type for the Query/Params RPC method. */
-export interface QueryParamsResponse {
-    /** params defines the parameters of the module. */
-    params?: Params;
-}
-/**
- * QueryModuleAccountsRequest is the request type for the Query/ModuleAccounts RPC method.
- *
- * Since: cosmos-sdk 0.46
- */
-export interface QueryModuleAccountsRequest {
-}
 /**
  * QueryModuleAccountsResponse is the response type for the Query/ModuleAccounts RPC method.
  *
@@ -56,14 +56,6 @@ export interface QueryModuleAccountsRequest {
  */
 export interface QueryModuleAccountsResponse {
     accounts: Any[];
-}
-/** QueryModuleAccountByNameRequest is the request type for the Query/ModuleAccountByName RPC method. */
-export interface QueryModuleAccountByNameRequest {
-    name: string;
-}
-/** QueryModuleAccountByNameResponse is the response type for the Query/ModuleAccountByName RPC method. */
-export interface QueryModuleAccountByNameResponse {
-    account?: Any;
 }
 /**
  * Bech32PrefixRequest is the request type for Bech32Prefix rpc method.
@@ -119,21 +111,11 @@ export interface AddressStringToBytesResponse {
  */
 export interface QueryAccountAddressByIDRequest {
     /**
-     * Deprecated, use account_id instead
-     *
      * id is the account number of the address to be queried. This field
      * should have been an uint64 (like all account numbers), and will be
      * updated to uint64 in a future version of the auth query.
-     *
-     * @deprecated
      */
     id: Long;
-    /**
-     * account_id is the account number of the address to be queried.
-     *
-     * Since: cosmos-sdk 0.47
-     */
-    accountId: Long;
 }
 /**
  * QueryAccountAddressByIDResponse is the response type for AccountAddressByID rpc method
@@ -723,47 +705,13 @@ export declare const QueryAccountRequest: {
         address?: string | undefined;
     } & { [K_1 in Exclude<keyof I_1, "address">]: never; }>(object: I_1): QueryAccountRequest;
 };
-export declare const QueryAccountResponse: {
-    encode(message: QueryAccountResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAccountResponse;
-    fromJSON(object: any): QueryAccountResponse;
-    toJSON(message: QueryAccountResponse): unknown;
-    create<I extends {
-        account?: {
-            typeUrl?: string | undefined;
-            value?: Uint8Array | undefined;
-        } | undefined;
-    } & {
-        account?: ({
-            typeUrl?: string | undefined;
-            value?: Uint8Array | undefined;
-        } & {
-            typeUrl?: string | undefined;
-            value?: Uint8Array | undefined;
-        } & { [K in Exclude<keyof I["account"], keyof Any>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "account">]: never; }>(base?: I | undefined): QueryAccountResponse;
-    fromPartial<I_1 extends {
-        account?: {
-            typeUrl?: string | undefined;
-            value?: Uint8Array | undefined;
-        } | undefined;
-    } & {
-        account?: ({
-            typeUrl?: string | undefined;
-            value?: Uint8Array | undefined;
-        } & {
-            typeUrl?: string | undefined;
-            value?: Uint8Array | undefined;
-        } & { [K_2 in Exclude<keyof I_1["account"], keyof Any>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "account">]: never; }>(object: I_1): QueryAccountResponse;
-};
-export declare const QueryParamsRequest: {
-    encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest;
-    fromJSON(_: any): QueryParamsRequest;
-    toJSON(_: QueryParamsRequest): unknown;
-    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): QueryParamsRequest;
-    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): QueryParamsRequest;
+export declare const QueryModuleAccountsRequest: {
+    encode(_: QueryModuleAccountsRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryModuleAccountsRequest;
+    fromJSON(_: any): QueryModuleAccountsRequest;
+    toJSON(_: QueryModuleAccountsRequest): unknown;
+    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): QueryModuleAccountsRequest;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): QueryModuleAccountsRequest;
 };
 export declare const QueryParamsResponse: {
     encode(message: QueryParamsResponse, writer?: _m0.Writer): _m0.Writer;
@@ -1527,13 +1475,47 @@ export declare const QueryParamsResponse: {
         } & { [K_12 in Exclude<keyof I_1["params"], keyof Params>]: never; }) | undefined;
     } & { [K_13 in Exclude<keyof I_1, "params">]: never; }>(object: I_1): QueryParamsResponse;
 };
-export declare const QueryModuleAccountsRequest: {
-    encode(_: QueryModuleAccountsRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryModuleAccountsRequest;
-    fromJSON(_: any): QueryModuleAccountsRequest;
-    toJSON(_: QueryModuleAccountsRequest): unknown;
-    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): QueryModuleAccountsRequest;
-    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): QueryModuleAccountsRequest;
+export declare const QueryAccountResponse: {
+    encode(message: QueryAccountResponse, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryAccountResponse;
+    fromJSON(object: any): QueryAccountResponse;
+    toJSON(message: QueryAccountResponse): unknown;
+    create<I extends {
+        account?: {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } | undefined;
+    } & {
+        account?: ({
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & { [K in Exclude<keyof I["account"], keyof Any>]: never; }) | undefined;
+    } & { [K_1 in Exclude<keyof I, "account">]: never; }>(base?: I | undefined): QueryAccountResponse;
+    fromPartial<I_1 extends {
+        account?: {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } | undefined;
+    } & {
+        account?: ({
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & {
+            typeUrl?: string | undefined;
+            value?: Uint8Array | undefined;
+        } & { [K_2 in Exclude<keyof I_1["account"], keyof Any>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "account">]: never; }>(object: I_1): QueryAccountResponse;
+};
+export declare const QueryParamsRequest: {
+    encode(_: QueryParamsRequest, writer?: _m0.Writer): _m0.Writer;
+    decode(input: _m0.Reader | Uint8Array, length?: number): QueryParamsRequest;
+    fromJSON(_: any): QueryParamsRequest;
+    toJSON(_: QueryParamsRequest): unknown;
+    create<I extends {} & {} & { [K in Exclude<keyof I, never>]: never; }>(base?: I | undefined): QueryParamsRequest;
+    fromPartial<I_1 extends {} & {} & { [K_1 in Exclude<keyof I_1, never>]: never; }>(_: I_1): QueryParamsRequest;
 };
 export declare const QueryModuleAccountsResponse: {
     encode(message: QueryModuleAccountsResponse, writer?: _m0.Writer): _m0.Writer;
@@ -1580,56 +1562,6 @@ export declare const QueryModuleAccountsResponse: {
             value?: Uint8Array | undefined;
         }[]>]: never; }) | undefined;
     } & { [K_5 in Exclude<keyof I_1, "accounts">]: never; }>(object: I_1): QueryModuleAccountsResponse;
-};
-export declare const QueryModuleAccountByNameRequest: {
-    encode(message: QueryModuleAccountByNameRequest, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryModuleAccountByNameRequest;
-    fromJSON(object: any): QueryModuleAccountByNameRequest;
-    toJSON(message: QueryModuleAccountByNameRequest): unknown;
-    create<I extends {
-        name?: string | undefined;
-    } & {
-        name?: string | undefined;
-    } & { [K in Exclude<keyof I, "name">]: never; }>(base?: I | undefined): QueryModuleAccountByNameRequest;
-    fromPartial<I_1 extends {
-        name?: string | undefined;
-    } & {
-        name?: string | undefined;
-    } & { [K_1 in Exclude<keyof I_1, "name">]: never; }>(object: I_1): QueryModuleAccountByNameRequest;
-};
-export declare const QueryModuleAccountByNameResponse: {
-    encode(message: QueryModuleAccountByNameResponse, writer?: _m0.Writer): _m0.Writer;
-    decode(input: _m0.Reader | Uint8Array, length?: number): QueryModuleAccountByNameResponse;
-    fromJSON(object: any): QueryModuleAccountByNameResponse;
-    toJSON(message: QueryModuleAccountByNameResponse): unknown;
-    create<I extends {
-        account?: {
-            typeUrl?: string | undefined;
-            value?: Uint8Array | undefined;
-        } | undefined;
-    } & {
-        account?: ({
-            typeUrl?: string | undefined;
-            value?: Uint8Array | undefined;
-        } & {
-            typeUrl?: string | undefined;
-            value?: Uint8Array | undefined;
-        } & { [K in Exclude<keyof I["account"], keyof Any>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, "account">]: never; }>(base?: I | undefined): QueryModuleAccountByNameResponse;
-    fromPartial<I_1 extends {
-        account?: {
-            typeUrl?: string | undefined;
-            value?: Uint8Array | undefined;
-        } | undefined;
-    } & {
-        account?: ({
-            typeUrl?: string | undefined;
-            value?: Uint8Array | undefined;
-        } & {
-            typeUrl?: string | undefined;
-            value?: Uint8Array | undefined;
-        } & { [K_2 in Exclude<keyof I_1["account"], keyof Any>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, "account">]: never; }>(object: I_1): QueryModuleAccountByNameResponse;
 };
 export declare const Bech32PrefixRequest: {
     encode(_: Bech32PrefixRequest, writer?: _m0.Writer): _m0.Writer;
@@ -1726,7 +1658,6 @@ export declare const QueryAccountAddressByIDRequest: {
     toJSON(message: QueryAccountAddressByIDRequest): unknown;
     create<I extends {
         id?: string | number | Long | undefined;
-        accountId?: string | number | Long | undefined;
     } & {
         id?: string | number | (Long & {
             high: number;
@@ -1800,82 +1731,9 @@ export declare const QueryAccountAddressByIDRequest: {
             toUnsigned: () => Long;
             xor: (other: string | number | Long) => Long;
         } & { [K in Exclude<keyof I["id"], keyof Long>]: never; }) | undefined;
-        accountId?: string | number | (Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long) => Long;
-            and: (other: string | number | Long) => Long;
-            compare: (other: string | number | Long) => number;
-            comp: (other: string | number | Long) => number;
-            divide: (divisor: string | number | Long) => Long;
-            div: (divisor: string | number | Long) => Long;
-            equals: (other: string | number | Long) => boolean;
-            eq: (other: string | number | Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long) => boolean;
-            gt: (other: string | number | Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long) => boolean;
-            gte: (other: string | number | Long) => boolean;
-            ge: (other: string | number | Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            eqz: () => boolean;
-            lessThan: (other: string | number | Long) => boolean;
-            lt: (other: string | number | Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long) => boolean;
-            lte: (other: string | number | Long) => boolean;
-            le: (other: string | number | Long) => boolean;
-            modulo: (other: string | number | Long) => Long;
-            mod: (other: string | number | Long) => Long;
-            rem: (other: string | number | Long) => Long;
-            multiply: (multiplier: string | number | Long) => Long;
-            mul: (multiplier: string | number | Long) => Long;
-            negate: () => Long;
-            neg: () => Long;
-            not: () => Long;
-            countLeadingZeros: () => number;
-            clz: () => number;
-            countTrailingZeros: () => number;
-            ctz: () => number;
-            notEquals: (other: string | number | Long) => boolean;
-            neq: (other: string | number | Long) => boolean;
-            ne: (other: string | number | Long) => boolean;
-            or: (other: string | number | Long) => Long;
-            shiftLeft: (numBits: number | Long) => Long;
-            shl: (numBits: number | Long) => Long;
-            shiftRight: (numBits: number | Long) => Long;
-            shr: (numBits: number | Long) => Long;
-            shiftRightUnsigned: (numBits: number | Long) => Long;
-            shru: (numBits: number | Long) => Long;
-            shr_u: (numBits: number | Long) => Long;
-            rotateLeft: (numBits: number | Long) => Long;
-            rotl: (numBits: number | Long) => Long;
-            rotateRight: (numBits: number | Long) => Long;
-            rotr: (numBits: number | Long) => Long;
-            subtract: (subtrahend: string | number | Long) => Long;
-            sub: (subtrahend: string | number | Long) => Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long;
-            xor: (other: string | number | Long) => Long;
-        } & { [K_1 in Exclude<keyof I["accountId"], keyof Long>]: never; }) | undefined;
-    } & { [K_2 in Exclude<keyof I, keyof QueryAccountAddressByIDRequest>]: never; }>(base?: I | undefined): QueryAccountAddressByIDRequest;
+    } & { [K_1 in Exclude<keyof I, "id">]: never; }>(base?: I | undefined): QueryAccountAddressByIDRequest;
     fromPartial<I_1 extends {
         id?: string | number | Long | undefined;
-        accountId?: string | number | Long | undefined;
     } & {
         id?: string | number | (Long & {
             high: number;
@@ -1948,80 +1806,8 @@ export declare const QueryAccountAddressByIDRequest: {
             toString: (radix?: number | undefined) => string;
             toUnsigned: () => Long;
             xor: (other: string | number | Long) => Long;
-        } & { [K_3 in Exclude<keyof I_1["id"], keyof Long>]: never; }) | undefined;
-        accountId?: string | number | (Long & {
-            high: number;
-            low: number;
-            unsigned: boolean;
-            add: (addend: string | number | Long) => Long;
-            and: (other: string | number | Long) => Long;
-            compare: (other: string | number | Long) => number;
-            comp: (other: string | number | Long) => number;
-            divide: (divisor: string | number | Long) => Long;
-            div: (divisor: string | number | Long) => Long;
-            equals: (other: string | number | Long) => boolean;
-            eq: (other: string | number | Long) => boolean;
-            getHighBits: () => number;
-            getHighBitsUnsigned: () => number;
-            getLowBits: () => number;
-            getLowBitsUnsigned: () => number;
-            getNumBitsAbs: () => number;
-            greaterThan: (other: string | number | Long) => boolean;
-            gt: (other: string | number | Long) => boolean;
-            greaterThanOrEqual: (other: string | number | Long) => boolean;
-            gte: (other: string | number | Long) => boolean;
-            ge: (other: string | number | Long) => boolean;
-            isEven: () => boolean;
-            isNegative: () => boolean;
-            isOdd: () => boolean;
-            isPositive: () => boolean;
-            isZero: () => boolean;
-            eqz: () => boolean;
-            lessThan: (other: string | number | Long) => boolean;
-            lt: (other: string | number | Long) => boolean;
-            lessThanOrEqual: (other: string | number | Long) => boolean;
-            lte: (other: string | number | Long) => boolean;
-            le: (other: string | number | Long) => boolean;
-            modulo: (other: string | number | Long) => Long;
-            mod: (other: string | number | Long) => Long;
-            rem: (other: string | number | Long) => Long;
-            multiply: (multiplier: string | number | Long) => Long;
-            mul: (multiplier: string | number | Long) => Long;
-            negate: () => Long;
-            neg: () => Long;
-            not: () => Long;
-            countLeadingZeros: () => number;
-            clz: () => number;
-            countTrailingZeros: () => number;
-            ctz: () => number;
-            notEquals: (other: string | number | Long) => boolean;
-            neq: (other: string | number | Long) => boolean;
-            ne: (other: string | number | Long) => boolean;
-            or: (other: string | number | Long) => Long;
-            shiftLeft: (numBits: number | Long) => Long;
-            shl: (numBits: number | Long) => Long;
-            shiftRight: (numBits: number | Long) => Long;
-            shr: (numBits: number | Long) => Long;
-            shiftRightUnsigned: (numBits: number | Long) => Long;
-            shru: (numBits: number | Long) => Long;
-            shr_u: (numBits: number | Long) => Long;
-            rotateLeft: (numBits: number | Long) => Long;
-            rotl: (numBits: number | Long) => Long;
-            rotateRight: (numBits: number | Long) => Long;
-            rotr: (numBits: number | Long) => Long;
-            subtract: (subtrahend: string | number | Long) => Long;
-            sub: (subtrahend: string | number | Long) => Long;
-            toInt: () => number;
-            toNumber: () => number;
-            toBytes: (le?: boolean | undefined) => number[];
-            toBytesLE: () => number[];
-            toBytesBE: () => number[];
-            toSigned: () => Long;
-            toString: (radix?: number | undefined) => string;
-            toUnsigned: () => Long;
-            xor: (other: string | number | Long) => Long;
-        } & { [K_4 in Exclude<keyof I_1["accountId"], keyof Long>]: never; }) | undefined;
-    } & { [K_5 in Exclude<keyof I_1, keyof QueryAccountAddressByIDRequest>]: never; }>(object: I_1): QueryAccountAddressByIDRequest;
+        } & { [K_2 in Exclude<keyof I_1["id"], keyof Long>]: never; }) | undefined;
+    } & { [K_3 in Exclude<keyof I_1, "id">]: never; }>(object: I_1): QueryAccountAddressByIDRequest;
 };
 export declare const QueryAccountAddressByIDResponse: {
     encode(message: QueryAccountAddressByIDResponse, writer?: _m0.Writer): _m0.Writer;
@@ -2436,8 +2222,6 @@ export interface Query {
      * Since: cosmos-sdk 0.46
      */
     ModuleAccounts(request: QueryModuleAccountsRequest): Promise<QueryModuleAccountsResponse>;
-    /** ModuleAccountByName returns the module account info by module name */
-    ModuleAccountByName(request: QueryModuleAccountByNameRequest): Promise<QueryModuleAccountByNameResponse>;
     /**
      * Bech32Prefix queries bech32Prefix
      *
@@ -2474,7 +2258,6 @@ export declare class QueryClientImpl implements Query {
     AccountAddressByID(request: QueryAccountAddressByIDRequest): Promise<QueryAccountAddressByIDResponse>;
     Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
     ModuleAccounts(request: QueryModuleAccountsRequest): Promise<QueryModuleAccountsResponse>;
-    ModuleAccountByName(request: QueryModuleAccountByNameRequest): Promise<QueryModuleAccountByNameResponse>;
     Bech32Prefix(request: Bech32PrefixRequest): Promise<Bech32PrefixResponse>;
     AddressBytesToString(request: AddressBytesToStringRequest): Promise<AddressBytesToStringResponse>;
     AddressStringToBytes(request: AddressStringToBytesRequest): Promise<AddressStringToBytesResponse>;

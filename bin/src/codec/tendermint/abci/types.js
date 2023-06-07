@@ -3,8 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ResponsePrepareProposal = exports.ResponseApplySnapshotChunk = exports.ResponseLoadSnapshotChunk = exports.ResponseOfferSnapshot = exports.ResponseListSnapshots = exports.ResponseCommit = exports.ResponseCheckTx = exports.ResponseQuery = exports.ResponseInitChain = exports.ResponseInfo = exports.ResponseFlush = exports.ResponseEcho = exports.ResponseException = exports.Response = exports.RequestFinalizeBlock = exports.RequestVerifyVoteExtension = exports.RequestExtendVote = exports.RequestProcessProposal = exports.RequestPrepareProposal = exports.RequestApplySnapshotChunk = exports.RequestLoadSnapshotChunk = exports.RequestOfferSnapshot = exports.RequestListSnapshots = exports.RequestCommit = exports.RequestCheckTx = exports.RequestQuery = exports.RequestInitChain = exports.RequestInfo = exports.RequestFlush = exports.RequestEcho = exports.Request = exports.responseVerifyVoteExtension_VerifyStatusToJSON = exports.responseVerifyVoteExtension_VerifyStatusFromJSON = exports.ResponseVerifyVoteExtension_VerifyStatus = exports.responseProcessProposal_ProposalStatusToJSON = exports.responseProcessProposal_ProposalStatusFromJSON = exports.ResponseProcessProposal_ProposalStatus = exports.responseApplySnapshotChunk_ResultToJSON = exports.responseApplySnapshotChunk_ResultFromJSON = exports.ResponseApplySnapshotChunk_Result = exports.responseOfferSnapshot_ResultToJSON = exports.responseOfferSnapshot_ResultFromJSON = exports.ResponseOfferSnapshot_Result = exports.misbehaviorTypeToJSON = exports.misbehaviorTypeFromJSON = exports.MisbehaviorType = exports.checkTxTypeToJSON = exports.checkTxTypeFromJSON = exports.CheckTxType = exports.protobufPackage = void 0;
-exports.ABCIClientImpl = exports.Snapshot = exports.Misbehavior = exports.ExtendedVoteInfo = exports.VoteInfo = exports.ValidatorUpdate = exports.Validator = exports.TxResult = exports.ExecTxResult = exports.EventAttribute = exports.Event = exports.ExtendedCommitInfo = exports.CommitInfo = exports.ResponseFinalizeBlock = exports.ResponseVerifyVoteExtension = exports.ResponseExtendVote = exports.ResponseProcessProposal = void 0;
+exports.ResponsePrepareProposal = exports.ResponseApplySnapshotChunk = exports.ResponseLoadSnapshotChunk = exports.ResponseOfferSnapshot = exports.ResponseListSnapshots = exports.ResponseCommit = exports.ResponseEndBlock = exports.ResponseDeliverTx = exports.ResponseCheckTx = exports.ResponseBeginBlock = exports.ResponseQuery = exports.ResponseInitChain = exports.ResponseInfo = exports.ResponseFlush = exports.ResponseEcho = exports.ResponseException = exports.Response = exports.RequestProcessProposal = exports.RequestPrepareProposal = exports.RequestApplySnapshotChunk = exports.RequestLoadSnapshotChunk = exports.RequestOfferSnapshot = exports.RequestListSnapshots = exports.RequestCommit = exports.RequestEndBlock = exports.RequestDeliverTx = exports.RequestCheckTx = exports.RequestBeginBlock = exports.RequestQuery = exports.RequestInitChain = exports.RequestInfo = exports.RequestFlush = exports.RequestEcho = exports.Request = exports.responseProcessProposal_ProposalStatusToJSON = exports.responseProcessProposal_ProposalStatusFromJSON = exports.ResponseProcessProposal_ProposalStatus = exports.responseApplySnapshotChunk_ResultToJSON = exports.responseApplySnapshotChunk_ResultFromJSON = exports.ResponseApplySnapshotChunk_Result = exports.responseOfferSnapshot_ResultToJSON = exports.responseOfferSnapshot_ResultFromJSON = exports.ResponseOfferSnapshot_Result = exports.misbehaviorTypeToJSON = exports.misbehaviorTypeFromJSON = exports.MisbehaviorType = exports.checkTxTypeToJSON = exports.checkTxTypeFromJSON = exports.CheckTxType = exports.protobufPackage = void 0;
+exports.ABCIApplicationClientImpl = exports.Snapshot = exports.Misbehavior = exports.ExtendedVoteInfo = exports.VoteInfo = exports.ValidatorUpdate = exports.Validator = exports.TxResult = exports.EventAttribute = exports.Event = exports.ExtendedCommitInfo = exports.CommitInfo = exports.ResponseProcessProposal = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
@@ -12,7 +12,7 @@ const timestamp_1 = require("../../google/protobuf/timestamp");
 const keys_1 = require("../crypto/keys");
 const proof_1 = require("../crypto/proof");
 const params_1 = require("../types/params");
-const validator_1 = require("../types/validator");
+const types_1 = require("../types/types");
 exports.protobufPackage = "tendermint.abci";
 var CheckTxType;
 (function (CheckTxType) {
@@ -251,51 +251,6 @@ function responseProcessProposal_ProposalStatusToJSON(object) {
     }
 }
 exports.responseProcessProposal_ProposalStatusToJSON = responseProcessProposal_ProposalStatusToJSON;
-var ResponseVerifyVoteExtension_VerifyStatus;
-(function (ResponseVerifyVoteExtension_VerifyStatus) {
-    ResponseVerifyVoteExtension_VerifyStatus[ResponseVerifyVoteExtension_VerifyStatus["UNKNOWN"] = 0] = "UNKNOWN";
-    ResponseVerifyVoteExtension_VerifyStatus[ResponseVerifyVoteExtension_VerifyStatus["ACCEPT"] = 1] = "ACCEPT";
-    /**
-     * REJECT - Rejecting the vote extension will reject the entire precommit by the sender.
-     * Incorrectly implementing this thus has liveness implications as it may affect
-     * CometBFT's ability to receive 2/3+ valid votes to finalize the block.
-     * Honest nodes should never be rejected.
-     */
-    ResponseVerifyVoteExtension_VerifyStatus[ResponseVerifyVoteExtension_VerifyStatus["REJECT"] = 2] = "REJECT";
-    ResponseVerifyVoteExtension_VerifyStatus[ResponseVerifyVoteExtension_VerifyStatus["UNRECOGNIZED"] = -1] = "UNRECOGNIZED";
-})(ResponseVerifyVoteExtension_VerifyStatus = exports.ResponseVerifyVoteExtension_VerifyStatus || (exports.ResponseVerifyVoteExtension_VerifyStatus = {}));
-function responseVerifyVoteExtension_VerifyStatusFromJSON(object) {
-    switch (object) {
-        case 0:
-        case "UNKNOWN":
-            return ResponseVerifyVoteExtension_VerifyStatus.UNKNOWN;
-        case 1:
-        case "ACCEPT":
-            return ResponseVerifyVoteExtension_VerifyStatus.ACCEPT;
-        case 2:
-        case "REJECT":
-            return ResponseVerifyVoteExtension_VerifyStatus.REJECT;
-        case -1:
-        case "UNRECOGNIZED":
-        default:
-            return ResponseVerifyVoteExtension_VerifyStatus.UNRECOGNIZED;
-    }
-}
-exports.responseVerifyVoteExtension_VerifyStatusFromJSON = responseVerifyVoteExtension_VerifyStatusFromJSON;
-function responseVerifyVoteExtension_VerifyStatusToJSON(object) {
-    switch (object) {
-        case ResponseVerifyVoteExtension_VerifyStatus.UNKNOWN:
-            return "UNKNOWN";
-        case ResponseVerifyVoteExtension_VerifyStatus.ACCEPT:
-            return "ACCEPT";
-        case ResponseVerifyVoteExtension_VerifyStatus.REJECT:
-            return "REJECT";
-        case ResponseVerifyVoteExtension_VerifyStatus.UNRECOGNIZED:
-        default:
-            return "UNRECOGNIZED";
-    }
-}
-exports.responseVerifyVoteExtension_VerifyStatusToJSON = responseVerifyVoteExtension_VerifyStatusToJSON;
 function createBaseRequest() {
     return {
         echo: undefined,
@@ -303,7 +258,10 @@ function createBaseRequest() {
         info: undefined,
         initChain: undefined,
         query: undefined,
+        beginBlock: undefined,
         checkTx: undefined,
+        deliverTx: undefined,
+        endBlock: undefined,
         commit: undefined,
         listSnapshots: undefined,
         offerSnapshot: undefined,
@@ -311,9 +269,6 @@ function createBaseRequest() {
         applySnapshotChunk: undefined,
         prepareProposal: undefined,
         processProposal: undefined,
-        extendVote: undefined,
-        verifyVoteExtension: undefined,
-        finalizeBlock: undefined,
     };
 }
 exports.Request = {
@@ -333,8 +288,17 @@ exports.Request = {
         if (message.query !== undefined) {
             exports.RequestQuery.encode(message.query, writer.uint32(50).fork()).ldelim();
         }
+        if (message.beginBlock !== undefined) {
+            exports.RequestBeginBlock.encode(message.beginBlock, writer.uint32(58).fork()).ldelim();
+        }
         if (message.checkTx !== undefined) {
             exports.RequestCheckTx.encode(message.checkTx, writer.uint32(66).fork()).ldelim();
+        }
+        if (message.deliverTx !== undefined) {
+            exports.RequestDeliverTx.encode(message.deliverTx, writer.uint32(74).fork()).ldelim();
+        }
+        if (message.endBlock !== undefined) {
+            exports.RequestEndBlock.encode(message.endBlock, writer.uint32(82).fork()).ldelim();
         }
         if (message.commit !== undefined) {
             exports.RequestCommit.encode(message.commit, writer.uint32(90).fork()).ldelim();
@@ -356,15 +320,6 @@ exports.Request = {
         }
         if (message.processProposal !== undefined) {
             exports.RequestProcessProposal.encode(message.processProposal, writer.uint32(138).fork()).ldelim();
-        }
-        if (message.extendVote !== undefined) {
-            exports.RequestExtendVote.encode(message.extendVote, writer.uint32(146).fork()).ldelim();
-        }
-        if (message.verifyVoteExtension !== undefined) {
-            exports.RequestVerifyVoteExtension.encode(message.verifyVoteExtension, writer.uint32(154).fork()).ldelim();
-        }
-        if (message.finalizeBlock !== undefined) {
-            exports.RequestFinalizeBlock.encode(message.finalizeBlock, writer.uint32(162).fork()).ldelim();
         }
         return writer;
     },
@@ -405,11 +360,29 @@ exports.Request = {
                     }
                     message.query = exports.RequestQuery.decode(reader, reader.uint32());
                     continue;
+                case 7:
+                    if (tag !== 58) {
+                        break;
+                    }
+                    message.beginBlock = exports.RequestBeginBlock.decode(reader, reader.uint32());
+                    continue;
                 case 8:
                     if (tag !== 66) {
                         break;
                     }
                     message.checkTx = exports.RequestCheckTx.decode(reader, reader.uint32());
+                    continue;
+                case 9:
+                    if (tag !== 74) {
+                        break;
+                    }
+                    message.deliverTx = exports.RequestDeliverTx.decode(reader, reader.uint32());
+                    continue;
+                case 10:
+                    if (tag !== 82) {
+                        break;
+                    }
+                    message.endBlock = exports.RequestEndBlock.decode(reader, reader.uint32());
                     continue;
                 case 11:
                     if (tag !== 90) {
@@ -453,24 +426,6 @@ exports.Request = {
                     }
                     message.processProposal = exports.RequestProcessProposal.decode(reader, reader.uint32());
                     continue;
-                case 18:
-                    if (tag !== 146) {
-                        break;
-                    }
-                    message.extendVote = exports.RequestExtendVote.decode(reader, reader.uint32());
-                    continue;
-                case 19:
-                    if (tag !== 154) {
-                        break;
-                    }
-                    message.verifyVoteExtension = exports.RequestVerifyVoteExtension.decode(reader, reader.uint32());
-                    continue;
-                case 20:
-                    if (tag !== 162) {
-                        break;
-                    }
-                    message.finalizeBlock = exports.RequestFinalizeBlock.decode(reader, reader.uint32());
-                    continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -486,7 +441,10 @@ exports.Request = {
             info: isSet(object.info) ? exports.RequestInfo.fromJSON(object.info) : undefined,
             initChain: isSet(object.initChain) ? exports.RequestInitChain.fromJSON(object.initChain) : undefined,
             query: isSet(object.query) ? exports.RequestQuery.fromJSON(object.query) : undefined,
+            beginBlock: isSet(object.beginBlock) ? exports.RequestBeginBlock.fromJSON(object.beginBlock) : undefined,
             checkTx: isSet(object.checkTx) ? exports.RequestCheckTx.fromJSON(object.checkTx) : undefined,
+            deliverTx: isSet(object.deliverTx) ? exports.RequestDeliverTx.fromJSON(object.deliverTx) : undefined,
+            endBlock: isSet(object.endBlock) ? exports.RequestEndBlock.fromJSON(object.endBlock) : undefined,
             commit: isSet(object.commit) ? exports.RequestCommit.fromJSON(object.commit) : undefined,
             listSnapshots: isSet(object.listSnapshots) ? exports.RequestListSnapshots.fromJSON(object.listSnapshots) : undefined,
             offerSnapshot: isSet(object.offerSnapshot) ? exports.RequestOfferSnapshot.fromJSON(object.offerSnapshot) : undefined,
@@ -502,11 +460,6 @@ exports.Request = {
             processProposal: isSet(object.processProposal)
                 ? exports.RequestProcessProposal.fromJSON(object.processProposal)
                 : undefined,
-            extendVote: isSet(object.extendVote) ? exports.RequestExtendVote.fromJSON(object.extendVote) : undefined,
-            verifyVoteExtension: isSet(object.verifyVoteExtension)
-                ? exports.RequestVerifyVoteExtension.fromJSON(object.verifyVoteExtension)
-                : undefined,
-            finalizeBlock: isSet(object.finalizeBlock) ? exports.RequestFinalizeBlock.fromJSON(object.finalizeBlock) : undefined,
         };
     },
     toJSON(message) {
@@ -517,8 +470,14 @@ exports.Request = {
         message.initChain !== undefined &&
             (obj.initChain = message.initChain ? exports.RequestInitChain.toJSON(message.initChain) : undefined);
         message.query !== undefined && (obj.query = message.query ? exports.RequestQuery.toJSON(message.query) : undefined);
+        message.beginBlock !== undefined &&
+            (obj.beginBlock = message.beginBlock ? exports.RequestBeginBlock.toJSON(message.beginBlock) : undefined);
         message.checkTx !== undefined &&
             (obj.checkTx = message.checkTx ? exports.RequestCheckTx.toJSON(message.checkTx) : undefined);
+        message.deliverTx !== undefined &&
+            (obj.deliverTx = message.deliverTx ? exports.RequestDeliverTx.toJSON(message.deliverTx) : undefined);
+        message.endBlock !== undefined &&
+            (obj.endBlock = message.endBlock ? exports.RequestEndBlock.toJSON(message.endBlock) : undefined);
         message.commit !== undefined && (obj.commit = message.commit ? exports.RequestCommit.toJSON(message.commit) : undefined);
         message.listSnapshots !== undefined &&
             (obj.listSnapshots = message.listSnapshots ? exports.RequestListSnapshots.toJSON(message.listSnapshots) : undefined);
@@ -536,13 +495,6 @@ exports.Request = {
         message.processProposal !== undefined && (obj.processProposal = message.processProposal
             ? exports.RequestProcessProposal.toJSON(message.processProposal)
             : undefined);
-        message.extendVote !== undefined &&
-            (obj.extendVote = message.extendVote ? exports.RequestExtendVote.toJSON(message.extendVote) : undefined);
-        message.verifyVoteExtension !== undefined && (obj.verifyVoteExtension = message.verifyVoteExtension
-            ? exports.RequestVerifyVoteExtension.toJSON(message.verifyVoteExtension)
-            : undefined);
-        message.finalizeBlock !== undefined &&
-            (obj.finalizeBlock = message.finalizeBlock ? exports.RequestFinalizeBlock.toJSON(message.finalizeBlock) : undefined);
         return obj;
     },
     create(base) {
@@ -565,8 +517,17 @@ exports.Request = {
         message.query = (object.query !== undefined && object.query !== null)
             ? exports.RequestQuery.fromPartial(object.query)
             : undefined;
+        message.beginBlock = (object.beginBlock !== undefined && object.beginBlock !== null)
+            ? exports.RequestBeginBlock.fromPartial(object.beginBlock)
+            : undefined;
         message.checkTx = (object.checkTx !== undefined && object.checkTx !== null)
             ? exports.RequestCheckTx.fromPartial(object.checkTx)
+            : undefined;
+        message.deliverTx = (object.deliverTx !== undefined && object.deliverTx !== null)
+            ? exports.RequestDeliverTx.fromPartial(object.deliverTx)
+            : undefined;
+        message.endBlock = (object.endBlock !== undefined && object.endBlock !== null)
+            ? exports.RequestEndBlock.fromPartial(object.endBlock)
             : undefined;
         message.commit = (object.commit !== undefined && object.commit !== null)
             ? exports.RequestCommit.fromPartial(object.commit)
@@ -588,15 +549,6 @@ exports.Request = {
             : undefined;
         message.processProposal = (object.processProposal !== undefined && object.processProposal !== null)
             ? exports.RequestProcessProposal.fromPartial(object.processProposal)
-            : undefined;
-        message.extendVote = (object.extendVote !== undefined && object.extendVote !== null)
-            ? exports.RequestExtendVote.fromPartial(object.extendVote)
-            : undefined;
-        message.verifyVoteExtension = (object.verifyVoteExtension !== undefined && object.verifyVoteExtension !== null)
-            ? exports.RequestVerifyVoteExtension.fromPartial(object.verifyVoteExtension)
-            : undefined;
-        message.finalizeBlock = (object.finalizeBlock !== undefined && object.finalizeBlock !== null)
-            ? exports.RequestFinalizeBlock.fromPartial(object.finalizeBlock)
             : undefined;
         return message;
     },
@@ -999,6 +951,106 @@ exports.RequestQuery = {
         return message;
     },
 };
+function createBaseRequestBeginBlock() {
+    return { hash: new Uint8Array(), header: undefined, lastCommitInfo: undefined, byzantineValidators: [] };
+}
+exports.RequestBeginBlock = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.hash.length !== 0) {
+            writer.uint32(10).bytes(message.hash);
+        }
+        if (message.header !== undefined) {
+            types_1.Header.encode(message.header, writer.uint32(18).fork()).ldelim();
+        }
+        if (message.lastCommitInfo !== undefined) {
+            exports.CommitInfo.encode(message.lastCommitInfo, writer.uint32(26).fork()).ldelim();
+        }
+        for (const v of message.byzantineValidators) {
+            exports.Misbehavior.encode(v, writer.uint32(34).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseRequestBeginBlock();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.hash = reader.bytes();
+                    continue;
+                case 2:
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.header = types_1.Header.decode(reader, reader.uint32());
+                    continue;
+                case 3:
+                    if (tag !== 26) {
+                        break;
+                    }
+                    message.lastCommitInfo = exports.CommitInfo.decode(reader, reader.uint32());
+                    continue;
+                case 4:
+                    if (tag !== 34) {
+                        break;
+                    }
+                    message.byzantineValidators.push(exports.Misbehavior.decode(reader, reader.uint32()));
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
+            header: isSet(object.header) ? types_1.Header.fromJSON(object.header) : undefined,
+            lastCommitInfo: isSet(object.lastCommitInfo) ? exports.CommitInfo.fromJSON(object.lastCommitInfo) : undefined,
+            byzantineValidators: Array.isArray(object === null || object === void 0 ? void 0 : object.byzantineValidators)
+                ? object.byzantineValidators.map((e) => exports.Misbehavior.fromJSON(e))
+                : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.hash !== undefined &&
+            (obj.hash = base64FromBytes(message.hash !== undefined ? message.hash : new Uint8Array()));
+        message.header !== undefined && (obj.header = message.header ? types_1.Header.toJSON(message.header) : undefined);
+        message.lastCommitInfo !== undefined &&
+            (obj.lastCommitInfo = message.lastCommitInfo ? exports.CommitInfo.toJSON(message.lastCommitInfo) : undefined);
+        if (message.byzantineValidators) {
+            obj.byzantineValidators = message.byzantineValidators.map((e) => e ? exports.Misbehavior.toJSON(e) : undefined);
+        }
+        else {
+            obj.byzantineValidators = [];
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.RequestBeginBlock.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseRequestBeginBlock();
+        message.hash = (_a = object.hash) !== null && _a !== void 0 ? _a : new Uint8Array();
+        message.header = (object.header !== undefined && object.header !== null)
+            ? types_1.Header.fromPartial(object.header)
+            : undefined;
+        message.lastCommitInfo = (object.lastCommitInfo !== undefined && object.lastCommitInfo !== null)
+            ? exports.CommitInfo.fromPartial(object.lastCommitInfo)
+            : undefined;
+        message.byzantineValidators = ((_b = object.byzantineValidators) === null || _b === void 0 ? void 0 : _b.map((e) => exports.Misbehavior.fromPartial(e))) || [];
+        return message;
+    },
+};
 function createBaseRequestCheckTx() {
     return { tx: new Uint8Array(), type: 0 };
 }
@@ -1059,6 +1111,105 @@ exports.RequestCheckTx = {
         const message = createBaseRequestCheckTx();
         message.tx = (_a = object.tx) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.type = (_b = object.type) !== null && _b !== void 0 ? _b : 0;
+        return message;
+    },
+};
+function createBaseRequestDeliverTx() {
+    return { tx: new Uint8Array() };
+}
+exports.RequestDeliverTx = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.tx.length !== 0) {
+            writer.uint32(10).bytes(message.tx);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseRequestDeliverTx();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.tx = reader.bytes();
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return { tx: isSet(object.tx) ? bytesFromBase64(object.tx) : new Uint8Array() };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.tx !== undefined && (obj.tx = base64FromBytes(message.tx !== undefined ? message.tx : new Uint8Array()));
+        return obj;
+    },
+    create(base) {
+        return exports.RequestDeliverTx.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseRequestDeliverTx();
+        message.tx = (_a = object.tx) !== null && _a !== void 0 ? _a : new Uint8Array();
+        return message;
+    },
+};
+function createBaseRequestEndBlock() {
+    return { height: long_1.default.ZERO };
+}
+exports.RequestEndBlock = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (!message.height.isZero()) {
+            writer.uint32(8).int64(message.height);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseRequestEndBlock();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 8) {
+                        break;
+                    }
+                    message.height = reader.int64();
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return { height: isSet(object.height) ? long_1.default.fromValue(object.height) : long_1.default.ZERO };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.height !== undefined && (obj.height = (message.height || long_1.default.ZERO).toString());
+        return obj;
+    },
+    create(base) {
+        return exports.RequestEndBlock.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        const message = createBaseRequestEndBlock();
+        message.height = (object.height !== undefined && object.height !== null)
+            ? long_1.default.fromValue(object.height)
+            : long_1.default.ZERO;
         return message;
     },
 };
@@ -1688,335 +1839,6 @@ exports.RequestProcessProposal = {
         return message;
     },
 };
-function createBaseRequestExtendVote() {
-    return { hash: new Uint8Array(), height: long_1.default.ZERO };
-}
-exports.RequestExtendVote = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.hash.length !== 0) {
-            writer.uint32(10).bytes(message.hash);
-        }
-        if (!message.height.isZero()) {
-            writer.uint32(16).int64(message.height);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseRequestExtendVote();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    if (tag !== 10) {
-                        break;
-                    }
-                    message.hash = reader.bytes();
-                    continue;
-                case 2:
-                    if (tag !== 16) {
-                        break;
-                    }
-                    message.height = reader.int64();
-                    continue;
-            }
-            if ((tag & 7) === 4 || tag === 0) {
-                break;
-            }
-            reader.skipType(tag & 7);
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
-            height: isSet(object.height) ? long_1.default.fromValue(object.height) : long_1.default.ZERO,
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.hash !== undefined &&
-            (obj.hash = base64FromBytes(message.hash !== undefined ? message.hash : new Uint8Array()));
-        message.height !== undefined && (obj.height = (message.height || long_1.default.ZERO).toString());
-        return obj;
-    },
-    create(base) {
-        return exports.RequestExtendVote.fromPartial(base !== null && base !== void 0 ? base : {});
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseRequestExtendVote();
-        message.hash = (_a = object.hash) !== null && _a !== void 0 ? _a : new Uint8Array();
-        message.height = (object.height !== undefined && object.height !== null)
-            ? long_1.default.fromValue(object.height)
-            : long_1.default.ZERO;
-        return message;
-    },
-};
-function createBaseRequestVerifyVoteExtension() {
-    return {
-        hash: new Uint8Array(),
-        validatorAddress: new Uint8Array(),
-        height: long_1.default.ZERO,
-        voteExtension: new Uint8Array(),
-    };
-}
-exports.RequestVerifyVoteExtension = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.hash.length !== 0) {
-            writer.uint32(10).bytes(message.hash);
-        }
-        if (message.validatorAddress.length !== 0) {
-            writer.uint32(18).bytes(message.validatorAddress);
-        }
-        if (!message.height.isZero()) {
-            writer.uint32(24).int64(message.height);
-        }
-        if (message.voteExtension.length !== 0) {
-            writer.uint32(34).bytes(message.voteExtension);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseRequestVerifyVoteExtension();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    if (tag !== 10) {
-                        break;
-                    }
-                    message.hash = reader.bytes();
-                    continue;
-                case 2:
-                    if (tag !== 18) {
-                        break;
-                    }
-                    message.validatorAddress = reader.bytes();
-                    continue;
-                case 3:
-                    if (tag !== 24) {
-                        break;
-                    }
-                    message.height = reader.int64();
-                    continue;
-                case 4:
-                    if (tag !== 34) {
-                        break;
-                    }
-                    message.voteExtension = reader.bytes();
-                    continue;
-            }
-            if ((tag & 7) === 4 || tag === 0) {
-                break;
-            }
-            reader.skipType(tag & 7);
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
-            validatorAddress: isSet(object.validatorAddress) ? bytesFromBase64(object.validatorAddress) : new Uint8Array(),
-            height: isSet(object.height) ? long_1.default.fromValue(object.height) : long_1.default.ZERO,
-            voteExtension: isSet(object.voteExtension) ? bytesFromBase64(object.voteExtension) : new Uint8Array(),
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.hash !== undefined &&
-            (obj.hash = base64FromBytes(message.hash !== undefined ? message.hash : new Uint8Array()));
-        message.validatorAddress !== undefined &&
-            (obj.validatorAddress = base64FromBytes(message.validatorAddress !== undefined ? message.validatorAddress : new Uint8Array()));
-        message.height !== undefined && (obj.height = (message.height || long_1.default.ZERO).toString());
-        message.voteExtension !== undefined &&
-            (obj.voteExtension = base64FromBytes(message.voteExtension !== undefined ? message.voteExtension : new Uint8Array()));
-        return obj;
-    },
-    create(base) {
-        return exports.RequestVerifyVoteExtension.fromPartial(base !== null && base !== void 0 ? base : {});
-    },
-    fromPartial(object) {
-        var _a, _b, _c;
-        const message = createBaseRequestVerifyVoteExtension();
-        message.hash = (_a = object.hash) !== null && _a !== void 0 ? _a : new Uint8Array();
-        message.validatorAddress = (_b = object.validatorAddress) !== null && _b !== void 0 ? _b : new Uint8Array();
-        message.height = (object.height !== undefined && object.height !== null)
-            ? long_1.default.fromValue(object.height)
-            : long_1.default.ZERO;
-        message.voteExtension = (_c = object.voteExtension) !== null && _c !== void 0 ? _c : new Uint8Array();
-        return message;
-    },
-};
-function createBaseRequestFinalizeBlock() {
-    return {
-        txs: [],
-        decidedLastCommit: undefined,
-        misbehavior: [],
-        hash: new Uint8Array(),
-        height: long_1.default.ZERO,
-        time: undefined,
-        nextValidatorsHash: new Uint8Array(),
-        proposerAddress: new Uint8Array(),
-    };
-}
-exports.RequestFinalizeBlock = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        for (const v of message.txs) {
-            writer.uint32(10).bytes(v);
-        }
-        if (message.decidedLastCommit !== undefined) {
-            exports.CommitInfo.encode(message.decidedLastCommit, writer.uint32(18).fork()).ldelim();
-        }
-        for (const v of message.misbehavior) {
-            exports.Misbehavior.encode(v, writer.uint32(26).fork()).ldelim();
-        }
-        if (message.hash.length !== 0) {
-            writer.uint32(34).bytes(message.hash);
-        }
-        if (!message.height.isZero()) {
-            writer.uint32(40).int64(message.height);
-        }
-        if (message.time !== undefined) {
-            timestamp_1.Timestamp.encode(toTimestamp(message.time), writer.uint32(50).fork()).ldelim();
-        }
-        if (message.nextValidatorsHash.length !== 0) {
-            writer.uint32(58).bytes(message.nextValidatorsHash);
-        }
-        if (message.proposerAddress.length !== 0) {
-            writer.uint32(66).bytes(message.proposerAddress);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseRequestFinalizeBlock();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    if (tag !== 10) {
-                        break;
-                    }
-                    message.txs.push(reader.bytes());
-                    continue;
-                case 2:
-                    if (tag !== 18) {
-                        break;
-                    }
-                    message.decidedLastCommit = exports.CommitInfo.decode(reader, reader.uint32());
-                    continue;
-                case 3:
-                    if (tag !== 26) {
-                        break;
-                    }
-                    message.misbehavior.push(exports.Misbehavior.decode(reader, reader.uint32()));
-                    continue;
-                case 4:
-                    if (tag !== 34) {
-                        break;
-                    }
-                    message.hash = reader.bytes();
-                    continue;
-                case 5:
-                    if (tag !== 40) {
-                        break;
-                    }
-                    message.height = reader.int64();
-                    continue;
-                case 6:
-                    if (tag !== 50) {
-                        break;
-                    }
-                    message.time = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
-                    continue;
-                case 7:
-                    if (tag !== 58) {
-                        break;
-                    }
-                    message.nextValidatorsHash = reader.bytes();
-                    continue;
-                case 8:
-                    if (tag !== 66) {
-                        break;
-                    }
-                    message.proposerAddress = reader.bytes();
-                    continue;
-            }
-            if ((tag & 7) === 4 || tag === 0) {
-                break;
-            }
-            reader.skipType(tag & 7);
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            txs: Array.isArray(object === null || object === void 0 ? void 0 : object.txs) ? object.txs.map((e) => bytesFromBase64(e)) : [],
-            decidedLastCommit: isSet(object.decidedLastCommit) ? exports.CommitInfo.fromJSON(object.decidedLastCommit) : undefined,
-            misbehavior: Array.isArray(object === null || object === void 0 ? void 0 : object.misbehavior)
-                ? object.misbehavior.map((e) => exports.Misbehavior.fromJSON(e))
-                : [],
-            hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
-            height: isSet(object.height) ? long_1.default.fromValue(object.height) : long_1.default.ZERO,
-            time: isSet(object.time) ? fromJsonTimestamp(object.time) : undefined,
-            nextValidatorsHash: isSet(object.nextValidatorsHash)
-                ? bytesFromBase64(object.nextValidatorsHash)
-                : new Uint8Array(),
-            proposerAddress: isSet(object.proposerAddress) ? bytesFromBase64(object.proposerAddress) : new Uint8Array(),
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        if (message.txs) {
-            obj.txs = message.txs.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array()));
-        }
-        else {
-            obj.txs = [];
-        }
-        message.decidedLastCommit !== undefined &&
-            (obj.decidedLastCommit = message.decidedLastCommit ? exports.CommitInfo.toJSON(message.decidedLastCommit) : undefined);
-        if (message.misbehavior) {
-            obj.misbehavior = message.misbehavior.map((e) => e ? exports.Misbehavior.toJSON(e) : undefined);
-        }
-        else {
-            obj.misbehavior = [];
-        }
-        message.hash !== undefined &&
-            (obj.hash = base64FromBytes(message.hash !== undefined ? message.hash : new Uint8Array()));
-        message.height !== undefined && (obj.height = (message.height || long_1.default.ZERO).toString());
-        message.time !== undefined && (obj.time = message.time.toISOString());
-        message.nextValidatorsHash !== undefined &&
-            (obj.nextValidatorsHash = base64FromBytes(message.nextValidatorsHash !== undefined ? message.nextValidatorsHash : new Uint8Array()));
-        message.proposerAddress !== undefined &&
-            (obj.proposerAddress = base64FromBytes(message.proposerAddress !== undefined ? message.proposerAddress : new Uint8Array()));
-        return obj;
-    },
-    create(base) {
-        return exports.RequestFinalizeBlock.fromPartial(base !== null && base !== void 0 ? base : {});
-    },
-    fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f;
-        const message = createBaseRequestFinalizeBlock();
-        message.txs = ((_a = object.txs) === null || _a === void 0 ? void 0 : _a.map((e) => e)) || [];
-        message.decidedLastCommit = (object.decidedLastCommit !== undefined && object.decidedLastCommit !== null)
-            ? exports.CommitInfo.fromPartial(object.decidedLastCommit)
-            : undefined;
-        message.misbehavior = ((_b = object.misbehavior) === null || _b === void 0 ? void 0 : _b.map((e) => exports.Misbehavior.fromPartial(e))) || [];
-        message.hash = (_c = object.hash) !== null && _c !== void 0 ? _c : new Uint8Array();
-        message.height = (object.height !== undefined && object.height !== null)
-            ? long_1.default.fromValue(object.height)
-            : long_1.default.ZERO;
-        message.time = (_d = object.time) !== null && _d !== void 0 ? _d : undefined;
-        message.nextValidatorsHash = (_e = object.nextValidatorsHash) !== null && _e !== void 0 ? _e : new Uint8Array();
-        message.proposerAddress = (_f = object.proposerAddress) !== null && _f !== void 0 ? _f : new Uint8Array();
-        return message;
-    },
-};
 function createBaseResponse() {
     return {
         exception: undefined,
@@ -2025,7 +1847,10 @@ function createBaseResponse() {
         info: undefined,
         initChain: undefined,
         query: undefined,
+        beginBlock: undefined,
         checkTx: undefined,
+        deliverTx: undefined,
+        endBlock: undefined,
         commit: undefined,
         listSnapshots: undefined,
         offerSnapshot: undefined,
@@ -2033,9 +1858,6 @@ function createBaseResponse() {
         applySnapshotChunk: undefined,
         prepareProposal: undefined,
         processProposal: undefined,
-        extendVote: undefined,
-        verifyVoteExtension: undefined,
-        finalizeBlock: undefined,
     };
 }
 exports.Response = {
@@ -2058,8 +1880,17 @@ exports.Response = {
         if (message.query !== undefined) {
             exports.ResponseQuery.encode(message.query, writer.uint32(58).fork()).ldelim();
         }
+        if (message.beginBlock !== undefined) {
+            exports.ResponseBeginBlock.encode(message.beginBlock, writer.uint32(66).fork()).ldelim();
+        }
         if (message.checkTx !== undefined) {
             exports.ResponseCheckTx.encode(message.checkTx, writer.uint32(74).fork()).ldelim();
+        }
+        if (message.deliverTx !== undefined) {
+            exports.ResponseDeliverTx.encode(message.deliverTx, writer.uint32(82).fork()).ldelim();
+        }
+        if (message.endBlock !== undefined) {
+            exports.ResponseEndBlock.encode(message.endBlock, writer.uint32(90).fork()).ldelim();
         }
         if (message.commit !== undefined) {
             exports.ResponseCommit.encode(message.commit, writer.uint32(98).fork()).ldelim();
@@ -2081,15 +1912,6 @@ exports.Response = {
         }
         if (message.processProposal !== undefined) {
             exports.ResponseProcessProposal.encode(message.processProposal, writer.uint32(146).fork()).ldelim();
-        }
-        if (message.extendVote !== undefined) {
-            exports.ResponseExtendVote.encode(message.extendVote, writer.uint32(154).fork()).ldelim();
-        }
-        if (message.verifyVoteExtension !== undefined) {
-            exports.ResponseVerifyVoteExtension.encode(message.verifyVoteExtension, writer.uint32(162).fork()).ldelim();
-        }
-        if (message.finalizeBlock !== undefined) {
-            exports.ResponseFinalizeBlock.encode(message.finalizeBlock, writer.uint32(170).fork()).ldelim();
         }
         return writer;
     },
@@ -2136,11 +1958,29 @@ exports.Response = {
                     }
                     message.query = exports.ResponseQuery.decode(reader, reader.uint32());
                     continue;
+                case 8:
+                    if (tag !== 66) {
+                        break;
+                    }
+                    message.beginBlock = exports.ResponseBeginBlock.decode(reader, reader.uint32());
+                    continue;
                 case 9:
                     if (tag !== 74) {
                         break;
                     }
                     message.checkTx = exports.ResponseCheckTx.decode(reader, reader.uint32());
+                    continue;
+                case 10:
+                    if (tag !== 82) {
+                        break;
+                    }
+                    message.deliverTx = exports.ResponseDeliverTx.decode(reader, reader.uint32());
+                    continue;
+                case 11:
+                    if (tag !== 90) {
+                        break;
+                    }
+                    message.endBlock = exports.ResponseEndBlock.decode(reader, reader.uint32());
                     continue;
                 case 12:
                     if (tag !== 98) {
@@ -2184,24 +2024,6 @@ exports.Response = {
                     }
                     message.processProposal = exports.ResponseProcessProposal.decode(reader, reader.uint32());
                     continue;
-                case 19:
-                    if (tag !== 154) {
-                        break;
-                    }
-                    message.extendVote = exports.ResponseExtendVote.decode(reader, reader.uint32());
-                    continue;
-                case 20:
-                    if (tag !== 162) {
-                        break;
-                    }
-                    message.verifyVoteExtension = exports.ResponseVerifyVoteExtension.decode(reader, reader.uint32());
-                    continue;
-                case 21:
-                    if (tag !== 170) {
-                        break;
-                    }
-                    message.finalizeBlock = exports.ResponseFinalizeBlock.decode(reader, reader.uint32());
-                    continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -2218,7 +2040,10 @@ exports.Response = {
             info: isSet(object.info) ? exports.ResponseInfo.fromJSON(object.info) : undefined,
             initChain: isSet(object.initChain) ? exports.ResponseInitChain.fromJSON(object.initChain) : undefined,
             query: isSet(object.query) ? exports.ResponseQuery.fromJSON(object.query) : undefined,
+            beginBlock: isSet(object.beginBlock) ? exports.ResponseBeginBlock.fromJSON(object.beginBlock) : undefined,
             checkTx: isSet(object.checkTx) ? exports.ResponseCheckTx.fromJSON(object.checkTx) : undefined,
+            deliverTx: isSet(object.deliverTx) ? exports.ResponseDeliverTx.fromJSON(object.deliverTx) : undefined,
+            endBlock: isSet(object.endBlock) ? exports.ResponseEndBlock.fromJSON(object.endBlock) : undefined,
             commit: isSet(object.commit) ? exports.ResponseCommit.fromJSON(object.commit) : undefined,
             listSnapshots: isSet(object.listSnapshots) ? exports.ResponseListSnapshots.fromJSON(object.listSnapshots) : undefined,
             offerSnapshot: isSet(object.offerSnapshot) ? exports.ResponseOfferSnapshot.fromJSON(object.offerSnapshot) : undefined,
@@ -2234,11 +2059,6 @@ exports.Response = {
             processProposal: isSet(object.processProposal)
                 ? exports.ResponseProcessProposal.fromJSON(object.processProposal)
                 : undefined,
-            extendVote: isSet(object.extendVote) ? exports.ResponseExtendVote.fromJSON(object.extendVote) : undefined,
-            verifyVoteExtension: isSet(object.verifyVoteExtension)
-                ? exports.ResponseVerifyVoteExtension.fromJSON(object.verifyVoteExtension)
-                : undefined,
-            finalizeBlock: isSet(object.finalizeBlock) ? exports.ResponseFinalizeBlock.fromJSON(object.finalizeBlock) : undefined,
         };
     },
     toJSON(message) {
@@ -2251,8 +2071,14 @@ exports.Response = {
         message.initChain !== undefined &&
             (obj.initChain = message.initChain ? exports.ResponseInitChain.toJSON(message.initChain) : undefined);
         message.query !== undefined && (obj.query = message.query ? exports.ResponseQuery.toJSON(message.query) : undefined);
+        message.beginBlock !== undefined &&
+            (obj.beginBlock = message.beginBlock ? exports.ResponseBeginBlock.toJSON(message.beginBlock) : undefined);
         message.checkTx !== undefined &&
             (obj.checkTx = message.checkTx ? exports.ResponseCheckTx.toJSON(message.checkTx) : undefined);
+        message.deliverTx !== undefined &&
+            (obj.deliverTx = message.deliverTx ? exports.ResponseDeliverTx.toJSON(message.deliverTx) : undefined);
+        message.endBlock !== undefined &&
+            (obj.endBlock = message.endBlock ? exports.ResponseEndBlock.toJSON(message.endBlock) : undefined);
         message.commit !== undefined && (obj.commit = message.commit ? exports.ResponseCommit.toJSON(message.commit) : undefined);
         message.listSnapshots !== undefined &&
             (obj.listSnapshots = message.listSnapshots ? exports.ResponseListSnapshots.toJSON(message.listSnapshots) : undefined);
@@ -2270,13 +2096,6 @@ exports.Response = {
         message.processProposal !== undefined && (obj.processProposal = message.processProposal
             ? exports.ResponseProcessProposal.toJSON(message.processProposal)
             : undefined);
-        message.extendVote !== undefined &&
-            (obj.extendVote = message.extendVote ? exports.ResponseExtendVote.toJSON(message.extendVote) : undefined);
-        message.verifyVoteExtension !== undefined && (obj.verifyVoteExtension = message.verifyVoteExtension
-            ? exports.ResponseVerifyVoteExtension.toJSON(message.verifyVoteExtension)
-            : undefined);
-        message.finalizeBlock !== undefined &&
-            (obj.finalizeBlock = message.finalizeBlock ? exports.ResponseFinalizeBlock.toJSON(message.finalizeBlock) : undefined);
         return obj;
     },
     create(base) {
@@ -2302,8 +2121,17 @@ exports.Response = {
         message.query = (object.query !== undefined && object.query !== null)
             ? exports.ResponseQuery.fromPartial(object.query)
             : undefined;
+        message.beginBlock = (object.beginBlock !== undefined && object.beginBlock !== null)
+            ? exports.ResponseBeginBlock.fromPartial(object.beginBlock)
+            : undefined;
         message.checkTx = (object.checkTx !== undefined && object.checkTx !== null)
             ? exports.ResponseCheckTx.fromPartial(object.checkTx)
+            : undefined;
+        message.deliverTx = (object.deliverTx !== undefined && object.deliverTx !== null)
+            ? exports.ResponseDeliverTx.fromPartial(object.deliverTx)
+            : undefined;
+        message.endBlock = (object.endBlock !== undefined && object.endBlock !== null)
+            ? exports.ResponseEndBlock.fromPartial(object.endBlock)
             : undefined;
         message.commit = (object.commit !== undefined && object.commit !== null)
             ? exports.ResponseCommit.fromPartial(object.commit)
@@ -2325,15 +2153,6 @@ exports.Response = {
             : undefined;
         message.processProposal = (object.processProposal !== undefined && object.processProposal !== null)
             ? exports.ResponseProcessProposal.fromPartial(object.processProposal)
-            : undefined;
-        message.extendVote = (object.extendVote !== undefined && object.extendVote !== null)
-            ? exports.ResponseExtendVote.fromPartial(object.extendVote)
-            : undefined;
-        message.verifyVoteExtension = (object.verifyVoteExtension !== undefined && object.verifyVoteExtension !== null)
-            ? exports.ResponseVerifyVoteExtension.fromPartial(object.verifyVoteExtension)
-            : undefined;
-        message.finalizeBlock = (object.finalizeBlock !== undefined && object.finalizeBlock !== null)
-            ? exports.ResponseFinalizeBlock.fromPartial(object.finalizeBlock)
             : undefined;
         return message;
     },
@@ -2832,7 +2651,256 @@ exports.ResponseQuery = {
         return message;
     },
 };
+function createBaseResponseBeginBlock() {
+    return { events: [] };
+}
+exports.ResponseBeginBlock = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        for (const v of message.events) {
+            exports.Event.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseResponseBeginBlock();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.events.push(exports.Event.decode(reader, reader.uint32()));
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return { events: Array.isArray(object === null || object === void 0 ? void 0 : object.events) ? object.events.map((e) => exports.Event.fromJSON(e)) : [] };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.events) {
+            obj.events = message.events.map((e) => e ? exports.Event.toJSON(e) : undefined);
+        }
+        else {
+            obj.events = [];
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.ResponseBeginBlock.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a;
+        const message = createBaseResponseBeginBlock();
+        message.events = ((_a = object.events) === null || _a === void 0 ? void 0 : _a.map((e) => exports.Event.fromPartial(e))) || [];
+        return message;
+    },
+};
 function createBaseResponseCheckTx() {
+    return {
+        code: 0,
+        data: new Uint8Array(),
+        log: "",
+        info: "",
+        gasWanted: long_1.default.ZERO,
+        gasUsed: long_1.default.ZERO,
+        events: [],
+        codespace: "",
+        sender: "",
+        priority: long_1.default.ZERO,
+        mempoolError: "",
+    };
+}
+exports.ResponseCheckTx = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.code !== 0) {
+            writer.uint32(8).uint32(message.code);
+        }
+        if (message.data.length !== 0) {
+            writer.uint32(18).bytes(message.data);
+        }
+        if (message.log !== "") {
+            writer.uint32(26).string(message.log);
+        }
+        if (message.info !== "") {
+            writer.uint32(34).string(message.info);
+        }
+        if (!message.gasWanted.isZero()) {
+            writer.uint32(40).int64(message.gasWanted);
+        }
+        if (!message.gasUsed.isZero()) {
+            writer.uint32(48).int64(message.gasUsed);
+        }
+        for (const v of message.events) {
+            exports.Event.encode(v, writer.uint32(58).fork()).ldelim();
+        }
+        if (message.codespace !== "") {
+            writer.uint32(66).string(message.codespace);
+        }
+        if (message.sender !== "") {
+            writer.uint32(74).string(message.sender);
+        }
+        if (!message.priority.isZero()) {
+            writer.uint32(80).int64(message.priority);
+        }
+        if (message.mempoolError !== "") {
+            writer.uint32(90).string(message.mempoolError);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseResponseCheckTx();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 8) {
+                        break;
+                    }
+                    message.code = reader.uint32();
+                    continue;
+                case 2:
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.data = reader.bytes();
+                    continue;
+                case 3:
+                    if (tag !== 26) {
+                        break;
+                    }
+                    message.log = reader.string();
+                    continue;
+                case 4:
+                    if (tag !== 34) {
+                        break;
+                    }
+                    message.info = reader.string();
+                    continue;
+                case 5:
+                    if (tag !== 40) {
+                        break;
+                    }
+                    message.gasWanted = reader.int64();
+                    continue;
+                case 6:
+                    if (tag !== 48) {
+                        break;
+                    }
+                    message.gasUsed = reader.int64();
+                    continue;
+                case 7:
+                    if (tag !== 58) {
+                        break;
+                    }
+                    message.events.push(exports.Event.decode(reader, reader.uint32()));
+                    continue;
+                case 8:
+                    if (tag !== 66) {
+                        break;
+                    }
+                    message.codespace = reader.string();
+                    continue;
+                case 9:
+                    if (tag !== 74) {
+                        break;
+                    }
+                    message.sender = reader.string();
+                    continue;
+                case 10:
+                    if (tag !== 80) {
+                        break;
+                    }
+                    message.priority = reader.int64();
+                    continue;
+                case 11:
+                    if (tag !== 90) {
+                        break;
+                    }
+                    message.mempoolError = reader.string();
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            code: isSet(object.code) ? Number(object.code) : 0,
+            data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+            log: isSet(object.log) ? String(object.log) : "",
+            info: isSet(object.info) ? String(object.info) : "",
+            gasWanted: isSet(object.gas_wanted) ? long_1.default.fromValue(object.gas_wanted) : long_1.default.ZERO,
+            gasUsed: isSet(object.gas_used) ? long_1.default.fromValue(object.gas_used) : long_1.default.ZERO,
+            events: Array.isArray(object === null || object === void 0 ? void 0 : object.events) ? object.events.map((e) => exports.Event.fromJSON(e)) : [],
+            codespace: isSet(object.codespace) ? String(object.codespace) : "",
+            sender: isSet(object.sender) ? String(object.sender) : "",
+            priority: isSet(object.priority) ? long_1.default.fromValue(object.priority) : long_1.default.ZERO,
+            mempoolError: isSet(object.mempoolError) ? String(object.mempoolError) : "",
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        message.code !== undefined && (obj.code = Math.round(message.code));
+        message.data !== undefined &&
+            (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
+        message.log !== undefined && (obj.log = message.log);
+        message.info !== undefined && (obj.info = message.info);
+        message.gasWanted !== undefined && (obj.gas_wanted = (message.gasWanted || long_1.default.ZERO).toString());
+        message.gasUsed !== undefined && (obj.gas_used = (message.gasUsed || long_1.default.ZERO).toString());
+        if (message.events) {
+            obj.events = message.events.map((e) => e ? exports.Event.toJSON(e) : undefined);
+        }
+        else {
+            obj.events = [];
+        }
+        message.codespace !== undefined && (obj.codespace = message.codespace);
+        message.sender !== undefined && (obj.sender = message.sender);
+        message.priority !== undefined && (obj.priority = (message.priority || long_1.default.ZERO).toString());
+        message.mempoolError !== undefined && (obj.mempoolError = message.mempoolError);
+        return obj;
+    },
+    create(base) {
+        return exports.ResponseCheckTx.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a, _b, _c, _d, _e, _f, _g, _h;
+        const message = createBaseResponseCheckTx();
+        message.code = (_a = object.code) !== null && _a !== void 0 ? _a : 0;
+        message.data = (_b = object.data) !== null && _b !== void 0 ? _b : new Uint8Array();
+        message.log = (_c = object.log) !== null && _c !== void 0 ? _c : "";
+        message.info = (_d = object.info) !== null && _d !== void 0 ? _d : "";
+        message.gasWanted = (object.gasWanted !== undefined && object.gasWanted !== null)
+            ? long_1.default.fromValue(object.gasWanted)
+            : long_1.default.ZERO;
+        message.gasUsed = (object.gasUsed !== undefined && object.gasUsed !== null)
+            ? long_1.default.fromValue(object.gasUsed)
+            : long_1.default.ZERO;
+        message.events = ((_e = object.events) === null || _e === void 0 ? void 0 : _e.map((e) => exports.Event.fromPartial(e))) || [];
+        message.codespace = (_f = object.codespace) !== null && _f !== void 0 ? _f : "";
+        message.sender = (_g = object.sender) !== null && _g !== void 0 ? _g : "";
+        message.priority = (object.priority !== undefined && object.priority !== null)
+            ? long_1.default.fromValue(object.priority)
+            : long_1.default.ZERO;
+        message.mempoolError = (_h = object.mempoolError) !== null && _h !== void 0 ? _h : "";
+        return message;
+    },
+};
+function createBaseResponseDeliverTx() {
     return {
         code: 0,
         data: new Uint8Array(),
@@ -2844,7 +2912,7 @@ function createBaseResponseCheckTx() {
         codespace: "",
     };
 }
-exports.ResponseCheckTx = {
+exports.ResponseDeliverTx = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.code !== 0) {
             writer.uint32(8).uint32(message.code);
@@ -2875,7 +2943,7 @@ exports.ResponseCheckTx = {
     decode(input, length) {
         const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
         let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseResponseCheckTx();
+        const message = createBaseResponseDeliverTx();
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
@@ -2966,11 +3034,11 @@ exports.ResponseCheckTx = {
         return obj;
     },
     create(base) {
-        return exports.ResponseCheckTx.fromPartial(base !== null && base !== void 0 ? base : {});
+        return exports.ResponseDeliverTx.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
         var _a, _b, _c, _d, _e, _f;
-        const message = createBaseResponseCheckTx();
+        const message = createBaseResponseDeliverTx();
         message.code = (_a = object.code) !== null && _a !== void 0 ? _a : 0;
         message.data = (_b = object.data) !== null && _b !== void 0 ? _b : new Uint8Array();
         message.log = (_c = object.log) !== null && _c !== void 0 ? _c : "";
@@ -2986,11 +3054,108 @@ exports.ResponseCheckTx = {
         return message;
     },
 };
+function createBaseResponseEndBlock() {
+    return { validatorUpdates: [], consensusParamUpdates: undefined, events: [] };
+}
+exports.ResponseEndBlock = {
+    encode(message, writer = minimal_1.default.Writer.create()) {
+        for (const v of message.validatorUpdates) {
+            exports.ValidatorUpdate.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.consensusParamUpdates !== undefined) {
+            params_1.ConsensusParams.encode(message.consensusParamUpdates, writer.uint32(18).fork()).ldelim();
+        }
+        for (const v of message.events) {
+            exports.Event.encode(v, writer.uint32(26).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = createBaseResponseEndBlock();
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    if (tag !== 10) {
+                        break;
+                    }
+                    message.validatorUpdates.push(exports.ValidatorUpdate.decode(reader, reader.uint32()));
+                    continue;
+                case 2:
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.consensusParamUpdates = params_1.ConsensusParams.decode(reader, reader.uint32());
+                    continue;
+                case 3:
+                    if (tag !== 26) {
+                        break;
+                    }
+                    message.events.push(exports.Event.decode(reader, reader.uint32()));
+                    continue;
+            }
+            if ((tag & 7) === 4 || tag === 0) {
+                break;
+            }
+            reader.skipType(tag & 7);
+        }
+        return message;
+    },
+    fromJSON(object) {
+        return {
+            validatorUpdates: Array.isArray(object === null || object === void 0 ? void 0 : object.validatorUpdates)
+                ? object.validatorUpdates.map((e) => exports.ValidatorUpdate.fromJSON(e))
+                : [],
+            consensusParamUpdates: isSet(object.consensusParamUpdates)
+                ? params_1.ConsensusParams.fromJSON(object.consensusParamUpdates)
+                : undefined,
+            events: Array.isArray(object === null || object === void 0 ? void 0 : object.events) ? object.events.map((e) => exports.Event.fromJSON(e)) : [],
+        };
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.validatorUpdates) {
+            obj.validatorUpdates = message.validatorUpdates.map((e) => e ? exports.ValidatorUpdate.toJSON(e) : undefined);
+        }
+        else {
+            obj.validatorUpdates = [];
+        }
+        message.consensusParamUpdates !== undefined && (obj.consensusParamUpdates = message.consensusParamUpdates
+            ? params_1.ConsensusParams.toJSON(message.consensusParamUpdates)
+            : undefined);
+        if (message.events) {
+            obj.events = message.events.map((e) => e ? exports.Event.toJSON(e) : undefined);
+        }
+        else {
+            obj.events = [];
+        }
+        return obj;
+    },
+    create(base) {
+        return exports.ResponseEndBlock.fromPartial(base !== null && base !== void 0 ? base : {});
+    },
+    fromPartial(object) {
+        var _a, _b;
+        const message = createBaseResponseEndBlock();
+        message.validatorUpdates = ((_a = object.validatorUpdates) === null || _a === void 0 ? void 0 : _a.map((e) => exports.ValidatorUpdate.fromPartial(e))) || [];
+        message.consensusParamUpdates =
+            (object.consensusParamUpdates !== undefined && object.consensusParamUpdates !== null)
+                ? params_1.ConsensusParams.fromPartial(object.consensusParamUpdates)
+                : undefined;
+        message.events = ((_b = object.events) === null || _b === void 0 ? void 0 : _b.map((e) => exports.Event.fromPartial(e))) || [];
+        return message;
+    },
+};
 function createBaseResponseCommit() {
-    return { retainHeight: long_1.default.ZERO };
+    return { data: new Uint8Array(), retainHeight: long_1.default.ZERO };
 }
 exports.ResponseCommit = {
     encode(message, writer = minimal_1.default.Writer.create()) {
+        if (message.data.length !== 0) {
+            writer.uint32(18).bytes(message.data);
+        }
         if (!message.retainHeight.isZero()) {
             writer.uint32(24).int64(message.retainHeight);
         }
@@ -3003,6 +3168,12 @@ exports.ResponseCommit = {
         while (reader.pos < end) {
             const tag = reader.uint32();
             switch (tag >>> 3) {
+                case 2:
+                    if (tag !== 18) {
+                        break;
+                    }
+                    message.data = reader.bytes();
+                    continue;
                 case 3:
                     if (tag !== 24) {
                         break;
@@ -3018,10 +3189,15 @@ exports.ResponseCommit = {
         return message;
     },
     fromJSON(object) {
-        return { retainHeight: isSet(object.retainHeight) ? long_1.default.fromValue(object.retainHeight) : long_1.default.ZERO };
+        return {
+            data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
+            retainHeight: isSet(object.retainHeight) ? long_1.default.fromValue(object.retainHeight) : long_1.default.ZERO,
+        };
     },
     toJSON(message) {
         const obj = {};
+        message.data !== undefined &&
+            (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
         message.retainHeight !== undefined && (obj.retainHeight = (message.retainHeight || long_1.default.ZERO).toString());
         return obj;
     },
@@ -3029,7 +3205,9 @@ exports.ResponseCommit = {
         return exports.ResponseCommit.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
+        var _a;
         const message = createBaseResponseCommit();
+        message.data = (_a = object.data) !== null && _a !== void 0 ? _a : new Uint8Array();
         message.retainHeight = (object.retainHeight !== undefined && object.retainHeight !== null)
             ? long_1.default.fromValue(object.retainHeight)
             : long_1.default.ZERO;
@@ -3388,235 +3566,6 @@ exports.ResponseProcessProposal = {
         return message;
     },
 };
-function createBaseResponseExtendVote() {
-    return { voteExtension: new Uint8Array() };
-}
-exports.ResponseExtendVote = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.voteExtension.length !== 0) {
-            writer.uint32(10).bytes(message.voteExtension);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseResponseExtendVote();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    if (tag !== 10) {
-                        break;
-                    }
-                    message.voteExtension = reader.bytes();
-                    continue;
-            }
-            if ((tag & 7) === 4 || tag === 0) {
-                break;
-            }
-            reader.skipType(tag & 7);
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return { voteExtension: isSet(object.voteExtension) ? bytesFromBase64(object.voteExtension) : new Uint8Array() };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.voteExtension !== undefined &&
-            (obj.voteExtension = base64FromBytes(message.voteExtension !== undefined ? message.voteExtension : new Uint8Array()));
-        return obj;
-    },
-    create(base) {
-        return exports.ResponseExtendVote.fromPartial(base !== null && base !== void 0 ? base : {});
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseResponseExtendVote();
-        message.voteExtension = (_a = object.voteExtension) !== null && _a !== void 0 ? _a : new Uint8Array();
-        return message;
-    },
-};
-function createBaseResponseVerifyVoteExtension() {
-    return { status: 0 };
-}
-exports.ResponseVerifyVoteExtension = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.status !== 0) {
-            writer.uint32(8).int32(message.status);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseResponseVerifyVoteExtension();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    if (tag !== 8) {
-                        break;
-                    }
-                    message.status = reader.int32();
-                    continue;
-            }
-            if ((tag & 7) === 4 || tag === 0) {
-                break;
-            }
-            reader.skipType(tag & 7);
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return { status: isSet(object.status) ? responseVerifyVoteExtension_VerifyStatusFromJSON(object.status) : 0 };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.status !== undefined && (obj.status = responseVerifyVoteExtension_VerifyStatusToJSON(message.status));
-        return obj;
-    },
-    create(base) {
-        return exports.ResponseVerifyVoteExtension.fromPartial(base !== null && base !== void 0 ? base : {});
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseResponseVerifyVoteExtension();
-        message.status = (_a = object.status) !== null && _a !== void 0 ? _a : 0;
-        return message;
-    },
-};
-function createBaseResponseFinalizeBlock() {
-    return {
-        events: [],
-        txResults: [],
-        validatorUpdates: [],
-        consensusParamUpdates: undefined,
-        appHash: new Uint8Array(),
-    };
-}
-exports.ResponseFinalizeBlock = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        for (const v of message.events) {
-            exports.Event.encode(v, writer.uint32(10).fork()).ldelim();
-        }
-        for (const v of message.txResults) {
-            exports.ExecTxResult.encode(v, writer.uint32(18).fork()).ldelim();
-        }
-        for (const v of message.validatorUpdates) {
-            exports.ValidatorUpdate.encode(v, writer.uint32(26).fork()).ldelim();
-        }
-        if (message.consensusParamUpdates !== undefined) {
-            params_1.ConsensusParams.encode(message.consensusParamUpdates, writer.uint32(34).fork()).ldelim();
-        }
-        if (message.appHash.length !== 0) {
-            writer.uint32(42).bytes(message.appHash);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseResponseFinalizeBlock();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    if (tag !== 10) {
-                        break;
-                    }
-                    message.events.push(exports.Event.decode(reader, reader.uint32()));
-                    continue;
-                case 2:
-                    if (tag !== 18) {
-                        break;
-                    }
-                    message.txResults.push(exports.ExecTxResult.decode(reader, reader.uint32()));
-                    continue;
-                case 3:
-                    if (tag !== 26) {
-                        break;
-                    }
-                    message.validatorUpdates.push(exports.ValidatorUpdate.decode(reader, reader.uint32()));
-                    continue;
-                case 4:
-                    if (tag !== 34) {
-                        break;
-                    }
-                    message.consensusParamUpdates = params_1.ConsensusParams.decode(reader, reader.uint32());
-                    continue;
-                case 5:
-                    if (tag !== 42) {
-                        break;
-                    }
-                    message.appHash = reader.bytes();
-                    continue;
-            }
-            if ((tag & 7) === 4 || tag === 0) {
-                break;
-            }
-            reader.skipType(tag & 7);
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            events: Array.isArray(object === null || object === void 0 ? void 0 : object.events) ? object.events.map((e) => exports.Event.fromJSON(e)) : [],
-            txResults: Array.isArray(object === null || object === void 0 ? void 0 : object.txResults) ? object.txResults.map((e) => exports.ExecTxResult.fromJSON(e)) : [],
-            validatorUpdates: Array.isArray(object === null || object === void 0 ? void 0 : object.validatorUpdates)
-                ? object.validatorUpdates.map((e) => exports.ValidatorUpdate.fromJSON(e))
-                : [],
-            consensusParamUpdates: isSet(object.consensusParamUpdates)
-                ? params_1.ConsensusParams.fromJSON(object.consensusParamUpdates)
-                : undefined,
-            appHash: isSet(object.appHash) ? bytesFromBase64(object.appHash) : new Uint8Array(),
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        if (message.events) {
-            obj.events = message.events.map((e) => e ? exports.Event.toJSON(e) : undefined);
-        }
-        else {
-            obj.events = [];
-        }
-        if (message.txResults) {
-            obj.txResults = message.txResults.map((e) => e ? exports.ExecTxResult.toJSON(e) : undefined);
-        }
-        else {
-            obj.txResults = [];
-        }
-        if (message.validatorUpdates) {
-            obj.validatorUpdates = message.validatorUpdates.map((e) => e ? exports.ValidatorUpdate.toJSON(e) : undefined);
-        }
-        else {
-            obj.validatorUpdates = [];
-        }
-        message.consensusParamUpdates !== undefined && (obj.consensusParamUpdates = message.consensusParamUpdates
-            ? params_1.ConsensusParams.toJSON(message.consensusParamUpdates)
-            : undefined);
-        message.appHash !== undefined &&
-            (obj.appHash = base64FromBytes(message.appHash !== undefined ? message.appHash : new Uint8Array()));
-        return obj;
-    },
-    create(base) {
-        return exports.ResponseFinalizeBlock.fromPartial(base !== null && base !== void 0 ? base : {});
-    },
-    fromPartial(object) {
-        var _a, _b, _c, _d;
-        const message = createBaseResponseFinalizeBlock();
-        message.events = ((_a = object.events) === null || _a === void 0 ? void 0 : _a.map((e) => exports.Event.fromPartial(e))) || [];
-        message.txResults = ((_b = object.txResults) === null || _b === void 0 ? void 0 : _b.map((e) => exports.ExecTxResult.fromPartial(e))) || [];
-        message.validatorUpdates = ((_c = object.validatorUpdates) === null || _c === void 0 ? void 0 : _c.map((e) => exports.ValidatorUpdate.fromPartial(e))) || [];
-        message.consensusParamUpdates =
-            (object.consensusParamUpdates !== undefined && object.consensusParamUpdates !== null)
-                ? params_1.ConsensusParams.fromPartial(object.consensusParamUpdates)
-                : undefined;
-        message.appHash = (_d = object.appHash) !== null && _d !== void 0 ? _d : new Uint8Array();
-        return message;
-    },
-};
 function createBaseCommitInfo() {
     return { round: 0, votes: [] };
 }
@@ -3898,160 +3847,6 @@ exports.EventAttribute = {
         return message;
     },
 };
-function createBaseExecTxResult() {
-    return {
-        code: 0,
-        data: new Uint8Array(),
-        log: "",
-        info: "",
-        gasWanted: long_1.default.ZERO,
-        gasUsed: long_1.default.ZERO,
-        events: [],
-        codespace: "",
-    };
-}
-exports.ExecTxResult = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (message.code !== 0) {
-            writer.uint32(8).uint32(message.code);
-        }
-        if (message.data.length !== 0) {
-            writer.uint32(18).bytes(message.data);
-        }
-        if (message.log !== "") {
-            writer.uint32(26).string(message.log);
-        }
-        if (message.info !== "") {
-            writer.uint32(34).string(message.info);
-        }
-        if (!message.gasWanted.isZero()) {
-            writer.uint32(40).int64(message.gasWanted);
-        }
-        if (!message.gasUsed.isZero()) {
-            writer.uint32(48).int64(message.gasUsed);
-        }
-        for (const v of message.events) {
-            exports.Event.encode(v, writer.uint32(58).fork()).ldelim();
-        }
-        if (message.codespace !== "") {
-            writer.uint32(66).string(message.codespace);
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseExecTxResult();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    if (tag !== 8) {
-                        break;
-                    }
-                    message.code = reader.uint32();
-                    continue;
-                case 2:
-                    if (tag !== 18) {
-                        break;
-                    }
-                    message.data = reader.bytes();
-                    continue;
-                case 3:
-                    if (tag !== 26) {
-                        break;
-                    }
-                    message.log = reader.string();
-                    continue;
-                case 4:
-                    if (tag !== 34) {
-                        break;
-                    }
-                    message.info = reader.string();
-                    continue;
-                case 5:
-                    if (tag !== 40) {
-                        break;
-                    }
-                    message.gasWanted = reader.int64();
-                    continue;
-                case 6:
-                    if (tag !== 48) {
-                        break;
-                    }
-                    message.gasUsed = reader.int64();
-                    continue;
-                case 7:
-                    if (tag !== 58) {
-                        break;
-                    }
-                    message.events.push(exports.Event.decode(reader, reader.uint32()));
-                    continue;
-                case 8:
-                    if (tag !== 66) {
-                        break;
-                    }
-                    message.codespace = reader.string();
-                    continue;
-            }
-            if ((tag & 7) === 4 || tag === 0) {
-                break;
-            }
-            reader.skipType(tag & 7);
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            code: isSet(object.code) ? Number(object.code) : 0,
-            data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
-            log: isSet(object.log) ? String(object.log) : "",
-            info: isSet(object.info) ? String(object.info) : "",
-            gasWanted: isSet(object.gasWanted) ? long_1.default.fromValue(object.gasWanted) : long_1.default.ZERO,
-            gasUsed: isSet(object.gasUsed) ? long_1.default.fromValue(object.gasUsed) : long_1.default.ZERO,
-            events: Array.isArray(object === null || object === void 0 ? void 0 : object.events) ? object.events.map((e) => exports.Event.fromJSON(e)) : [],
-            codespace: isSet(object.codespace) ? String(object.codespace) : "",
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.code !== undefined && (obj.code = Math.round(message.code));
-        message.data !== undefined &&
-            (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
-        message.log !== undefined && (obj.log = message.log);
-        message.info !== undefined && (obj.info = message.info);
-        message.gasWanted !== undefined && (obj.gasWanted = (message.gasWanted || long_1.default.ZERO).toString());
-        message.gasUsed !== undefined && (obj.gasUsed = (message.gasUsed || long_1.default.ZERO).toString());
-        if (message.events) {
-            obj.events = message.events.map((e) => e ? exports.Event.toJSON(e) : undefined);
-        }
-        else {
-            obj.events = [];
-        }
-        message.codespace !== undefined && (obj.codespace = message.codespace);
-        return obj;
-    },
-    create(base) {
-        return exports.ExecTxResult.fromPartial(base !== null && base !== void 0 ? base : {});
-    },
-    fromPartial(object) {
-        var _a, _b, _c, _d, _e, _f;
-        const message = createBaseExecTxResult();
-        message.code = (_a = object.code) !== null && _a !== void 0 ? _a : 0;
-        message.data = (_b = object.data) !== null && _b !== void 0 ? _b : new Uint8Array();
-        message.log = (_c = object.log) !== null && _c !== void 0 ? _c : "";
-        message.info = (_d = object.info) !== null && _d !== void 0 ? _d : "";
-        message.gasWanted = (object.gasWanted !== undefined && object.gasWanted !== null)
-            ? long_1.default.fromValue(object.gasWanted)
-            : long_1.default.ZERO;
-        message.gasUsed = (object.gasUsed !== undefined && object.gasUsed !== null)
-            ? long_1.default.fromValue(object.gasUsed)
-            : long_1.default.ZERO;
-        message.events = ((_e = object.events) === null || _e === void 0 ? void 0 : _e.map((e) => exports.Event.fromPartial(e))) || [];
-        message.codespace = (_f = object.codespace) !== null && _f !== void 0 ? _f : "";
-        return message;
-    },
-};
 function createBaseTxResult() {
     return { height: long_1.default.ZERO, index: 0, tx: new Uint8Array(), result: undefined };
 }
@@ -4067,7 +3862,7 @@ exports.TxResult = {
             writer.uint32(26).bytes(message.tx);
         }
         if (message.result !== undefined) {
-            exports.ExecTxResult.encode(message.result, writer.uint32(34).fork()).ldelim();
+            exports.ResponseDeliverTx.encode(message.result, writer.uint32(34).fork()).ldelim();
         }
         return writer;
     },
@@ -4100,7 +3895,7 @@ exports.TxResult = {
                     if (tag !== 34) {
                         break;
                     }
-                    message.result = exports.ExecTxResult.decode(reader, reader.uint32());
+                    message.result = exports.ResponseDeliverTx.decode(reader, reader.uint32());
                     continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
@@ -4115,7 +3910,7 @@ exports.TxResult = {
             height: isSet(object.height) ? long_1.default.fromValue(object.height) : long_1.default.ZERO,
             index: isSet(object.index) ? Number(object.index) : 0,
             tx: isSet(object.tx) ? bytesFromBase64(object.tx) : new Uint8Array(),
-            result: isSet(object.result) ? exports.ExecTxResult.fromJSON(object.result) : undefined,
+            result: isSet(object.result) ? exports.ResponseDeliverTx.fromJSON(object.result) : undefined,
         };
     },
     toJSON(message) {
@@ -4123,7 +3918,8 @@ exports.TxResult = {
         message.height !== undefined && (obj.height = (message.height || long_1.default.ZERO).toString());
         message.index !== undefined && (obj.index = Math.round(message.index));
         message.tx !== undefined && (obj.tx = base64FromBytes(message.tx !== undefined ? message.tx : new Uint8Array()));
-        message.result !== undefined && (obj.result = message.result ? exports.ExecTxResult.toJSON(message.result) : undefined);
+        message.result !== undefined &&
+            (obj.result = message.result ? exports.ResponseDeliverTx.toJSON(message.result) : undefined);
         return obj;
     },
     create(base) {
@@ -4138,7 +3934,7 @@ exports.TxResult = {
         message.index = (_a = object.index) !== null && _a !== void 0 ? _a : 0;
         message.tx = (_b = object.tx) !== null && _b !== void 0 ? _b : new Uint8Array();
         message.result = (object.result !== undefined && object.result !== null)
-            ? exports.ExecTxResult.fromPartial(object.result)
+            ? exports.ResponseDeliverTx.fromPartial(object.result)
             : undefined;
         return message;
     },
@@ -4272,15 +4068,15 @@ exports.ValidatorUpdate = {
     },
 };
 function createBaseVoteInfo() {
-    return { validator: undefined, blockIdFlag: 0 };
+    return { validator: undefined, signedLastBlock: false };
 }
 exports.VoteInfo = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.validator !== undefined) {
             exports.Validator.encode(message.validator, writer.uint32(10).fork()).ldelim();
         }
-        if (message.blockIdFlag !== 0) {
-            writer.uint32(24).int32(message.blockIdFlag);
+        if (message.signedLastBlock === true) {
+            writer.uint32(16).bool(message.signedLastBlock);
         }
         return writer;
     },
@@ -4297,11 +4093,11 @@ exports.VoteInfo = {
                     }
                     message.validator = exports.Validator.decode(reader, reader.uint32());
                     continue;
-                case 3:
-                    if (tag !== 24) {
+                case 2:
+                    if (tag !== 16) {
                         break;
                     }
-                    message.blockIdFlag = reader.int32();
+                    message.signedLastBlock = reader.bool();
                     continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
@@ -4314,14 +4110,14 @@ exports.VoteInfo = {
     fromJSON(object) {
         return {
             validator: isSet(object.validator) ? exports.Validator.fromJSON(object.validator) : undefined,
-            blockIdFlag: isSet(object.blockIdFlag) ? (0, validator_1.blockIDFlagFromJSON)(object.blockIdFlag) : 0,
+            signedLastBlock: isSet(object.signedLastBlock) ? Boolean(object.signedLastBlock) : false,
         };
     },
     toJSON(message) {
         const obj = {};
         message.validator !== undefined &&
             (obj.validator = message.validator ? exports.Validator.toJSON(message.validator) : undefined);
-        message.blockIdFlag !== undefined && (obj.blockIdFlag = (0, validator_1.blockIDFlagToJSON)(message.blockIdFlag));
+        message.signedLastBlock !== undefined && (obj.signedLastBlock = message.signedLastBlock);
         return obj;
     },
     create(base) {
@@ -4333,31 +4129,23 @@ exports.VoteInfo = {
         message.validator = (object.validator !== undefined && object.validator !== null)
             ? exports.Validator.fromPartial(object.validator)
             : undefined;
-        message.blockIdFlag = (_a = object.blockIdFlag) !== null && _a !== void 0 ? _a : 0;
+        message.signedLastBlock = (_a = object.signedLastBlock) !== null && _a !== void 0 ? _a : false;
         return message;
     },
 };
 function createBaseExtendedVoteInfo() {
-    return {
-        validator: undefined,
-        voteExtension: new Uint8Array(),
-        extensionSignature: new Uint8Array(),
-        blockIdFlag: 0,
-    };
+    return { validator: undefined, signedLastBlock: false, voteExtension: new Uint8Array() };
 }
 exports.ExtendedVoteInfo = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.validator !== undefined) {
             exports.Validator.encode(message.validator, writer.uint32(10).fork()).ldelim();
         }
+        if (message.signedLastBlock === true) {
+            writer.uint32(16).bool(message.signedLastBlock);
+        }
         if (message.voteExtension.length !== 0) {
             writer.uint32(26).bytes(message.voteExtension);
-        }
-        if (message.extensionSignature.length !== 0) {
-            writer.uint32(34).bytes(message.extensionSignature);
-        }
-        if (message.blockIdFlag !== 0) {
-            writer.uint32(40).int32(message.blockIdFlag);
         }
         return writer;
     },
@@ -4374,23 +4162,17 @@ exports.ExtendedVoteInfo = {
                     }
                     message.validator = exports.Validator.decode(reader, reader.uint32());
                     continue;
+                case 2:
+                    if (tag !== 16) {
+                        break;
+                    }
+                    message.signedLastBlock = reader.bool();
+                    continue;
                 case 3:
                     if (tag !== 26) {
                         break;
                     }
                     message.voteExtension = reader.bytes();
-                    continue;
-                case 4:
-                    if (tag !== 34) {
-                        break;
-                    }
-                    message.extensionSignature = reader.bytes();
-                    continue;
-                case 5:
-                    if (tag !== 40) {
-                        break;
-                    }
-                    message.blockIdFlag = reader.int32();
                     continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
@@ -4403,36 +4185,30 @@ exports.ExtendedVoteInfo = {
     fromJSON(object) {
         return {
             validator: isSet(object.validator) ? exports.Validator.fromJSON(object.validator) : undefined,
+            signedLastBlock: isSet(object.signedLastBlock) ? Boolean(object.signedLastBlock) : false,
             voteExtension: isSet(object.voteExtension) ? bytesFromBase64(object.voteExtension) : new Uint8Array(),
-            extensionSignature: isSet(object.extensionSignature)
-                ? bytesFromBase64(object.extensionSignature)
-                : new Uint8Array(),
-            blockIdFlag: isSet(object.blockIdFlag) ? (0, validator_1.blockIDFlagFromJSON)(object.blockIdFlag) : 0,
         };
     },
     toJSON(message) {
         const obj = {};
         message.validator !== undefined &&
             (obj.validator = message.validator ? exports.Validator.toJSON(message.validator) : undefined);
+        message.signedLastBlock !== undefined && (obj.signedLastBlock = message.signedLastBlock);
         message.voteExtension !== undefined &&
             (obj.voteExtension = base64FromBytes(message.voteExtension !== undefined ? message.voteExtension : new Uint8Array()));
-        message.extensionSignature !== undefined &&
-            (obj.extensionSignature = base64FromBytes(message.extensionSignature !== undefined ? message.extensionSignature : new Uint8Array()));
-        message.blockIdFlag !== undefined && (obj.blockIdFlag = (0, validator_1.blockIDFlagToJSON)(message.blockIdFlag));
         return obj;
     },
     create(base) {
         return exports.ExtendedVoteInfo.fromPartial(base !== null && base !== void 0 ? base : {});
     },
     fromPartial(object) {
-        var _a, _b, _c;
+        var _a, _b;
         const message = createBaseExtendedVoteInfo();
         message.validator = (object.validator !== undefined && object.validator !== null)
             ? exports.Validator.fromPartial(object.validator)
             : undefined;
-        message.voteExtension = (_a = object.voteExtension) !== null && _a !== void 0 ? _a : new Uint8Array();
-        message.extensionSignature = (_b = object.extensionSignature) !== null && _b !== void 0 ? _b : new Uint8Array();
-        message.blockIdFlag = (_c = object.blockIdFlag) !== null && _c !== void 0 ? _c : 0;
+        message.signedLastBlock = (_a = object.signedLastBlock) !== null && _a !== void 0 ? _a : false;
+        message.voteExtension = (_b = object.voteExtension) !== null && _b !== void 0 ? _b : new Uint8Array();
         return message;
     },
 };
@@ -4646,26 +4422,26 @@ exports.Snapshot = {
         return message;
     },
 };
-class ABCIClientImpl {
+class ABCIApplicationClientImpl {
     constructor(rpc, opts) {
-        this.service = (opts === null || opts === void 0 ? void 0 : opts.service) || "tendermint.abci.ABCI";
+        this.service = (opts === null || opts === void 0 ? void 0 : opts.service) || "tendermint.abci.ABCIApplication";
         this.rpc = rpc;
         this.Echo = this.Echo.bind(this);
         this.Flush = this.Flush.bind(this);
         this.Info = this.Info.bind(this);
+        this.DeliverTx = this.DeliverTx.bind(this);
         this.CheckTx = this.CheckTx.bind(this);
         this.Query = this.Query.bind(this);
         this.Commit = this.Commit.bind(this);
         this.InitChain = this.InitChain.bind(this);
+        this.BeginBlock = this.BeginBlock.bind(this);
+        this.EndBlock = this.EndBlock.bind(this);
         this.ListSnapshots = this.ListSnapshots.bind(this);
         this.OfferSnapshot = this.OfferSnapshot.bind(this);
         this.LoadSnapshotChunk = this.LoadSnapshotChunk.bind(this);
         this.ApplySnapshotChunk = this.ApplySnapshotChunk.bind(this);
         this.PrepareProposal = this.PrepareProposal.bind(this);
         this.ProcessProposal = this.ProcessProposal.bind(this);
-        this.ExtendVote = this.ExtendVote.bind(this);
-        this.VerifyVoteExtension = this.VerifyVoteExtension.bind(this);
-        this.FinalizeBlock = this.FinalizeBlock.bind(this);
     }
     Echo(request) {
         const data = exports.RequestEcho.encode(request).finish();
@@ -4681,6 +4457,11 @@ class ABCIClientImpl {
         const data = exports.RequestInfo.encode(request).finish();
         const promise = this.rpc.request(this.service, "Info", data);
         return promise.then((data) => exports.ResponseInfo.decode(minimal_1.default.Reader.create(data)));
+    }
+    DeliverTx(request) {
+        const data = exports.RequestDeliverTx.encode(request).finish();
+        const promise = this.rpc.request(this.service, "DeliverTx", data);
+        return promise.then((data) => exports.ResponseDeliverTx.decode(minimal_1.default.Reader.create(data)));
     }
     CheckTx(request) {
         const data = exports.RequestCheckTx.encode(request).finish();
@@ -4701,6 +4482,16 @@ class ABCIClientImpl {
         const data = exports.RequestInitChain.encode(request).finish();
         const promise = this.rpc.request(this.service, "InitChain", data);
         return promise.then((data) => exports.ResponseInitChain.decode(minimal_1.default.Reader.create(data)));
+    }
+    BeginBlock(request) {
+        const data = exports.RequestBeginBlock.encode(request).finish();
+        const promise = this.rpc.request(this.service, "BeginBlock", data);
+        return promise.then((data) => exports.ResponseBeginBlock.decode(minimal_1.default.Reader.create(data)));
+    }
+    EndBlock(request) {
+        const data = exports.RequestEndBlock.encode(request).finish();
+        const promise = this.rpc.request(this.service, "EndBlock", data);
+        return promise.then((data) => exports.ResponseEndBlock.decode(minimal_1.default.Reader.create(data)));
     }
     ListSnapshots(request) {
         const data = exports.RequestListSnapshots.encode(request).finish();
@@ -4732,23 +4523,8 @@ class ABCIClientImpl {
         const promise = this.rpc.request(this.service, "ProcessProposal", data);
         return promise.then((data) => exports.ResponseProcessProposal.decode(minimal_1.default.Reader.create(data)));
     }
-    ExtendVote(request) {
-        const data = exports.RequestExtendVote.encode(request).finish();
-        const promise = this.rpc.request(this.service, "ExtendVote", data);
-        return promise.then((data) => exports.ResponseExtendVote.decode(minimal_1.default.Reader.create(data)));
-    }
-    VerifyVoteExtension(request) {
-        const data = exports.RequestVerifyVoteExtension.encode(request).finish();
-        const promise = this.rpc.request(this.service, "VerifyVoteExtension", data);
-        return promise.then((data) => exports.ResponseVerifyVoteExtension.decode(minimal_1.default.Reader.create(data)));
-    }
-    FinalizeBlock(request) {
-        const data = exports.RequestFinalizeBlock.encode(request).finish();
-        const promise = this.rpc.request(this.service, "FinalizeBlock", data);
-        return promise.then((data) => exports.ResponseFinalizeBlock.decode(minimal_1.default.Reader.create(data)));
-    }
 }
-exports.ABCIClientImpl = ABCIClientImpl;
+exports.ABCIApplicationClientImpl = ABCIApplicationClientImpl;
 var tsProtoGlobalThis = (() => {
     if (typeof globalThis !== "undefined") {
         return globalThis;

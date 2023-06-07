@@ -9,13 +9,6 @@ export interface MsgCreateValidator {
     description?: Description;
     commission?: CommissionRates;
     minSelfDelegation: string;
-    /**
-     * Deprecated: Use of Delegator Address in MsgCreateValidator is deprecated.
-     * The validator address bytes and delegator address bytes refer to the same account while creating validator (defer
-     * only in bech32 notation).
-     *
-     * @deprecated
-     */
     delegatorAddress: string;
     validatorAddress: string;
     pubkey?: Any;
@@ -78,12 +71,6 @@ export interface MsgUndelegate {
 /** MsgUndelegateResponse defines the Msg/Undelegate response type. */
 export interface MsgUndelegateResponse {
     completionTime?: Date;
-    /**
-     * amount returns the amount of undelegated coins
-     *
-     * Since: cosmos-sdk 0.50
-     */
-    amount?: Coin;
 }
 /**
  * MsgCancelUnbondingDelegation defines the SDK message for performing a cancel unbonding delegation for delegator
@@ -111,7 +98,7 @@ export interface MsgCancelUnbondingDelegationResponse {
  * Since: cosmos-sdk 0.47
  */
 export interface MsgUpdateParams {
-    /** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+    /** authority is the address of the governance account. */
     authority: string;
     /**
      * params defines the x/staking parameters to update.
@@ -505,36 +492,14 @@ export declare const MsgUndelegateResponse: {
     toJSON(message: MsgUndelegateResponse): unknown;
     create<I extends {
         completionTime?: Date | undefined;
-        amount?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } | undefined;
     } & {
         completionTime?: Date | undefined;
-        amount?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K in Exclude<keyof I["amount"], keyof Coin>]: never; }) | undefined;
-    } & { [K_1 in Exclude<keyof I, keyof MsgUndelegateResponse>]: never; }>(base?: I | undefined): MsgUndelegateResponse;
+    } & { [K in Exclude<keyof I, "completionTime">]: never; }>(base?: I | undefined): MsgUndelegateResponse;
     fromPartial<I_1 extends {
         completionTime?: Date | undefined;
-        amount?: {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } | undefined;
     } & {
         completionTime?: Date | undefined;
-        amount?: ({
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & {
-            denom?: string | undefined;
-            amount?: string | undefined;
-        } & { [K_2 in Exclude<keyof I_1["amount"], keyof Coin>]: never; }) | undefined;
-    } & { [K_3 in Exclude<keyof I_1, keyof MsgUndelegateResponse>]: never; }>(object: I_1): MsgUndelegateResponse;
+    } & { [K_1 in Exclude<keyof I_1, "completionTime">]: never; }>(object: I_1): MsgUndelegateResponse;
 };
 export declare const MsgCancelUnbondingDelegation: {
     encode(message: MsgCancelUnbondingDelegation, writer?: _m0.Writer): _m0.Writer;

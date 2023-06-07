@@ -457,13 +457,13 @@ exports.ShowAllChainsInfoStruct = {
                     message.enabledApiInterfaces.push(reader.string());
                     continue;
                 case 4:
-                    if (tag != 32) {
+                    if (tag !== 32) {
                         break;
                     }
                     message.apiCount = reader.uint64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);

@@ -9,7 +9,7 @@ import {
   RelayPrivateData,
 } from "../grpc_web_services/pairing/relay_pb";
 import { Relayer as RelayerService } from "../grpc_web_services/pairing/relay_pb_service";
-import { Badge } from "../badge/badges_pb";
+import { Badge } from "../grpc_web_services/pairing/relay_pb";
 import transport from "../util/browser";
 
 class Relayer {

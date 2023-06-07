@@ -91,4 +91,3 @@ export class RelayerClient {
     callback: (error: ServiceError|null, responseMessage: google_protobuf_wrappers_pb.UInt64Value|null) => void
   ): UnaryResponse;
 }
-

@@ -645,15 +645,12 @@ exports.MsgUndelegate = {
     },
 };
 function createBaseMsgUndelegateResponse() {
-    return { completionTime: undefined, amount: undefined };
+    return { completionTime: undefined };
 }
 exports.MsgUndelegateResponse = {
     encode(message, writer = minimal_1.default.Writer.create()) {
         if (message.completionTime !== undefined) {
             timestamp_1.Timestamp.encode(toTimestamp(message.completionTime), writer.uint32(10).fork()).ldelim();
-        }
-        if (message.amount !== undefined) {
-            coin_1.Coin.encode(message.amount, writer.uint32(18).fork()).ldelim();
         }
         return writer;
     },
@@ -670,12 +667,6 @@ exports.MsgUndelegateResponse = {
                     }
                     message.completionTime = fromTimestamp(timestamp_1.Timestamp.decode(reader, reader.uint32()));
                     continue;
-                case 2:
-                    if (tag !== 18) {
-                        break;
-                    }
-                    message.amount = coin_1.Coin.decode(reader, reader.uint32());
-                    continue;
             }
             if ((tag & 7) === 4 || tag === 0) {
                 break;
@@ -685,15 +676,11 @@ exports.MsgUndelegateResponse = {
         return message;
     },
     fromJSON(object) {
-        return {
-            completionTime: isSet(object.completionTime) ? fromJsonTimestamp(object.completionTime) : undefined,
-            amount: isSet(object.amount) ? coin_1.Coin.fromJSON(object.amount) : undefined,
-        };
+        return { completionTime: isSet(object.completionTime) ? fromJsonTimestamp(object.completionTime) : undefined };
     },
     toJSON(message) {
         const obj = {};
         message.completionTime !== undefined && (obj.completionTime = message.completionTime.toISOString());
-        message.amount !== undefined && (obj.amount = message.amount ? coin_1.Coin.toJSON(message.amount) : undefined);
         return obj;
     },
     create(base) {
@@ -703,9 +690,6 @@ exports.MsgUndelegateResponse = {
         var _a;
         const message = createBaseMsgUndelegateResponse();
         message.completionTime = (_a = object.completionTime) !== null && _a !== void 0 ? _a : undefined;
-        message.amount = (object.amount !== undefined && object.amount !== null)
-            ? coin_1.Coin.fromPartial(object.amount)
-            : undefined;
         return message;
     },
 };

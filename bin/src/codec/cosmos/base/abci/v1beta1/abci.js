@@ -3,13 +3,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SearchBlocksResult = exports.SearchTxsResult = exports.TxMsgData = exports.MsgData = exports.SimulationResponse = exports.Result = exports.GasInfo = exports.Attribute = exports.StringEvent = exports.ABCIMessageLog = exports.TxResponse = exports.protobufPackage = void 0;
+exports.SearchTxsResult = exports.TxMsgData = exports.MsgData = exports.SimulationResponse = exports.Result = exports.GasInfo = exports.Attribute = exports.StringEvent = exports.ABCIMessageLog = exports.TxResponse = exports.protobufPackage = void 0;
 /* eslint-disable */
 const long_1 = __importDefault(require("long"));
 const minimal_1 = __importDefault(require("protobufjs/minimal"));
 const any_1 = require("../../../../google/protobuf/any");
 const types_1 = require("../../../../tendermint/abci/types");
-const block_1 = require("../../../../tendermint/types/block");
 exports.protobufPackage = "cosmos.base.abci.v1beta1";
 function createBaseTxResponse() {
     return {
@@ -937,135 +936,6 @@ exports.SearchTxsResult = {
             : long_1.default.UZERO;
         message.limit = (object.limit !== undefined && object.limit !== null) ? long_1.default.fromValue(object.limit) : long_1.default.UZERO;
         message.txs = ((_a = object.txs) === null || _a === void 0 ? void 0 : _a.map((e) => exports.TxResponse.fromPartial(e))) || [];
-        return message;
-    },
-};
-function createBaseSearchBlocksResult() {
-    return {
-        totalCount: long_1.default.ZERO,
-        count: long_1.default.ZERO,
-        pageNumber: long_1.default.ZERO,
-        pageTotal: long_1.default.ZERO,
-        limit: long_1.default.ZERO,
-        blocks: [],
-    };
-}
-exports.SearchBlocksResult = {
-    encode(message, writer = minimal_1.default.Writer.create()) {
-        if (!message.totalCount.isZero()) {
-            writer.uint32(8).int64(message.totalCount);
-        }
-        if (!message.count.isZero()) {
-            writer.uint32(16).int64(message.count);
-        }
-        if (!message.pageNumber.isZero()) {
-            writer.uint32(24).int64(message.pageNumber);
-        }
-        if (!message.pageTotal.isZero()) {
-            writer.uint32(32).int64(message.pageTotal);
-        }
-        if (!message.limit.isZero()) {
-            writer.uint32(40).int64(message.limit);
-        }
-        for (const v of message.blocks) {
-            block_1.Block.encode(v, writer.uint32(50).fork()).ldelim();
-        }
-        return writer;
-    },
-    decode(input, length) {
-        const reader = input instanceof minimal_1.default.Reader ? input : minimal_1.default.Reader.create(input);
-        let end = length === undefined ? reader.len : reader.pos + length;
-        const message = createBaseSearchBlocksResult();
-        while (reader.pos < end) {
-            const tag = reader.uint32();
-            switch (tag >>> 3) {
-                case 1:
-                    if (tag !== 8) {
-                        break;
-                    }
-                    message.totalCount = reader.int64();
-                    continue;
-                case 2:
-                    if (tag !== 16) {
-                        break;
-                    }
-                    message.count = reader.int64();
-                    continue;
-                case 3:
-                    if (tag !== 24) {
-                        break;
-                    }
-                    message.pageNumber = reader.int64();
-                    continue;
-                case 4:
-                    if (tag !== 32) {
-                        break;
-                    }
-                    message.pageTotal = reader.int64();
-                    continue;
-                case 5:
-                    if (tag !== 40) {
-                        break;
-                    }
-                    message.limit = reader.int64();
-                    continue;
-                case 6:
-                    if (tag !== 50) {
-                        break;
-                    }
-                    message.blocks.push(block_1.Block.decode(reader, reader.uint32()));
-                    continue;
-            }
-            if ((tag & 7) === 4 || tag === 0) {
-                break;
-            }
-            reader.skipType(tag & 7);
-        }
-        return message;
-    },
-    fromJSON(object) {
-        return {
-            totalCount: isSet(object.totalCount) ? long_1.default.fromValue(object.totalCount) : long_1.default.ZERO,
-            count: isSet(object.count) ? long_1.default.fromValue(object.count) : long_1.default.ZERO,
-            pageNumber: isSet(object.pageNumber) ? long_1.default.fromValue(object.pageNumber) : long_1.default.ZERO,
-            pageTotal: isSet(object.pageTotal) ? long_1.default.fromValue(object.pageTotal) : long_1.default.ZERO,
-            limit: isSet(object.limit) ? long_1.default.fromValue(object.limit) : long_1.default.ZERO,
-            blocks: Array.isArray(object === null || object === void 0 ? void 0 : object.blocks) ? object.blocks.map((e) => block_1.Block.fromJSON(e)) : [],
-        };
-    },
-    toJSON(message) {
-        const obj = {};
-        message.totalCount !== undefined && (obj.totalCount = (message.totalCount || long_1.default.ZERO).toString());
-        message.count !== undefined && (obj.count = (message.count || long_1.default.ZERO).toString());
-        message.pageNumber !== undefined && (obj.pageNumber = (message.pageNumber || long_1.default.ZERO).toString());
-        message.pageTotal !== undefined && (obj.pageTotal = (message.pageTotal || long_1.default.ZERO).toString());
-        message.limit !== undefined && (obj.limit = (message.limit || long_1.default.ZERO).toString());
-        if (message.blocks) {
-            obj.blocks = message.blocks.map((e) => e ? block_1.Block.toJSON(e) : undefined);
-        }
-        else {
-            obj.blocks = [];
-        }
-        return obj;
-    },
-    create(base) {
-        return exports.SearchBlocksResult.fromPartial(base !== null && base !== void 0 ? base : {});
-    },
-    fromPartial(object) {
-        var _a;
-        const message = createBaseSearchBlocksResult();
-        message.totalCount = (object.totalCount !== undefined && object.totalCount !== null)
-            ? long_1.default.fromValue(object.totalCount)
-            : long_1.default.ZERO;
-        message.count = (object.count !== undefined && object.count !== null) ? long_1.default.fromValue(object.count) : long_1.default.ZERO;
-        message.pageNumber = (object.pageNumber !== undefined && object.pageNumber !== null)
-            ? long_1.default.fromValue(object.pageNumber)
-            : long_1.default.ZERO;
-        message.pageTotal = (object.pageTotal !== undefined && object.pageTotal !== null)
-            ? long_1.default.fromValue(object.pageTotal)
-            : long_1.default.ZERO;
-        message.limit = (object.limit !== undefined && object.limit !== null) ? long_1.default.fromValue(object.limit) : long_1.default.ZERO;
-        message.blocks = ((_a = object.blocks) === null || _a === void 0 ? void 0 : _a.map((e) => block_1.Block.fromPartial(e))) || [];
         return message;
     },
 };

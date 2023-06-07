@@ -8,7 +8,7 @@ import { AccountData } from "@cosmjs/proto-signing";
 import Relayer from "../relayer/relayer";
 import { RelayReply } from "../grpc_web_services/pairing/relay_pb";
 import { fetchBadge } from "../badge/fetchBadge";
-import { Badge } from "../badge/badges_pb";
+import { Badge } from "../grpc_web_services/pairing/relay_pb";
 import { SessionManager, ConsumerSessionWithProvider } from "../types/types";
 import {
   isValidChainID,
