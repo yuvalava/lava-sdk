@@ -53,11 +53,6 @@ export class LavaSDK {
     // If network is not defined use default network
     network = network || DEFAULT_LAVA_PAIRING_NETWORK;
 
-    // Validate network
-    if (!isNetworkValid(network)) {
-      throw SDKErrors.errNetworkUnsupported;
-    }
-
     // if lava chain id is not defined use default
     lavaChainId = lavaChainId || DEFAULT_LAVA_CHAINID;
 

@@ -90,13 +90,19 @@ export class LavaProviders {
 
       if (data[this.network] == undefined) {
         throw new Error(
-          `Unsupported network, check pairing list configuration`
+          `Unsupported network (${
+            this.network
+          }), supported networks: ${Object.keys(data)}, seed pairing list used`
         );
       }
 
       if (data[this.network][this.geolocation] == undefined) {
         throw new Error(
-          `Unsupported geolocation, check pairing list configuration`
+          `Unsupported geolocation (${this.geolocation}) for network (${
+            this.network
+          }). Supported geolocations: ${Object.keys(
+            data[this.network]
+          )}, seed pairing list used`
         );
       }
       // Return data array
@@ -111,13 +117,19 @@ export class LavaProviders {
       const data = await fetchLavaPairing(path);
       if (data[this.network] == undefined) {
         throw new Error(
-          `Unsupported network, check pairing list configuration`
+          `Unsupported network (${
+            this.network
+          }), supported networks: ${Object.keys(data)}, local pairing list used`
         );
       }
 
       if (data[this.network][this.geolocation] == undefined) {
         throw new Error(
-          `Unsupported geolocation, check pairing list configuration`
+          `Unsupported geolocation (${this.geolocation}) for network (${
+            this.network
+          }). Supported geolocations: ${Object.keys(
+            data[this.network]
+          )}, local pairing list used`
         );
       }
       return data[this.network][this.geolocation];

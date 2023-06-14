@@ -41,10 +41,6 @@ class LavaSDK {
         let { pairingListConfig, network, geolocation, lavaChainId } = options;
         // If network is not defined use default network
         network = network || default_1.DEFAULT_LAVA_PAIRING_NETWORK;
-        // Validate network
-        if (!(0, chains_1.isNetworkValid)(network)) {
-            throw errors_1.default.errNetworkUnsupported;
-        }
         // if lava chain id is not defined use default
         lavaChainId = lavaChainId || default_1.DEFAULT_LAVA_CHAINID;
         // If geolocation is not defined use default geolocation
