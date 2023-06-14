@@ -102,6 +102,8 @@ class LavaSDK {
             // If rpc is not defined use default for specified chainID
             this.rpcInterface =
                 this.rpcInterface || (0, chains_1.fetchRpcInterface)(this.chainID, parsedChainList);
+            // Validate rpc interface with chain id
+            (0, chains_1.validateRpcInterfaceWithChainID)(this.chainID, parsedChainList, this.rpcInterface);
             // Save lava providers as local attribute
             this.lavaProviders = lavaProviders;
             // Get pairing list for current epoch
