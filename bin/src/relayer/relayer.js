@@ -110,20 +110,35 @@ class Relayer {
                         else {
                             consumerProviderSession.UsedComputeUnits = 0;
                         }
+                        let additionalInfo = "";
                         if (msg.includes("Response closed without headers")) {
-                            msg =
-                                msg +
+                            additionalInfo =
+                                additionalInfo +
                                     ", provider iPPORT: " +
                                     consumerProviderSession.Session.Endpoint.Addr +
                                     ", provider address: " +
                                     consumerProviderSession.Session.ProviderAddress;
                         }
-                        reject(new Error(msg));
+                        const errMessage = this.extractErrorMessage(msg) + additionalInfo;
+                        reject(new Error(errMessage));
                     },
                 });
             });
             return this.relayWithTimeout(2000, requestPromise);
         });
+    }
+    extractErrorMessage(error) {
+        // Regular expression to match the desired pattern
+        const regex = /desc = (.*?)(?=:\s*rpc error|$)/s;
+        // Try to match the error message to the regular expression
+        const match = error.match(regex);
+        // If there is a match, return it; otherwise return the original error message
+        if (match && match[1]) {
+            return match[1].trim();
+        }
+        else {
+            return error;
+        }
     }
     relayWithTimeout(timeLimit, task) {
         return __awaiter(this, void 0, void 0, function* () {

@@ -8,6 +8,7 @@ import {
   isValidChainID,
   fetchRpcInterface,
   isNetworkValid,
+  validateRpcInterfaceWithChainID,
 } from "../util/chains";
 import { LavaProviders } from "../lavaOverLava/providers";
 import {
@@ -51,11 +52,6 @@ export class LavaSDK {
 
     // If network is not defined use default network
     network = network || DEFAULT_LAVA_PAIRING_NETWORK;
-
-    // Validate network
-    if (!isNetworkValid(network)) {
-      throw SDKErrors.errNetworkUnsupported;
-    }
 
     // if lava chain id is not defined use default
     lavaChainId = lavaChainId || DEFAULT_LAVA_CHAINID;
@@ -147,6 +143,13 @@ export class LavaSDK {
     // If rpc is not defined use default for specified chainID
     this.rpcInterface =
       this.rpcInterface || fetchRpcInterface(this.chainID, parsedChainList);
+
+    // Validate rpc interface with chain id
+    validateRpcInterfaceWithChainID(
+      this.chainID,
+      parsedChainList,
+      this.rpcInterface
+    );
 
     // Save lava providers as local attribute
     this.lavaProviders = lavaProviders;

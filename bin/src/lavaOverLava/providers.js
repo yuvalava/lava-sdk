@@ -67,18 +67,35 @@ class LavaProviders {
             try {
                 // Parse response
                 const data = yield response.json();
+                if (data[this.network] == undefined) {
+                    throw new Error(`Unsupported network (${this.network}), supported networks: ${Object.keys(data)}, seed pairing list used`);
+                }
+                if (data[this.network][this.geolocation] == undefined) {
+                    throw new Error(`Unsupported geolocation (${this.geolocation}) for network (${this.network}). Supported geolocations: ${Object.keys(data[this.network])}, seed pairing list used`);
+                }
                 // Return data array
                 return data[this.network][this.geolocation];
             }
             catch (error) {
-                throw errors_1.default.errConfigNotValidJson;
+                throw error;
             }
         });
     }
     initLocalConfig(path) {
         return __awaiter(this, void 0, void 0, function* () {
-            const data = yield (0, lavaPairing_1.fetchLavaPairing)(path);
-            return data[this.network][this.geolocation];
+            try {
+                const data = yield (0, lavaPairing_1.fetchLavaPairing)(path);
+                if (data[this.network] == undefined) {
+                    throw new Error(`Unsupported network (${this.network}), supported networks: ${Object.keys(data)}, local pairing list used`);
+                }
+                if (data[this.network][this.geolocation] == undefined) {
+                    throw new Error(`Unsupported geolocation (${this.geolocation}) for network (${this.network}). Supported geolocations: ${Object.keys(data[this.network])}, local pairing list used`);
+                }
+                return data[this.network][this.geolocation];
+            }
+            catch (err) {
+                throw err;
+            }
         });
     }
     // GetLavaProviders returns lava providers list
