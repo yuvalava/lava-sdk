@@ -88,16 +88,42 @@ export class LavaProviders {
       // Parse response
       const data = await response.json();
 
+      if (data[this.network] == undefined) {
+        throw new Error(
+          `Unsupported network, check pairing list configuration`
+        );
+      }
+
+      if (data[this.network][this.geolocation] == undefined) {
+        throw new Error(
+          `Unsupported geolocation, check pairing list configuration`
+        );
+      }
       // Return data array
       return data[this.network][this.geolocation];
     } catch (error) {
-      throw ProvidersErrors.errConfigNotValidJson;
+      throw error;
     }
   }
 
   async initLocalConfig(path: string): Promise<any> {
-    const data = await fetchLavaPairing(path);
-    return data[this.network][this.geolocation];
+    try {
+      const data = await fetchLavaPairing(path);
+      if (data[this.network] == undefined) {
+        throw new Error(
+          `Unsupported network, check pairing list configuration`
+        );
+      }
+
+      if (data[this.network][this.geolocation] == undefined) {
+        throw new Error(
+          `Unsupported geolocation, check pairing list configuration`
+        );
+      }
+      return data[this.network][this.geolocation];
+    } catch (err) {
+      throw err;
+    }
   }
 
   // GetLavaProviders returns lava providers list

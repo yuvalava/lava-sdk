@@ -103,21 +103,38 @@ class Relayer {
             consumerProviderSession.UsedComputeUnits = 0;
           }
 
+          var additionalInfo = "";
           if (msg.includes("Response closed without headers")) {
-            msg =
-              msg +
+            additionalInfo =
+              additionalInfo +
               ", provider iPPORT: " +
               consumerProviderSession.Session.Endpoint.Addr +
               ", provider address: " +
               consumerProviderSession.Session.ProviderAddress;
           }
 
-          reject(new Error(msg));
+          var errMessage = this.extractErrorMessage(msg) + additionalInfo;
+          reject(new Error(errMessage));
         },
       });
     });
 
     return this.relayWithTimeout(2000, requestPromise);
+  }
+
+  extractErrorMessage(error: string) {
+    // Regular expression to match the desired pattern
+    let regex = /desc = (.*?)(?=:\s*rpc error|$)/s;
+
+    // Try to match the error message to the regular expression
+    let match = error.match(regex);
+
+    // If there is a match, return it; otherwise return the original error message
+    if (match && match[1]) {
+      return match[1].trim();
+    } else {
+      return error;
+    }
   }
 
   async relayWithTimeout(timeLimit: number, task: any) {

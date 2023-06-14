@@ -24,6 +24,26 @@ export function isValidChainID(
   );
 }
 
+export function validateRpcInterfaceWithChainID(
+  chainID: string,
+  supportedChains: ChainInfoList,
+  rpcInterface: string
+) {
+  const targetChainInfo = supportedChains.chainInfoList.find(
+    (chainInfo) => chainInfo.chainID === chainID
+  );
+
+  if (!targetChainInfo) {
+    throw new Error(`ChainID ${chainID} not found.`);
+  }
+
+  if (!targetChainInfo.enabledApiInterfaces.includes(rpcInterface)) {
+    throw new Error(
+      `The specified RPC interface is not supported by the chain ID ${chainID}, supported interfaces include ${targetChainInfo.enabledApiInterfaces}`
+    );
+  }
+}
+
 // fetchRpcInterface fetches default rpcInterface for chainID
 export function fetchRpcInterface(
   chainID: string,
