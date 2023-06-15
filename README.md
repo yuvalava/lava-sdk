@@ -61,12 +61,6 @@ Need help? We've got you covered 😻 Head over to our [Discord](https://discord
 yarn add @lavanet/lava-sdk
 ```
 
-### NPM
-
-```bash
-npm install @lavanet/lava-sdk
-```
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
