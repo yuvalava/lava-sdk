@@ -959,7 +959,7 @@
 
 "@types/google-protobuf@^3.15.6":
   version "3.15.6"
-  resolved "https://registry.yarnpkg.com/@types/google-protobuf/-/google-protobuf-3.15.6.tgz#674a69493ef2c849b95eafe69167ea59079eb504"
+  resolved "https://registry.npmjs.org/@types/google-protobuf/-/google-protobuf-3.15.6.tgz"
   integrity sha512-pYVNNJ+winC4aek+lZp93sIKxnXt5qMkuKmaqS3WGuTq0Bw1ZDYNBgzG5kkdtwcv+GmYJGo3yEg6z2cKKAiEdw==
 
 "@types/graceful-fs@^4.1.3":
@@ -2242,14 +2242,9 @@ globby@^11.1.0:
     merge2 "^1.4.1"
     slash "^3.0.0"
 
-google-protobuf@^3.15.5:
+google-protobuf@^3.15.5, google-protobuf@^3.21.2:
   version "3.21.2"
   resolved "https://registry.npmjs.org/google-protobuf/-/google-protobuf-3.21.2.tgz"
-  integrity sha512-3MSOYFO5U9mPGikIYCzK0SaThypfGgS6bHqrUGXG3DPHCrb+txNqeEcns1W0lkGfk0rCyNXm7xB9rMxnCiZOoA==
-
-google-protobuf@^3.21.2:
-  version "3.21.2"
-  resolved "https://registry.yarnpkg.com/google-protobuf/-/google-protobuf-3.21.2.tgz#4580a2bea8bbb291ee579d1fefb14d6fa3070ea4"
   integrity sha512-3MSOYFO5U9mPGikIYCzK0SaThypfGgS6bHqrUGXG3DPHCrb+txNqeEcns1W0lkGfk0rCyNXm7xB9rMxnCiZOoA==
 
 graceful-fs@^4.1.2, graceful-fs@^4.2.4, graceful-fs@^4.2.9:
@@ -3784,14 +3779,14 @@ ts-jest@^29.0.3:
 
 ts-poet@^6.4.1:
   version "6.4.1"
-  resolved "https://registry.yarnpkg.com/ts-poet/-/ts-poet-6.4.1.tgz#e68d314a07cf9c0d568a3bfd87023ec91ff77964"
+  resolved "https://registry.npmjs.org/ts-poet/-/ts-poet-6.4.1.tgz"
   integrity sha512-AjZEs4h2w4sDfwpHMxQKHrTlNh2wRbM5NRXmLz0RiH+yPGtSQFbe9hBpNocU8vqVNgfh0BIOiXR80xDz3kKxUQ==
   dependencies:
     dprint-node "^1.0.7"
 
 ts-proto-descriptors@1.8.0:
   version "1.8.0"
-  resolved "https://registry.yarnpkg.com/ts-proto-descriptors/-/ts-proto-descriptors-1.8.0.tgz#ba4a26c156a77f76c68d7dac0d049bd2aa3f0920"
+  resolved "https://registry.npmjs.org/ts-proto-descriptors/-/ts-proto-descriptors-1.8.0.tgz"
   integrity sha512-iV20plcI8+GRkeZIAygxOOH0p2xpOsKfw9kI1W20NCwawi1/4bG/YRd9rQY9XSJP+lD9j7XbSy3tFFuikfsljw==
   dependencies:
     long "^4.0.0"
@@ -3799,7 +3794,7 @@ ts-proto-descriptors@1.8.0:
 
 ts-proto@^1.145.0:
   version "1.145.0"
-  resolved "https://registry.yarnpkg.com/ts-proto/-/ts-proto-1.145.0.tgz#569a7709a06a6533ff1af05eb1dd936038bc8e22"
+  resolved "https://registry.npmjs.org/ts-proto/-/ts-proto-1.145.0.tgz"
   integrity sha512-th0T5BN8Ytl//6L5ea5nbxtlcGQaqPP9MVm0lxT+t1Mn3Np0g/GMR1VUiOwZhtAo5N7xfuaX4AppWELR5rCF7g==
   dependencies:
     "@types/object-hash" "^1.3.0"

@@ -80,5 +80,9 @@
   "bugs": {
     "url": "https://github.com/lavanet/lava-sdk/issues"
   },
-  "homepage": "https://github.com/lavanet/lava-sdk#readme"
+  "homepage": "https://github.com/lavanet/lava-sdk#readme",
+  "engines": {
+		"node": ">=18",
+		"npm": ">=6.12.0"
+	}
 }
