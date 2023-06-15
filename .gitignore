@@ -8,6 +8,7 @@ dist/*
 .idea
 .vscode
 .npmrc
+package-lock.json
 
 
 examples/jsonRPC_test.ts
