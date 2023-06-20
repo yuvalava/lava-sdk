@@ -42,10 +42,6 @@ class LavaSDK {
         let { pairingListConfig, network, geolocation, lavaChainId } = options;
         // If network is not defined use default network
         network = network || default_1.DEFAULT_LAVA_PAIRING_NETWORK;
-        // Validate network
-        if (!(0, chains_1.isNetworkValid)(network)) {
-            throw errors_1.default.errNetworkUnsupported;
-        }
         // if lava chain id is not defined use default
         lavaChainId = lavaChainId || default_1.DEFAULT_LAVA_CHAINID;
         // If geolocation is not defined use default geolocation
@@ -126,6 +122,8 @@ class LavaSDK {
             // If rpc is not defined use default for specified chainID
             this.rpcInterface =
                 this.rpcInterface || (0, chains_1.fetchRpcInterface)(this.chainID, parsedChainList);
+            // Validate rpc interface with chain id
+            (0, chains_1.validateRpcInterfaceWithChainID)(this.chainID, parsedChainList, this.rpcInterface);
             // Save lava providers as local attribute
             this.lavaProviders = lavaProviders;
             // Get pairing list for current epoch
