@@ -470,7 +470,8 @@ export interface SendRestRelayOptions {
  */
 export interface LavaSDKOptions {
   privateKey?: string; // Required: The private key of the staked Lava client for the specified chainID
-  badge?: {
+  badge?: // Required: Public URL of badge server and ID of the project you want to connect. Remove privateKey if badge is enabled. 
+  {
     badgeServerAddress: string;
     projectId: string;
   };
