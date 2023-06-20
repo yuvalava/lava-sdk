@@ -1,5 +1,3 @@
-// import { RelayerClient, Relayer } from "../pairing/relay_pb_service.js";
-// import { GenerateBadgeRequest, GenerateBadgeResponse } from "../pairing/relay_pb.js";
 import { BadgeGenerator } from "../grpc_web_services/pairing/badges_pb_service";
 import {
   GenerateBadgeRequest,
@@ -7,8 +5,6 @@ import {
 } from "../grpc_web_services/pairing/badges_pb";
 import { grpc } from "@improbable-eng/grpc-web";
 import transport from "../util/browser";
-
-// const serverAddress = "http://localhost:8080";
 
 // Function to send the gRPC request
 export async function fetchBadge(
