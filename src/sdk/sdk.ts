@@ -13,7 +13,6 @@ import { SessionManager, ConsumerSessionWithProvider } from "../types/types";
 import {
   isValidChainID,
   fetchRpcInterface,
-  isNetworkValid,
   validateRpcInterfaceWithChainID,
 } from "../util/chains";
 import { LavaProviders } from "../lavaOverLava/providers";
@@ -470,7 +469,7 @@ export interface SendRestRelayOptions {
  */
 export interface LavaSDKOptions {
   privateKey?: string; // Required: The private key of the staked Lava client for the specified chainID
-  badge?: // Required: Public URL of badge server and ID of the project you want to connect. Remove privateKey if badge is enabled. 
+  badge?: // Required: Public URL of badge server and ID of the project you want to connect. Remove privateKey if badge is enabled.
   {
     badgeServerAddress: string;
     projectId: string;
