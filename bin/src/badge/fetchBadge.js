@@ -24,7 +24,6 @@ function fetchBadge(serverAddress, badgeUser, projectKey) {
         const request = new badges_pb_1.GenerateBadgeRequest();
         request.setBadgeAddress(badgeUser);
         request.setProjectId(projectKey);
-        // request.setChainId("LAV1");
         const requestPromise = new Promise((resolve, reject) => {
             grpc_web_1.grpc.invoke(badges_pb_service_1.BadgeGenerator.GenerateBadge, {
                 request: request,

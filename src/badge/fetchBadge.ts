@@ -16,7 +16,6 @@ export async function fetchBadge(
   const request = new GenerateBadgeRequest();
   request.setBadgeAddress(badgeUser);
   request.setProjectId(projectKey);
-  // request.setChainId("LAV1");
   const requestPromise = new Promise<GenerateBadgeResponse>(
     (resolve, reject) => {
       grpc.invoke(BadgeGenerator.GenerateBadge, {
