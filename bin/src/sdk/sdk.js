@@ -16,6 +16,7 @@ exports.LavaSDK = void 0;
 const wallet_1 = require("../wallet/wallet");
 const errors_1 = __importDefault(require("./errors"));
 const relayer_1 = __importDefault(require("../relayer/relayer"));
+const fetchBadge_1 = require("../badge/fetchBadge");
 const chains_1 = require("../util/chains");
 const providers_1 = require("../lavaOverLava/providers");
 const default_1 = require("../config/default");
@@ -37,7 +38,7 @@ class LavaSDK {
             return new Uint8Array(buffer);
         };
         // Extract attributes from options
-        const { privateKey, chainID, rpcInterface } = options;
+        const { privateKey, badge, chainID, rpcInterface } = options;
         let { pairingListConfig, network, geolocation, lavaChainId } = options;
         // If network is not defined use default network
         network = network || default_1.DEFAULT_LAVA_PAIRING_NETWORK;
@@ -47,11 +48,18 @@ class LavaSDK {
         geolocation = geolocation || default_1.DEFAULT_GEOLOCATION;
         // If lava pairing config not defined set as empty
         pairingListConfig = pairingListConfig || "";
+        if (!badge && !privateKey) {
+            throw errors_1.default.errPrivKeyAndBadgeNotInitialized;
+        }
+        else if (badge && privateKey) {
+            throw errors_1.default.errPrivKeyAndBadgeBothInitialized;
+        }
         // Initialize local attributes
         this.secure = options.secure ? options.secure : false;
         this.chainID = chainID;
         this.rpcInterface = rpcInterface ? rpcInterface : "";
-        this.privKey = privateKey;
+        this.privKey = privateKey ? privateKey : "";
+        this.badge = badge ? badge : { badgeServerAddress: "", projectId: "" };
         this.network = network;
         this.geolocation = geolocation;
         this.lavaChainId = lavaChainId;
@@ -60,6 +68,7 @@ class LavaSDK {
         this.relayer = errors_1.default.errRelayerServiceNotInitialized;
         this.lavaProviders = errors_1.default.errLavaProvidersNotInitialized;
         this.activeSessionManager = errors_1.default.errSessionNotInitialized;
+        this.isBadge = Boolean(badge);
         // Init sdk
         return (() => __awaiter(this, void 0, void 0, function* () {
             yield this.init();
@@ -68,12 +77,27 @@ class LavaSDK {
     }
     init() {
         return __awaiter(this, void 0, void 0, function* () {
-            // Create wallet
-            const wallet = yield (0, wallet_1.createWallet)(this.privKey);
-            // Get account from wallet
-            this.account = yield wallet.getConsumerAccount();
+            let wallet;
+            let badge;
+            if (this.isBadge) {
+                const { wallet, privKey } = yield (0, wallet_1.createDynamicWallet)();
+                this.privKey = privKey;
+                const walletAddress = (yield wallet.getConsumerAccount()).address;
+                const badgeResponse = yield (0, fetchBadge_1.fetchBadge)(this.badge.badgeServerAddress, walletAddress, this.badge.projectId);
+                badge = badgeResponse.getBadge();
+                const badgeSignerAddress = badgeResponse.getBadgeSignerAddress();
+                this.account = {
+                    algo: "secp256k1",
+                    address: badgeSignerAddress,
+                    pubkey: new Uint8Array([]),
+                };
+            }
+            else {
+                wallet = yield (0, wallet_1.createWallet)(this.privKey);
+                this.account = yield wallet.getConsumerAccount();
+            }
             // Init relayer for lava providers
-            const lavaRelayer = new relayer_1.default(default_1.LAVA_CHAIN_ID, this.privKey, this.lavaChainId, this.secure);
+            const lavaRelayer = new relayer_1.default(default_1.LAVA_CHAIN_ID, this.privKey, this.lavaChainId, this.secure, badge);
             // Create new instance of lava providers
             const lavaProviders = yield new providers_1.LavaProviders(this.account.address, this.network, lavaRelayer, this.geolocation);
             // Init lava providers
@@ -105,7 +129,7 @@ class LavaSDK {
             // Get pairing list for current epoch
             this.activeSessionManager = yield this.lavaProviders.getSession(this.chainID, this.rpcInterface);
             // Create relayer for querying network
-            this.relayer = new relayer_1.default(this.chainID, this.privKey, this.lavaChainId, this.secure);
+            this.relayer = new relayer_1.default(this.chainID, this.privKey, this.lavaChainId, this.secure, badge);
         });
     }
     handleRpcRelay(options) {

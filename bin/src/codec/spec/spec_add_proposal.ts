@@ -5,18 +5,18 @@ import { Spec } from "./spec";
 
 export const protobufPackage = "lavanet.lava.spec";
 
-export interface SpecModifyProposal {
+export interface SpecAddProposal {
   title: string;
   description: string;
   specs: Spec[];
 }
 
-function createBaseSpecModifyProposal(): SpecModifyProposal {
+function createBaseSpecAddProposal(): SpecAddProposal {
   return { title: "", description: "", specs: [] };
 }
 
-export const SpecModifyProposal = {
-  encode(message: SpecModifyProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+export const SpecAddProposal = {
+  encode(message: SpecAddProposal, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.title !== "") {
       writer.uint32(10).string(message.title);
     }
@@ -29,31 +29,44 @@ export const SpecModifyProposal = {
     return writer;
   },
 
-  decode(input: _m0.Reader | Uint8Array, length?: number): SpecModifyProposal {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): SpecAddProposal {
+    const reader = input instanceof _m0.Reader ? input : _m0.Reader.create(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseSpecModifyProposal();
+    const message = createBaseSpecAddProposal();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
+          if (tag !== 10) {
+            break;
+          }
+
           message.title = reader.string();
-          break;
+          continue;
         case 2:
+          if (tag !== 18) {
+            break;
+          }
+
           message.description = reader.string();
-          break;
+          continue;
         case 3:
+          if (tag !== 26) {
+            break;
+          }
+
           message.specs.push(Spec.decode(reader, reader.uint32()));
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
+          continue;
       }
+      if ((tag & 7) === 4 || tag === 0) {
+        break;
+      }
+      reader.skipType(tag & 7);
     }
     return message;
   },
 
-  fromJSON(object: any): SpecModifyProposal {
+  fromJSON(object: any): SpecAddProposal {
     return {
       title: isSet(object.title) ? String(object.title) : "",
       description: isSet(object.description) ? String(object.description) : "",
@@ -61,7 +74,7 @@ export const SpecModifyProposal = {
     };
   },
 
-  toJSON(message: SpecModifyProposal): unknown {
+  toJSON(message: SpecAddProposal): unknown {
     const obj: any = {};
     message.title !== undefined && (obj.title = message.title);
     message.description !== undefined && (obj.description = message.description);
@@ -73,8 +86,12 @@ export const SpecModifyProposal = {
     return obj;
   },
 
-  fromPartial<I extends Exact<DeepPartial<SpecModifyProposal>, I>>(object: I): SpecModifyProposal {
-    const message = createBaseSpecModifyProposal();
+  create<I extends Exact<DeepPartial<SpecAddProposal>, I>>(base?: I): SpecAddProposal {
+    return SpecAddProposal.fromPartial(base ?? {});
+  },
+
+  fromPartial<I extends Exact<DeepPartial<SpecAddProposal>, I>>(object: I): SpecAddProposal {
+    const message = createBaseSpecAddProposal();
     message.title = object.title ?? "";
     message.description = object.description ?? "";
     message.specs = object.specs?.map((e) => Spec.fromPartial(e)) || [];

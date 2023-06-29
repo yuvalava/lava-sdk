@@ -300,4 +300,3 @@ export namespace QualityOfServiceReport {
     sync: string,
   }
 }
-

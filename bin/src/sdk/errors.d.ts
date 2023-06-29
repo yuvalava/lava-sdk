@@ -7,6 +7,8 @@ declare class SDKErrors {
     static errChainIDUnsupported: Error;
     static errNetworkUnsupported: Error;
     static errRPCRelayMethodNotSupported: Error;
+    static errPrivKeyAndBadgeNotInitialized: Error;
+    static errPrivKeyAndBadgeBothInitialized: Error;
     static errRestRelayMethodNotSupported: Error;
 }
 export default SDKErrors;

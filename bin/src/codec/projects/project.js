@@ -99,61 +99,61 @@ exports.Project = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.index = reader.string();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.subscription = reader.string();
                     continue;
                 case 3:
-                    if (tag != 26) {
+                    if (tag !== 26) {
                         break;
                     }
                     message.description = reader.string();
                     continue;
                 case 4:
-                    if (tag != 32) {
+                    if (tag !== 32) {
                         break;
                     }
                     message.enabled = reader.bool();
                     continue;
                 case 5:
-                    if (tag != 42) {
+                    if (tag !== 42) {
                         break;
                     }
                     message.projectKeys.push(exports.ProjectKey.decode(reader, reader.uint32()));
                     continue;
                 case 6:
-                    if (tag != 50) {
+                    if (tag !== 50) {
                         break;
                     }
                     message.adminPolicy = exports.Policy.decode(reader, reader.uint32());
                     continue;
                 case 7:
-                    if (tag != 56) {
+                    if (tag !== 56) {
                         break;
                     }
                     message.usedCu = reader.uint64();
                     continue;
                 case 8:
-                    if (tag != 66) {
+                    if (tag !== 66) {
                         break;
                     }
                     message.subscriptionPolicy = exports.Policy.decode(reader, reader.uint32());
                     continue;
                 case 9:
-                    if (tag != 72) {
+                    if (tag !== 72) {
                         break;
                     }
                     message.snapshot = reader.uint64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -240,19 +240,19 @@ exports.ProjectKey = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.key = reader.string();
                     continue;
                 case 4:
-                    if (tag != 32) {
+                    if (tag !== 32) {
                         break;
                     }
                     message.kinds = reader.uint32();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -315,37 +315,37 @@ exports.Policy = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.chainPolicies.push(exports.ChainPolicy.decode(reader, reader.uint32()));
                     continue;
                 case 2:
-                    if (tag != 16) {
+                    if (tag !== 16) {
                         break;
                     }
                     message.geolocationProfile = reader.uint64();
                     continue;
                 case 3:
-                    if (tag != 24) {
+                    if (tag !== 24) {
                         break;
                     }
                     message.totalCuLimit = reader.uint64();
                     continue;
                 case 4:
-                    if (tag != 32) {
+                    if (tag !== 32) {
                         break;
                     }
                     message.epochCuLimit = reader.uint64();
                     continue;
                 case 5:
-                    if (tag != 40) {
+                    if (tag !== 40) {
                         break;
                     }
                     message.maxProvidersToPair = reader.uint64();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -422,19 +422,19 @@ exports.ChainPolicy = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.chainId = reader.string();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.apis.push(reader.string());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -487,13 +487,13 @@ exports.ProtoDeveloperData = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.projectID = reader.string();
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);
@@ -548,37 +548,37 @@ exports.ProjectData = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
-                    if (tag != 10) {
+                    if (tag !== 10) {
                         break;
                     }
                     message.name = reader.string();
                     continue;
                 case 2:
-                    if (tag != 18) {
+                    if (tag !== 18) {
                         break;
                     }
                     message.description = reader.string();
                     continue;
                 case 3:
-                    if (tag != 24) {
+                    if (tag !== 24) {
                         break;
                     }
                     message.enabled = reader.bool();
                     continue;
                 case 4:
-                    if (tag != 34) {
+                    if (tag !== 34) {
                         break;
                     }
                     message.projectKeys.push(exports.ProjectKey.decode(reader, reader.uint32()));
                     continue;
                 case 5:
-                    if (tag != 42) {
+                    if (tag !== 42) {
                         break;
                     }
                     message.policy = exports.Policy.decode(reader, reader.uint32());
                     continue;
             }
-            if ((tag & 7) == 4 || tag == 0) {
+            if ((tag & 7) === 4 || tag === 0) {
                 break;
             }
             reader.skipType(tag & 7);

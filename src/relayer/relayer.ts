@@ -9,6 +9,7 @@ import {
   RelayPrivateData,
 } from "../grpc_web_services/pairing/relay_pb";
 import { Relayer as RelayerService } from "../grpc_web_services/pairing/relay_pb_service";
+import { Badge } from "../grpc_web_services/pairing/relay_pb";
 import transport from "../util/browser";
 
 class Relayer {
@@ -16,12 +17,14 @@ class Relayer {
   private privKey: string;
   private lavaChainId: string;
   private prefix = "http";
+  private badge?: Badge;
 
   constructor(
     chainID: string,
     privKey: string,
     lavaChainId: string,
-    secure: boolean
+    secure: boolean,
+    badge?: Badge
   ) {
     this.chainID = chainID;
     this.privKey = privKey;
@@ -29,6 +32,7 @@ class Relayer {
     if (secure) {
       this.prefix = "https";
     }
+    this.badge = badge;
   }
 
   async sendRelay(
@@ -43,7 +47,6 @@ class Relayer {
     const enc = new TextEncoder();
 
     const consumerSession = consumerProviderSession.Session;
-
     // Increase used compute units
     consumerProviderSession.UsedComputeUnits =
       consumerProviderSession.UsedComputeUnits + cuSum;
@@ -77,6 +80,11 @@ class Relayer {
     const signedMessage = await this.signRelay(requestSession, this.privKey);
 
     requestSession.setSig(signedMessage);
+
+    if (this.badge) {
+      // Badge is separated from the signature!
+      requestSession.setBadge(this.badge);
+    }
 
     // Create request
     const request = new RelayRequest();

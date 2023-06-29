@@ -1,13 +1,18 @@
-import { createWallet } from "../wallet/wallet";
+import {
+  createWallet,
+  createDynamicWallet,
+  LavaWallet,
+} from "../wallet/wallet";
 import SDKErrors from "./errors";
 import { AccountData } from "@cosmjs/proto-signing";
 import Relayer from "../relayer/relayer";
 import { RelayReply } from "../grpc_web_services/pairing/relay_pb";
+import { fetchBadge } from "../badge/fetchBadge";
+import { Badge } from "../grpc_web_services/pairing/relay_pb";
 import { SessionManager, ConsumerSessionWithProvider } from "../types/types";
 import {
   isValidChainID,
   fetchRpcInterface,
-  isNetworkValid,
   validateRpcInterfaceWithChainID,
 } from "../util/chains";
 import { LavaProviders } from "../lavaOverLava/providers";
@@ -21,6 +26,8 @@ import { QueryShowAllChainsResponse } from "../codec/spec/query";
 
 export class LavaSDK {
   private privKey: string;
+  private badge: { badgeServerAddress: string; projectId: string };
+  private isBadge: boolean; // isBadge=false if privKey defined, isBadge=true if badge is defined
   private chainID: string;
   private rpcInterface: string;
   private network: string;
@@ -47,7 +54,7 @@ export class LavaSDK {
    */
   constructor(options: LavaSDKOptions) {
     // Extract attributes from options
-    const { privateKey, chainID, rpcInterface } = options;
+    const { privateKey, badge, chainID, rpcInterface } = options;
     let { pairingListConfig, network, geolocation, lavaChainId } = options;
 
     // If network is not defined use default network
@@ -62,11 +69,18 @@ export class LavaSDK {
     // If lava pairing config not defined set as empty
     pairingListConfig = pairingListConfig || "";
 
+    if (!badge && !privateKey) {
+      throw SDKErrors.errPrivKeyAndBadgeNotInitialized;
+    } else if (badge && privateKey) {
+      throw SDKErrors.errPrivKeyAndBadgeBothInitialized;
+    }
+
     // Initialize local attributes
     this.secure = options.secure ? options.secure : false;
     this.chainID = chainID;
     this.rpcInterface = rpcInterface ? rpcInterface : "";
-    this.privKey = privateKey;
+    this.privKey = privateKey ? privateKey : "";
+    this.badge = badge ? badge : { badgeServerAddress: "", projectId: "" };
     this.network = network;
     this.geolocation = geolocation;
     this.lavaChainId = lavaChainId;
@@ -75,6 +89,7 @@ export class LavaSDK {
     this.relayer = SDKErrors.errRelayerServiceNotInitialized;
     this.lavaProviders = SDKErrors.errLavaProvidersNotInitialized;
     this.activeSessionManager = SDKErrors.errSessionNotInitialized;
+    this.isBadge = Boolean(badge);
 
     // Init sdk
     return (async (): Promise<LavaSDK> => {
@@ -85,18 +100,37 @@ export class LavaSDK {
   }
 
   private async init() {
-    // Create wallet
-    const wallet = await createWallet(this.privKey);
+    let wallet: LavaWallet;
+    let badge: Badge | undefined;
 
-    // Get account from wallet
-    this.account = await wallet.getConsumerAccount();
+    if (this.isBadge) {
+      const { wallet, privKey } = await createDynamicWallet();
+      this.privKey = privKey;
+      const walletAddress = (await wallet.getConsumerAccount()).address;
+      const badgeResponse = await fetchBadge(
+        this.badge.badgeServerAddress,
+        walletAddress,
+        this.badge.projectId
+      );
+      badge = badgeResponse.getBadge();
+      const badgeSignerAddress = badgeResponse.getBadgeSignerAddress();
+      this.account = {
+        algo: "secp256k1",
+        address: badgeSignerAddress,
+        pubkey: new Uint8Array([]),
+      };
+    } else {
+      wallet = await createWallet(this.privKey);
+      this.account = await wallet.getConsumerAccount();
+    }
 
     // Init relayer for lava providers
     const lavaRelayer = new Relayer(
       LAVA_CHAIN_ID,
       this.privKey,
       this.lavaChainId,
-      this.secure
+      this.secure,
+      badge
     );
 
     // Create new instance of lava providers
@@ -165,7 +199,8 @@ export class LavaSDK {
       this.chainID,
       this.privKey,
       this.lavaChainId,
-      this.secure
+      this.secure,
+      badge
     );
   }
 
@@ -433,7 +468,12 @@ export interface SendRestRelayOptions {
  * Options for initializing the LavaSDK.
  */
 export interface LavaSDKOptions {
-  privateKey: string; // Required: The private key of the staked Lava client for the specified chainID
+  privateKey?: string; // Required: The private key of the staked Lava client for the specified chainID
+  badge?: // Required: Public URL of badge server and ID of the project you want to connect. Remove privateKey if badge is enabled.
+  {
+    badgeServerAddress: string;
+    projectId: string;
+  };
   chainID: string; // Required: The ID of the chain you want to query
   rpcInterface?: string; // Optional: The interface that will be used for sending relays
   pairingListConfig?: string; // Optional: The Lava pairing list config used for communicating with the Lava network

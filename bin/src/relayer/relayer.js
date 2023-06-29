@@ -19,7 +19,7 @@ const relay_pb_1 = require("../grpc_web_services/pairing/relay_pb");
 const relay_pb_service_1 = require("../grpc_web_services/pairing/relay_pb_service");
 const browser_1 = __importDefault(require("../util/browser"));
 class Relayer {
-    constructor(chainID, privKey, lavaChainId, secure) {
+    constructor(chainID, privKey, lavaChainId, secure, badge) {
         this.prefix = "http";
         this.byteArrayToString = (byteArray) => {
             let output = "";
@@ -52,6 +52,7 @@ class Relayer {
         if (secure) {
             this.prefix = "https";
         }
+        this.badge = badge;
     }
     sendRelay(options, consumerProviderSession, cuSum, apiInterface) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -86,6 +87,10 @@ class Relayer {
             // Sign data
             const signedMessage = yield this.signRelay(requestSession, this.privKey);
             requestSession.setSig(signedMessage);
+            if (this.badge) {
+                // Badge is separated from the signature!
+                requestSession.setBadge(this.badge);
+            }
             // Create request
             const request = new relay_pb_1.RelayRequest();
             request.setRelaySession(requestSession);
