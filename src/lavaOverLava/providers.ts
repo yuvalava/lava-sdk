@@ -184,7 +184,7 @@ export class LavaProviders {
         const lavaRPCEndpoint = lavaProviders[i];
 
         // Create pairing request for getPairing method
-        var specRequest = {
+        let specRequest = {
           ChainID: "LAV1",
         };
 
