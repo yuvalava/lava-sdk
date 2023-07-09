@@ -11,6 +11,7 @@
 <b>Access Web3 APIs, the Lava way 🌋</b>
     
 JavaScript/TypeScript SDK reference implementation designed for developers looking for access through the Lava Network. It can be added to your app/dapp and run in browsers to provide multi-chain peer-to-peer access to blockchain APIs.
+Read Documentation: https://bit.ly/43pyhwA
 
 <!-- Roadmap -->
 # Roadmap
